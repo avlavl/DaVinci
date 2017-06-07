@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.aioros.investor.BottomControlPanel xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_alignParentBottom="true"
+    android:gravity="center_vertical"
+    android:paddingLeft="6dp"
+    android:paddingRight="6dp">
+
+    <com.aioros.investor.ImageText
+        android:id="@+id/btn_home"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true" />
+
+    <com.aioros.investor.ImageText
+        android:id="@+id/btn_trade"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/btn_home" />
+
+    <com.aioros.investor.ImageText
+        android:id="@+id/btn_invest"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/btn_trade" />
+
+    <com.aioros.investor.ImageText
+        android:id="@+id/btn_chance"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/btn_invest" />
+
+    <com.aioros.investor.ImageText
+        android:id="@+id/btn_other"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" />
+
+</com.aioros.investor.BottomControlPanel>
