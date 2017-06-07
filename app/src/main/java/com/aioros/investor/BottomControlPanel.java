@@ -1,7 +1,6 @@
 package com.aioros.investor;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -17,7 +16,6 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
     private ImageText btnInvest = null;
     private ImageText btnChance = null;
     private ImageText btnOther = null;
-    private int DEFALUT_BACKGROUND_COLOR = Color.rgb(243, 243, 243); //Color.rgb(192, 192, 192)
     private BottomPanelCallback mBottomCallback = null;
     private List<ImageText> viewList = new ArrayList<ImageText>();
 
@@ -36,7 +34,6 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
         btnInvest = (ImageText) findViewById(R.id.btn_invest);
         btnChance = (ImageText) findViewById(R.id.btn_chance);
         btnOther = (ImageText) findViewById(R.id.btn_other);
-        setBackgroundColor(DEFALUT_BACKGROUND_COLOR);
         viewList.add(btnHome);
         viewList.add(btnTrade);
         viewList.add(btnInvest);
