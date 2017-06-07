@@ -75,7 +75,7 @@ public class ImageText extends LinearLayout {
                 checkDrawableId = R.drawable.trade_select;
                 break;
             case Constant.BTN_FLAG_INVEST:
-                checkDrawableId = R.drawable.fund_select;
+                checkDrawableId = R.drawable.property_select;
                 break;
             case Constant.BTN_FLAG_CHANCE:
                 checkDrawableId = R.drawable.notice_select;

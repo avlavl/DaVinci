@@ -54,7 +54,7 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
             btnTrade.setText("交易");
         }
         if (btnInvest != null) {
-            btnInvest.setImage(R.drawable.fund_normal);
+            btnInvest.setImage(R.drawable.property_normal);
             btnInvest.setText("定投");
         }
         if (btnChance != null) {
