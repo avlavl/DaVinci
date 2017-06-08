@@ -19,11 +19,11 @@ public class MainActivity extends Activity implements BottomPanelCallback {
     private FragmentManager fragmentManager = null;
     private FragmentTransaction fragmentTransaction = null;
 
-//    private FragmentHome fragmentHome;
-//    private FragmentTrade fragmentTrade;
-//    private FragmentInvest fragmentInvest;
-//    private FragmentChance fragmentChance;
-//    private FragmentOther fragmentOther;
+    private FragmentHome fragmentHome;
+    private FragmentTrade fragmentTrade;
+    private FragmentInvest fragmentInvest;
+    private FragmentChance fragmentChance;
+    private FragmentOther fragmentOther;
 
     public static String currFragTag = "";
 
@@ -100,6 +100,32 @@ public class MainActivity extends Activity implements BottomPanelCallback {
         return fragmentTransaction;
     }
 
+    private Fragment getFragmentOld(String tag) {
+        Fragment f = fragmentManager.findFragmentByTag(tag);
+        if (f == null) {
+            Toast.makeText(getApplicationContext(), "fragment = null tag = " + tag, Toast.LENGTH_SHORT).show();
+            f = BaseFragment.newInstance(getApplicationContext(), tag);
+        }
+        return f;
+    }
+
+    private Fragment getFragment(String tag) {
+        switch (tag) {
+            case Constant.FRAGMENT_FLAG_HOME:
+                return fragmentHome;
+            case Constant.FRAGMENT_FLAG_TRADE:
+                return fragmentTrade;
+            case Constant.FRAGMENT_FLAG_INVEST:
+                return fragmentInvest;
+            case Constant.FRAGMENT_FLAG_CHANCE:
+                return fragmentChance;
+            case Constant.FRAGMENT_FLAG_OTHER:
+                return fragmentOther;
+            default:
+                return null;
+        }
+    }
+
     private void attachFragment(int layout, Fragment f, String tag) {
         if (f != null) {
             if (f.isDetached()) {
@@ -110,15 +136,6 @@ public class MainActivity extends Activity implements BottomPanelCallback {
                 fragmentTransaction.add(layout, f, tag);
             }
         }
-    }
-
-    private Fragment getFragment(String tag) {
-        Fragment f = fragmentManager.findFragmentByTag(tag);
-        if (f == null) {
-            Toast.makeText(getApplicationContext(), "fragment = null tag = " + tag, Toast.LENGTH_SHORT).show();
-            f = BaseFragment.newInstance(getApplicationContext(), tag);
-        }
-        return f;
     }
 
     private void detachFragment(Fragment f) {
@@ -146,7 +163,7 @@ public class MainActivity extends Activity implements BottomPanelCallback {
     public void setTabSelection(String tag) {
         // 开启一个Fragment事务
         fragmentTransaction = fragmentManager.beginTransaction();
-        /*if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_HOME)) {
+        if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_HOME)) {
             if (fragmentHome == null) {
                 fragmentHome = new FragmentHome();
             }
@@ -169,7 +186,7 @@ public class MainActivity extends Activity implements BottomPanelCallback {
             if (fragmentOther == null) {
                 fragmentOther = new FragmentOther();
             }
-        }*/
+        }
         switchFragment(tag);
     }
 
