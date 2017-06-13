@@ -38,13 +38,19 @@ public class FragmentHome extends BaseFragment {
         mMsgAdapter = new StockAdapter(stockBeanList, mMainActivity);
         mListView.setAdapter(mMsgAdapter);
         mListView.setOnItemClickListener(new OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mMainActivity, stockBeanList.get(position).toString(), Toast.LENGTH_SHORT).show();
+                mListViewOnItemClick(parent, view, position, id);
             }
 
         });
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                return mListViewOnItemLongClick(parent, view, position, id);
+            }
+        });
+
         return layoutHome;
     }
 
@@ -100,8 +106,10 @@ public class FragmentHome extends BaseFragment {
         };
         if (!isTradeTime()) {
             new NetworkThread().start();
+            handler.postDelayed(runnable, 60000);
+        } else {
+            handler.postDelayed(runnable, 1);
         }
-        handler.postDelayed(runnable, 1);
     }
 
     @Override
@@ -183,6 +191,30 @@ public class FragmentHome extends BaseFragment {
         }
     }
 
+    /*
+* 网易历史数据接口：
+* http://quotes.money.163.com/service/chddata.html?code=0000001&start=20161219&end=20170531&fields=TCLOSE;CHG;PCHG
+*/
+    class DownFileThread extends Thread {
+        private String stockCode;
+
+        public DownFileThread(String code) {
+            stockCode = code;
+        }
+
+        @Override
+        public void run() {
+            String urlStr = "http://quotes.money.163.com/service/chddata.html?code="
+                    + ((stockCode.substring(0, 1).equals("0")) ? "0" : "1") + stockCode
+                    + "&start=19901219&end=20170701&fields=TCLOSE;CHG;PCHG";
+            HttpDownloader httpDownloader = new HttpDownloader();
+            int ret = httpDownloader.download(urlStr, getResources().getString(R.string.app_dir) + "/data", stockCode + ".txt");
+            Looper.prepare();
+            Toast.makeText(mMainActivity, (ret == 0) ? "下载成功" : "下载失败", Toast.LENGTH_LONG).show();
+            Looper.loop();
+        }
+    }
+
     private boolean isTradeTime() {
         Calendar cal = Calendar.getInstance();
         if ((cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) || (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY))
@@ -193,6 +225,20 @@ public class FragmentHome extends BaseFragment {
             return false;
         if ((cal.get(Calendar.HOUR_OF_DAY) >= 11) && (cal.get(Calendar.MINUTE) > 30) && (cal.get(Calendar.HOUR_OF_DAY) < 13))
             return false;
+        return true;
+    }
+
+    private void mListViewOnItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(mMainActivity, stockBeanList.get(position).toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean mListViewOnItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(mMainActivity, "开始下载" + stockBeanList.get(position).getStockName(), Toast.LENGTH_SHORT).show();
+
+        String stockCode = stockBeanList.get(position).getStockCode();
+        Thread dft = new DownFileThread(stockCode);
+        dft.start();
+
         return true;
     }
 }
