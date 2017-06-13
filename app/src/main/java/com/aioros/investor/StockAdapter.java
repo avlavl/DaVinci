@@ -42,9 +42,9 @@ public class StockAdapter extends BaseAdapter {
         if (stockBeanList.get(position).getStockScope().contains("--"))
             color = Color.DKGRAY;
         else if (Double.parseDouble(stockBeanList.get(position).getStockScope()) > 0)
-            color = Color.RED;
+            color = Color.rgb(200, 0, 30);
         else if (Double.parseDouble(stockBeanList.get(position).getStockScope()) < 0)
-            color = Color.rgb(0, 150, 0);
+            color = Color.rgb(0, 128, 0);
 
         View view = mInflater.inflate(R.layout.stock_item, null);
 

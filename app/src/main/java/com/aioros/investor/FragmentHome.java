@@ -159,19 +159,20 @@ public class FragmentHome extends BaseFragment {
     class NetworkThread extends Thread {
         @Override
         public void run() {
-            System.out.println("test start!");
             String urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=" +
                     "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000847,s_sz399812,s_sh000978,s_sz399707,s_sz399967,s_sh000827";
             HttpDownloader httpDownloader = new HttpDownloader();
             String downloadString = httpDownloader.download(urlStr);
-            if (downloadString.contains("pv_none_match")) {
+            if (downloadString.equals("")) {
+                Looper.prepare();
+                Toast.makeText(mMainActivity, "请检查网络连接！", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            } else if (downloadString.contains("pv_none_match")) {
                 Looper.prepare();
                 Toast.makeText(mMainActivity, "找不到对应的股票！", Toast.LENGTH_LONG).show();
                 Looper.loop();
             } else {
                 String[] strArray = downloadString.split(";");
-//                        String[] strs = downloadString.substring(downloadString.indexOf("\"") + 1, downloadString.lastIndexOf("\"")).split("~");
-//                        final String formatedString = strs[1] + "\t" + strs[2] + "\n最新：" + strs[3] + "\t涨跌：" + strs[4] + "\t涨幅" + strs[5] + "%";
                 // 使用主线程Handler对象创建一个消息体
                 Message msgRx = handler.obtainMessage();
                 msgRx.obj = strArray;
