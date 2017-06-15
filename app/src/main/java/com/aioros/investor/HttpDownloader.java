@@ -4,15 +4,15 @@ import android.os.Environment;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by aizhang on 2017/6/8.
@@ -41,10 +41,19 @@ public class HttpDownloader {
     }
 
     public int download(String urlStr, String path, String name) {
+        ArrayList<String> stringList = new ArrayList<>();
         BufferedReader br = null;
         String line = null;
 
         try {
+            url = new URL(urlStr);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "GB2312"));
+            while ((line = br.readLine()) != null) {
+                stringList.add(line);
+            }
+            br.close();
+
             String storageDir = Environment.getExternalStorageDirectory().toString();
             String filePath = storageDir + "/" + path + "/" + name;
             File file = new File(filePath);
@@ -53,17 +62,14 @@ public class HttpDownloader {
             }
             new File(storageDir + "/" + path).mkdir();
             file.createNewFile();
-            PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "GB2312"));
-
-            url = new URL(urlStr);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "GB2312"));
-            while ((line = br.readLine()) != null) {
-                pw.println(line);
+            FileWriter fw = new FileWriter(file);
+            PrintWriter pw = new PrintWriter(fw);
+            int size = stringList.size();
+            for (int i = 0; i < size - 1; i++) {
+                pw.println(stringList.get(size - 1 - i));
             }
-
+            fw.flush();
             pw.close();
-            br.close();
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -91,7 +97,6 @@ public class HttpDownloader {
                 if (resultFile == null)
                     return -1;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
