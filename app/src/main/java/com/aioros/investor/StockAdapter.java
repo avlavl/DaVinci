@@ -38,14 +38,18 @@ public class StockAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        int color = Color.DKGRAY;
-        if (stockBeanList.get(position).getStockScope().contains("--"))
-            color = Color.DKGRAY;
-        else if (Double.parseDouble(stockBeanList.get(position).getStockScope()) > 0)
-            color = Color.rgb(200, 0, 30);
-        else if (Double.parseDouble(stockBeanList.get(position).getStockScope()) < 0)
-            color = Color.rgb(0, 128, 0);
-
+        int colorF = Color.DKGRAY;
+        int colorB = Color.DKGRAY;
+        if (stockBeanList.get(position).getStockValue().contains("--")) {
+            colorF = Color.DKGRAY;
+            colorB = Color.DKGRAY;
+        } else if (Double.parseDouble(stockBeanList.get(position).getStockScope()) > 0) {
+            colorF = Color.rgb(240, 0, 0);
+            colorB = Color.rgb(180, 0, 30);
+        } else if (Double.parseDouble(stockBeanList.get(position).getStockScope()) < 0) {
+            colorF = Color.rgb(0, 200, 0);
+            colorB = Color.rgb(0, 128, 0);
+        }
         View view = mInflater.inflate(R.layout.stock_item, null);
 
         TextView name = (TextView) view.findViewById(R.id.name_stock_item);
@@ -56,15 +60,15 @@ public class StockAdapter extends BaseAdapter {
 
         TextView value = (TextView) view.findViewById(R.id.value_stock_item);
         value.setText(stockBeanList.get(position).getStockValue());
-        value.setTextColor(color);
+        value.setTextColor(colorF);
 
         TextView scope = (TextView) view.findViewById(R.id.scope_stock_item);
         scope.setText(stockBeanList.get(position).getStockScope());
-        scope.setTextColor(color);
+        scope.setTextColor(colorF);
 
         TextView ratio = (TextView) view.findViewById(R.id.ratio_stock_item);
         ratio.setText(stockBeanList.get(position).getStockRatio());
-        ratio.setBackgroundColor(color);
+        ratio.setBackgroundColor(colorB);
 
         return view;
     }

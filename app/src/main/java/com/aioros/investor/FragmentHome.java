@@ -64,17 +64,17 @@ public class FragmentHome extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e(TAG, "onCreate------");
-        stockBeanList.add(new StockBean("上证指数", "000001", "---", "--", "--%"));
-        stockBeanList.add(new StockBean("深证成指", "399001", "---", "--", "--%"));
-        stockBeanList.add(new StockBean("创业板指", "399006", "---", "--", "--%"));
-        stockBeanList.add(new StockBean("沪深300", "000300", "---", "--", "--%"));
-        stockBeanList.add(new StockBean("中证500", "000905", "---", "--", "--%"));
-        stockBeanList.add(new StockBean("腾讯济安", "000847", "---", "--", "--%"));
-        stockBeanList.add(new StockBean("养老产业", "399812", "---", "--", "--%"));
-        stockBeanList.add(new StockBean("医药100", "000978", "---", "--", "--%"));
-        stockBeanList.add(new StockBean("CSSW证券", "399707", "---", "--", "--%"));
-        stockBeanList.add(new StockBean("中证军工", "399967", "---", "--", "--%"));
-        stockBeanList.add(new StockBean("中证环保", "000827", "---", "--", "--%"));
+        stockBeanList.add(new StockBean("上证指数", "000001", "--", "0.00", "0.00%"));
+        stockBeanList.add(new StockBean("深证成指", "399001", "--", "0.00", "0.00%"));
+        stockBeanList.add(new StockBean("创业板指", "399006", "--", "0.00", "0.00%"));
+        stockBeanList.add(new StockBean("沪深300", "000300", "--", "0.00", "0.00%"));
+        stockBeanList.add(new StockBean("中证500", "000905", "--", "0.00", "0.00%"));
+        stockBeanList.add(new StockBean("腾讯济安", "000847", "--", "0.00", "0.00%"));
+        stockBeanList.add(new StockBean("养老产业", "399812", "--", "0.00", "0.00%"));
+        stockBeanList.add(new StockBean("医药100", "000978", "--", "0.00", "0.00%"));
+        stockBeanList.add(new StockBean("CSSW证券", "399707", "--", "0.00", "0.00%"));
+        stockBeanList.add(new StockBean("中证军工", "399967", "--", "0.00", "0.00%"));
+        stockBeanList.add(new StockBean("中证环保", "000827", "--", "0.00", "0.00%"));
 
         // 在主线程中声明一个消息处理对象Handler
         handler = new Handler() {
@@ -192,9 +192,13 @@ public class FragmentHome extends BaseFragment {
     }
 
     /*
-* 网易历史数据接口：
-* http://quotes.money.163.com/service/chddata.html?code=0000001&start=20161219&end=20170531&fields=TCLOSE;CHG;PCHG
-*/
+    * 网易历史数据接口：
+    * http://quotes.money.163.com/service/chddata.html?code=0000001&start=20161219&end=20170531&fields=TCLOSE;CHG;PCHG
+    * 新浪历史数据接口：
+    * http://biz.finance.sina.com.cn/stock/flash_hq/kline_data.php?&symbol=sz002241&end_date=20130806&begin_date=20130101
+    * 搜狐历史数据接口：
+    * http://q.stock.sohu.com/hisHq?code=cn_300228&start=20160930&end=20161231&stat=1&order=A&period=w
+    */
     class DownFileThread extends Thread {
         private String stockCode;
 
@@ -206,7 +210,7 @@ public class FragmentHome extends BaseFragment {
         public void run() {
             String urlStr = "http://quotes.money.163.com/service/chddata.html?code="
                     + ((stockCode.substring(0, 1).equals("0")) ? "0" : "1") + stockCode
-                    + "&start=19901219&end=20170701&fields=TCLOSE;CHG;PCHG";
+                    + "&fields=TCLOSE;CHG;PCHG";
             HttpDownloader httpDownloader = new HttpDownloader();
             int ret = httpDownloader.download(urlStr, getResources().getString(R.string.app_dir) + "/data", stockCode + ".txt");
             Looper.prepare();
