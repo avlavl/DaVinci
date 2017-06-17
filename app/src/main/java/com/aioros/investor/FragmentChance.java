@@ -9,7 +9,7 @@ public class FragmentChance extends BaseFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View layoutChance = inflater.inflate(R.layout.chance, container, false);
+		View layoutChance = inflater.inflate(R.layout.fragment_chance, container, false);
 		return layoutChance;
 	}
 	

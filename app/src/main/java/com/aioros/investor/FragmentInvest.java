@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class FragmentInvest extends BaseFragment {
+
     private static final String TAG = "FragmentInvest";
     private MainActivity mMainActivity;
     private InvestPagerAdapter pagerAdapter;
@@ -18,18 +19,18 @@ public class FragmentInvest extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layoutInvest = inflater.inflate(R.layout.invest, container, false);
+        View layoutInvest = inflater.inflate(R.layout.fragment_invest, container, false);
         Log.d(TAG, "onCreateView---->");
         mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();
         pagerAdapter = new InvestPagerAdapter(mMainActivity.getSupportFragmentManager(), mMainActivity);
-        viewPager = (ViewPager) layoutInvest.findViewById(R.id.viewpager1);
+        viewPager = (ViewPager) layoutInvest.findViewById(R.id.viewpager_invest);
         viewPager.setAdapter(pagerAdapter);
-        tabLayout = (TabLayout) layoutInvest.findViewById(R.id.sliding_tabs1);
+        tabLayout = (TabLayout) layoutInvest.findViewById(R.id.tablayout_invest);
         tabLayout.setupWithViewPager(viewPager);
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setCustomView(pagerAdapter.getTabView(i));
+            tab.setText(pagerAdapter.getPageTitle(i));
         }
         return layoutInvest;
     }

@@ -30,7 +30,7 @@ public class FragmentHome extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layoutHome = inflater.inflate(R.layout.home, container, false);
+        View layoutHome = inflater.inflate(R.layout.fragment_home, container, false);
         Log.d(TAG, "onCreateView---->");
         mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();

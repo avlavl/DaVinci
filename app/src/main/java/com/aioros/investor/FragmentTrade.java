@@ -19,18 +19,18 @@ public class FragmentTrade extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layoutTrade = inflater.inflate(R.layout.trade, container, false);
+        View layoutTrade = inflater.inflate(R.layout.fragment_trade, container, false);
         Log.d(TAG, "onCreateView---->");
         mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();
         pagerAdapter = new TradePagerAdapter(mMainActivity.getSupportFragmentManager(), mMainActivity);
-        viewPager = (ViewPager) layoutTrade.findViewById(R.id.viewpager);
+        viewPager = (ViewPager) layoutTrade.findViewById(R.id.viewpager_trade);
         viewPager.setAdapter(pagerAdapter);
-        tabLayout = (TabLayout) layoutTrade.findViewById(R.id.sliding_tabs);
+        tabLayout = (TabLayout) layoutTrade.findViewById(R.id.tablayout_trade);
         tabLayout.setupWithViewPager(viewPager);
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setCustomView(pagerAdapter.getTabView(i));
+            tab.setText(pagerAdapter.getPageTitle(i));
         }
         return layoutTrade;
     }

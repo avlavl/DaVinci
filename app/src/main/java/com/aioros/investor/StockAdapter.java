@@ -50,7 +50,7 @@ public class StockAdapter extends BaseAdapter {
             colorF = Color.rgb(0, 200, 0);
             colorB = Color.rgb(0, 128, 0);
         }
-        View view = mInflater.inflate(R.layout.stock_item, null);
+        View view = mInflater.inflate(R.layout.item_stock, null);
 
         TextView name = (TextView) view.findViewById(R.id.name_stock_item);
         name.setText(stockBeanList.get(position).getStockName());

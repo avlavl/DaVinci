@@ -2,7 +2,7 @@
 <com.aioros.investor.BottomControlPanel xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@color/bottom_panel_color"
+    android:background="@color/colorPanelBottom"
     android:layout_alignParentBottom="true"
     android:gravity="center_vertical"
     android:paddingLeft="6dp"

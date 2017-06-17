@@ -13,7 +13,7 @@ public class FragmentOther extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layoutOther = inflater.inflate(R.layout.other, container, false);
+        View layoutOther = inflater.inflate(R.layout.fragment_other, container, false);
         return layoutOther;
     }
 

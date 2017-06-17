@@ -7,7 +7,7 @@
         android:id="@+id/listview_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/divider_color"
+        android:divider="@color/colorDivider"
         android:dividerHeight="1dp"></ListView>
 
 </RelativeLayout>
