@@ -234,6 +234,7 @@ public class FragmentHome extends BaseFragment {
 
     private void mListViewOnItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(mMainActivity, stockBeanList.get(position).toString(), Toast.LENGTH_SHORT).show();
+        // mMainActivity.bottomPanel.btnTrade.callOnClick();
     }
 
     private boolean mListViewOnItemLongClick(AdapterView<?> parent, View view, int position, long id) {

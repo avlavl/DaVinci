@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorDivider">#FF505050</color>
     <color name="colorPanelHead">#FF404040</color>
-    <color name="colorPanelBottom">#FF303030</color>
+    <color name="colorPanelBottom">#101010</color>
     <color name="colorTabSelect">#303030</color>
-    <color name="colorTabNormal">#404040</color>
+    <color name="colorTabNormal">#353535</color>
 </resources>

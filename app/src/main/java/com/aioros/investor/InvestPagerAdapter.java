@@ -26,7 +26,7 @@ public class InvestPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return PageFragment.newInstance(position + 1);
+        return PageFragment.newInstance(position + 1, tabTitles[position]);
     }
 
     @Override

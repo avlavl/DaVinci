@@ -1,9 +1,11 @@
 package com.aioros.investor;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ public class TradePagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 7;
     private String tabTitles[] = new String[]{"沪深300", "淘金100", "腾讯济安", "养老产业", "医药100", "中证500", "创业板指"};
     private Context context;
+    private PageFragment[] pageTradeArray = new PageFragment[7];
 
 
     public TradePagerAdapter(FragmentManager fm, Context ctx) {
@@ -26,7 +29,10 @@ public class TradePagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return PageFragment.newInstance(position + 1);
+        Log.i("Aioros", "getItem................................." + position);
+        PageFragment pageFragment = PageFragment.newInstance(position + 1, tabTitles[position]);
+        pageTradeArray[position] = pageFragment;
+        return pageFragment;
     }
 
     @Override
@@ -53,6 +59,7 @@ public class TradePagerAdapter extends FragmentPagerAdapter {
         View view = LayoutInflater.from(context).inflate(R.layout.item_tabs, null);
         TextView textView = (TextView) view.findViewById(R.id.textView_tabs);
         textView.setText(tabTitles[position]);
+        textView.setTextColor((position == 0) ? Color.RED : Color.WHITE);
         return view;
     }
 }

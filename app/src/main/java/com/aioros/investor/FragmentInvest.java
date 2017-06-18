@@ -28,10 +28,10 @@ public class FragmentInvest extends BaseFragment {
         viewPager.setAdapter(pagerAdapter);
         tabLayout = (TabLayout) layoutInvest.findViewById(R.id.tablayout_invest);
         tabLayout.setupWithViewPager(viewPager);
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setText(pagerAdapter.getPageTitle(i));
-        }
+//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//            TabLayout.Tab tab = tabLayout.getTabAt(i);
+//            tab.setText(pagerAdapter.getPageTitle(i));
+//        }
         return layoutInvest;
     }
 
