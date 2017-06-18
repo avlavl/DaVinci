@@ -12,7 +12,7 @@ import java.util.List;
 public class BottomControlPanel extends RelativeLayout implements View.OnClickListener {
     private Context mContext;
     private ImageText mBtnHome = null;
-    private ImageText mBtnTrade = null;
+    public ImageText mBtnTrade = null;
     private ImageText mBtnInvest = null;
     private ImageText mBtnChance = null;
     private ImageText mBtnMore = null;
