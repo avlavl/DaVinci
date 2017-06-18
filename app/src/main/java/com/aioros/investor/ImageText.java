@@ -30,8 +30,8 @@ public class ImageText extends LinearLayout {
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View parentView = inflater.inflate(R.layout.image_text, this, true);
-        mImageView = (ImageView) parentView.findViewById(R.id.image_iamge_text);
-        mTextView = (TextView) parentView.findViewById(R.id.text_iamge_text);
+        mImageView = (ImageView) parentView.findViewById(R.id.imageview_imagetext);
+        mTextView = (TextView) parentView.findViewById(R.id.textview_imagetext);
     }
 
     public void setImage(int id) {
@@ -80,7 +80,7 @@ public class ImageText extends LinearLayout {
             case Constant.BTN_FLAG_CHANCE:
                 checkDrawableId = R.drawable.notice_select;
                 break;
-            case Constant.BTN_FLAG_OTHER:
+            case Constant.BTN_FLAG_MORE:
                 checkDrawableId = R.drawable.material_select;
                 break;
             default:

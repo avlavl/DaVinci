@@ -2,38 +2,38 @@
 <com.aioros.investor.BottomControlPanel xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@color/colorPanelBottom"
     android:layout_alignParentBottom="true"
+    android:background="@color/colorPanelBottom"
     android:gravity="center_vertical"
     android:paddingLeft="6dp"
     android:paddingRight="6dp">
 
     <com.aioros.investor.ImageText
-        android:id="@+id/btn_home"
+        android:id="@+id/imagetext_home"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true" />
 
     <com.aioros.investor.ImageText
-        android:id="@+id/btn_trade"
+        android:id="@+id/imagetext_trade"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/btn_home" />
+        android:layout_toRightOf="@id/imagetext_home" />
 
     <com.aioros.investor.ImageText
-        android:id="@+id/btn_invest"
+        android:id="@+id/imagetext_invest"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/btn_trade" />
+        android:layout_toRightOf="@id/imagetext_trade" />
 
     <com.aioros.investor.ImageText
-        android:id="@+id/btn_chance"
+        android:id="@+id/imagetext_chance"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/btn_invest" />
+        android:layout_toRightOf="@id/imagetext_invest" />
 
     <com.aioros.investor.ImageText
-        android:id="@+id/btn_other"
+        android:id="@+id/imagetext_more"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true" />

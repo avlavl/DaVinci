@@ -10,8 +10,8 @@ public class HeadControlPanel extends RelativeLayout {
     private Context mContext;
     private TextView mMidleTitle;
     private TextView mRightTitle;
-    private static final float middle_title_size = 20f;
-    private static final float right_title_size = 17f;
+    private static final float MIDDLE_TITLE_SIZE = 20f;
+    private static final float RIGHT_TITLE_SIZE = 17f;
 
     public HeadControlPanel(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -20,7 +20,7 @@ public class HeadControlPanel extends RelativeLayout {
     @Override
     protected void onFinishInflate() {
         mMidleTitle = (TextView) findViewById(R.id.midle_title);
-        mRightTitle = (TextView) findViewById(R.id.right_title);
+        mRightTitle = (TextView) findViewById(R.id.textview_righttitle);
     }
 
     public void initHeadPanel() {
@@ -34,11 +34,11 @@ public class HeadControlPanel extends RelativeLayout {
 
     public void setMiddleTitle(String s) {
         mMidleTitle.setText(s);
-        mMidleTitle.setTextSize(middle_title_size);
+        mMidleTitle.setTextSize(MIDDLE_TITLE_SIZE);
     }
 
     public void setRightTitle(String s) {
         mRightTitle.setText(s);
-        mRightTitle.setTextSize(right_title_size);
+        mRightTitle.setTextSize(RIGHT_TITLE_SIZE);
     }
 }

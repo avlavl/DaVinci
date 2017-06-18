@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/name_stock_item"
+            android:id="@+id/textview_stockname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="上证指数"
@@ -24,7 +24,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/code_stock_item"
+            android:id="@+id/textview_stockcode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="000001"
@@ -34,7 +34,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/value_stock_item"
+        android:id="@+id/textview_stockvalue"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -45,7 +45,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/scope_stock_item"
+        android:id="@+id/textview_stockscope"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -56,7 +56,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/ratio_stock_item"
+        android:id="@+id/textview_stockratio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

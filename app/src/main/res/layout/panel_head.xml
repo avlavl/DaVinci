@@ -2,9 +2,9 @@
 <com.aioros.investor.HeadControlPanel xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    android:layout_alignParentTop="true"
     android:background="@color/colorPanelHead"
-    android:padding="5dp"
-    android:layout_alignParentTop="true">
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/midle_title"
@@ -14,7 +14,7 @@
         android:textColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/right_title"
+        android:id="@+id/textview_righttitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

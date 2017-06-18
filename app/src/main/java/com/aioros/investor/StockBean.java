@@ -1,66 +1,66 @@
 package com.aioros.investor;
 
 public class StockBean {
-    private String stockName;
-    private String stockCode;
-    private String stockValue;
-    private String stockRatio;
-    private String stockScope;
+    private String mStockName;
+    private String mStockCode;
+    private String mStockValue;
+    private String mStockRatio;
+    private String mStockScope;
 
     public StockBean(String name, String code, String value, String scope, String ratio) {
         super();
-        stockName = name;
-        stockCode = code;
-        stockValue = value;
-        stockScope = scope;
-        stockRatio = ratio;
+        mStockName = name;
+        mStockCode = code;
+        mStockValue = value;
+        mStockScope = scope;
+        mStockRatio = ratio;
     }
 
-    public String getStockName() {
-        return stockName;
+    public String getmStockName() {
+        return mStockName;
     }
 
-    public void setStockName(String name) {
-        stockName = name;
+    public void setmStockName(String name) {
+        mStockName = name;
     }
 
-    public String getStockCode() {
-        return stockCode;
+    public String getmStockCode() {
+        return mStockCode;
     }
 
-    public void setStockCode(String code) {
-        stockCode = code;
+    public void setmStockCode(String code) {
+        mStockCode = code;
     }
 
-    public String getStockValue() {
-        return stockValue;
+    public String getmStockValue() {
+        return mStockValue;
     }
 
-    public void setStockValue(String value) {
-        stockValue = value;
+    public void setmStockValue(String value) {
+        mStockValue = value;
     }
 
-    public String getStockScope() {
-        return stockScope;
+    public String getmStockScope() {
+        return mStockScope;
     }
 
-    public void setStockScope(String scope) {
-        stockScope = scope;
+    public void setmStockScope(String scope) {
+        mStockScope = scope;
     }
 
-    public String getStockRatio() {
-        return stockRatio;
+    public String getmStockRatio() {
+        return mStockRatio;
     }
 
-    public void setStockRatio(String ratio) {
-        stockRatio = ratio;
+    public void setmStockRatio(String ratio) {
+        mStockRatio = ratio;
     }
 
 
     @Override
     public String toString() {
-        return "StockBean [stockName=" + stockName + ", stockCode=" + stockCode
-                + ", stockValue=" + stockValue + ", stockScope=" + stockScope
-                + ", stockRatio=" + stockRatio + "]";
+        return "StockBean [mStockName=" + mStockName + ", mStockCode=" + mStockCode
+                + ", mStockValue=" + mStockValue + ", mStockScope=" + mStockScope
+                + ", mStockRatio=" + mStockRatio + "]";
     }
 }

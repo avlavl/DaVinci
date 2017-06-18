@@ -89,8 +89,8 @@ public class BaseFragment extends Fragment {
             baseFragment = new FragmentInvest();
         } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_CHANCE)) {
             baseFragment = new FragmentChance();
-        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_OTHER)) {
-            baseFragment = new FragmentOther();
+        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_MORE)) {
+            baseFragment = new FragmentMore();
         }
         return baseFragment;
     }

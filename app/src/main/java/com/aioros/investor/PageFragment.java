@@ -14,11 +14,8 @@ import android.widget.TextView;
  */
 
 public class PageFragment extends Fragment {
-
     private int mPage;
     private String mName;
-    public View view;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,9 +27,9 @@ public class PageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment, container, false);
-        Button button = (Button) view.findViewById(R.id.button_pager_chance);
-        TextView textView = (TextView) view.findViewById(R.id.textview_pager_chance);
+        View view = inflater.inflate(R.layout.fragment, container, false);
+        Button button = (Button) view.findViewById(R.id.button_pagerchance);
+        TextView textView = (TextView) view.findViewById(R.id.textview_pagerchance);
         button.setText("Fragment #" + mPage);
         textView.setText("股票名称：" + mName);
         return view;

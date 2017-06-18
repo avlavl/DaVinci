@@ -13,17 +13,17 @@ import android.widget.Toast;
 import com.aioros.investor.BottomControlPanel.BottomPanelCallback;
 
 public class MainActivity extends FragmentActivity implements BottomPanelCallback {
-    BottomControlPanel bottomPanel = null;
-    HeadControlPanel headPanel = null;
+    BottomControlPanel mBottomPanel = null;
+    HeadControlPanel mHeadPanel = null;
 
-    private FragmentManager fragmentManager = null;
-    private FragmentTransaction fragmentTransaction = null;
+    private FragmentManager mFragmentManager = null;
+    private FragmentTransaction mFragmentTransaction = null;
 
-    private FragmentHome fragmentHome;
-    private FragmentTrade fragmentTrade;
-    private FragmentInvest fragmentInvest;
-    private FragmentChance fragmentChance;
-    private FragmentOther fragmentOther;
+    private FragmentHome mFragmentHome;
+    private FragmentTrade mFragmentTrade;
+    private FragmentInvest mFragmentInvest;
+    private FragmentChance mFragmentChance;
+    private FragmentMore mFragmentMore;
 
     public static String currFragTag = "";
 
@@ -32,7 +32,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
-        fragmentManager = getFragmentManager();
+        mFragmentManager = getFragmentManager();
         setDefaultFirstFragment(Constant.FRAGMENT_FLAG_HOME);
     }
 
@@ -44,14 +44,14 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     }
 
     private void initUI() {
-        bottomPanel = (BottomControlPanel) findViewById(R.id.bottom_layout);
-        if (bottomPanel != null) {
-            bottomPanel.initBottomPanel();
-            bottomPanel.setBottomCallback(this);
+        mBottomPanel = (BottomControlPanel) findViewById(R.id.layout_bottompanel);
+        if (mBottomPanel != null) {
+            mBottomPanel.initBottomPanel();
+            mBottomPanel.setBottomCallback(this);
         }
-        headPanel = (HeadControlPanel) findViewById(R.id.head_layout);
-        if (headPanel != null) {
-            headPanel.initHeadPanel();
+        mHeadPanel = (HeadControlPanel) findViewById(R.id.layout_headpanel);
+        if (mHeadPanel != null) {
+            mHeadPanel.initHeadPanel();
         }
     }
 
@@ -69,39 +69,39 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             tag = Constant.FRAGMENT_FLAG_INVEST;
         } else if ((itemId & Constant.BTN_FLAG_CHANCE) != 0) {
             tag = Constant.FRAGMENT_FLAG_CHANCE;
-        } else if ((itemId & Constant.BTN_FLAG_OTHER) != 0) {
-            tag = Constant.FRAGMENT_FLAG_OTHER;
+        } else if ((itemId & Constant.BTN_FLAG_MORE) != 0) {
+            tag = Constant.FRAGMENT_FLAG_MORE;
         }
         setTabSelection(tag); //切换Fragment
-        headPanel.setMiddleTitle(tag); //切换标题
-        headPanel.setRightTitle(tag); //切换副标题
+        mHeadPanel.setMiddleTitle(tag); //切换标题
+        mHeadPanel.setRightTitle(tag); //切换副标题
     }
 
     private void setDefaultFirstFragment(String tag) {
         Log.i("Aioros", "setDefaultFirstFragment enter... currFragTag = " + currFragTag);
         setTabSelection(tag);
-        bottomPanel.defaultBtnChecked();
+        mBottomPanel.defaultBtnChecked();
         Log.i("Aioros", "setDefaultFirstFragment exit...");
     }
 
     private void commitTransactions(String tag) {
-        if (fragmentTransaction != null && !fragmentTransaction.isEmpty()) {
-            fragmentTransaction.commit();
+        if (mFragmentTransaction != null && !mFragmentTransaction.isEmpty()) {
+            mFragmentTransaction.commit();
             currFragTag = tag;
-            fragmentTransaction = null;
+            mFragmentTransaction = null;
         }
     }
 
     private FragmentTransaction ensureTransaction() {
-        if (fragmentTransaction == null) {
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        if (mFragmentTransaction == null) {
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         }
-        return fragmentTransaction;
+        return mFragmentTransaction;
     }
 
     private Fragment getFragmentOld(String tag) {
-        Fragment f = fragmentManager.findFragmentByTag(tag);
+        Fragment f = mFragmentManager.findFragmentByTag(tag);
         if (f == null) {
             Toast.makeText(getApplicationContext(), "fragment = null tag = " + tag, Toast.LENGTH_SHORT).show();
             f = BaseFragment.newInstance(getApplicationContext(), tag);
@@ -112,15 +112,15 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     private Fragment getFragment(String tag) {
         switch (tag) {
             case Constant.FRAGMENT_FLAG_HOME:
-                return fragmentHome;
+                return mFragmentHome;
             case Constant.FRAGMENT_FLAG_TRADE:
-                return fragmentTrade;
+                return mFragmentTrade;
             case Constant.FRAGMENT_FLAG_INVEST:
-                return fragmentInvest;
+                return mFragmentInvest;
             case Constant.FRAGMENT_FLAG_CHANCE:
-                return fragmentChance;
-            case Constant.FRAGMENT_FLAG_OTHER:
-                return fragmentOther;
+                return mFragmentChance;
+            case Constant.FRAGMENT_FLAG_MORE:
+                return mFragmentMore;
             default:
                 return null;
         }
@@ -130,10 +130,10 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         if (f != null) {
             if (f.isDetached()) {
                 ensureTransaction();
-                fragmentTransaction.attach(f);
+                mFragmentTransaction.attach(f);
             } else if (!f.isAdded()) {
                 ensureTransaction();
-                fragmentTransaction.add(layout, f, tag);
+                mFragmentTransaction.add(layout, f, tag);
             }
         }
     }
@@ -141,7 +141,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     private void detachFragment(Fragment f) {
         if (f != null && !f.isDetached()) {
             ensureTransaction();
-            fragmentTransaction.detach(f);
+            mFragmentTransaction.detach(f);
         }
     }
 
@@ -162,29 +162,29 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     /* 设置选中的Tag */
     public void setTabSelection(String tag) {
         // 开启一个Fragment事务
-        fragmentTransaction = fragmentManager.beginTransaction();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
         if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_HOME)) {
-            if (fragmentHome == null) {
-                fragmentHome = new FragmentHome();
+            if (mFragmentHome == null) {
+                mFragmentHome = new FragmentHome();
             }
 
         } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_TRADE)) {
-            if (fragmentTrade == null) {
-                fragmentTrade = new FragmentTrade();
+            if (mFragmentTrade == null) {
+                mFragmentTrade = new FragmentTrade();
             }
 
         } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_INVEST)) {
-            if (fragmentInvest == null) {
-                fragmentInvest = new FragmentInvest();
+            if (mFragmentInvest == null) {
+                mFragmentInvest = new FragmentInvest();
             }
 
         } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_CHANCE)) {
-            if (fragmentChance == null) {
-                fragmentChance = new FragmentChance();
+            if (mFragmentChance == null) {
+                mFragmentChance = new FragmentChance();
             }
-        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_OTHER)) {
-            if (fragmentOther == null) {
-                fragmentOther = new FragmentOther();
+        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_MORE)) {
+            if (mFragmentMore == null) {
+                mFragmentMore = new FragmentMore();
             }
         }
         switchFragment(tag);

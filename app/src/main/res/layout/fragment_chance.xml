@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <!--app:tabMode="scrollable"  这个属性我在代码中设置了-->
-        <!-- tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);-->
+        <!-- mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);-->
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout_chance"
             android:layout_width="match_parent"

@@ -7,31 +7,31 @@
     tools:context="com.aioros.investor.MainActivity">
 
     <include
-        android:id="@+id/bottom_layout"
+        android:id="@+id/layout_bottompanel"
         layout="@layout/panel_bottom" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dip"
-        android:layout_above="@id/bottom_layout"
+        android:layout_above="@id/layout_bottompanel"
         android:background="#FFE7E7E7" />
 
     <include
-        android:id="@+id/head_layout"
+        android:id="@+id/layout_headpanel"
         layout="@layout/panel_head" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dip"
-        android:layout_below="@id/head_layout"
+        android:layout_below="@id/layout_headpanel"
         android:background="#FFE7E7E7" />
 
     <FrameLayout
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_layout"
-        android:layout_below="@id/head_layout">
+        android:layout_above="@id/layout_bottompanel"
+        android:layout_below="@id/layout_headpanel">
 
     </FrameLayout>
 

@@ -15,7 +15,7 @@ import android.widget.TextView;
 class AdapterPagerChance extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private String tabTitles[] = new String[]{"银华日利", "华宝添益", "R-001", "R-002"};
+    private String mTabTitles[] = new String[]{"银华日利", "华宝添益", "R-001", "R-002"};
 
     public AdapterPagerChance(Context context) {
         mContext = context;
@@ -24,7 +24,7 @@ class AdapterPagerChance extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return tabTitles.length;
+        return mTabTitles.length;
     }
 
     @Override
@@ -34,7 +34,7 @@ class AdapterPagerChance extends PagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabTitles[position];
+        return mTabTitles[position];
     }
 
     @Override
@@ -45,8 +45,8 @@ class AdapterPagerChance extends PagerAdapter {
 //            return imageView;
 
         View view = mInflater.inflate(R.layout.pager_chance, null);
-        EditText editText = (EditText) view.findViewById(R.id.edittext_pager_chance);
-        editText.setText(tabTitles[position]);
+        EditText editText = (EditText) view.findViewById(R.id.edittext_pagerchance);
+        editText.setText(mTabTitles[position]);
         container.addView(view);
         return view;
     }
@@ -59,7 +59,7 @@ class AdapterPagerChance extends PagerAdapter {
     public View getTabView(int position) {
         View view = mInflater.inflate(R.layout.item_tabs, null);
         TextView textView = (TextView) view.findViewById(R.id.textview_tabs);
-        textView.setText(tabTitles[position]);
+        textView.setText(mTabTitles[position]);
         return view;
     }
 }

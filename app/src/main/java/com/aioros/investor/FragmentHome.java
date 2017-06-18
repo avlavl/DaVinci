@@ -24,19 +24,19 @@ public class FragmentHome extends BaseFragment {
     private static final String TAG = "FragmentHome";
     private MainActivity mMainActivity;
     private ListView mListView;
-    private StockAdapter mMsgAdapter;
-    private List<StockBean> stockBeanList = new ArrayList<StockBean>();
-    private Handler handler;
+    private AdapterListViewStock mAdapterListView;
+    private List<StockBean> mStockBeanList = new ArrayList<StockBean>();
+    private Handler mHandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layoutHome = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         Log.d(TAG, "onCreateView---->");
         mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();
-        mListView = (ListView) layoutHome.findViewById(R.id.listview_message);
-        mMsgAdapter = new StockAdapter(stockBeanList, mMainActivity);
-        mListView.setAdapter(mMsgAdapter);
+        mListView = (ListView) view.findViewById(R.id.listview_stock);
+        mAdapterListView = new AdapterListViewStock(mMainActivity, mStockBeanList);
+        mListView.setAdapter(mAdapterListView);
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -51,7 +51,7 @@ public class FragmentHome extends BaseFragment {
             }
         });
 
-        return layoutHome;
+        return view;
     }
 
     @Override
@@ -64,20 +64,20 @@ public class FragmentHome extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e(TAG, "onCreate------");
-        stockBeanList.add(new StockBean("上证指数", "000001", "--", "0.00", "0.00%"));
-        stockBeanList.add(new StockBean("深证成指", "399001", "--", "0.00", "0.00%"));
-        stockBeanList.add(new StockBean("创业板指", "399006", "--", "0.00", "0.00%"));
-        stockBeanList.add(new StockBean("沪深300", "000300", "--", "0.00", "0.00%"));
-        stockBeanList.add(new StockBean("中证500", "000905", "--", "0.00", "0.00%"));
-        stockBeanList.add(new StockBean("腾讯济安", "000847", "--", "0.00", "0.00%"));
-        stockBeanList.add(new StockBean("养老产业", "399812", "--", "0.00", "0.00%"));
-        stockBeanList.add(new StockBean("医药100", "000978", "--", "0.00", "0.00%"));
-        stockBeanList.add(new StockBean("CSSW证券", "399707", "--", "0.00", "0.00%"));
-        stockBeanList.add(new StockBean("中证军工", "399967", "--", "0.00", "0.00%"));
-        stockBeanList.add(new StockBean("中证环保", "000827", "--", "0.00", "0.00%"));
+        mStockBeanList.add(new StockBean("上证指数", "000001", "--", "0.00", "0.00%"));
+        mStockBeanList.add(new StockBean("深证成指", "399001", "--", "0.00", "0.00%"));
+        mStockBeanList.add(new StockBean("创业板指", "399006", "--", "0.00", "0.00%"));
+        mStockBeanList.add(new StockBean("沪深300", "000300", "--", "0.00", "0.00%"));
+        mStockBeanList.add(new StockBean("中证500", "000905", "--", "0.00", "0.00%"));
+        mStockBeanList.add(new StockBean("腾讯济安", "000847", "--", "0.00", "0.00%"));
+        mStockBeanList.add(new StockBean("养老产业", "399812", "--", "0.00", "0.00%"));
+        mStockBeanList.add(new StockBean("医药100", "000978", "--", "0.00", "0.00%"));
+        mStockBeanList.add(new StockBean("CSSW证券", "399707", "--", "0.00", "0.00%"));
+        mStockBeanList.add(new StockBean("中证军工", "399967", "--", "0.00", "0.00%"));
+        mStockBeanList.add(new StockBean("中证环保", "000827", "--", "0.00", "0.00%"));
 
         // 在主线程中声明一个消息处理对象Handler
-        handler = new Handler() {
+        mHandler = new Handler() {
             // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
             @Override
             public void handleMessage(Message msg) {
@@ -85,11 +85,11 @@ public class FragmentHome extends BaseFragment {
                 String[] strs;
                 for (int i = 0; i < message.length; i++) {
                     strs = message[i].substring(message[i].indexOf("\"") + 1, message[i].lastIndexOf("\"")).split("~");
-                    stockBeanList.get(i).setStockValue(strs[3]);
-                    stockBeanList.get(i).setStockScope(strs[4]);
-                    stockBeanList.get(i).setStockRatio(strs[5] + "%");
+                    mStockBeanList.get(i).setmStockValue(strs[3]);
+                    mStockBeanList.get(i).setmStockScope(strs[4]);
+                    mStockBeanList.get(i).setmStockRatio(strs[5] + "%");
                 }
-                mMsgAdapter.notifyDataSetChanged();
+                mAdapterListView.notifyDataSetChanged();
             }
         };
 
@@ -101,14 +101,14 @@ public class FragmentHome extends BaseFragment {
                 if (flag) {
                     new NetworkThread().start();
                 }
-                handler.postDelayed(this, delay);
+                mHandler.postDelayed(this, delay);
             }
         };
         if (!isTradeTime()) {
             new NetworkThread().start();
-            handler.postDelayed(runnable, 60000);
+            mHandler.postDelayed(runnable, 60000);
         } else {
-            handler.postDelayed(runnable, 1);
+            mHandler.postDelayed(runnable, 1);
         }
     }
 
@@ -182,11 +182,11 @@ public class FragmentHome extends BaseFragment {
             } else {
                 String[] strArray = downloadString.split(";");
                 // 使用主线程Handler对象创建一个消息体
-                Message msgRx = handler.obtainMessage();
+                Message msgRx = mHandler.obtainMessage();
                 msgRx.obj = strArray;
 
                 // 发送消息，WorkerThread 向 MainThread 发送消息
-                handler.sendMessage(msgRx);
+                mHandler.sendMessage(msgRx);
             }
         }
     }
@@ -233,14 +233,14 @@ public class FragmentHome extends BaseFragment {
     }
 
     private void mListViewOnItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(mMainActivity, stockBeanList.get(position).toString(), Toast.LENGTH_SHORT).show();
-        // mMainActivity.bottomPanel.btnTrade.callOnClick();
+        Toast.makeText(mMainActivity, mStockBeanList.get(position).toString(), Toast.LENGTH_SHORT).show();
+        // mMainActivity.mBottomPanel.btnTrade.callOnClick();
     }
 
     private boolean mListViewOnItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(mMainActivity, "开始下载" + stockBeanList.get(position).getStockName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mMainActivity, "开始下载" + mStockBeanList.get(position).getmStockName(), Toast.LENGTH_SHORT).show();
 
-        String stockCode = stockBeanList.get(position).getStockCode();
+        String stockCode = mStockBeanList.get(position).getmStockCode();
         Thread dft = new DownFileThread(stockCode);
         dft.start();
 

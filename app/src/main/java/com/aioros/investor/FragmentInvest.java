@@ -12,27 +12,22 @@ public class FragmentInvest extends BaseFragment {
 
     private static final String TAG = "FragmentInvest";
     private MainActivity mMainActivity;
-    private InvestPagerAdapter pagerAdapter;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-    private String POSITION;
+    private AdapterPagerInvest mAdapterPager;
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layoutInvest = inflater.inflate(R.layout.fragment_invest, container, false);
+        View view = inflater.inflate(R.layout.fragment_invest, container, false);
         Log.d(TAG, "onCreateView---->");
         mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();
-        pagerAdapter = new InvestPagerAdapter(mMainActivity.getSupportFragmentManager(), mMainActivity);
-        viewPager = (ViewPager) layoutInvest.findViewById(R.id.viewpager_invest);
-        viewPager.setAdapter(pagerAdapter);
-        tabLayout = (TabLayout) layoutInvest.findViewById(R.id.tablayout_invest);
-        tabLayout.setupWithViewPager(viewPager);
-//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-//            TabLayout.Tab tab = tabLayout.getTabAt(i);
-//            tab.setText(pagerAdapter.getPageTitle(i));
-//        }
-        return layoutInvest;
+        mAdapterPager = new AdapterPagerInvest(mMainActivity.getSupportFragmentManager(), mMainActivity);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewpager_invest);
+        mViewPager.setAdapter(mAdapterPager);
+        mTabLayout = (TabLayout) view.findViewById(R.id.tablayout_invest);
+        mTabLayout.setupWithViewPager(mViewPager);
+        return view;
     }
 
     @Override

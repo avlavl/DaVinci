@@ -9,26 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class FragmentChance extends BaseFragment {
-
     private static final String TAG = "FragmentChance";
     private MainActivity mMainActivity;
-    private AdapterPagerChance adapterPager;
-    public ViewPager viewPager;
-    public TabLayout tabLayout;
-    private String POSITION;
+    private AdapterPagerChance mAdapterPager;
+    public ViewPager mViewPager;
+    public TabLayout mTabLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layoutChance = inflater.inflate(R.layout.fragment_chance, container, false);
+        View view = inflater.inflate(R.layout.fragment_chance, container, false);
         Log.d(TAG, "onCreateView---->");
         mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();
-        adapterPager = new AdapterPagerChance(mMainActivity);
-        viewPager = (ViewPager) layoutChance.findViewById(R.id.viewpager_chance);
-        viewPager.setAdapter(adapterPager);
-        tabLayout = (TabLayout) layoutChance.findViewById(R.id.tablayout_chance);
-        tabLayout.setupWithViewPager(viewPager);
-        return layoutChance;
+        mAdapterPager = new AdapterPagerChance(mMainActivity);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewpager_chance);
+        mViewPager.setAdapter(mAdapterPager);
+        mTabLayout = (TabLayout) view.findViewById(R.id.tablayout_chance);
+        mTabLayout.setupWithViewPager(mViewPager);
+        return view;
     }
 
     @Override

@@ -11,13 +11,13 @@ import java.util.List;
 
 public class BottomControlPanel extends RelativeLayout implements View.OnClickListener {
     private Context mContext;
-    private ImageText btnHome = null;
-    private ImageText btnTrade = null;
-    private ImageText btnInvest = null;
-    private ImageText btnChance = null;
-    private ImageText btnOther = null;
+    private ImageText mBtnHome = null;
+    private ImageText mBtnTrade = null;
+    private ImageText mBtnInvest = null;
+    private ImageText mBtnChance = null;
+    private ImageText mBtnMore = null;
     private BottomPanelCallback mBottomCallback = null;
-    private List<ImageText> viewList = new ArrayList<ImageText>();
+    private List<ImageText> mImageTextList = new ArrayList<ImageText>();
 
     public interface BottomPanelCallback {
         public void onBottomPanelClick(int itemId);
@@ -29,38 +29,38 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
 
     @Override
     protected void onFinishInflate() {
-        btnHome = (ImageText) findViewById(R.id.btn_home);
-        btnTrade = (ImageText) findViewById(R.id.btn_trade);
-        btnInvest = (ImageText) findViewById(R.id.btn_invest);
-        btnChance = (ImageText) findViewById(R.id.btn_chance);
-        btnOther = (ImageText) findViewById(R.id.btn_other);
-        viewList.add(btnHome);
-        viewList.add(btnTrade);
-        viewList.add(btnInvest);
-        viewList.add(btnChance);
-        viewList.add(btnOther);
+        mBtnHome = (ImageText) findViewById(R.id.imagetext_home);
+        mBtnTrade = (ImageText) findViewById(R.id.imagetext_trade);
+        mBtnInvest = (ImageText) findViewById(R.id.imagetext_invest);
+        mBtnChance = (ImageText) findViewById(R.id.imagetext_chance);
+        mBtnMore = (ImageText) findViewById(R.id.imagetext_more);
+        mImageTextList.add(mBtnHome);
+        mImageTextList.add(mBtnTrade);
+        mImageTextList.add(mBtnInvest);
+        mImageTextList.add(mBtnChance);
+        mImageTextList.add(mBtnMore);
     }
 
     public void initBottomPanel() {
-        if (btnHome != null) {
-            btnHome.setImage(R.drawable.home_normal);
-            btnHome.setText("主页");
+        if (mBtnHome != null) {
+            mBtnHome.setImage(R.drawable.home_normal);
+            mBtnHome.setText("主页");
         }
-        if (btnTrade != null) {
-            btnTrade.setImage(R.drawable.trade_normal);
-            btnTrade.setText("交易");
+        if (mBtnTrade != null) {
+            mBtnTrade.setImage(R.drawable.trade_normal);
+            mBtnTrade.setText("交易");
         }
-        if (btnInvest != null) {
-            btnInvest.setImage(R.drawable.property_normal);
-            btnInvest.setText("定投");
+        if (mBtnInvest != null) {
+            mBtnInvest.setImage(R.drawable.property_normal);
+            mBtnInvest.setText("定投");
         }
-        if (btnChance != null) {
-            btnChance.setImage(R.drawable.notice_normal);
-            btnChance.setText("机会");
+        if (mBtnChance != null) {
+            mBtnChance.setImage(R.drawable.notice_normal);
+            mBtnChance.setText("机会");
         }
-        if (btnOther != null) {
-            btnOther.setImage(R.drawable.material_normal);
-            btnOther.setText("其它");
+        if (mBtnMore != null) {
+            mBtnMore.setImage(R.drawable.material_normal);
+            mBtnMore.setText("更多");
         }
         setBtnListener();
     }
@@ -84,25 +84,25 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
         initBottomPanel();
         int index = -1;
         switch (v.getId()) {
-            case R.id.btn_home:
+            case R.id.imagetext_home:
                 index = Constant.BTN_FLAG_HOME;
-                btnHome.setChecked(index);
+                mBtnHome.setChecked(index);
                 break;
-            case R.id.btn_trade:
+            case R.id.imagetext_trade:
                 index = Constant.BTN_FLAG_TRADE;
-                btnTrade.setChecked(index);
+                mBtnTrade.setChecked(index);
                 break;
-            case R.id.btn_invest:
+            case R.id.imagetext_invest:
                 index = Constant.BTN_FLAG_INVEST;
-                btnInvest.setChecked(index);
+                mBtnInvest.setChecked(index);
                 break;
-            case R.id.btn_chance:
+            case R.id.imagetext_chance:
                 index = Constant.BTN_FLAG_CHANCE;
-                btnChance.setChecked(index);
+                mBtnChance.setChecked(index);
                 break;
-            case R.id.btn_other:
-                index = Constant.BTN_FLAG_OTHER;
-                btnOther.setChecked(index);
+            case R.id.imagetext_more:
+                index = Constant.BTN_FLAG_MORE;
+                mBtnMore.setChecked(index);
                 break;
             default:
                 break;
@@ -113,8 +113,8 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
     }
 
     public void defaultBtnChecked() {
-        if (btnHome != null) {
-            btnHome.setChecked(Constant.BTN_FLAG_HOME);
+        if (mBtnHome != null) {
+            mBtnHome.setChecked(Constant.BTN_FLAG_HOME);
         }
     }
 
@@ -154,16 +154,16 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
         int blankWidth = (width - allViewWidth - paddingLeft - paddingRight) / (n - 1);
         //Log.i("Aioros", "blankWidth = " + blankWidth);
 
-        LayoutParams params1 = (LayoutParams) viewList.get(1).getLayoutParams();
+        LayoutParams params1 = (LayoutParams) mImageTextList.get(1).getLayoutParams();
         params1.leftMargin = blankWidth;
-        viewList.get(1).setLayoutParams(params1);
+        mImageTextList.get(1).setLayoutParams(params1);
 
-        LayoutParams params2 = (LayoutParams) viewList.get(2).getLayoutParams();
+        LayoutParams params2 = (LayoutParams) mImageTextList.get(2).getLayoutParams();
         params2.leftMargin = blankWidth;
-        viewList.get(2).setLayoutParams(params2);
+        mImageTextList.get(2).setLayoutParams(params2);
 
-        LayoutParams params3 = (LayoutParams) viewList.get(3).getLayoutParams();
+        LayoutParams params3 = (LayoutParams) mImageTextList.get(3).getLayoutParams();
         params3.leftMargin = blankWidth;
-        viewList.get(3).setLayoutParams(params3);
+        mImageTextList.get(3).setLayoutParams(params3);
     }
 }

@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 
 public class HttpDownloader {
-    private URL url = null;
+    private URL mUrl = null;
 
     public String download(String urlStr) {
         StringBuffer sb = new StringBuffer();
@@ -27,8 +27,8 @@ public class HttpDownloader {
         String line = null;
 
         try {
-            url = new URL(urlStr);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            mUrl = new URL(urlStr);
+            HttpURLConnection urlConnection = (HttpURLConnection) mUrl.openConnection();
             br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "GB2312"));
             while ((line = br.readLine()) != null) {
                 sb.append(line);
@@ -46,8 +46,8 @@ public class HttpDownloader {
         String line = null;
 
         try {
-            url = new URL(urlStr);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            mUrl = new URL(urlStr);
+            HttpURLConnection urlConnection = (HttpURLConnection) mUrl.openConnection();
             br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "GB2312"));
             while ((line = br.readLine()) != null) {
                 stringList.add(line);
@@ -110,8 +110,8 @@ public class HttpDownloader {
     }
 
     public InputStream getInputStreamFromUrl(String urlStr) throws MalformedURLException, IOException {
-        url = new URL(urlStr);
-        HttpURLConnection urlCon = (HttpURLConnection) url.openConnection();
+        mUrl = new URL(urlStr);
+        HttpURLConnection urlCon = (HttpURLConnection) mUrl.openConnection();
         InputStream inputStream = urlCon.getInputStream();
         return inputStream;
     }

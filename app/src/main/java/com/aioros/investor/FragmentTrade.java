@@ -15,10 +15,9 @@ public class FragmentTrade extends BaseFragment {
 
     private static final String TAG = "FragmentTrade";
     private MainActivity mMainActivity;
-    private TradePagerAdapter pagerAdapter;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-    private String POSITION;
+    private AdapterPagerTrade mAdapterPager;
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -26,15 +25,15 @@ public class FragmentTrade extends BaseFragment {
         Log.d(TAG, "onCreateView---->");
         mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();
-        pagerAdapter = new TradePagerAdapter(mMainActivity.getSupportFragmentManager(), mMainActivity);
-        viewPager = (ViewPager) layoutTrade.findViewById(R.id.viewpager_trade);
-        viewPager.setAdapter(pagerAdapter);
-        tabLayout = (TabLayout) layoutTrade.findViewById(R.id.tablayout_trade);
-        tabLayout.setupWithViewPager(viewPager);
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setText(pagerAdapter.getPageTitle(i));
-            //tab.setCustomView(pagerAdapter.getTabView(i));
+        mAdapterPager = new AdapterPagerTrade(mMainActivity.getSupportFragmentManager(), mMainActivity);
+        mViewPager = (ViewPager) layoutTrade.findViewById(R.id.viewpager_trade);
+        mViewPager.setAdapter(mAdapterPager);
+        mTabLayout = (TabLayout) layoutTrade.findViewById(R.id.tablayout_trade);
+        mTabLayout.setupWithViewPager(mViewPager);
+        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            //tab.setText(mAdapterPager.getPageTitle(i));
+            tab.setCustomView(mAdapterPager.getTabView(i));
             if (tab.getCustomView() != null) {
                 View tabView = (View) tab.getCustomView().getParent();
                 tabView.setTag(i);
@@ -43,8 +42,8 @@ public class FragmentTrade extends BaseFragment {
                     public void onClick(View v) {
                         int pos = (int) v.getTag();
                         Toast.makeText(mMainActivity, "您还没有登录:" + pos, Toast.LENGTH_SHORT).show();
-                        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-                            TabLayout.Tab tab = tabLayout.getTabAt(i);
+                        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+                            TabLayout.Tab tab = mTabLayout.getTabAt(i);
                             View tabView = (View) tab.getCustomView().getParent();
                             TextView tv = (TextView) tabView.findViewById(R.id.textview_tabs);
                             if (pos == i) {
