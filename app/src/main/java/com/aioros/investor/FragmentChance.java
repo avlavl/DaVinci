@@ -8,12 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Created by aizhang on 2017/6/7.
+ */
+
 public class FragmentChance extends BaseFragment {
     private static final String TAG = "FragmentChance";
     private MainActivity mMainActivity;
     private AdapterPagerChance mAdapterPager;
-    public ViewPager mViewPager;
-    public TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

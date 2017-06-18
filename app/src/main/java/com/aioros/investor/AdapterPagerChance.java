@@ -12,10 +12,11 @@ import android.widget.TextView;
  * Created by aizhang on 2017/6/18.
  */
 
-class AdapterPagerChance extends PagerAdapter {
+public class AdapterPagerChance extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private String mTabTitles[] = new String[]{"银华日利", "华宝添益", "R-001", "R-002"};
+
 
     public AdapterPagerChance(Context context) {
         mContext = context;
@@ -39,11 +40,6 @@ class AdapterPagerChance extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-//            ImageView imageView = new ImageView(mMainActivity);
-//            imageView.setBackgroundResource(R.drawable.fund_select);
-//            container.addView(imageView);
-//            return imageView;
-
         View view = mInflater.inflate(R.layout.pager_chance, null);
         EditText editText = (EditText) view.findViewById(R.id.edittext_pagerchance);
         editText.setText(mTabTitles[position]);

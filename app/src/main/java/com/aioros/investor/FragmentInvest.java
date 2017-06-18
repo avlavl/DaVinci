@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentInvest extends BaseFragment {
+/**
+ * Created by aizhang on 2017/6/7.
+ */
 
+public class FragmentInvest extends BaseFragment {
     private static final String TAG = "FragmentInvest";
     private MainActivity mMainActivity;
     private AdapterPagerInvest mAdapterPager;
@@ -22,7 +25,7 @@ public class FragmentInvest extends BaseFragment {
         Log.d(TAG, "onCreateView---->");
         mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();
-        mAdapterPager = new AdapterPagerInvest(mMainActivity.getSupportFragmentManager(), mMainActivity);
+        mAdapterPager = new AdapterPagerInvest(mMainActivity);
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager_invest);
         mViewPager.setAdapter(mAdapterPager);
         mTabLayout = (TabLayout) view.findViewById(R.id.tablayout_invest);

@@ -10,10 +10,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * Created by aizhang on 2017/6/18.
+ */
+
 public class AdapterListViewStock extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<StockBean> mStockBeanList = null;
+
 
     public AdapterListViewStock(Context context, List<StockBean> msgBeanList) {
         mContext = context;

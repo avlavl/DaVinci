@@ -1,39 +1,36 @@
 package com.aioros.investor;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
  * Created by aizhang on 2017/6/17.
  */
 
-public class AdapterPagerTrade extends FragmentPagerAdapter {
+public class AdapterPagerTrade extends PagerAdapter {
     private Context mContext;
+    private LayoutInflater mInflater;
     private String mTabTitles[] = new String[]{"沪深300", "淘金100", "腾讯济安", "养老产业", "医药100", "中证500", "创业板指"};
-    private PageFragment[] mPageTradeArray = new PageFragment[7];
 
 
-    public AdapterPagerTrade(FragmentManager fm, Context context) {
-        super(fm);
+    public AdapterPagerTrade(Context context) {
         mContext = context;
-    }
-
-    @Override
-    public Fragment getItem(int position) {
-        PageFragment pageFragment = PageFragment.newInstance(position + 1, mTabTitles[position]);
-        mPageTradeArray[position] = pageFragment;
-        return pageFragment;
+        mInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
         return mTabTitles.length;
+    }
+
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
+        return view == object;
     }
 
     @Override
@@ -51,12 +48,29 @@ public class AdapterPagerTrade extends FragmentPagerAdapter {
         //return null;
     }
 
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+//            ImageView imageView = new ImageView(mMainActivity);
+//            imageView.setBackgroundResource(R.drawable.fund_select);
+//            container.addView(imageView);
+//            return imageView;
+
+        View view = mInflater.inflate(R.layout.pager_trade, null);
+        EditText editText = (EditText) view.findViewById(R.id.edittext_pagertrade);
+        editText.setText(mTabTitles[position]);
+        container.addView(view);
+        return view;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((View) object);
+    }
+
     public View getTabView(int position) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_tabs, null);
+        View view = mInflater.inflate(R.layout.item_tabs, null);
         TextView textView = (TextView) view.findViewById(R.id.textview_tabs);
         textView.setText(mTabTitles[position]);
-        textView.setTextColor((position == 0) ? Color.RED : Color.WHITE);
         return view;
     }
 }
-

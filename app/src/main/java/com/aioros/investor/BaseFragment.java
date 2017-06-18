@@ -33,7 +33,7 @@ public class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView...");
-		//View v = inflater.inflate(R.layout.messages_layout, container, false);
+        //View v = inflater.inflate(R.layout.messages_layout, container, false);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
