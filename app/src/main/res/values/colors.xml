@@ -8,4 +8,6 @@
     <color name="colorPanelBottom">#101010</color>
     <color name="colorTabSelect">#303030</color>
     <color name="colorTabNormal">#353535</color>
+    <color name="colorYellow">#ff4c16</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>
