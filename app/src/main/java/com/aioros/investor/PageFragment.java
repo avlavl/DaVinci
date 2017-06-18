@@ -31,8 +31,8 @@ public class PageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment, container, false);
-        Button button = (Button) view.findViewById(R.id.button);
-        TextView textView = (TextView) view.findViewById(R.id.textView);
+        Button button = (Button) view.findViewById(R.id.button_pager_chance);
+        TextView textView = (TextView) view.findViewById(R.id.textview_pager_chance);
         button.setText("Fragment #" + mPage);
         textView.setText("股票名称：" + mName);
         return view;

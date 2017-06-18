@@ -7,11 +7,11 @@
         android:text="Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button" />
+        android:id="@+id/button_pager_chance" />
 
     <TextView
         android:text="Test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView" />
+        android:id="@+id/textview_pager_chance" />
 </LinearLayout>

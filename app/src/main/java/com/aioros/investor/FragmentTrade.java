@@ -46,7 +46,7 @@ public class FragmentTrade extends BaseFragment {
                         for (int i = 0; i < tabLayout.getTabCount(); i++) {
                             TabLayout.Tab tab = tabLayout.getTabAt(i);
                             View tabView = (View) tab.getCustomView().getParent();
-                            TextView tv = (TextView) tabView.findViewById(R.id.textView_tabs);
+                            TextView tv = (TextView) tabView.findViewById(R.id.textview_tabs);
                             if (pos == i) {
                                 tv.setTextColor(Color.RED);
                                 tab.select();

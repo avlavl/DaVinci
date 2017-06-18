@@ -5,24 +5,24 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_pager_chance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Button" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textview_pager_chance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Test" />
 
     <EditText
+        android:id="@+id/edittext_pager_chance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
-        android:id="@+id/editText"
-        android:hint="This is just for test!" />
+        android:hint="This is just for test!"
+        android:inputType="textPersonName"
+        android:text="Name" />
 
 </LinearLayout>

@@ -42,7 +42,7 @@ public class InvestPagerAdapter extends FragmentPagerAdapter {
 
     public View getTabView(int position) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_tabs, null);
-        TextView textView = (TextView) view.findViewById(R.id.textView_tabs);
+        TextView textView = (TextView) view.findViewById(R.id.textview_tabs);
         textView.setText(tabTitles[position]);
         return view;
     }
