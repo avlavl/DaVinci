@@ -18,7 +18,7 @@
             app:tabBackground="@drawable/tablayout_background"
             app:tabIndicatorColor="@android:color/holo_red_light"
             app:tabIndicatorHeight="2dp"
-            app:tabMode="scrollable"
+            app:tabMode="fixed"
             app:tabSelectedTextColor="@android:color/holo_red_light"
             app:tabTextAppearance="@style/TabLayoutTextStyle"
             app:tabTextColor="@android:color/white" />

@@ -20,10 +20,10 @@ public class AdapterListViewStock extends BaseAdapter {
     private List<StockBean> mStockBeanList = null;
 
 
-    public AdapterListViewStock(Context context, List<StockBean> msgBeanList) {
+    public AdapterListViewStock(Context context, List<StockBean> beanList) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
-        mStockBeanList = msgBeanList;
+        mStockBeanList = beanList;
     }
 
     @Override

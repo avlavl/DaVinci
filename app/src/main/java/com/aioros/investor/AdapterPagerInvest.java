@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 /**
  * Created by aizhang on 2017/6/17.
@@ -15,12 +18,14 @@ import android.widget.TextView;
 public class AdapterPagerInvest extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private String mTabTitles[] = new String[]{"上证指数", "深证成指", "申万证券", "养老产业", "医药100"};
+    private String mTabTitles[] = new String[]{"深证成指", "申万证券", "养老产业"};
+    private List<InvestBean> mInvestBeanList = null;
 
 
-    public AdapterPagerInvest(Context context) {
+    public AdapterPagerInvest(Context context, List<InvestBean> beanList) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
+        mInvestBeanList = beanList;
     }
 
     @Override
@@ -39,10 +44,31 @@ public class AdapterPagerInvest extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         View view = mInflater.inflate(R.layout.pager_invest, null);
         Button button = (Button) view.findViewById(R.id.button_pagerinvest);
         button.setText(mTabTitles[position]);
+        TextView textViewInvestQuota = (TextView) view.findViewById(R.id.textViewInvestQuota);
+        textViewInvestQuota.setText(mInvestBeanList.get(position).getmQuota());
+        TextView textViewInvestRealPoint = (TextView) view.findViewById(R.id.textViewInvestRealPoint);
+        textViewInvestRealPoint.setText(mInvestBeanList.get(position).getmRealPoint());
+        TextView textViewInvestBasePoint = (TextView) view.findViewById(R.id.textViewInvestBasePoint);
+        textViewInvestBasePoint.setText(mInvestBeanList.get(position).getmBasePoint());
+        TextView textViewInvestProperty = (TextView) view.findViewById(R.id.textViewInvestProperty);
+        textViewInvestProperty.setText(mInvestBeanList.get(position).getmProperty());
+        TextView textViewInvestYield = (TextView) view.findViewById(R.id.textViewInvestYield);
+        textViewInvestYield.setText(mInvestBeanList.get(position).getmYield());
+        TextView textViewInvestKeyPoint = (TextView) view.findViewById(R.id.textViewInvestKeyPoint);
+        textViewInvestKeyPoint.setText(mInvestBeanList.get(position).getmKeyPoint());
+        TextView textViewInvestKeyRatio = (TextView) view.findViewById(R.id.textViewInvestKeyRatio);
+        textViewInvestKeyRatio.setText(mInvestBeanList.get(position).getmKeyRatio());
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "Hello world" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
         container.addView(view);
         return view;
     }
@@ -50,6 +76,11 @@ public class AdapterPagerInvest extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 
     public View getTabView(int position) {

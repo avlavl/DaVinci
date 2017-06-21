@@ -66,7 +66,7 @@ public class FragmentHome extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "onCreate------");
+        Log.d(TAG, "onCreate------");
         mStockBeanList.add(new StockBean("上证指数", "000001", "--", "0.00", "0.00%"));
         mStockBeanList.add(new StockBean("深证成指", "399001", "--", "0.00", "0.00%"));
         mStockBeanList.add(new StockBean("创业板指", "399006", "--", "0.00", "0.00%"));
