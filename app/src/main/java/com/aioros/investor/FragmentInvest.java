@@ -49,7 +49,7 @@ public class FragmentInvest extends BaseFragment {
         mInvestBeanList.add(new InvestBean(1000, 7.5, 20, 1.5, 30));
         mInvestBeanList.add(new InvestBean(1000, 7, 20, 1.5, 20));
         mInvestBeanList.add(new InvestBean(1400, 10, 20, 1.5, 20));
-        String storageDir = Environment.getExternalStorageDirectory().toString() + "/invester/data/";
+        String storageDir = Environment.getExternalStorageDirectory().toString() + "/investor/data/";
         importFile(storageDir + "W399707.txt");
 
         // 在主线程中声明一个消息处理对象Handler
@@ -127,7 +127,7 @@ public class FragmentInvest extends BaseFragment {
         public void run() {
             String urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=s_sz399001,s_sz399707,s_sz399812";
             HttpDownloader httpDownloader = new HttpDownloader();
-            String downloadString = httpDownloader.download(urlStr);
+            String downloadString = httpDownloader.getData(urlStr);
             if (downloadString.equals("")) {
                 Looper.prepare();
                 Toast.makeText(mMainActivity, "请检查网络连接！", Toast.LENGTH_LONG).show();
@@ -166,18 +166,13 @@ public class FragmentInvest extends BaseFragment {
             File file = new File(fileName);
             InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "gbk");
             BufferedReader br = new BufferedReader(isr);
-            String[] words = br.readLine().split("\t");
-            stockName = words[1];
-            //stockCode = words[0].replaceAll("[\\pP\\p{Punct}]", "");
-            words = br.readLine().split("\t");
-            column = words.length;
             dateList = new ArrayList<>();
             closeList = new ArrayList<>();
             String line;
             while ((line = br.readLine()) != null) {
-                words = line.split("\t");
+                String[] words = line.split(",");
                 dateList.add(words[0]);
-                closeList.add(Double.parseDouble(words[4]));
+                closeList.add(Double.parseDouble(words[2]));
             }
             rows = dateList.size();
             br.close();

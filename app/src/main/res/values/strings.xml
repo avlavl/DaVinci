@@ -4,6 +4,6 @@
     <string name="app_name">投资人</string>
     <string name="action_settings">设置</string>
     <string name="hello_world">Hello world!</string>
-    <string name="app_dir">Invester</string>
+    <string name="app_dir">investor</string>
 
 </resources>

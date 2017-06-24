@@ -1,10 +1,14 @@
 package com.aioros.investor;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -164,8 +168,14 @@ public class FragmentHome extends BaseFragment {
         Log.d(TAG, "onDetach------");
     }
 
-    /**
-     * 内部WorkerThread类：NetworkThread
+    /*
+     * 新浪实时数据接口：
+     * http://hq.sinajs.cn/list=sh600000,sh600004
+     * http://hq.sinajs.cn/list=s_sz399001
+     * 腾讯实时数据接口：
+     * http://qt.gtimg.cn/r=0.8409869808238q=s_sz000559,s_sz000913,s_sh600048
+     * 网易实时数据接口：
+     * http://api.money.126.net/data/feed/1002151,0600036,money.api?callback=_ntes_quote_callback13451765
      */
     class NetworkThread extends Thread {
         @Override
@@ -173,7 +183,7 @@ public class FragmentHome extends BaseFragment {
             String urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=" +
                     "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000847,s_sz399812,s_sh000978,s_sz399707,s_sz399967,s_sh000827";
             HttpDownloader httpDownloader = new HttpDownloader();
-            String downloadString = httpDownloader.download(urlStr);
+            String downloadString = httpDownloader.getData(urlStr);
             if (downloadString.equals("")) {
                 Looper.prepare();
                 Toast.makeText(mMainActivity, "请检查网络连接！", Toast.LENGTH_LONG).show();
@@ -196,9 +206,10 @@ public class FragmentHome extends BaseFragment {
 
     /*
     * 网易历史数据接口：
-    * http://quotes.money.163.com/service/chddata.html?code=0000001&start=20161219&end=20170531&fields=TCLOSE;CHG;PCHG
+    * http://quotes.money.163.com/service/chddata.html?code=0000001&start=20170519&end=20170631&fields=TCLOSE;CHG;PCHG
     * 新浪历史数据接口：
     * http://biz.finance.sina.com.cn/stock/flash_hq/kline_data.php?&symbol=sz002241&end_date=20130806&begin_date=20130101
+    * http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?symbol=sz399707&scale=1200&ma=no&datalen=50
     * 搜狐历史数据接口：
     * http://q.stock.sohu.com/hisHq?code=cn_300228&start=20160930&end=20161231&stat=1&order=A&period=w
     */
@@ -215,7 +226,7 @@ public class FragmentHome extends BaseFragment {
                     + ((stockCode.substring(0, 1).equals("0")) ? "0" : "1") + stockCode
                     + "&fields=TCLOSE;CHG;PCHG";
             HttpDownloader httpDownloader = new HttpDownloader();
-            int ret = httpDownloader.download(urlStr, getResources().getString(R.string.app_dir) + "/data", stockCode + ".txt");
+            int ret = httpDownloader.getFile(urlStr, getResources().getString(R.string.app_dir) + "/data", stockCode + ".txt");
             Looper.prepare();
             Toast.makeText(mMainActivity, (ret == 0) ? "下载成功" : "下载失败", Toast.LENGTH_LONG).show();
             Looper.loop();

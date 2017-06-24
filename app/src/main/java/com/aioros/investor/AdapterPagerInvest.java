@@ -1,6 +1,8 @@
 package com.aioros.investor;
 
 import android.content.Context;
+import android.os.Environment;
+import android.os.Looper;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -19,6 +25,7 @@ public class AdapterPagerInvest extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private String mTabTitles[] = new String[]{"深证成指", "申万证券", "养老产业"};
+    private String mTabCodes[] = new String[]{"399001", "399707", "399812"};
     private List<InvestBean> mInvestBeanList = null;
 
 
@@ -66,7 +73,7 @@ public class AdapterPagerInvest extends PagerAdapter {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Hello world" + position, Toast.LENGTH_SHORT).show();
+                buttonOnClick(v, position);
             }
         });
         container.addView(view);
@@ -88,5 +95,56 @@ public class AdapterPagerInvest extends PagerAdapter {
         TextView textView = (TextView) view.findViewById(R.id.textview_tabs);
         textView.setText(mTabTitles[position]);
         return view;
+    }
+
+    private void buttonOnClick(View v, int position) {
+        Thread dft = new UpdateDataThread(mTabCodes[position]);
+        dft.start();
+    }
+
+    class UpdateDataThread extends Thread {
+        private String stockCode;
+
+        public UpdateDataThread(String code) {
+            stockCode = code;
+        }
+
+        @Override
+        public void run() {
+            String storageDir = Environment.getExternalStorageDirectory().toString();
+            String filePath = storageDir + "/investor/data/W" + stockCode + ".txt";
+            File file = new File(filePath);
+            if (file.exists()) {
+                try {
+                    String urlStr = "http://hq.sinajs.cn/list=sz" + stockCode;
+                    HttpDownloader httpDownloader = new HttpDownloader();
+                    String httpStr = httpDownloader.getData(urlStr);
+                    if (httpStr.equals("")) {
+                        Looper.prepare();
+                        Toast.makeText(mContext, "网络无连接！", Toast.LENGTH_LONG).show();
+                        Looper.loop();
+                    } else if (httpStr.contains("pv_none_match")) {
+                        Looper.prepare();
+                        Toast.makeText(mContext, "找不到对应的股票！", Toast.LENGTH_LONG).show();
+                        Looper.loop();
+                    } else {
+                        String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
+                        String dataStr = strs[30] + "," + strs[0] + "," + strs[3];
+                        PrintWriter pw = new PrintWriter(new FileWriter(file, true));
+                        pw.println(dataStr);
+                        pw.close();
+                        Looper.prepare();
+                        Toast.makeText(mContext, "更新成功！", Toast.LENGTH_LONG).show();
+                        Looper.loop();
+                    }
+                } catch (IOException | NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Looper.prepare();
+                Toast.makeText(mContext, "请先建立基础文件", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+        }
     }
 }

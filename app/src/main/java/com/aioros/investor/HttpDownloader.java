@@ -21,7 +21,26 @@ import java.util.ArrayList;
 public class HttpDownloader {
     private URL mUrl = null;
 
-    public String download(String urlStr) {
+    public String getData(String urlStr) {
+        StringBuffer sb = new StringBuffer();
+        BufferedReader br = null;
+        String line = null;
+
+        try {
+            mUrl = new URL(urlStr);
+            HttpURLConnection urlConnection = (HttpURLConnection) mUrl.openConnection();
+            br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
+    public int updateData(String urlStr, String path, String name) {
         StringBuffer sb = new StringBuffer();
         BufferedReader br = null;
         String line = null;
@@ -34,13 +53,21 @@ public class HttpDownloader {
                 sb.append(line);
             }
             br.close();
+
+            String storageDir = Environment.getExternalStorageDirectory().toString();
+            String filePath = storageDir + "/" + path + "/" + name;
+            File file = new File(filePath);
+            PrintWriter pw = new PrintWriter(new FileWriter(file));
+            pw.println(sb.toString());
+            pw.close();
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        return sb.toString();
+        return 0;
     }
 
-    public int download(String urlStr, String path, String name) {
+    public int getFile(String urlStr, String path, String name) {
         ArrayList<String> stringList = new ArrayList<>();
         BufferedReader br = null;
         String line = null;
