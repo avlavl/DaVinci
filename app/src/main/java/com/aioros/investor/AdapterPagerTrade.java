@@ -5,8 +5,14 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by aizhang on 2017/6/17.
@@ -16,11 +22,20 @@ public class AdapterPagerTrade extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private String mTabTitles[] = new String[]{"沪深300", "淘金100", "腾讯济安", "养老产业", "医药100", "中证500", "创业板指"};
+    private ListView mListView;
+    private AdapterListViewTradeMode mAdapterListView;
+    private List<BeanTradeMode> mBeanTradeModeList = new ArrayList<BeanTradeMode>();
 
 
     public AdapterPagerTrade(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
+        mBeanTradeModeList.add(new BeanTradeMode("BARLML", "-3,17,6", true, "3502.57", "-3.32%", "7000元", "38天"));
+        mBeanTradeModeList.add(new BeanTradeMode("BARDIF", "-3,-43", true, "3502.57", "-3.32%", "7000元", "38天"));
+        mBeanTradeModeList.add(new BeanTradeMode("DIFMA", "91,1,30", false, "4265.18", "17.73%", "*1000元", "584天"));
+        mBeanTradeModeList.add(new BeanTradeMode("BARLML", "-3,17,6", true, "3502.57", "-3.32%", "7000元", "38天"));
+        mBeanTradeModeList.add(new BeanTradeMode("BARDIF", "-3,-43", true, "3502.57", "-3.32%", "7000元", "38天"));
+        mBeanTradeModeList.add(new BeanTradeMode("DIFMA", "91,1,30", false, "4265.18", "17.73%", "*1000元", "584天"));
     }
 
     @Override
@@ -55,9 +70,21 @@ public class AdapterPagerTrade extends PagerAdapter {
 //            container.addView(imageView);
 //            return imageView;
 
+
         View view = mInflater.inflate(R.layout.pager_trade, null);
-        EditText editText = (EditText) view.findViewById(R.id.edittext_pagertrade);
-        editText.setText(mTabTitles[position]);
+        Button button = (Button) view.findViewById(R.id.buttonPagerTrade);
+        button.setText(mTabTitles[position]);
+        mListView = (ListView) view.findViewById(R.id.listViewPagerTrade);
+        mAdapterListView = new AdapterListViewTradeMode(mContext, mBeanTradeModeList);
+        mListView.setAdapter(mAdapterListView);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(mContext, "点击" + mBeanTradeModeList.get(position).mAmount, Toast.LENGTH_SHORT).show();
+                //mListViewOnItemClick(parent, view, position, id);
+            }
+
+        });
         container.addView(view);
         return view;
     }

@@ -10,4 +10,7 @@
     <color name="colorTabNormal">#353535</color>
     <color name="colorYellow">#ff4c16</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorItemDivider">#EEEEEE</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorBlue">#008000</color>
 </resources>

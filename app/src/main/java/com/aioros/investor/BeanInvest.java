@@ -4,7 +4,7 @@ package com.aioros.investor;
  * Created by aizhang on 2017/6/19.
  */
 
-public class InvestBean {
+public class BeanInvest {
     private int mStartPoint;
     private double mSlope;
     private int mWinLevel;
@@ -19,7 +19,7 @@ public class InvestBean {
     private String mKeyPoint = "--";
     private String mKeyRatio = "--";
 
-    public InvestBean(int startPoint, double slope, int winLevel, double diffCoef, int divisor) {
+    public BeanInvest(int startPoint, double slope, int winLevel, double diffCoef, int divisor) {
         super();
         mStartPoint = startPoint;
         mSlope = slope;
@@ -127,7 +127,7 @@ public class InvestBean {
 
     @Override
     public String toString() {
-        return "StockBean [mQuota=" + mQuota + ", mRealPoint=" + mRealPoint
+        return "BeanStock [mQuota=" + mQuota + ", mRealPoint=" + mRealPoint
                 + ", mBasePoint=" + mBasePoint + ", mYield=" + mYield
                 + ", mProperty=" + mProperty + "]";
     }

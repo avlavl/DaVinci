@@ -4,25 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/textViewPagerTrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="今日涨幅" />
+
+    <ListView
+        android:id="@+id/listViewPagerTrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/colorItemDivider"
+        android:dividerHeight="8dp" />
+
     <Button
-        android:id="@+id/button_pagertrade"
+        android:id="@+id/buttonPagerTrade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Button" />
-
-    <TextView
-        android:id="@+id/textview_pagertrade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Test" />
-
-    <EditText
-        android:id="@+id/edittext_pagertrade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="This is just for test!"
-        android:inputType="textPersonName"
-        android:text="Name" />
 
 </LinearLayout>

@@ -17,10 +17,10 @@ import java.util.List;
 public class AdapterListViewStock extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<StockBean> mStockBeanList = null;
+    private List<BeanStock> mStockBeanList = null;
 
 
-    public AdapterListViewStock(Context context, List<StockBean> beanList) {
+    public AdapterListViewStock(Context context, List<BeanStock> beanList) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mStockBeanList = beanList;

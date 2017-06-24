@@ -30,7 +30,7 @@ public class FragmentInvest extends BaseFragment {
     private static final String TAG = "FragmentInvest";
     private MainActivity mMainActivity;
     private AdapterPagerInvest mAdapterPager;
-    private List<InvestBean> mInvestBeanList = new ArrayList<InvestBean>();
+    private List<BeanInvest> mBeanInvestList = new ArrayList<BeanInvest>();
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private Handler mHandler;
@@ -46,9 +46,9 @@ public class FragmentInvest extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate------");
-        mInvestBeanList.add(new InvestBean(1000, 7.5, 20, 1.5, 30));
-        mInvestBeanList.add(new InvestBean(1000, 7, 20, 1.5, 20));
-        mInvestBeanList.add(new InvestBean(1400, 10, 20, 1.5, 20));
+        mBeanInvestList.add(new BeanInvest(1000, 7.5, 20, 1.5, 30));
+        mBeanInvestList.add(new BeanInvest(1000, 7, 20, 1.5, 20));
+        mBeanInvestList.add(new BeanInvest(1400, 10, 20, 1.5, 20));
         String storageDir = Environment.getExternalStorageDirectory().toString() + "/investor/data/";
         importFile(storageDir + "W399707.txt");
 
@@ -61,18 +61,18 @@ public class FragmentInvest extends BaseFragment {
                 String[] strs;
                 for (int i = 0; i < message.length; i++) {
                     strs = message[i].substring(message[i].indexOf("\"") + 1, message[i].lastIndexOf("\"")).split("~");
-                    mInvestBeanList.get(i).setmRealPoint(strs[3]);
+                    mBeanInvestList.get(i).setmRealPoint(strs[3]);
                 }
-                double basePoint = mInvestBeanList.get(1).getmStartPoint() + rows * mInvestBeanList.get(1).getmSlope();
-                mInvestBeanList.get(1).setmBasePoint(Double.toString(basePoint));
+                double basePoint = mBeanInvestList.get(1).getmStartPoint() + rows * mBeanInvestList.get(1).getmSlope();
+                mBeanInvestList.get(1).setmBasePoint(Double.toString(basePoint));
 
-                double diffRate = Double.parseDouble(mInvestBeanList.get(1).getmRealPoint()) / basePoint;
-                double divisor = mInvestBeanList.get(1).getmDivisor();
-                double input = (basePoint / divisor) / Math.pow(diffRate, mInvestBeanList.get(1).getmDiffCoef());
+                double diffRate = Double.parseDouble(mBeanInvestList.get(1).getmRealPoint()) / basePoint;
+                double divisor = mBeanInvestList.get(1).getmDivisor();
+                double input = (basePoint / divisor) / Math.pow(diffRate, mBeanInvestList.get(1).getmDiffCoef());
                 if (diffRate <= 1) {
-                    mInvestBeanList.get(1).setmQuota(String.format("%.2f", input));
+                    mBeanInvestList.get(1).setmQuota(String.format("%.2f", input));
                 } else {
-                    mInvestBeanList.get(1).setmQuota("无需投资");
+                    mBeanInvestList.get(1).setmQuota("无需投资");
                 }
 
                 mAdapterPager.notifyDataSetChanged();
@@ -104,7 +104,7 @@ public class FragmentInvest extends BaseFragment {
         Log.d(TAG, "onCreateView---->");
         mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();
-        mAdapterPager = new AdapterPagerInvest(mMainActivity, mInvestBeanList);
+        mAdapterPager = new AdapterPagerInvest(mMainActivity, mBeanInvestList);
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager_invest);
         mViewPager.setAdapter(mAdapterPager);
         mTabLayout = (TabLayout) view.findViewById(R.id.tablayout_invest);

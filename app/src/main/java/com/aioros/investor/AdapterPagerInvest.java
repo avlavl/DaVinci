@@ -26,10 +26,10 @@ public class AdapterPagerInvest extends PagerAdapter {
     private LayoutInflater mInflater;
     private String mTabTitles[] = new String[]{"深证成指", "申万证券", "养老产业"};
     private String mTabCodes[] = new String[]{"399001", "399707", "399812"};
-    private List<InvestBean> mInvestBeanList = null;
+    private List<BeanInvest> mInvestBeanList = null;
 
 
-    public AdapterPagerInvest(Context context, List<InvestBean> beanList) {
+    public AdapterPagerInvest(Context context, List<BeanInvest> beanList) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mInvestBeanList = beanList;

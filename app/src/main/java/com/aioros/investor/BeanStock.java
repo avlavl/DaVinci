@@ -1,13 +1,13 @@
 package com.aioros.investor;
 
-public class StockBean {
+public class BeanStock {
     private String mStockName;
     private String mStockCode;
     private String mStockValue;
     private String mStockRatio;
     private String mStockScope;
 
-    public StockBean(String name, String code, String value, String scope, String ratio) {
+    public BeanStock(String name, String code, String value, String scope, String ratio) {
         super();
         mStockName = name;
         mStockCode = code;
@@ -59,7 +59,7 @@ public class StockBean {
 
     @Override
     public String toString() {
-        return "StockBean [mStockName=" + mStockName + ", mStockCode=" + mStockCode
+        return "BeanStock [mStockName=" + mStockName + ", mStockCode=" + mStockCode
                 + ", mStockValue=" + mStockValue + ", mStockScope=" + mStockScope
                 + ", mStockRatio=" + mStockRatio + "]";
     }
