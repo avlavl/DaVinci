@@ -117,8 +117,8 @@ public class AdapterPagerInvest extends PagerAdapter {
             if (file.exists()) {
                 try {
                     String urlStr = "http://hq.sinajs.cn/list=sz" + stockCode;
-                    HttpDownloader httpDownloader = new HttpDownloader();
-                    String httpStr = httpDownloader.getData(urlStr);
+                    HttpUtility httpUtility = new HttpUtility();
+                    String httpStr = httpUtility.getData(urlStr);
                     if (httpStr.equals("")) {
                         Looper.prepare();
                         Toast.makeText(mContext, "网络无连接！", Toast.LENGTH_LONG).show();

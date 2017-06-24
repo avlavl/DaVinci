@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by aizhang on 2017/6/8.
  */
 
-public class HttpDownloader {
+public class HttpUtility {
     private URL mUrl = null;
 
     public String getData(String urlStr) {
@@ -40,7 +40,7 @@ public class HttpDownloader {
         return sb.toString();
     }
 
-    public int updateData(String urlStr, String path, String name) {
+    public int updateFile(String urlStr, String path, String name) {
         StringBuffer sb = new StringBuffer();
         BufferedReader br = null;
         String line = null;

@@ -126,21 +126,21 @@ public class FragmentInvest extends BaseFragment {
         @Override
         public void run() {
             String urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=s_sz399001,s_sz399707,s_sz399812";
-            HttpDownloader httpDownloader = new HttpDownloader();
-            String downloadString = httpDownloader.getData(urlStr);
-            if (downloadString.equals("")) {
+            HttpUtility httpUtility = new HttpUtility();
+            String httpStr = httpUtility.getData(urlStr);
+            if (httpStr.equals("")) {
                 Looper.prepare();
                 Toast.makeText(mMainActivity, "请检查网络连接！", Toast.LENGTH_LONG).show();
                 Looper.loop();
-            } else if (downloadString.contains("pv_none_match")) {
+            } else if (httpStr.contains("pv_none_match")) {
                 Looper.prepare();
                 Toast.makeText(mMainActivity, "找不到对应的股票！", Toast.LENGTH_LONG).show();
                 Looper.loop();
             } else {
-                String[] strArray = downloadString.split(";");
+                String[] strings = httpStr.split(";");
                 // 使用主线程Handler对象创建一个消息体
                 Message msgRx = mHandler.obtainMessage();
-                msgRx.obj = strArray;
+                msgRx.obj = strings;
 
                 // 发送消息，WorkerThread 向 MainThread 发送消息
                 mHandler.sendMessage(msgRx);

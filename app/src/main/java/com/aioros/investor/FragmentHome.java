@@ -1,14 +1,10 @@
 package com.aioros.investor;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -182,21 +178,21 @@ public class FragmentHome extends BaseFragment {
         public void run() {
             String urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=" +
                     "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000847,s_sz399812,s_sh000978,s_sz399707,s_sz399967,s_sh000827";
-            HttpDownloader httpDownloader = new HttpDownloader();
-            String downloadString = httpDownloader.getData(urlStr);
-            if (downloadString.equals("")) {
+            HttpUtility httpUtility = new HttpUtility();
+            String httpStr = httpUtility.getData(urlStr);
+            if (httpStr.equals("")) {
                 Looper.prepare();
                 Toast.makeText(mMainActivity, "请检查网络连接！", Toast.LENGTH_LONG).show();
                 Looper.loop();
-            } else if (downloadString.contains("pv_none_match")) {
+            } else if (httpStr.contains("pv_none_match")) {
                 Looper.prepare();
                 Toast.makeText(mMainActivity, "找不到对应的股票！", Toast.LENGTH_LONG).show();
                 Looper.loop();
             } else {
-                String[] strArray = downloadString.split(";");
+                String[] strings = httpStr.split(";");
                 // 使用主线程Handler对象创建一个消息体
                 Message msgRx = mHandler.obtainMessage();
-                msgRx.obj = strArray;
+                msgRx.obj = strings;
 
                 // 发送消息，WorkerThread 向 MainThread 发送消息
                 mHandler.sendMessage(msgRx);
@@ -225,8 +221,8 @@ public class FragmentHome extends BaseFragment {
             String urlStr = "http://quotes.money.163.com/service/chddata.html?code="
                     + ((stockCode.substring(0, 1).equals("0")) ? "0" : "1") + stockCode
                     + "&fields=TCLOSE;CHG;PCHG";
-            HttpDownloader httpDownloader = new HttpDownloader();
-            int ret = httpDownloader.getFile(urlStr, getResources().getString(R.string.app_dir) + "/data", stockCode + ".txt");
+            HttpUtility httpUtility = new HttpUtility();
+            int ret = httpUtility.getFile(urlStr, getResources().getString(R.string.app_dir) + "/data", stockCode + ".txt");
             Looper.prepare();
             Toast.makeText(mMainActivity, (ret == 0) ? "下载成功" : "下载失败", Toast.LENGTH_LONG).show();
             Looper.loop();
