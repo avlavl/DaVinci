@@ -1,9 +1,13 @@
 package com.aioros.investor;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +31,12 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
 
     public static String currFragTag = "";
 
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +44,8 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         initUI();
         mFragmentManager = getFragmentManager();
         setDefaultFirstFragment(Constant.FRAGMENT_FLAG_HOME);
+
+        verifyStoragePermissions(this);
     }
 
     @Override
@@ -52,6 +64,20 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         mHeadPanel = (HeadControlPanel) findViewById(R.id.layout_headpanel);
         if (mHeadPanel != null) {
             mHeadPanel.initHeadPanel();
+        }
+    }
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
         }
     }
 
