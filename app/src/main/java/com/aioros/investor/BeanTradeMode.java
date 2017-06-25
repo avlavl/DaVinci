@@ -7,10 +7,10 @@ package com.aioros.investor;
 public class BeanTradeMode {
     public String mModeName;
     public String mModePara;
-    public String mKeyRatio = "--";
-    public String mKeyPoint = "--";
+    public double mKeyRatio = 0;
+    public double mKeyPoint = 0;
     public boolean mStatus = true;
-    public String mDuration = "--";
+    public int mDuration = 0;
     public String mAmount;
 
     public BeanTradeMode(String name, String para, String amount) {

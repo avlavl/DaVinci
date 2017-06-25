@@ -22,6 +22,7 @@ public class AdapterPagerTrade extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private String mTabTitles[] = new String[]{"沪深300", "淘金100", "腾讯济安", "养老产业", "医药100", "中证500", "创业板指"};
+    private String mImportName[] = new String[]{"沪深300", "沪深300", "腾讯济安", "沪深300", "沪深300", "中证500", "创业板指"};
     private ListView mListView;
     private AdapterListViewTradeMode mAdapterListView;
     private List<BeanTradeMode> mBeanTradeModeList = new ArrayList<BeanTradeMode>();
@@ -70,6 +71,70 @@ public class AdapterPagerTrade extends PagerAdapter {
                 String[] paras = mode.split(" ");
                 mBeanTradeModeList.add(new BeanTradeMode(paras[0], paras[1], paras[2]));
             }
+        }
+
+        if (fileUtility.importDataFile("investor/data/" + mImportName[position] + ".txt") == 0) {
+            TradeCheck tradeCheck = new TradeCheck(fileUtility);
+            for (int i = 0; i < mBeanTradeModeList.size(); i++) {
+                switch (mBeanTradeModeList.get(i).mModeName) {
+                    case "MA":
+                        tradeCheck.sysMAChk(mBeanTradeModeList.get(i));
+                        break;
+                    case "LML":
+                    case "LMS":
+                        tradeCheck.sysLMChk(mBeanTradeModeList.get(i));
+                        break;
+                    case "BAR":
+                    case "DIF":
+                        tradeCheck.sysMACDChk(mBeanTradeModeList.get(i));
+                        break;
+                    case "BARDIF":
+                        tradeCheck.sysMACD2Chk(mBeanTradeModeList.get(i));
+                        break;
+                    case "BARMA":
+                    case "DIFMA":
+                        tradeCheck.sysMACDMAChk(mBeanTradeModeList.get(i));
+                        break;
+                    case "BARLML":
+                    case "BARLMS":
+                    case "DIFLML":
+                    case "DIFLMS":
+                        tradeCheck.sysMACDLMChk(mBeanTradeModeList.get(i));
+                        break;
+                    default:
+                        break;
+                }
+            }
+//            for (BeanTradeMode tradeMode : mBeanTradeModeList) {
+//                switch (tradeMode.mModeName) {
+//                    case "MA":
+//                        tradeCheck.sysMAChk(tradeMode);
+//                        break;
+//                    case "LML":
+//                    case "LMS":
+//                        tradeCheck.sysLMChk(tradeMode);
+//                        break;
+//                    case "BAR":
+//                    case "DIF":
+//                        tradeCheck.sysMACDChk(tradeMode);
+//                        break;
+//                    case "BARDIF":
+//                        tradeCheck.sysMACD2Chk(tradeMode);
+//                        break;
+//                    case "BARMA":
+//                    case "DIFMA":
+//                        tradeCheck.sysMACDMAChk(tradeMode);
+//                        break;
+//                    case "BARLML":
+//                    case "BARLMS":
+//                    case "DIFLML":
+//                    case "DIFLMS":
+//                        tradeCheck.sysMACDLMChk(tradeMode);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
         }
 
         View view = mInflater.inflate(R.layout.pager_trade, null);

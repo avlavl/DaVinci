@@ -62,15 +62,15 @@ public class AdapterListViewTradeMode extends BaseAdapter {
         para.setTextColor(color);
 
         TextView ratio = (TextView) view.findViewById(R.id.textViewItemTradeKeyRatio);
-        ratio.setText(mBeanTradeModeList.get(position).mKeyRatio);
+        ratio.setText(String.format("%.2f%%", mBeanTradeModeList.get(position).mKeyRatio));
         ratio.setTextColor(color);
 
         TextView point = (TextView) view.findViewById(R.id.textViewItemTradeKeyPoint);
-        point.setText(mBeanTradeModeList.get(position).mKeyPoint);
+        point.setText(String.format("%.3f",mBeanTradeModeList.get(position).mKeyPoint));
         point.setTextColor(color);
 
         TextView duration = (TextView) view.findViewById(R.id.textViewItemTradeDuration);
-        duration.setText(mBeanTradeModeList.get(position).mDuration);
+        duration.setText(mBeanTradeModeList.get(position).mDuration + "天");
         duration.setTextColor(color);
 
         TextView amount = (TextView) view.findViewById(R.id.textViewItemTradeAmount);

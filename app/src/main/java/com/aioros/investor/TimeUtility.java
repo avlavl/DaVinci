@@ -1,5 +1,8 @@
 package com.aioros.investor;
 
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -19,5 +22,23 @@ public class TimeUtility {
         if ((cal.get(Calendar.HOUR_OF_DAY) >= 11) && (cal.get(Calendar.MINUTE) > 30) && (cal.get(Calendar.HOUR_OF_DAY) < 13))
             return false;
         return true;
+    }
+
+    public static int daysBetween(ArrayList<String> dates, int idxs, int idxe) {
+        String sdate = dates.get(idxs);
+        String edate = dates.get(idxe);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar cal = Calendar.getInstance();
+        long between_days = 0;
+        try {
+            cal.setTime(dateFormat.parse(sdate));
+            long time1 = cal.getTimeInMillis();
+            cal.setTime(dateFormat.parse(edate));
+            long time2 = cal.getTimeInMillis();
+            between_days = (time2 - time1) / (1000 * 3600 * 24);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return (int) between_days;
     }
 }

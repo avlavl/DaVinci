@@ -42,13 +42,15 @@ public class FileUtility {
             }
             InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "gbk");
             BufferedReader br = new BufferedReader(isr);
+            br.readLine();
+            br.readLine();
             dateList = new ArrayList<>();
             closeList = new ArrayList<>();
             String line;
             while ((line = br.readLine()) != null) {
-                String[] words = line.split(",");
+                String[] words = line.split("\t");
                 dateList.add(words[0]);
-                closeList.add(Double.parseDouble(words[2]));
+                closeList.add(Double.parseDouble(words[4]));
             }
             rows = dateList.size();
             br.close();
