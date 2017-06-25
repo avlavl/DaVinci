@@ -15,8 +15,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+
+import static com.aioros.investor.TimeUtility.isTradeTime;
 
 /**
  * Created by aizhang on 2017/6/7.
@@ -227,19 +228,6 @@ public class FragmentHome extends BaseFragment {
             Toast.makeText(mMainActivity, (ret == 0) ? "下载成功" : "下载失败", Toast.LENGTH_LONG).show();
             Looper.loop();
         }
-    }
-
-    private boolean isTradeTime() {
-        Calendar cal = Calendar.getInstance();
-        if ((cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) || (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY))
-            return false;
-        if ((cal.get(Calendar.HOUR_OF_DAY) < 9) || (cal.get(Calendar.HOUR_OF_DAY) >= 15))
-            return false;
-        if ((cal.get(Calendar.HOUR_OF_DAY) < 10) && (cal.get(Calendar.MINUTE) < 30))
-            return false;
-        if ((cal.get(Calendar.HOUR_OF_DAY) >= 11) && (cal.get(Calendar.MINUTE) > 30) && (cal.get(Calendar.HOUR_OF_DAY) < 13))
-            return false;
-        return true;
     }
 
     private void mListViewOnItemClick(AdapterView<?> parent, View view, int position, long id) {

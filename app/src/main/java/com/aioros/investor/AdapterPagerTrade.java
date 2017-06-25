@@ -25,17 +25,12 @@ public class AdapterPagerTrade extends PagerAdapter {
     private ListView mListView;
     private AdapterListViewTradeMode mAdapterListView;
     private List<BeanTradeMode> mBeanTradeModeList = new ArrayList<BeanTradeMode>();
+    private FileUtility fileUtility = new FileUtility();
 
 
     public AdapterPagerTrade(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
-        mBeanTradeModeList.add(new BeanTradeMode("BARLML", "-3,17,6", true, "3502.57", "-3.32%", "7000元", "38天"));
-        mBeanTradeModeList.add(new BeanTradeMode("BARDIF", "-3,-43", true, "3502.57", "-3.32%", "7000元", "38天"));
-        mBeanTradeModeList.add(new BeanTradeMode("DIFMA", "91,1,30", false, "4265.18", "17.73%", "*1000元", "584天"));
-        mBeanTradeModeList.add(new BeanTradeMode("BARLML", "-3,17,6", true, "3502.57", "-3.32%", "7000元", "38天"));
-        mBeanTradeModeList.add(new BeanTradeMode("BARDIF", "-3,-43", true, "3502.57", "-3.32%", "7000元", "38天"));
-        mBeanTradeModeList.add(new BeanTradeMode("DIFMA", "91,1,30", false, "4265.18", "17.73%", "*1000元", "584天"));
     }
 
     @Override
@@ -69,7 +64,13 @@ public class AdapterPagerTrade extends PagerAdapter {
 //            imageView.setBackgroundResource(R.drawable.fund_select);
 //            container.addView(imageView);
 //            return imageView;
-
+        if (fileUtility.importIniFile("investor/ini/" + mTabTitles[position] + ".txt") == 0) {
+            mBeanTradeModeList = new ArrayList<>();
+            for (String mode : fileUtility.modeList) {
+                String[] paras = mode.split(" ");
+                mBeanTradeModeList.add(new BeanTradeMode(paras[0], paras[1], paras[2]));
+            }
+        }
 
         View view = mInflater.inflate(R.layout.pager_trade, null);
         Button button = (Button) view.findViewById(R.id.buttonPagerTrade);

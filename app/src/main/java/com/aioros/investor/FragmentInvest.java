@@ -1,7 +1,6 @@
 package com.aioros.investor;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -13,14 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+
+import static com.aioros.investor.TimeUtility.isTradeTime;
 
 /**
  * Created by aizhang on 2017/6/7.
@@ -34,13 +29,10 @@ public class FragmentInvest extends BaseFragment {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private Handler mHandler;
+    private FileUtility fileUtility = new FileUtility();
 
     public String stockName = "W399707";
     public String stockCode = "000001";
-    public int column = 0;
-    public int rows = 0;
-    public ArrayList<String> dateList;
-    public ArrayList<Double> closeList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +41,7 @@ public class FragmentInvest extends BaseFragment {
         mBeanInvestList.add(new BeanInvest(1000, 7.5, 20, 1.5, 30));
         mBeanInvestList.add(new BeanInvest(1000, 7, 20, 1.5, 20));
         mBeanInvestList.add(new BeanInvest(1400, 10, 20, 1.5, 20));
-        String storageDir = Environment.getExternalStorageDirectory().toString() + "/investor/data/";
-        importFile(storageDir + "W399707.txt");
+        fileUtility.importDataFile("investor/data/W399707.txt");
 
         // 在主线程中声明一个消息处理对象Handler
         mHandler = new Handler() {
@@ -63,7 +54,7 @@ public class FragmentInvest extends BaseFragment {
                     strs = message[i].substring(message[i].indexOf("\"") + 1, message[i].lastIndexOf("\"")).split("~");
                     mBeanInvestList.get(i).setmRealPoint(strs[3]);
                 }
-                double basePoint = mBeanInvestList.get(1).getmStartPoint() + rows * mBeanInvestList.get(1).getmSlope();
+                double basePoint = mBeanInvestList.get(1).getmStartPoint() + fileUtility.rows * mBeanInvestList.get(1).getmSlope();
                 mBeanInvestList.get(1).setmBasePoint(Double.toString(basePoint));
 
                 double diffRate = Double.parseDouble(mBeanInvestList.get(1).getmRealPoint()) / basePoint;
@@ -146,41 +137,5 @@ public class FragmentInvest extends BaseFragment {
                 mHandler.sendMessage(msgRx);
             }
         }
-    }
-
-    private boolean isTradeTime() {
-        Calendar cal = Calendar.getInstance();
-        if ((cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) || (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY))
-            return false;
-        if ((cal.get(Calendar.HOUR_OF_DAY) < 9) || (cal.get(Calendar.HOUR_OF_DAY) >= 15))
-            return false;
-        if ((cal.get(Calendar.HOUR_OF_DAY) < 10) && (cal.get(Calendar.MINUTE) < 30))
-            return false;
-        if ((cal.get(Calendar.HOUR_OF_DAY) >= 11) && (cal.get(Calendar.MINUTE) > 30) && (cal.get(Calendar.HOUR_OF_DAY) < 13))
-            return false;
-        return true;
-    }
-
-    protected void importFile(String fileName) {
-        try {
-            File file = new File(fileName);
-            InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "gbk");
-            BufferedReader br = new BufferedReader(isr);
-            dateList = new ArrayList<>();
-            closeList = new ArrayList<>();
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] words = line.split(",");
-                dateList.add(words[0]);
-                closeList.add(Double.parseDouble(words[2]));
-            }
-            rows = dateList.size();
-            br.close();
-            isr.close();
-        } catch (IOException | NumberFormatException e) {
-            e.printStackTrace();
-        }
-//        updateMarket(rows - 1);
-//        evaluated = false;
     }
 }
