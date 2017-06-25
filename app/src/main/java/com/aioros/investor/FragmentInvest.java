@@ -31,9 +31,6 @@ public class FragmentInvest extends BaseFragment {
     private Handler mHandler;
     private FileUtility fileUtility = new FileUtility();
 
-    public String stockName = "W399707";
-    public String stockCode = "000001";
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +38,7 @@ public class FragmentInvest extends BaseFragment {
         mBeanInvestList.add(new BeanInvest(1000, 7.5, 20, 1.5, 30));
         mBeanInvestList.add(new BeanInvest(1000, 7, 20, 1.5, 20));
         mBeanInvestList.add(new BeanInvest(1400, 10, 20, 1.5, 20));
-        fileUtility.importDataFile("investor/data/W399707.txt");
+        fileUtility.importDataFile("investor/data/W申万证券.txt");
 
         // 在主线程中声明一个消息处理对象Handler
         mHandler = new Handler() {
@@ -96,9 +93,9 @@ public class FragmentInvest extends BaseFragment {
         mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();
         mAdapterPager = new AdapterPagerInvest(mMainActivity, mBeanInvestList);
-        mViewPager = (ViewPager) view.findViewById(R.id.viewpager_invest);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewPagerInvest);
         mViewPager.setAdapter(mAdapterPager);
-        mTabLayout = (TabLayout) view.findViewById(R.id.tablayout_invest);
+        mTabLayout = (TabLayout) view.findViewById(R.id.tabLayoutInvest);
         mTabLayout.setupWithViewPager(mViewPager);
         mAdapterPager.notifyDataSetChanged();
         return view;

@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/button_pagerinvest"
+        android:id="@+id/buttonPagerInvest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -14,7 +14,7 @@
         android:text="Button" />
 
     <RelativeLayout
-        android:id="@+id/rlayout_investvalue"
+        android:id="@+id/layoutInvestValues"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorYellow"
@@ -45,11 +45,11 @@
 
         <TextView
             android:id="@+id/textViewInvestRealPoint"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewInvestQuotap"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
             android:text="6420.43"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
@@ -57,21 +57,21 @@
 
         <TextView
             android:id="@+id/textViewInvestRealPointp"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewInvestRealPoint"
-            android:layout_marginLeft="20dp"
+            android:gravity="center"
             android:text="当前点位"
             android:textColor="@color/colorWhite" />
 
         <TextView
             android:id="@+id/textViewInvestBasePoint"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/textViewInvestQuotap"
-            android:layout_marginRight="26dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
             android:text="7166"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
@@ -79,11 +79,11 @@
 
         <TextView
             android:id="@+id/textViewInvestBasePointp"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/textViewInvestBasePoint"
-            android:layout_marginRight="20dp"
+            android:gravity="center"
             android:text="本周基点"
             android:textColor="@color/colorWhite" />
 
@@ -94,7 +94,7 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/rlayout_investvalue"
+        android:layout_below="@+id/layoutInvestValues"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="38dp"
         android:gravity="center"
@@ -136,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/textViewInvestPropertyp"
         android:layout_alignRight="@id/textViewInvestPropertyp"
-        android:layout_below="@+id/rlayout_investvalue"
+        android:layout_below="@+id/layoutInvestValues"
         android:layout_marginTop="15dp"
         android:gravity="center"
         android:text="8725.8"

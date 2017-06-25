@@ -53,7 +53,7 @@ public class AdapterPagerInvest extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         View view = mInflater.inflate(R.layout.pager_invest, null);
-        Button button = (Button) view.findViewById(R.id.button_pagerinvest);
+        Button button = (Button) view.findViewById(R.id.buttonPagerInvest);
         button.setText(mTabTitles[position]);
         TextView textViewInvestQuota = (TextView) view.findViewById(R.id.textViewInvestQuota);
         textViewInvestQuota.setText(mInvestBeanList.get(position).getmQuota());
@@ -98,25 +98,25 @@ public class AdapterPagerInvest extends PagerAdapter {
     }
 
     private void buttonOnClick(View v, int position) {
-        Thread dft = new UpdateDataThread(mTabCodes[position]);
+        Thread dft = new UpdateDataThread(position);
         dft.start();
     }
 
     class UpdateDataThread extends Thread {
-        private String stockCode;
+        private int index;
 
-        public UpdateDataThread(String code) {
-            stockCode = code;
+        public UpdateDataThread(int idx) {
+            index = idx;
         }
 
         @Override
         public void run() {
             String storageDir = Environment.getExternalStorageDirectory().toString();
-            String filePath = storageDir + "/investor/data/W" + stockCode + ".txt";
+            String filePath = storageDir + "/investor/data/W" + mTabTitles[index] + ".txt";
             File file = new File(filePath);
             if (file.exists()) {
                 try {
-                    String urlStr = "http://hq.sinajs.cn/list=sz" + stockCode;
+                    String urlStr = "http://hq.sinajs.cn/list=sz" + mTabCodes[index];
                     HttpUtility httpUtility = new HttpUtility();
                     String httpStr = httpUtility.getData(urlStr);
                     if (httpStr.equals("")) {
@@ -129,7 +129,7 @@ public class AdapterPagerInvest extends PagerAdapter {
                         Looper.loop();
                     } else {
                         String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
-                        String dataStr = strs[30] + "," + strs[0] + "," + strs[3];
+                        String dataStr = strs[30].replace("-", "/") + "\t" + strs[1] + "\t" + strs[4] + "\t" + strs[5] + "\t" + strs[3];
                         PrintWriter pw = new PrintWriter(new FileWriter(file, true));
                         pw.println(dataStr);
                         pw.close();
