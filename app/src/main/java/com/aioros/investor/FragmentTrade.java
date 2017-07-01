@@ -26,9 +26,9 @@ public class FragmentTrade extends BaseFragment {
         mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();
         mAdapterPager = new AdapterPagerTrade(mMainActivity);
-        mViewPager = (ViewPager) view.findViewById(R.id.viewpager_trade);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewPagerTrade);
         mViewPager.setAdapter(mAdapterPager);
-        mTabLayout = (TabLayout) view.findViewById(R.id.tablayout_trade);
+        mTabLayout = (TabLayout) view.findViewById(R.id.tabLayoutTrade);
         mTabLayout.setupWithViewPager(mViewPager);
 //        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
 //            TabLayout.Tab tab = mTabLayout.getTabAt(i);

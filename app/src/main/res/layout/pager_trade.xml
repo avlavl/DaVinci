@@ -10,6 +10,12 @@
         android:layout_height="wrap_content"
         android:text="今日涨幅" />
 
+    <Button
+        android:id="@+id/buttonPagerTrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
     <ListView
         android:id="@+id/listViewPagerTrade"
         android:layout_width="match_parent"
@@ -17,10 +23,5 @@
         android:divider="@color/colorItemDivider"
         android:dividerHeight="8dp" />
 
-    <Button
-        android:id="@+id/buttonPagerTrade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
 
 </LinearLayout>

@@ -129,7 +129,8 @@ public class AdapterPagerInvest extends PagerAdapter {
                         Looper.loop();
                     } else {
                         String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
-                        String dataStr = strs[30].replace("-", "/") + "\t" + strs[1] + "\t" + strs[4] + "\t" + strs[5] + "\t" + strs[3];
+                        String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f", strs[30].replace("-", "/"),
+                                Double.parseDouble(strs[1]), Double.parseDouble(strs[4]), Double.parseDouble(strs[5]), Double.parseDouble(strs[3]));
                         PrintWriter pw = new PrintWriter(new FileWriter(file, true));
                         pw.println(dataStr);
                         pw.close();
