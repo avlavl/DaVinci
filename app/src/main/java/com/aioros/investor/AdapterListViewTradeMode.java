@@ -43,28 +43,40 @@ public class AdapterListViewTradeMode extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         int colorFlag = Color.GRAY;
-        int colorDuration = Color.GRAY;
         if (mBeanTradeModeList.get(position).mStatus) {
             colorFlag = Color.rgb(240, 0, 0);
-            colorDuration = Color.rgb(0x30, 0x3F, 0x9F);
         } else {
             colorFlag = Color.rgb(0, 128, 0);
         }
+
+        int colorRatio = Color.GRAY;
+        double keyRatio = Math.abs(mBeanTradeModeList.get(position).mKeyRatio);
+        if (keyRatio >= 10) {
+            colorRatio = Color.rgb(180, 180, 180);
+        } else if (keyRatio >= 5) {
+            colorRatio = Color.rgb(255, 180, 180);
+        } else if (keyRatio >= 1) {
+            colorRatio = Color.rgb(255, 90, 90);
+        } else {
+            colorRatio = Color.rgb(190, 0, 0);
+        }
+
         View view = mInflater.inflate(R.layout.item_trade, null);
 
         TextView flag = (TextView) view.findViewById(R.id.textViewItemTradeFlag);
         flag.setBackgroundColor(colorFlag);
 
-
         TextView ratio = (TextView) view.findViewById(R.id.textViewItemTradeKeyRatio);
         ratio.setText(String.format("%.2f%%", mBeanTradeModeList.get(position).mKeyRatio));
+        ratio.setTextColor(colorRatio);
 
         TextView point = (TextView) view.findViewById(R.id.textViewItemTradeKeyPoint);
         point.setText(String.format("%.3f", mBeanTradeModeList.get(position).mKeyPoint));
+        point.setTextColor(colorRatio);
 
         TextView duration = (TextView) view.findViewById(R.id.textViewItemTradeDuration);
         duration.setText(mBeanTradeModeList.get(position).mDuration + "天");
-        duration.setTextColor(colorDuration);
+        duration.setTextColor(colorFlag);
 
         TextView amount = (TextView) view.findViewById(R.id.textViewItemTradeAmount);
         amount.setText(mBeanTradeModeList.get(position).mAmount);

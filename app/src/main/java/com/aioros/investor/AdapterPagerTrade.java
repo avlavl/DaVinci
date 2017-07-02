@@ -145,6 +145,8 @@ public class AdapterPagerTrade extends PagerAdapter {
         }
 
         View view = mInflater.inflate(R.layout.pager_trade, null);
+        TextView textView = (TextView)view.findViewById(R.id.textViewPagerTrade);
+        textView.setText(mTabTitles[position]);
         Button button = (Button) view.findViewById(R.id.buttonPagerTrade);
         button.setText(mTabTitles[position]);
         button.setOnClickListener(new View.OnClickListener() {
