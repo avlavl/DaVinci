@@ -17,8 +17,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.aioros.investor.TimeUtility.isTradeTime;
-
 /**
  * Created by aizhang on 2017/6/7.
  */
@@ -30,13 +28,12 @@ public class FragmentHome extends BaseFragment {
     private ListView mListView;
     private AdapterListViewStock mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
-    private Handler mHandler;
+    private Handler mHomeHandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Log.d(TAG, "onCreateView---->");
-        mMainActivity = (MainActivity) getActivity();
         mFragmentManager = getActivity().getFragmentManager();
         mListView = (ListView) view.findViewById(R.id.listViewStock);
         mAdapterListView = new AdapterListViewStock(mMainActivity, mBeanStockList);
@@ -68,6 +65,7 @@ public class FragmentHome extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate------");
+        mMainActivity = (MainActivity) getActivity();
         mBeanStockList.add(new BeanStock("上证指数", "000001", "--", "0.00", "0.00%"));
         mBeanStockList.add(new BeanStock("深证成指", "399001", "--", "0.00", "0.00%"));
         mBeanStockList.add(new BeanStock("创业板指", "399006", "--", "0.00", "0.00%"));
@@ -81,14 +79,13 @@ public class FragmentHome extends BaseFragment {
         mBeanStockList.add(new BeanStock("中证环保", "000827", "--", "0.00", "0.00%"));
 
         // 在主线程中声明一个消息处理对象Handler
-        mHandler = new Handler() {
+        mMainActivity.mHomeHandler = new Handler() {
             // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
             @Override
             public void handleMessage(Message msg) {
                 String[] message = (String[]) msg.obj;
-                String[] strs;
                 for (int i = 0; i < message.length; i++) {
-                    strs = message[i].substring(message[i].indexOf("\"") + 1, message[i].lastIndexOf("\"")).split("~");
+                    String[] strs = message[i].substring(message[i].indexOf("\"") + 1, message[i].lastIndexOf("\"")).split("~");
                     mBeanStockList.get(i).setmStockValue(strs[3]);
                     mBeanStockList.get(i).setmStockScope(strs[4]);
                     mBeanStockList.get(i).setmStockRatio(strs[5] + "%");
@@ -96,24 +93,6 @@ public class FragmentHome extends BaseFragment {
                 mAdapterListView.notifyDataSetChanged();
             }
         };
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                boolean flag = isTradeTime();
-                int delay = flag ? 3000 : 60000;
-                if (flag) {
-                    new NetworkThread().start();
-                }
-                mHandler.postDelayed(this, delay);
-            }
-        };
-        if (!isTradeTime()) {
-            new NetworkThread().start();
-            mHandler.postDelayed(runnable, 60000);
-        } else {
-            mHandler.postDelayed(runnable, 1);
-        }
     }
 
     @Override
@@ -163,42 +142,6 @@ public class FragmentHome extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         Log.d(TAG, "onDetach------");
-    }
-
-    /*
-     * 新浪实时数据接口：
-     * http://hq.sinajs.cn/list=sh600000,sh600004
-     * http://hq.sinajs.cn/list=s_sz399001
-     * 腾讯实时数据接口：
-     * http://qt.gtimg.cn/r=0.8409869808238q=s_sz000559,s_sz000913,s_sh600048
-     * 网易实时数据接口：
-     * http://api.money.126.net/data/feed/1002151,0600036,money.api?callback=_ntes_quote_callback13451765
-     */
-    class NetworkThread extends Thread {
-        @Override
-        public void run() {
-            String urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=" +
-                    "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000847,s_sz399812,s_sh000978,s_sz399707,s_sz399967,s_sh000827";
-            HttpUtility httpUtility = new HttpUtility();
-            String httpStr = httpUtility.getData(urlStr);
-            if (httpStr.equals("")) {
-                Looper.prepare();
-                Toast.makeText(mMainActivity, "请检查网络连接！", Toast.LENGTH_LONG).show();
-                Looper.loop();
-            } else if (httpStr.contains("pv_none_match")) {
-                Looper.prepare();
-                Toast.makeText(mMainActivity, "找不到对应的股票！", Toast.LENGTH_LONG).show();
-                Looper.loop();
-            } else {
-                String[] strings = httpStr.split(";");
-                // 使用主线程Handler对象创建一个消息体
-                Message msgRx = mHandler.obtainMessage();
-                msgRx.obj = strings;
-
-                // 发送消息，WorkerThread 向 MainThread 发送消息
-                mHandler.sendMessage(msgRx);
-            }
-        }
     }
 
     /*

@@ -7,6 +7,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -15,6 +18,8 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.aioros.investor.BottomControlPanel.BottomPanelCallback;
+
+import static com.aioros.investor.TimeUtility.isTradeTime;
 
 public class MainActivity extends FragmentActivity implements BottomPanelCallback {
     BottomControlPanel mBottomPanel = null;
@@ -31,6 +36,13 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
 
     public static String currFragTag = "";
 
+    public Handler mHomeHandler;
+    public Handler mTradeHandler;
+    public Handler mInvestHandler;
+    public String[] mMarketDatas;
+
+    private Handler mHandler;
+
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -46,6 +58,26 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         setDefaultFirstFragment(Constant.FRAGMENT_FLAG_HOME);
 
         verifyStoragePermissions(this);
+
+        // 在主线程中声明一个消息处理对象Handler
+        mHandler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                boolean flag = isTradeTime();
+                int delay = flag ? 3000 : 60000;
+                if (flag) {
+                    new NetworkThread().start();
+                }
+                mHandler.postDelayed(this, delay);
+            }
+        };
+        if (!isTradeTime()) {
+            new NetworkThread().start();
+            mHandler.postDelayed(runnable, 60000);
+        } else {
+            mHandler.postDelayed(runnable, 1);
+        }
     }
 
     @Override
@@ -70,7 +102,6 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
         if (permission != PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
@@ -113,8 +144,8 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     private void commitTransactions(String tag) {
         if (mFragmentTransaction != null && !mFragmentTransaction.isEmpty()) {
             mFragmentTransaction.commit();
-            currFragTag = tag;
             mFragmentTransaction = null;
+            currFragTag = tag;
         }
     }
 
@@ -225,5 +256,56 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // TODO Auto-generated method stub
+    }
+
+    /*
+  * 新浪实时数据接口：
+  * http://hq.sinajs.cn/list=sh600000,sh600004
+  * http://hq.sinajs.cn/list=s_sz399001
+  * 腾讯实时数据接口：
+  * http://qt.gtimg.cn/r=0.8409869808238q=s_sz000559,s_sz000913,s_sh600048
+  * 网易实时数据接口：
+  * http://api.money.126.net/data/feed/1002151,0600036,money.api?callback=_ntes_quote_callback13451765
+  */
+    class NetworkThread extends Thread {
+        @Override
+        public void run() {
+            String urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=" +
+                    "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000847,s_sz399812,s_sh000978,s_sz399707,s_sz399967,s_sh000827";
+            HttpUtility httpUtility = new HttpUtility();
+            String httpStr = httpUtility.getData(urlStr);
+            if (httpStr.equals("")) {
+                Looper.prepare();
+                Toast.makeText(MainActivity.this, "无网络连接！", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            } else if (httpStr.contains("pv_none_match")) {
+                Looper.prepare();
+                Toast.makeText(MainActivity.this, "找不到对应的股票！", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            } else {
+                mMarketDatas = httpStr.split(";");
+                if (mHomeHandler != null) {
+                    // 使用Handler对象创建一个消息体
+                    Message msgRx = mHomeHandler.obtainMessage();
+                    msgRx.obj = mMarketDatas;
+                    // 发送消息，WorkerThread 向 MainThread 发送消息
+                    mHomeHandler.sendMessage(msgRx);
+                }
+                if (mTradeHandler != null) {
+                    // 使用Handler对象创建一个消息体
+                    Message msgRx = mTradeHandler.obtainMessage();
+                    msgRx.obj = mMarketDatas;
+                    // 发送消息，WorkerThread 向 MainThread 发送消息
+                    mTradeHandler.sendMessage(msgRx);
+                }
+                if (mInvestHandler != null) {
+                    // 使用Handler对象创建一个消息体
+                    Message msgRx = mInvestHandler.obtainMessage();
+                    msgRx.obj = mMarketDatas;
+                    // 发送消息，WorkerThread 向 MainThread 发送消息
+                    mInvestHandler.sendMessage(msgRx);
+                }
+            }
+        }
     }
 }

@@ -19,11 +19,4 @@ public class BeanTradeMode {
         mModePara = para;
         mAmount = amount;
     }
-
-    @Override
-    public String toString() {
-        return "BeanTradeMode [mModeName=" + mModeName + ", mModePara=" + mModePara
-                + ", mStatus=" + mStatus + ", mKeyPoint=" + mKeyPoint
-                + ", mDuration=" + mDuration + "]";
-    }
 }
