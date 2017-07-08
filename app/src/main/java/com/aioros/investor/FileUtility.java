@@ -35,6 +35,7 @@ public class FileUtility {
     public int importDataFile(String fileName) {
         dateList = new ArrayList<>();
         closeList = new ArrayList<>();
+		rows = 0;
         try {
             File file = new File(storageDirectory + fileName);
             if (!file.exists()) {

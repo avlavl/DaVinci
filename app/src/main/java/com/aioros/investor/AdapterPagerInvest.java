@@ -56,19 +56,19 @@ public class AdapterPagerInvest extends PagerAdapter {
         Button button = (Button) view.findViewById(R.id.buttonPagerInvest);
         button.setText(mTabTitles[position]);
         TextView textViewInvestQuota = (TextView) view.findViewById(R.id.textViewInvestQuota);
-        textViewInvestQuota.setText(mInvestBeanList.get(position).getmQuota());
+        textViewInvestQuota.setText(mInvestBeanList.get(position).mQuota);
         TextView textViewInvestRealPoint = (TextView) view.findViewById(R.id.textViewInvestRealPoint);
-        textViewInvestRealPoint.setText(mInvestBeanList.get(position).getmRealPoint());
+        textViewInvestRealPoint.setText(mInvestBeanList.get(position).mRealPoint);
         TextView textViewInvestBasePoint = (TextView) view.findViewById(R.id.textViewInvestBasePoint);
-        textViewInvestBasePoint.setText(mInvestBeanList.get(position).getmBasePoint());
+        textViewInvestBasePoint.setText(mInvestBeanList.get(position).mBasePoint);
         TextView textViewInvestProperty = (TextView) view.findViewById(R.id.textViewInvestProperty);
-        textViewInvestProperty.setText(mInvestBeanList.get(position).getmProperty());
+        textViewInvestProperty.setText(mInvestBeanList.get(position).mProperty);
         TextView textViewInvestYield = (TextView) view.findViewById(R.id.textViewInvestYield);
-        textViewInvestYield.setText(mInvestBeanList.get(position).getmYield());
+        textViewInvestYield.setText(mInvestBeanList.get(position).mYield);
         TextView textViewInvestKeyPoint = (TextView) view.findViewById(R.id.textViewInvestKeyPoint);
-        textViewInvestKeyPoint.setText(mInvestBeanList.get(position).getmKeyPoint());
+        textViewInvestKeyPoint.setText(mInvestBeanList.get(position).mKeyPoint);
         TextView textViewInvestKeyRatio = (TextView) view.findViewById(R.id.textViewInvestKeyRatio);
-        textViewInvestKeyRatio.setText(mInvestBeanList.get(position).getmKeyRatio());
+        textViewInvestKeyRatio.setText(mInvestBeanList.get(position).mKeyRatio);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -25,42 +25,56 @@ public class FragmentInvest extends BaseFragment {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private FileUtility fileUtility = new FileUtility();
+    public String[] mMarketDatas;
+    private String mTabTitles[] = new String[]{"深证成指", "申万证券", "养老产业"};
+    private int[] indexArray = new int[]{1, 8, 6};
+    private int[] weeksArray = new int[3];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
+        mMarketDatas = mMainActivity.mMarketDatas;
         mBeanInvestList.add(new BeanInvest(1000, 7.5, 20, 1.5, 30));
         mBeanInvestList.add(new BeanInvest(1000, 7, 20, 1.5, 20));
         mBeanInvestList.add(new BeanInvest(1400, 10, 20, 1.5, 20));
-        fileUtility.importDataFile("investor/data/W申万证券.txt");
+
+        for (int i = 0; i < indexArray.length; i++) {
+            String marketData = mMarketDatas[indexArray[i]];
+            String[] datas = marketData.substring(marketData.indexOf("\"") + 1, marketData.lastIndexOf("\"")).split("~");
+            mBeanInvestList.get(i).mRealPoint = datas[3];
+            fileUtility.importDataFile("investor/data/W" + mTabTitles[i] + ".txt");
+            weeksArray[i] = fileUtility.rows;
+            if (weeksArray[i] > 0) {
+                double basePoint = mBeanInvestList.get(i).mStartPoint + weeksArray[i] * mBeanInvestList.get(i).mSlope;
+                mBeanInvestList.get(i).mBasePoint = Double.toString(basePoint);
+                double diffRate = Double.parseDouble(mBeanInvestList.get(1).mRealPoint) / basePoint;
+                double divisor = mBeanInvestList.get(1).mDivisor;
+                double investAmount = (basePoint / divisor) / Math.pow(diffRate, mBeanInvestList.get(1).mDiffCoef);
+                mBeanInvestList.get(1).mQuota = (diffRate <= 1) ? String.format("%.2f", investAmount) : "无需投资";
+            }
+        }
 
         // 在主线程中声明一个消息处理对象Handler
         mMainActivity.mInvestHandler = new Handler() {
             // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
             @Override
             public void handleMessage(Message msg) {
-                String[] message = (String[]) msg.obj;
-                String[] strs = message[1].substring(message[1].indexOf("\"") + 1, message[1].lastIndexOf("\"")).split("~");
-                mBeanInvestList.get(0).setmRealPoint(strs[3]);
-                strs = message[8].substring(message[8].indexOf("\"") + 1, message[8].lastIndexOf("\"")).split("~");
-                mBeanInvestList.get(1).setmRealPoint(strs[3]);
-                strs = message[6].substring(message[6].indexOf("\"") + 1, message[6].lastIndexOf("\"")).split("~");
-                mBeanInvestList.get(2).setmRealPoint(strs[3]);
-
-                double basePoint = mBeanInvestList.get(1).getmStartPoint() + fileUtility.rows * mBeanInvestList.get(1).getmSlope();
-                mBeanInvestList.get(1).setmBasePoint(Double.toString(basePoint));
-
-                double diffRate = Double.parseDouble(mBeanInvestList.get(1).getmRealPoint()) / basePoint;
-                double divisor = mBeanInvestList.get(1).getmDivisor();
-                double input = (basePoint / divisor) / Math.pow(diffRate, mBeanInvestList.get(1).getmDiffCoef());
-                if (diffRate <= 1) {
-                    mBeanInvestList.get(1).setmQuota(String.format("%.2f", input));
-                } else {
-                    mBeanInvestList.get(1).setmQuota("无需投资");
+                mMarketDatas = (String[]) msg.obj;
+                for (int i = 0; i < indexArray.length; i++) {
+                    String marketData = mMarketDatas[indexArray[i]];
+                    String[] datas = marketData.substring(marketData.indexOf("\"") + 1, marketData.lastIndexOf("\"")).split("~");
+                    mBeanInvestList.get(i).mRealPoint = datas[3];
+                    if (weeksArray[i] > 0) {
+                        double basePoint = mBeanInvestList.get(i).mStartPoint + weeksArray[i] * mBeanInvestList.get(i).mSlope;
+                        mBeanInvestList.get(i).mBasePoint = Double.toString(basePoint);
+                        double diffRate = Double.parseDouble(mBeanInvestList.get(1).mRealPoint) / basePoint;
+                        double divisor = mBeanInvestList.get(1).mDivisor;
+                        double investAmount = (basePoint / divisor) / Math.pow(diffRate, mBeanInvestList.get(1).mDiffCoef);
+                        mBeanInvestList.get(1).mQuota = (diffRate <= 1) ? String.format("%.2f", investAmount) : "无需投资";
+                    }
                 }
-
                 mAdapterPager.notifyDataSetChanged();
             }
         };
