@@ -3,7 +3,6 @@ package com.aioros.investor;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +20,8 @@ import java.util.ArrayList;
 public class AdapterPagerTrade extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private String mTabTitles[] = new String[]{"沪深300", "淘金100", "腾讯济安", "养老产业", "医药100", "中证500", "创业板指"};
-    private String mImportName[] = new String[]{"沪深300", "沪深300", "腾讯济安", "沪深300", "沪深300", "中证500", "创业板指"};
+    private String mTabTitles[] = new String[]{"淘金100", "腾讯济安", "养老产业", "医药100", "沪深300", "中证500", "创业板指"};
+    private String mImportName[] = new String[]{"沪深300", "腾讯济安", "沪深300", "沪深300", "沪深300", "中证500", "创业板指"};
     private ListView mListView;
     private AdapterListViewTradeMode mAdapterListView;
     private ArrayList<BeanTradeMode> mBeanTradeModeList = new ArrayList<BeanTradeMode>();
@@ -143,20 +142,20 @@ public class AdapterPagerTrade extends PagerAdapter {
         TextView textViewSelfp = (TextView) view.findViewById(R.id.textViewPagerTradeSelfp);
         TextView textViewBase = (TextView) view.findViewById(R.id.textViewPagerTradeBase);
         TextView textViewSelf = (TextView) view.findViewById(R.id.textViewPagerTradeSelf);
-        int[] idxBase = new int[]{3, 3, 5, 3, 3, 4, 2};
-        int[] idxSelf = new int[]{0, 0, 0, 6, 7, 0, 0};
+        int[] idxBase = new int[]{3, 5, 3, 3, 3, 4, 2};
+        int[] idxSelf = new int[]{0, 0, 6, 7, 0, 0, 0};
         String[] marketDatas = fragmentTrade.mMarketDatas;
         String marketData = marketDatas[idxBase[position]];
         String[] datas = marketData.substring(marketData.indexOf("\"") + 1, marketData.lastIndexOf("\"")).split("~");
         textViewBasep.setText(mImportName[position] + ": ");
-        textViewBase.setText(datas[3] + " " + datas[5] + "%");
+        textViewBase.setText(datas[5] + "% " + datas[3]);
         textViewBase.setTextColor((Double.parseDouble(datas[5]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
 
         if (idxSelf[position] != 0) {
             marketData = marketDatas[idxSelf[position]];
             datas = marketData.substring(marketData.indexOf("\"") + 1, marketData.lastIndexOf("\"")).split("~");
             textViewSelfp.setText(mTabTitles[position] + ": ");
-            textViewSelf.setText(datas[3] + " " + datas[5] + "%");
+            textViewSelf.setText(datas[5] + "% " + datas[3]);
             textViewSelf.setTextColor((Double.parseDouble(datas[5]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
         }
     }

@@ -28,8 +28,8 @@ public class FragmentTrade extends BaseFragment {
     private AdapterPagerTrade mAdapterPager;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    private String mTabTitles[] = new String[]{"沪深300", "淘金100", "腾讯济安", "养老产业", "医药100", "中证500", "创业板指"};
-    private String mTabCodes[] = new String[]{"h000300", "H30537", "h000847", "z399812", "h000978", "h000905", "z399006"};
+    private String mTabTitles[] = new String[]{"淘金100", "腾讯济安", "养老产业", "医药100", "沪深300", "中证500", "创业板指"};
+    private String mTabCodes[] = new String[]{"H30537", "h000847", "z399812", "h000978", "h000300", "h000905", "z399006"};
     public String[] mMarketDatas;
 
     @Override
