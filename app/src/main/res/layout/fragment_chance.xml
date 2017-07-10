@@ -4,31 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/listViewMETF"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <!--app:tabMode="scrollable"  这个属性我在代码中设置了-->
-        <!-- mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);-->
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tablayout_chance"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            app:tabBackground="@drawable/tablayout_background"
-            app:tabIndicatorColor="@android:color/holo_red_light"
-            app:tabIndicatorHeight="2dp"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@android:color/holo_red_light"
-            app:tabTextAppearance="@style/TabLayoutTextStyle"
-            app:tabTextColor="@android:color/white" />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager_chance"
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1"
-            android:background="@android:color/white" />
-    </LinearLayout>
+        android:divider="@color/colorDivider"
+        android:dividerHeight="1dp" />
 
 </RelativeLayout>

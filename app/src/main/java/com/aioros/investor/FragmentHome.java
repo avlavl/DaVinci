@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,13 +21,40 @@ import java.util.List;
  */
 
 public class FragmentHome extends BaseFragment {
-
     private static final String TAG = "FragmentHome";
     private MainActivity mMainActivity;
+    private String[] mStockNames = new String[]{"上证指数", "深证成指", "创业板指", "沪深300", "中证500", "腾讯济安", "养老产业", "医药100", "CSSW证券", "中证军工", "中证环保"};
+    private String[] mStockCodes = new String[]{"000001", "399001", "399006", "000300", "000905", "000847", "399812", "000978", "399707", "399967", "000827"};
     private ListView mListView;
     private AdapterListViewStock mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
-    private Handler mHomeHandler;
+    public String[] mMarketDatas;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate------");
+        mMainActivity = (MainActivity) getActivity();
+        for (int i = 0; i < mStockNames.length; i++) {
+            mBeanStockList.add(new BeanStock(mStockNames[i], mStockCodes[i], "--", "0.00", "0.00%"));
+        }
+
+        // 在主线程中声明一个消息处理对象Handler
+        mMainActivity.mHomeHandler = new Handler() {
+            // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
+            @Override
+            public void handleMessage(Message msg) {
+                mMarketDatas = (String[]) msg.obj;
+                for (int i = 0; i < mStockNames.length; i++) {
+                    String[] strs = mMarketDatas[i].substring(mMarketDatas[i].indexOf("\"") + 1, mMarketDatas[i].lastIndexOf("\"")).split("~");
+                    mBeanStockList.get(i).mStockValue = strs[3];
+                    mBeanStockList.get(i).mStockScope = strs[4];
+                    mBeanStockList.get(i).mStockRatio = strs[5] + "%";
+                }
+                mAdapterListView.notifyDataSetChanged();
+            }
+        };
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +64,7 @@ public class FragmentHome extends BaseFragment {
         mListView = (ListView) view.findViewById(R.id.listViewStock);
         mAdapterListView = new AdapterListViewStock(mMainActivity, mBeanStockList);
         mListView.setAdapter(mAdapterListView);
-        mListView.setOnItemClickListener(new OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mListViewOnItemClick(parent, view, position, id);
@@ -59,40 +85,6 @@ public class FragmentHome extends BaseFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.e(TAG, "onAttach-----");
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate------");
-        mMainActivity = (MainActivity) getActivity();
-        mBeanStockList.add(new BeanStock("上证指数", "000001", "--", "0.00", "0.00%"));
-        mBeanStockList.add(new BeanStock("深证成指", "399001", "--", "0.00", "0.00%"));
-        mBeanStockList.add(new BeanStock("创业板指", "399006", "--", "0.00", "0.00%"));
-        mBeanStockList.add(new BeanStock("沪深300", "000300", "--", "0.00", "0.00%"));
-        mBeanStockList.add(new BeanStock("中证500", "000905", "--", "0.00", "0.00%"));
-        mBeanStockList.add(new BeanStock("腾讯济安", "000847", "--", "0.00", "0.00%"));
-        mBeanStockList.add(new BeanStock("养老产业", "399812", "--", "0.00", "0.00%"));
-        mBeanStockList.add(new BeanStock("医药100", "000978", "--", "0.00", "0.00%"));
-        mBeanStockList.add(new BeanStock("CSSW证券", "399707", "--", "0.00", "0.00%"));
-        mBeanStockList.add(new BeanStock("中证军工", "399967", "--", "0.00", "0.00%"));
-        mBeanStockList.add(new BeanStock("中证环保", "000827", "--", "0.00", "0.00%"));
-
-        // 在主线程中声明一个消息处理对象Handler
-        mMainActivity.mHomeHandler = new Handler() {
-            // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
-            @Override
-            public void handleMessage(Message msg) {
-                String[] message = (String[]) msg.obj;
-                for (int i = 0; i < message.length; i++) {
-                    String[] strs = message[i].substring(message[i].indexOf("\"") + 1, message[i].lastIndexOf("\"")).split("~");
-                    mBeanStockList.get(i).setmStockValue(strs[3]);
-                    mBeanStockList.get(i).setmStockScope(strs[4]);
-                    mBeanStockList.get(i).setmStockRatio(strs[5] + "%");
-                }
-                mAdapterListView.notifyDataSetChanged();
-            }
-        };
     }
 
     @Override
@@ -179,9 +171,9 @@ public class FragmentHome extends BaseFragment {
     }
 
     private boolean mListViewOnItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(mMainActivity, "开始下载" + mBeanStockList.get(position).getmStockName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mMainActivity, "开始下载" + mBeanStockList.get(position).mStockName, Toast.LENGTH_SHORT).show();
 
-        String stockCode = mBeanStockList.get(position).getmStockCode();
+        String stockCode = mBeanStockList.get(position).mStockCode;
         Thread dft = new DownFileThread(stockCode);
         dft.start();
 
