@@ -119,41 +119,39 @@ public class FragmentTrade extends BaseFragment {
         @Override
         public void run() {
             String storageDir = Environment.getExternalStorageDirectory().toString();
-            for (int i = 0; i < mTabTitles.length; i++) {
-                if (i != 1) {
-                    String filePath = storageDir + "/investor/data/" + mTabTitles[i] + ".txt";
-                    File file = new File(filePath);
-                    if (file.exists()) {
-                        try {
-                            String urlStr = "http://hq.sinajs.cn/list=s" + mTabCodes[i];
-                            HttpUtility httpUtility = new HttpUtility();
-                            String httpStr = httpUtility.getData(urlStr);
-                            if (httpStr.equals("")) {
-                                Looper.prepare();
-                                Toast.makeText(mMainActivity, "网络无连接！", Toast.LENGTH_LONG).show();
-                                Looper.loop();
-                                return;
-                            } else if (httpStr.contains("pv_none_match")) {
-                                Looper.prepare();
-                                Toast.makeText(mMainActivity, "找不到对应的股票！", Toast.LENGTH_LONG).show();
-                                Looper.loop();
-                                return;
-                            } else {
-                                String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
-                                String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f", strs[30].replace("-", "/"),
-                                        Double.parseDouble(strs[1]), Double.parseDouble(strs[4]), Double.parseDouble(strs[5]), Double.parseDouble(strs[3]));
-                                PrintWriter pw = new PrintWriter(new FileWriter(file, true));
-                                pw.println(dataStr);
-                                pw.close();
-                            }
-                        } catch (IOException | NumberFormatException e) {
-                            e.printStackTrace();
+            for (int i = 1; i < mTabTitles.length; i++) {
+                String filePath = storageDir + "/investor/data/" + mTabTitles[i] + ".txt";
+                File file = new File(filePath);
+                if (file.exists()) {
+                    try {
+                        String urlStr = "http://hq.sinajs.cn/list=s" + mTabCodes[i];
+                        HttpUtility httpUtility = new HttpUtility();
+                        String httpStr = httpUtility.getData(urlStr);
+                        if (httpStr.equals("")) {
+                            Looper.prepare();
+                            Toast.makeText(mMainActivity, "网络无连接！", Toast.LENGTH_LONG).show();
+                            Looper.loop();
+                            return;
+                        } else if (httpStr.contains("pv_none_match")) {
+                            Looper.prepare();
+                            Toast.makeText(mMainActivity, "找不到对应的股票！", Toast.LENGTH_LONG).show();
+                            Looper.loop();
+                            return;
+                        } else {
+                            String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
+                            String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f", strs[30].replace("-", "/"),
+                                    Double.parseDouble(strs[1]), Double.parseDouble(strs[4]), Double.parseDouble(strs[5]), Double.parseDouble(strs[3]));
+                            PrintWriter pw = new PrintWriter(new FileWriter(file, true));
+                            pw.println(dataStr);
+                            pw.close();
                         }
-                    } else {
-                        Looper.prepare();
-                        Toast.makeText(mMainActivity, "请先建立基础文件", Toast.LENGTH_LONG).show();
-                        Looper.loop();
+                    } catch (IOException | NumberFormatException e) {
+                        e.printStackTrace();
                     }
+                } else {
+                    Looper.prepare();
+                    Toast.makeText(mMainActivity, "请先建立基础文件", Toast.LENGTH_LONG).show();
+                    Looper.loop();
                 }
             }
             Looper.prepare();

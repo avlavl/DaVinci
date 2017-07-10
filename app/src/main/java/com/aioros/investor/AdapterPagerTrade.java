@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static com.aioros.investor.Constant.STOCK_INI_ARRAY;
+
 /**
  * Created by aizhang on 2017/6/17.
  */
@@ -61,12 +63,10 @@ public class AdapterPagerTrade extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        if (fileUtility.importIniFile("investor/ini/" + mTabTitles[position] + ".txt") == 0) {
-            mBeanTradeModeList = new ArrayList<>();
-            for (String mode : fileUtility.modeList) {
-                String[] paras = mode.split(" ");
-                mBeanTradeModeList.add(new BeanTradeMode(paras[0], paras[1], paras[2]));
-            }
+        mBeanTradeModeList = new ArrayList<>();
+        for (String mode : STOCK_INI_ARRAY[position]) {
+            String[] paras = mode.split(" ");
+            mBeanTradeModeList.add(new BeanTradeMode(paras[0], paras[1], paras[2]));
         }
 
         if (fileUtility.importDataFile("investor/data/" + mImportName[position] + ".txt") == 0) {

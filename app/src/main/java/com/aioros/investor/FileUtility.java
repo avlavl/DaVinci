@@ -21,7 +21,6 @@ public class FileUtility {
     public int rows = 0;
     public ArrayList<String> dateList;
     public ArrayList<Double> closeList;
-    public ArrayList<String> modeList;
 
 
     public FileUtility() {
@@ -54,32 +53,6 @@ public class FileUtility {
                 closeList.add(Double.parseDouble(words[4]));
             }
             rows = dateList.size();
-            br.close();
-            isr.close();
-            return 0;
-        } catch (IOException | NumberFormatException e) {
-            e.printStackTrace();
-            return -1;
-        }
-    }
-
-    public int importIniFile(String fileName) {
-        modeList = new ArrayList<>();
-        try {
-            File file = new File(storageDirectory + fileName);
-            if (!file.exists()) {
-                return -1;
-            }
-            InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "gbk");
-            BufferedReader br = new BufferedReader(isr);
-            dateList = new ArrayList<>();
-            closeList = new ArrayList<>();
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.matches("^[A-Z].*")) {
-                    modeList.add(line);
-                }
-            }
             br.close();
             isr.close();
             return 0;

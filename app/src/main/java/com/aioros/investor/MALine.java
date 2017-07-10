@@ -11,27 +11,27 @@ import static com.aioros.investor.FormulaLib.MA;
 public class MaLine {
 
     public MaLine(ArrayList<Double> list) {
-        pList = list;
+        priceList = list;
     }
 
     public ArrayList<Double> getMAList(int num) {
         ArrayList<Double> maList = new ArrayList<>();
-        int size = pList.size();
+        int size = priceList.size();
         for (int i = 0; i < size; i++) {
-            maList.add(MA(pList, i, num));
+            maList.add(MA(priceList, i, num));
         }
         return maList;
     }
 
     public double getMAKey(int s, int l) {
-        double lm = MA(pList, pList.size() - 1, l - 1);
+        double lm = MA(priceList, priceList.size() - 1, l - 1);
         if (s > 1) {
-            double sm = MA(pList, pList.size() - 1, s - 1);
+            double sm = MA(priceList, priceList.size() - 1, s - 1);
             double key = (lm * (l - 1) * s - sm * (s - 1) * l) / (l - s);
             return key;
         }
         return lm;
     }
 
-    public ArrayList<Double> pList = new ArrayList<>();
+    public ArrayList<Double> priceList = new ArrayList<>();
 }
