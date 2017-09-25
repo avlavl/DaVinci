@@ -224,17 +224,14 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             if (mFragmentHome == null) {
                 mFragmentHome = new FragmentHome();
             }
-
         } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_TRADE)) {
             if (mFragmentTrade == null) {
                 mFragmentTrade = new FragmentTrade();
             }
-
         } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_INVEST)) {
             if (mFragmentInvest == null) {
                 mFragmentInvest = new FragmentInvest();
             }
-
         } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_CHANCE)) {
             if (mFragmentChance == null) {
                 mFragmentChance = new FragmentChance();

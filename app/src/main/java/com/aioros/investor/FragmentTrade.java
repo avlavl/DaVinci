@@ -3,7 +3,6 @@ package com.aioros.investor;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -12,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -30,6 +30,10 @@ public class FragmentTrade extends BaseFragment {
     private ViewPager mViewPager;
     private String mTabTitles[] = new String[]{"淘金100", "腾讯济安", "养老产业", "医药100", "沪深300", "中证500", "创业板指"};
     private String mTabCodes[] = new String[]{"H30537", "h000847", "z399812", "h000978", "h000300", "h000905", "z399006"};
+    private TextView mTextViewDate;
+    private FileUtility fileUtility = new FileUtility();
+    public Handler mHandler;
+    private String latestDate;
     public String[] mMarketDatas;
 
     @Override
@@ -59,6 +63,20 @@ public class FragmentTrade extends BaseFragment {
         mViewPager.setAdapter(mAdapterPager);
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayoutTrade);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        fileUtility.importDataFile("investor/data/沪深300.txt");
+        mTextViewDate = (TextView) view.findViewById(R.id.textViewTradeDate);
+        mTextViewDate.setText("数据库：" + fileUtility.dateList.get(fileUtility.rows - 1));
+
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                String message = (String) msg.obj;
+                Toast.makeText(mMainActivity, message, Toast.LENGTH_LONG).show();
+                if (message.equals("更新成功！"))
+                    mTextViewDate.setText("数据库：" + latestDate);
+            }
+        };
 
         Button button = (Button) view.findViewById(R.id.buttonTrade);
         button.setOnClickListener(new View.OnClickListener() {
@@ -105,8 +123,8 @@ public class FragmentTrade extends BaseFragment {
     }
 
     private void buttonOnClick(View v, int position) {
-        Thread dft = new UpdateDataThread(position);
-        dft.start();
+        Thread udt = new UpdateDataThread(position);
+        udt.start();
     }
 
     class UpdateDataThread extends Thread {
@@ -118,6 +136,7 @@ public class FragmentTrade extends BaseFragment {
 
         @Override
         public void run() {
+            Message msg = mHandler.obtainMessage();
             String storageDir = Environment.getExternalStorageDirectory().toString();
             for (int i = 1; i < mTabTitles.length; i++) {
                 String filePath = storageDir + "/investor/data/" + mTabTitles[i] + ".txt";
@@ -128,18 +147,17 @@ public class FragmentTrade extends BaseFragment {
                         HttpUtility httpUtility = new HttpUtility();
                         String httpStr = httpUtility.getData(urlStr);
                         if (httpStr.equals("")) {
-                            Looper.prepare();
-                            Toast.makeText(mMainActivity, "网络无连接！", Toast.LENGTH_LONG).show();
-                            Looper.loop();
+                            msg.obj = "网络无连接！";
+                            mHandler.sendMessage(msg);
                             return;
                         } else if (httpStr.contains("pv_none_match")) {
-                            Looper.prepare();
-                            Toast.makeText(mMainActivity, "找不到对应的股票！", Toast.LENGTH_LONG).show();
-                            Looper.loop();
+                            msg.obj = "找不到对应的股票！";
+                            mHandler.sendMessage(msg);
                             return;
                         } else {
                             String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
-                            String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f", strs[30].replace("-", "/"),
+                            latestDate = strs[30].replace("-", "/");
+                            String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f", latestDate,
                                     Double.parseDouble(strs[1]), Double.parseDouble(strs[4]), Double.parseDouble(strs[5]), Double.parseDouble(strs[3]));
                             PrintWriter pw = new PrintWriter(new FileWriter(file, true));
                             pw.println(dataStr);
@@ -149,14 +167,13 @@ public class FragmentTrade extends BaseFragment {
                         e.printStackTrace();
                     }
                 } else {
-                    Looper.prepare();
-                    Toast.makeText(mMainActivity, "请先建立基础文件", Toast.LENGTH_LONG).show();
-                    Looper.loop();
+                    msg.obj = "请先建立基础文件";
+                    mHandler.sendMessage(msg);
+                    return;
                 }
             }
-            Looper.prepare();
-            Toast.makeText(mMainActivity, "更新成功！", Toast.LENGTH_LONG).show();
-            Looper.loop();
+            msg.obj = "更新成功！";
+            mHandler.sendMessage(msg);
         }
     }
 }
