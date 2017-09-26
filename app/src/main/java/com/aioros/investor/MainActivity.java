@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,11 +20,15 @@ import android.widget.Toast;
 
 import com.aioros.investor.BottomControlPanel.BottomPanelCallback;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static com.aioros.investor.TimeUtility.isTradeTime;
 
 public class MainActivity extends FragmentActivity implements BottomPanelCallback {
     BottomControlPanel mBottomPanel = null;
     HeadControlPanel mHeadPanel = null;
+    private static Context mContext = null;
 
     private FragmentManager mFragmentManager = null;
     private FragmentTransaction mFragmentTransaction = null;
@@ -49,10 +54,15 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
+    public static Context getContext() {
+        return mContext;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = this;
         initUI();
         mFragmentManager = getFragmentManager();
         setDefaultFirstFragment(Constant.FRAGMENT_FLAG_HOME);
@@ -64,19 +74,27 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                boolean flag = isTradeTime();
-                int delay = flag ? 3000 : 60000;
-                if (flag) {
+                int delay;
+                if (isTradeTime()) {
+                    delay = 3000;
                     new NetworkThread().start();
+                } else {
+                    delay = 60000;
                 }
                 mHandler.postDelayed(this, delay);
             }
         };
-        if (!isTradeTime()) {
+
+        if (isTradeTime()) {
+            PushService.cleanAllNotification();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            String time = sdf.format(new Date()) + " 15:01:00";
+            PushService.addNotification(time, "有新的数据！", "有新的交易数据，请及时更新数据库。");
+
+            mHandler.postDelayed(runnable, 1);
+        } else {
             new NetworkThread().start();
             mHandler.postDelayed(runnable, 60000);
-        } else {
-            mHandler.postDelayed(runnable, 1);
         }
     }
 

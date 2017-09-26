@@ -18,6 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".PushService"></service>
+
     </application>
 
     <!-- 访问网络和操作SD卡, 加入的两个权限配置 -->
