@@ -78,7 +78,7 @@ public class PushService extends Service {
             public void run() {
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 Notification.Builder builder = new Notification.Builder(PushService.this);
-                builder.setSmallIcon(R.drawable.trade_select);
+                builder.setSmallIcon(R.mipmap.ic_app_logo);
                 builder.setContentTitle(intent.getStringExtra("title"));//下拉通知栏标题
                 builder.setContentText(intent.getStringExtra("content")); //下拉通知栏内容
                 builder.setAutoCancel(true);

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import static com.aioros.investor.FormulaLib.MA;
 
 public class MaLine {
+    public ArrayList<Double> priceList = new ArrayList<>();
 
     public MaLine(ArrayList<Double> list) {
         priceList = list;
@@ -33,5 +34,4 @@ public class MaLine {
         return lm;
     }
 
-    public ArrayList<Double> priceList = new ArrayList<>();
 }

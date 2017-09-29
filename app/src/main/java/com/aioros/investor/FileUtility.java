@@ -19,8 +19,10 @@ import java.util.ArrayList;
 public class FileUtility {
     private String storageDirectory;
     public int rows = 0;
+    public int rows2 = 0;
     public ArrayList<String> dateList;
     public ArrayList<Double> closeList;
+    public ArrayList<Double> closeList2;
 
 
     public FileUtility() {
@@ -34,7 +36,7 @@ public class FileUtility {
     public int importDataFile(String fileName) {
         dateList = new ArrayList<>();
         closeList = new ArrayList<>();
-		rows = 0;
+        rows = 0;
         try {
             File file = new File(storageDirectory + fileName);
             if (!file.exists()) {
@@ -44,8 +46,6 @@ public class FileUtility {
             BufferedReader br = new BufferedReader(isr);
             br.readLine();
             br.readLine();
-            dateList = new ArrayList<>();
-            closeList = new ArrayList<>();
             String line;
             while ((line = br.readLine()) != null) {
                 String[] words = line.split("\t");
@@ -53,6 +53,33 @@ public class FileUtility {
                 closeList.add(Double.parseDouble(words[4]));
             }
             rows = dateList.size();
+            br.close();
+            isr.close();
+            return 0;
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public int importDataFile2(String fileName) {
+        closeList2 = new ArrayList<>();
+        rows2 = 0;
+        try {
+            File file = new File(storageDirectory + fileName);
+            if (!file.exists()) {
+                return -1;
+            }
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "gbk");
+            BufferedReader br = new BufferedReader(isr);
+            br.readLine();
+            br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split("\t");
+                closeList2.add(Double.parseDouble(words[4]));
+            }
+            rows2 = closeList2.size();
             br.close();
             isr.close();
             return 0;

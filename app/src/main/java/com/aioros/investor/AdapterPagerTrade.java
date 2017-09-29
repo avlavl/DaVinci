@@ -23,17 +23,24 @@ public class AdapterPagerTrade extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private String mTabTitles[] = new String[]{"淘金100", "腾讯济安", "养老产业", "医药100", "沪深300", "中证500", "创业板指"};
-    private String mImportName[] = new String[]{"沪深300", "腾讯济安", "沪深300", "沪深300", "沪深300", "中证500", "创业板指"};
+    private String mBaseNames[] = new String[]{"沪深300", "腾讯济安", "沪深300", "沪深300", "沪深300", "中证500", "创业板指"};
     private ListView mListView;
     private AdapterListViewTradeMode mAdapterListView;
-    private ArrayList<BeanTradeMode> mBeanTradeModeList = new ArrayList<BeanTradeMode>();
-    private FileUtility fileUtility = new FileUtility();
+    private ArrayList<ArrayList<BeanTradeMode>> mBeanTradeModeLists = new ArrayList<>();
     private FragmentTrade fragmentTrade;
 
     public AdapterPagerTrade(Context context, FragmentTrade ft) {
         mContext = context;
         fragmentTrade = ft;
         mInflater = LayoutInflater.from(context);
+        for (int i = 0; i < STOCK_INI_ARRAY.length; i++) {
+            ArrayList<BeanTradeMode> mBeanTradeModeList = new ArrayList<>();
+            for (String mode : STOCK_INI_ARRAY[i]) {
+                String[] paras = mode.split(" ");
+                mBeanTradeModeList.add(new BeanTradeMode(paras[0], paras[1], paras[2]));
+            }
+            mBeanTradeModeLists.add(mBeanTradeModeList);
+        }
     }
 
     @Override
@@ -63,15 +70,13 @@ public class AdapterPagerTrade extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        mBeanTradeModeList = new ArrayList<>();
-        for (String mode : STOCK_INI_ARRAY[position]) {
-            String[] paras = mode.split(" ");
-            mBeanTradeModeList.add(new BeanTradeMode(paras[0], paras[1], paras[2]));
-        }
-
-        if (fileUtility.importDataFile("investor/data/" + mImportName[position] + ".txt") == 0) {
+        FileUtility fileUtility = new FileUtility();
+        if (fileUtility.importDataFile("investor/data/" + mBaseNames[position] + ".txt") == 0) {
+            if (false == mTabTitles[position].equals(mBaseNames[position])) {
+                fileUtility.importDataFile2("investor/data/" + mTabTitles[position] + ".txt");
+            }
             TradeCheck tradeCheck = new TradeCheck(fileUtility);
-            for (BeanTradeMode tradeMode : mBeanTradeModeList) {
+            for (BeanTradeMode tradeMode : mBeanTradeModeLists.get(position)) {
                 switch (tradeMode.mModeName) {
                     case "MA":
                         tradeCheck.sysMAChk(tradeMode);
@@ -106,13 +111,15 @@ public class AdapterPagerTrade extends PagerAdapter {
         View view = mInflater.inflate(R.layout.pager_trade, null);
         updateTextView(view, position);
         mListView = (ListView) view.findViewById(R.id.listViewPagerTrade);
-        mAdapterListView = new AdapterListViewTradeMode(mContext, mBeanTradeModeList);
+        mAdapterListView = new AdapterListViewTradeMode(mContext, mBeanTradeModeLists.get(position));
         mListView.setAdapter(mAdapterListView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mContext, "点击" + mBeanTradeModeList.get(position).mAmount, Toast.LENGTH_SHORT).show();
-                //mListViewOnItemClick(parent, view, position, id);
+            public void onItemClick(AdapterView<?> parent, View view, int item, long id) {
+                BeanTradeMode btm = mBeanTradeModeLists.get(position).get(item);
+                String message = (btm.mStatus ? "买入价：" : "卖出价：") + String.format("%.2f\t涨跌幅：%.2f%%", btm.mCost, btm.mRatio);
+                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                //mListViewOnItemClick(parent, view, item, id);
             }
 
         });
@@ -147,7 +154,7 @@ public class AdapterPagerTrade extends PagerAdapter {
         String[] marketDatas = fragmentTrade.mMarketDatas;
         String marketData = marketDatas[idxBase[position]];
         String[] datas = marketData.substring(marketData.indexOf("\"") + 1, marketData.lastIndexOf("\"")).split("~");
-        textViewBasep.setText(mImportName[position] + ": ");
+        textViewBasep.setText(mBaseNames[position] + ": ");
         textViewBase.setText(datas[5] + "% " + datas[3]);
         textViewBase.setTextColor((Double.parseDouble(datas[5]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
 
