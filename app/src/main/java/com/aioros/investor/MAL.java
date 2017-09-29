@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 import static com.aioros.investor.FormulaLib.MA;
 
-public class MaLine {
+public class MAL {
     public ArrayList<Double> priceList = new ArrayList<>();
 
-    public MaLine(ArrayList<Double> list) {
+    public MAL(ArrayList<Double> list) {
         priceList = list;
     }
 

@@ -60,7 +60,7 @@ public class TradeCheck {
         int mas = Integer.parseInt(ps[0]);
         int mal = Integer.parseInt(ps[1]);
 
-        MaLine ma = new MaLine(priceList);
+        MAL ma = new MAL(priceList);
         strategy = new Strategy(priceList);
         strategy.ma = ma;
 
@@ -160,7 +160,7 @@ public class TradeCheck {
 
         MACD macd = new MACD(priceList, 12, 26, 9);
         macd.init();
-        MaLine ma = new MaLine(priceList);
+        MAL ma = new MAL(priceList);
         strategy = new Strategy(priceList);
         strategy.macd = macd;
         strategy.ma = ma;

@@ -120,7 +120,7 @@ public class Strategy {
     public ArrayList<Integer> bpIdxList = new ArrayList<>();
     public ArrayList<Integer> spIdxList = new ArrayList<>();
     public MACD macd;
-    public MaLine ma;
+    public MAL ma;
     public Livermore livermore;
 }
 
