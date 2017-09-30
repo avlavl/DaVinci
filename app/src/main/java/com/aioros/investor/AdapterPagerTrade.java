@@ -1,15 +1,16 @@
 package com.aioros.investor;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -116,10 +117,23 @@ public class AdapterPagerTrade extends PagerAdapter {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int item, long id) {
-                BeanTradeMode btm = mBeanTradeModeLists.get(position).get(item);
-                String message = (btm.mStatus ? "买入价：" : "卖出价：") + String.format("%.2f\t涨跌幅：%.2f%%", btm.mCost, btm.mRatio);
-                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                 //mListViewOnItemClick(parent, view, item, id);
+                BeanTradeMode btm = mBeanTradeModeLists.get(position).get(item);
+                String message = String.format((btm.mStatus ? "买入价：" : "卖出价：") + "%.2f    涨跌幅：%.2f%%", btm.mCost, btm.mRatio);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setIcon(R.drawable.trade_select);
+                builder.setTitle("交易信息");
+                builder.setMessage(message);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //Toast.makeText(mContext, "PositiveButton", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
 
         });
