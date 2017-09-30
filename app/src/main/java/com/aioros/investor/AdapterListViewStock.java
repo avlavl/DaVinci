@@ -50,7 +50,7 @@ public class AdapterListViewStock extends BaseAdapter {
             colorB = Color.DKGRAY;
         } else if (Double.parseDouble(mStockBeanList.get(position).mStockScope) > 0) {
             colorF = Color.rgb(240, 0, 0);
-            colorB = Color.rgb(180, 0, 30);
+            colorB = Color.rgb(200, 0, 0);
         } else if (Double.parseDouble(mStockBeanList.get(position).mStockScope) < 0) {
             colorF = Color.rgb(0, 200, 0);
             colorB = Color.rgb(0, 128, 0);

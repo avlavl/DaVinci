@@ -165,19 +165,15 @@ public class AdapterPagerTrade extends PagerAdapter {
         TextView textViewSelf = (TextView) view.findViewById(R.id.textViewPagerTradeSelf);
         int[] idxBase = new int[]{3, 5, 3, 3, 3, 4, 2};
         int[] idxSelf = new int[]{0, 0, 6, 7, 0, 0, 0};
-        String[] marketDatas = fragmentTrade.mMarketDatas;
-        String marketData = marketDatas[idxBase[position]];
-        String[] datas = marketData.substring(marketData.indexOf("\"") + 1, marketData.lastIndexOf("\"")).split("~");
+        String[][] marketDatas = fragmentTrade.mMarketDatas;
         textViewBasep.setText(mBaseNames[position] + ": ");
-        textViewBase.setText(datas[5] + "% " + datas[3]);
-        textViewBase.setTextColor((Double.parseDouble(datas[5]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
+        textViewBase.setText(marketDatas[idxBase[position]][3] + "% " + marketDatas[idxBase[position]][1]);
+        textViewBase.setTextColor((Double.parseDouble(marketDatas[idxBase[position]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
 
         if (idxSelf[position] != 0) {
-            marketData = marketDatas[idxSelf[position]];
-            datas = marketData.substring(marketData.indexOf("\"") + 1, marketData.lastIndexOf("\"")).split("~");
             textViewSelfp.setText(mTabTitles[position] + ": ");
-            textViewSelf.setText(datas[5] + "% " + datas[3]);
-            textViewSelf.setTextColor((Double.parseDouble(datas[5]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
+            textViewSelf.setText(marketDatas[idxSelf[position]][3] + "% " + marketDatas[idxSelf[position]][1]);
+            textViewSelf.setTextColor((Double.parseDouble(marketDatas[idxSelf[position]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
         }
     }
 }

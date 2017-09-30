@@ -25,7 +25,7 @@ public class FragmentInvest extends BaseFragment {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private FileUtility fileUtility = new FileUtility();
-    public String[] mMarketDatas;
+    public String[][] mMarketDatas;
     private String mTabTitles[] = new String[]{"深证成指", "申万证券", "养老产业"};
     private int[] indexArray = new int[]{1, 8, 6};
     private int[] weeksArray = new int[3];
@@ -41,9 +41,7 @@ public class FragmentInvest extends BaseFragment {
         mBeanInvestList.add(new BeanInvest(1400, 10, 20, 1.5, 20));
 
         for (int i = 0; i < indexArray.length; i++) {
-            String marketData = mMarketDatas[indexArray[i]];
-            String[] datas = marketData.substring(marketData.indexOf("\"") + 1, marketData.lastIndexOf("\"")).split("~");
-            mBeanInvestList.get(i).mRealPoint = datas[3];
+            mBeanInvestList.get(i).mRealPoint = mMarketDatas[indexArray[i]][1];
             fileUtility.importDataFile("investor/data/W" + mTabTitles[i] + ".txt");
             weeksArray[i] = fileUtility.rows;
             if (weeksArray[i] > 0) {
@@ -61,11 +59,9 @@ public class FragmentInvest extends BaseFragment {
             // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
             @Override
             public void handleMessage(Message msg) {
-                mMarketDatas = (String[]) msg.obj;
+                mMarketDatas = (String[][]) msg.obj;
                 for (int i = 0; i < indexArray.length; i++) {
-                    String marketData = mMarketDatas[indexArray[i]];
-                    String[] datas = marketData.substring(marketData.indexOf("\"") + 1, marketData.lastIndexOf("\"")).split("~");
-                    mBeanInvestList.get(i).mRealPoint = datas[3];
+                    mBeanInvestList.get(i).mRealPoint = mMarketDatas[indexArray[i]][1];
                     if (weeksArray[i] > 0) {
                         double basePoint = mBeanInvestList.get(i).mStartPoint + weeksArray[i] * mBeanInvestList.get(i).mSlope;
                         mBeanInvestList.get(i).mBasePoint = Double.toString(basePoint);

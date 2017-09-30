@@ -34,7 +34,7 @@ public class FragmentTrade extends BaseFragment {
     private FileUtility fileUtility = new FileUtility();
     public Handler mHandler;
     private String latestDate;
-    public String[] mMarketDatas;
+    public String[][] mMarketDatas;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class FragmentTrade extends BaseFragment {
             // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
             @Override
             public void handleMessage(Message msg) {
-                mMarketDatas = (String[]) msg.obj;
+                mMarketDatas = (String[][]) msg.obj;
             }
         };
     }

@@ -40,11 +40,12 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     private FragmentMore mFragmentMore;
 
     public static String currFragTag = "";
+    public static int mDataSource = 0;
 
     public Handler mHomeHandler;
     public Handler mTradeHandler;
     public Handler mInvestHandler;
-    public String[] mMarketDatas;
+    public String[][] mMarketDatas = new String[20][4];
 
     private Handler mHandler;
 
@@ -285,42 +286,62 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     class NetworkThread extends Thread {
         @Override
         public void run() {
-            String urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=" +
-                    "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000847,s_sz399812,s_sh000978,s_sz399707,s_sz399967,s_sh000827," +
-                    "s_sh511990,s_sh511880,s_sh511660,s_sh511810,s_sh511690,s_sh511900,s_sh511830,s_sh511980,s_sh511650";
-            HttpUtility httpUtility = new HttpUtility();
-            String httpStr = httpUtility.getData(urlStr);
-            if (httpStr.equals("")) {
-                Looper.prepare();
-                Toast.makeText(MainActivity.this, "无网络连接！", Toast.LENGTH_LONG).show();
-                Looper.loop();
-            } else if (httpStr.contains("pv_none_match")) {
-                Looper.prepare();
-                Toast.makeText(MainActivity.this, "找不到对应的股票！", Toast.LENGTH_LONG).show();
-                Looper.loop();
-            } else {
-                mMarketDatas = httpStr.split(";");
-                if (mHomeHandler != null) {
-                    // 使用Handler对象创建一个消息体
-                    Message msgRx = mHomeHandler.obtainMessage();
-                    msgRx.obj = mMarketDatas;
-                    // 发送消息，WorkerThread 向 MainThread 发送消息
-                    mHomeHandler.sendMessage(msgRx);
+            String httpStr = "";
+            do {
+                String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=" : "http://hq.sinajs.cn/list=") +
+                        "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000847,s_sz399812,s_sh000978,s_sz399707,s_sz399967,s_sh000827," +
+                        "s_sh511990,s_sh511880,s_sh511660,s_sh511810,s_sh511690,s_sh511900,s_sh511830,s_sh511980,s_sh511650";
+                HttpUtility httpUtility = new HttpUtility();
+                httpStr = httpUtility.getData(urlStr);
+                if (httpStr.equals("")) {
+                    Looper.prepare();
+                    Toast.makeText(MainActivity.this, "无网络连接！", Toast.LENGTH_LONG).show();
+                    Looper.loop();
+                    return;
+                } else if (httpStr.contains("pv_none_match")) {
+                    mDataSource = 1;
+                } else if (httpStr.contains("\"\"")) {
+                    mDataSource = 0;
                 }
-                if (mTradeHandler != null) {
-                    // 使用Handler对象创建一个消息体
-                    Message msgRx = mTradeHandler.obtainMessage();
-                    msgRx.obj = mMarketDatas;
-                    // 发送消息，WorkerThread 向 MainThread 发送消息
-                    mTradeHandler.sendMessage(msgRx);
+            } while (httpStr.contains("pv_none_match") || httpStr.contains("\"\""));
+
+            String[] items = httpStr.split(";");
+            for (int i = 0; i < items.length; i++) {
+                if (mDataSource == 0) {
+                    String[] strs = items[i].substring(items[i].indexOf("\"") + 1, items[i].lastIndexOf("\"")).split("~");
+                    mMarketDatas[i][0] = strs[1];
+                    mMarketDatas[i][1] = strs[3];
+                    mMarketDatas[i][2] = strs[4];
+                    mMarketDatas[i][3] = strs[5];
+                } else {
+                    String[] strs = items[i].substring(items[i].indexOf("\"") + 1, items[i].lastIndexOf("\"")).split(",");
+                    mMarketDatas[i][0] = strs[0];
+                    mMarketDatas[i][1] = String.format("%.3f", Double.parseDouble(strs[1]));
+                    mMarketDatas[i][2] = String.format("%.3f", Double.parseDouble(strs[2]));
+                    mMarketDatas[i][3] = strs[3];
                 }
-                if (mInvestHandler != null) {
-                    // 使用Handler对象创建一个消息体
-                    Message msgRx = mInvestHandler.obtainMessage();
-                    msgRx.obj = mMarketDatas;
-                    // 发送消息，WorkerThread 向 MainThread 发送消息
-                    mInvestHandler.sendMessage(msgRx);
-                }
+            }
+
+            if (mHomeHandler != null) {
+                // 使用Handler对象创建一个消息体
+                Message msgRx = mHomeHandler.obtainMessage();
+                msgRx.obj = mMarketDatas;
+                // 发送消息，WorkerThread 向 MainThread 发送消息
+                mHomeHandler.sendMessage(msgRx);
+            }
+            if (mTradeHandler != null) {
+                // 使用Handler对象创建一个消息体
+                Message msgRx = mTradeHandler.obtainMessage();
+                msgRx.obj = mMarketDatas;
+                // 发送消息，WorkerThread 向 MainThread 发送消息
+                mTradeHandler.sendMessage(msgRx);
+            }
+            if (mInvestHandler != null) {
+                // 使用Handler对象创建一个消息体
+                Message msgRx = mInvestHandler.obtainMessage();
+                msgRx.obj = mMarketDatas;
+                // 发送消息，WorkerThread 向 MainThread 发送消息
+                mInvestHandler.sendMessage(msgRx);
             }
         }
     }

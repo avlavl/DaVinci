@@ -28,7 +28,7 @@ public class FragmentHome extends BaseFragment {
     private ListView mListView;
     private AdapterListViewStock mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
-    public String[] mMarketDatas;
+    public String[][] mMarketDatas;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,12 +44,11 @@ public class FragmentHome extends BaseFragment {
             // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
             @Override
             public void handleMessage(Message msg) {
-                mMarketDatas = (String[]) msg.obj;
+                mMarketDatas = (String[][]) msg.obj;
                 for (int i = 0; i < mStockNames.length; i++) {
-                    String[] strs = mMarketDatas[i].substring(mMarketDatas[i].indexOf("\"") + 1, mMarketDatas[i].lastIndexOf("\"")).split("~");
-                    mBeanStockList.get(i).mStockValue = strs[3];
-                    mBeanStockList.get(i).mStockScope = strs[4];
-                    mBeanStockList.get(i).mStockRatio = strs[5] + "%";
+                    mBeanStockList.get(i).mStockValue = mMarketDatas[i][1];
+                    mBeanStockList.get(i).mStockScope = mMarketDatas[i][2];
+                    mBeanStockList.get(i).mStockRatio = mMarketDatas[i][3] + "%";
                 }
                 mAdapterListView.notifyDataSetChanged();
             }
