@@ -28,6 +28,7 @@ public class FragmentChance extends BaseFragment {
     private AdapterListViewStock mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
     public String[][] mMarketDatas;
+    private int offset = 11;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class FragmentChance extends BaseFragment {
         mMainActivity = (MainActivity) getActivity();
         mMarketDatas = mMainActivity.mMarketDatas;
         for (int i = 0; i < mStockNames.length; i++) {
-            mBeanStockList.add(new BeanStock(mStockNames[i], mStockCodes[i], mMarketDatas[11 + i][1], mMarketDatas[11 + i][2], mMarketDatas[11 + i][3] + "%"));
+            mBeanStockList.add(new BeanStock(mStockNames[i], mStockCodes[i], mMarketDatas[offset + i][1], mMarketDatas[offset + i][2], mMarketDatas[offset + i][3] + "%"));
         }
 
         // 在主线程中声明一个消息处理对象Handler
@@ -46,9 +47,9 @@ public class FragmentChance extends BaseFragment {
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
                 for (int i = 0; i < mStockNames.length; i++) {
-                    mBeanStockList.get(i).mStockValue = mMarketDatas[11 + i][1];
-                    mBeanStockList.get(i).mStockScope = mMarketDatas[11 + i][2];
-                    mBeanStockList.get(i).mStockRatio = mMarketDatas[11 + i][3] + "%";
+                    mBeanStockList.get(i).mStockValue = mMarketDatas[offset + i][1];
+                    mBeanStockList.get(i).mStockScope = mMarketDatas[offset + i][2];
+                    mBeanStockList.get(i).mStockRatio = mMarketDatas[offset + i][3] + "%";
                 }
                 mAdapterListView.notifyDataSetChanged();
             }
