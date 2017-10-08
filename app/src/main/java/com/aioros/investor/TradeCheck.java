@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class TradeCheck {
     public ArrayList<String> dateList;
-    public ArrayList<Double> priceList;
     public ArrayList<Double> closeList;
+    public ArrayList<Double> priceList;
     public int rows;
     public Strategy strategy;
     public ArrayList<Integer> bpIndexList = new ArrayList<>();
@@ -17,18 +17,18 @@ public class TradeCheck {
 
     public TradeCheck(FileUtility fu) {
         dateList = fu.dateList;
-        priceList = fu.closeList;
+        closeList = fu.closeList;
         rows = fu.rows;
-        closeList = (rows != fu.rows2) ? fu.closeList : fu.closeList2;
+        priceList = (rows != fu.rows2) ? fu.closeList : fu.closeList2;
     }
 
     public void sysMACDChk(BeanTradeMode tradeMode) {
         String[] ps = tradeMode.mModePara.split(",");
         int bp = Integer.parseInt(ps[0]);
 
-        MACD macd = new MACD(priceList, 12, 26, 9);
+        MACD macd = new MACD(closeList, 12, 26, 9);
         macd.init();
-        strategy = new Strategy(priceList);
+        strategy = new Strategy(closeList);
         strategy.macd = macd;
 
         for (int i = 0; i < rows; i++) {
@@ -43,16 +43,16 @@ public class TradeCheck {
         if (bpIndexList.size() > spIndexList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
         }
 
-        tradeMode.mRatio = (closeList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
+        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         tradeMode.mKeyPoint = macd.getMACDKey(tradeMode.mModeName, bp);
-        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - priceList.get(rows - 1)) / priceList.get(rows - 1);
+        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - closeList.get(rows - 1)) / closeList.get(rows - 1);
     }
 
     public void sysMAChk(BeanTradeMode tradeMode) {
@@ -60,8 +60,8 @@ public class TradeCheck {
         int mas = Integer.parseInt(ps[0]);
         int mal = Integer.parseInt(ps[1]);
 
-        MAL ma = new MAL(priceList);
-        strategy = new Strategy(priceList);
+        MAL ma = new MAL(closeList);
+        strategy = new Strategy(closeList);
         strategy.ma = ma;
 
         ArrayList<Double> masList = ma.getMAList(mas);
@@ -74,16 +74,16 @@ public class TradeCheck {
         if (bpIndexList.size() > spIndexList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
         }
 
-        tradeMode.mRatio = (closeList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
+        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         tradeMode.mKeyPoint = ma.getMAKey(mas, mal);
-        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - priceList.get(rows - 1)) / priceList.get(rows - 1);
+        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - closeList.get(rows - 1)) / closeList.get(rows - 1);
     }
 
     public void sysLMChk(BeanTradeMode tradeMode) {
@@ -92,11 +92,11 @@ public class TradeCheck {
         int t2 = Integer.parseInt(ps[1]);
 
         Livermore livermore = new Livermore(true, t1, t2);
-        strategy = new Strategy(priceList);
+        strategy = new Strategy(closeList);
         strategy.livermore = livermore;
 
         for (int i = 0; i < rows; i++) {
-            livermore.arithmetic(priceList.get(i));
+            livermore.arithmetic(closeList.get(i));
             if (tradeMode.mModeName.equals("LML")) {
                 strategy.lmLongTrade(i);
             } else {
@@ -108,16 +108,16 @@ public class TradeCheck {
         if (bpIndexList.size() > spIndexList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
         }
 
-        tradeMode.mRatio = (closeList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
+        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         tradeMode.mKeyPoint = livermore.getLMKey(tradeMode.mModeName);
-        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - priceList.get(rows - 1)) / priceList.get(rows - 1);
+        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - closeList.get(rows - 1)) / closeList.get(rows - 1);
     }
 
     public void sysMACD2Chk(BeanTradeMode tradeMode) {
@@ -125,9 +125,9 @@ public class TradeCheck {
         int bp0 = Integer.parseInt(ps[0]);
         int bp1 = Integer.parseInt(ps[1]);
 
-        MACD macd = new MACD(priceList, 12, 26, 9);
+        MACD macd = new MACD(closeList, 12, 26, 9);
         macd.init();
-        strategy = new Strategy(priceList);
+        strategy = new Strategy(closeList);
         strategy.macd = macd;
 
         for (int i = 0; i < rows; i++) {
@@ -138,18 +138,18 @@ public class TradeCheck {
         if (bpIndexList.size() > spIndexList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
         }
 
-        tradeMode.mRatio = (closeList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
+        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         double barKey = macd.getBARKey(bp0);
         double difKey = macd.getDIFKey(bp1);
         tradeMode.mKeyPoint = (barKey > difKey) ? barKey : difKey;
-        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - priceList.get(rows - 1)) / priceList.get(rows - 1);
+        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - closeList.get(rows - 1)) / closeList.get(rows - 1);
     }
 
     public void sysMACDMAChk(BeanTradeMode tradeMode) {
@@ -158,10 +158,10 @@ public class TradeCheck {
         int mas = Integer.parseInt(ps[1]);
         int mal = Integer.parseInt(ps[2]);
 
-        MACD macd = new MACD(priceList, 12, 26, 9);
+        MACD macd = new MACD(closeList, 12, 26, 9);
         macd.init();
-        MAL ma = new MAL(priceList);
-        strategy = new Strategy(priceList);
+        MAL ma = new MAL(closeList);
+        strategy = new Strategy(closeList);
         strategy.macd = macd;
         strategy.ma = ma;
 
@@ -179,18 +179,18 @@ public class TradeCheck {
         if (bpIndexList.size() > spIndexList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
         }
 
-        tradeMode.mRatio = (closeList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
+        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         double maKey = ma.getMAKey(mas, mal);
         double macdKey = macd.getMACDKey(tradeMode.mModeName, bp);
         tradeMode.mKeyPoint = (maKey > macdKey) ? maKey : macdKey;
-        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - priceList.get(rows - 1)) / priceList.get(rows - 1);
+        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - closeList.get(rows - 1)) / closeList.get(rows - 1);
     }
 
     public void sysMACDLMChk(BeanTradeMode tradeMode) {
@@ -199,15 +199,15 @@ public class TradeCheck {
         int t1 = Integer.parseInt(ps[1]);
         int t2 = Integer.parseInt(ps[2]);
 
-        MACD macd = new MACD(priceList, 12, 26, 9);
+        MACD macd = new MACD(closeList, 12, 26, 9);
         macd.init();
         Livermore livermore = new Livermore(true, t1, t2);
-        strategy = new Strategy(priceList);
+        strategy = new Strategy(closeList);
         strategy.macd = macd;
         strategy.livermore = livermore;
 
         for (int i = 0; i < rows; i++) {
-            livermore.arithmetic(priceList.get(i));
+            livermore.arithmetic(closeList.get(i));
             if (tradeMode.mModeName.equals("BARLML")) {
                 strategy.barLMLCrossTrade(i, bp);
             } else if (tradeMode.mModeName.equals("BARLMS")) {
@@ -223,18 +223,17 @@ public class TradeCheck {
         if (bpIndexList.size() > spIndexList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = closeList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
         }
 
-        tradeMode.mRatio = (closeList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
+        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         double lmKey = livermore.getLMKey(tradeMode.mModeName);
         double macdKey = macd.getMACDKey(tradeMode.mModeName, bp);
         tradeMode.mKeyPoint = (lmKey > macdKey) ? lmKey : macdKey;
-        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - priceList.get(rows - 1)) / priceList.get(rows - 1);
+        tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - closeList.get(rows - 1)) / closeList.get(rows - 1);
     }
-
 }

@@ -23,8 +23,8 @@ import static com.aioros.investor.Constant.STOCK_INI_ARRAY;
 public class AdapterPagerTrade extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private String mTabTitles[] = new String[]{"淘金100", "腾讯济安", "养老产业", "医药100", "沪深300", "中证500", "创业板指"};
-    private String mBaseNames[] = new String[]{"沪深300", "腾讯济安", "沪深300", "沪深300", "沪深300", "中证500", "创业板指"};
+    private String mTabTitles[] = new String[]{"淘金100", "腾讯济安", "养老产业", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
+    private String mBaseNames[] = new String[]{"沪深300", "腾讯济安", "沪深300", "沪深300", "中国互联", "沪深300", "中证500", "创业板指"};
     private ListView mListView;
     private AdapterListViewTradeMode mAdapterListView;
     private ArrayList<ArrayList<BeanTradeMode>> mBeanTradeModeLists = new ArrayList<>();
@@ -77,6 +77,13 @@ public class AdapterPagerTrade extends PagerAdapter {
                 fileUtility.importDataFile2("investor/data/" + mTabTitles[position] + ".txt");
             }
             TradeCheck tradeCheck = new TradeCheck(fileUtility);
+            if (position == 4) {
+                ArrayList<Double> zoomPriceList = new ArrayList<>();
+                for (int i = 0; i < tradeCheck.rows; i++) {
+                    zoomPriceList.add(tradeCheck.closeList.get(i) * 1000);
+                }
+                tradeCheck.closeList = zoomPriceList;
+            }
             for (BeanTradeMode tradeMode : mBeanTradeModeLists.get(position)) {
                 switch (tradeMode.mModeName) {
                     case "MA":
@@ -106,6 +113,9 @@ public class AdapterPagerTrade extends PagerAdapter {
                     default:
                         break;
                 }
+                if (position == 4) {
+                    tradeMode.mKeyPoint /= 1000;
+                }
             }
         }
 
@@ -119,7 +129,7 @@ public class AdapterPagerTrade extends PagerAdapter {
             public void onItemClick(AdapterView<?> parent, View view, int item, long id) {
                 //mListViewOnItemClick(parent, view, item, id);
                 BeanTradeMode btm = mBeanTradeModeLists.get(position).get(item);
-                String message = String.format((btm.mStatus ? "买入价：" : "卖出价：") + "%.2f    涨跌幅：%.2f%%", btm.mCost, btm.mRatio);
+                String message = String.format((btm.mStatus ? "买入价：" : "卖出价：") + ((position == 4) ? "%.3f" : "%.2f") + "    涨跌幅：%.2f%%", btm.mCost, btm.mRatio);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setIcon(R.drawable.trade_select);
@@ -163,8 +173,8 @@ public class AdapterPagerTrade extends PagerAdapter {
         TextView textViewSelfp = (TextView) view.findViewById(R.id.textViewPagerTradeSelfp);
         TextView textViewBase = (TextView) view.findViewById(R.id.textViewPagerTradeBase);
         TextView textViewSelf = (TextView) view.findViewById(R.id.textViewPagerTradeSelf);
-        int[] idxBase = new int[]{3, 5, 3, 3, 3, 4, 2};
-        int[] idxSelf = new int[]{0, 0, 6, 7, 0, 0, 0};
+        int[] idxBase = new int[]{3, 5, 3, 3, 10, 3, 4, 2};
+        int[] idxSelf = new int[]{0, 0, 6, 7, 0, 0, 0, 0};
         String[][] marketDatas = fragmentTrade.mMarketDatas;
         textViewBasep.setText(mBaseNames[position] + ": ");
         textViewBase.setText(marketDatas[idxBase[position]][3] + "% " + marketDatas[idxBase[position]][1]);

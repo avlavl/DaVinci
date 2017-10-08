@@ -28,8 +28,8 @@ public class FragmentTrade extends BaseFragment {
     private AdapterPagerTrade mAdapterPager;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    private String mTabTitles[] = new String[]{"淘金100", "腾讯济安", "养老产业", "医药100", "沪深300", "中证500", "创业板指"};
-    private String mTabCodes[] = new String[]{"H30537", "h000847", "z399812", "h000978", "h000300", "h000905", "z399006"};
+    private String mTabTitles[] = new String[]{"淘金100", "腾讯济安", "养老产业", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
+    private String mTabCodes[] = new String[]{"H30537", "h000847", "z399812", "h000978", "z164906", "h000300", "h000905", "z399006"};
     private TextView mTextViewDate;
     private FileUtility fileUtility = new FileUtility();
     public Handler mHandler;
@@ -150,7 +150,7 @@ public class FragmentTrade extends BaseFragment {
                             msg.obj = "网络无连接！";
                             mHandler.sendMessage(msg);
                             return;
-                        } else if (httpStr.contains("pv_none_match")) {
+                        } else if (httpStr.contains("\"\"")) {
                             msg.obj = "找不到对应的股票！";
                             mHandler.sendMessage(msg);
                             return;
