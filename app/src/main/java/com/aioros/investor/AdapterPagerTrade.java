@@ -1,13 +1,13 @@
 package com.aioros.investor;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -127,23 +127,7 @@ public class AdapterPagerTrade extends PagerAdapter {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int item, long id) {
-                //mListViewOnItemClick(parent, view, item, id);
-                BeanTradeMode btm = mBeanTradeModeLists.get(position).get(item);
-                String message = String.format((btm.mStatus ? "买入价：" : "卖出价：") + ((position == 4) ? "%.3f" : "%.2f") + "    涨跌幅：%.2f%%", btm.mCost, btm.mRatio);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setIcon(R.drawable.trade_select);
-                builder.setTitle("交易信息");
-                builder.setMessage(message);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //Toast.makeText(mContext, "PositiveButton", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                mListViewOnItemClick(position, item);
             }
 
         });
@@ -185,5 +169,20 @@ public class AdapterPagerTrade extends PagerAdapter {
             textViewSelf.setText(marketDatas[idxSelf[position]][3] + "% " + marketDatas[idxSelf[position]][1]);
             textViewSelf.setTextColor((Double.parseDouble(marketDatas[idxSelf[position]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
         }
+    }
+
+    private void mListViewOnItemClick(int position, int item) {
+        BeanTradeMode btm = mBeanTradeModeLists.get(position).get(item);
+        String message = String.format((btm.mStatus ? "买入价：" : "卖出价：") + ((position == 4) ? "%.3f" : "%.2f") + "   涨跌幅：%.2f%%", btm.mCost, btm.mRatio);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        window.setContentView(R.layout.dialog_basic);
+        TextView textViewTitle = (TextView) window.findViewById(R.id.textViewDialogTitle);
+        textViewTitle.setText("交易信息");
+        TextView textViewContent = (TextView) window.findViewById(R.id.textViewDialogContent);
+        textViewContent.setText(message);
+        textViewContent.setTextColor((btm.mRatio >= 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
     }
 }
