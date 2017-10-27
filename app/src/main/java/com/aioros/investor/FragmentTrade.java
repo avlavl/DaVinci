@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,14 +85,6 @@ public class FragmentTrade extends BaseFragment {
             }
         };
 
-        Button button = (Button) view.findViewById(R.id.buttonTrade);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int index = mViewPager.getCurrentItem();
-                buttonOnClick(view, index);
-            }
-        });
 //        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
 //            TabLayout.Tab tab = mTabLayout.getTabAt(i);
 //            //tab.setText(mAdapterPager.getPageTitle(i));
@@ -150,10 +141,6 @@ public class FragmentTrade extends BaseFragment {
         }
     }
 
-    private void buttonOnClick(View v, int position) {
-        Thread udt = new UpdateDataThread(position);
-        udt.start();
-    }
 
     class UpdateDataThread extends Thread {
         private int index;

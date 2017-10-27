@@ -21,37 +21,18 @@
         app:tabTextAppearance="@style/TabLayoutTextStyle"
         app:tabTextColor="@android:color/white" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Button
-            android:id="@+id/buttonTrade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="更新" />
-
-        <TextView
-            android:id="@+id/textViewTrade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="欢迎使用本软件！" />
-
-        <TextView
-            android:id="@+id/textViewTradeDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/buttonTrade"
-            android:layout_alignParentStart="true"
-            android:text="数据库：20XX/XX/XX" />
-
-    </RelativeLayout>
-
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPagerTrade"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
         android:background="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textViewTradeDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="数据库：20XX/XX/XX"
+        android:textColor="@color/colorDarkGreen" />
 </LinearLayout>
