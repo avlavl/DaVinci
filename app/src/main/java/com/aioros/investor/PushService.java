@@ -25,7 +25,7 @@ public class PushService extends Service {
     public static final String TAG = "PushService";
     static Timer timer = null;
 
-    //清除通知
+    // 清除通知
     public static void cleanAllNotification() {
         NotificationManager notificationManager = (NotificationManager) MainActivity.getContext().getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
@@ -35,7 +35,7 @@ public class PushService extends Service {
         }
     }
 
-    //添加通知
+    // 添加通知
     public static void addNotification(String dateTime, String title, String content) {
         Intent intent = new Intent(MainActivity.getContext(), PushService.class);
         intent.putExtra("dateTime", dateTime);
@@ -59,7 +59,7 @@ public class PushService extends Service {
     @Override
     public int onStartCommand(final Intent intent, int flags, int startId) {
         Log.e(TAG, "==========onStartCommand=======");
-        long period = 24 * 3600 * 1000; //24小时一个周期
+        long period = 24 * 3600 * 1000; // 24小时一个周期
         String dateTime = intent.getStringExtra("dateTime");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = null;
@@ -79,14 +79,14 @@ public class PushService extends Service {
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 Notification.Builder builder = new Notification.Builder(PushService.this);
                 builder.setSmallIcon(R.mipmap.ic_app_logo);
-                builder.setContentTitle(intent.getStringExtra("title"));//下拉通知栏标题
+                builder.setContentTitle(intent.getStringExtra("title")); //下拉通知栏标题
                 builder.setContentText(intent.getStringExtra("content")); //下拉通知栏内容
                 builder.setAutoCancel(true);
                 builder.setSound(Uri.fromFile(new File("/system/media/audio/notifications/CrystalRing.ogg")));
                 builder.setDefaults(Notification.DEFAULT_VIBRATE);
                 Intent intent = new Intent(PushService.this, MainActivity.class);
                 PendingIntent contentIntent = PendingIntent.getActivity(PushService.this, 0, intent, 0);
-                builder.setContentIntent(contentIntent);//点击跳转的intent
+                builder.setContentIntent(contentIntent); //点击跳转的intent
                 Notification notification = builder.build();
                 notificationManager.notify((int) System.currentTimeMillis(), notification);
             }
