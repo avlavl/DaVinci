@@ -1,11 +1,13 @@
 package com.aioros.investor;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static com.aioros.investor.TimeUtility.isCheckTime;
 
 /**
  * Created by aizhang on 2017/6/7.
@@ -65,8 +71,10 @@ public class FragmentTrade extends BaseFragment {
         mTabLayout.setupWithViewPager(mViewPager);
 
         fileUtility.importDataFile("investor/data/沪深300.txt");
+        String fileDate = fileUtility.dateList.get(fileUtility.rows - 1);
         mTextViewDate = (TextView) view.findViewById(R.id.textViewTradeDate);
-        mTextViewDate.setText("数据库：" + fileUtility.dateList.get(fileUtility.rows - 1));
+        mTextViewDate.setText("数据库：" + fileDate);
+        checkDataUpdate(fileDate);
 
         mHandler = new Handler() {
             @Override
@@ -122,6 +130,26 @@ public class FragmentTrade extends BaseFragment {
         MainActivity.currFragTag = Constant.FRAGMENT_FLAG_TRADE;
     }
 
+    private void checkDataUpdate(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String currentDate = sdf.format(new Date());
+        if ((!currentDate.equals(date)) && (isCheckTime())) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mMainActivity);
+            builder.setIcon(R.drawable.market_select);
+            builder.setTitle("数据更新");
+            builder.setMessage("有新的交易数据，请及时更新数据库。");
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Thread udt = new UpdateDataThread();
+                    udt.start();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    }
+
     private void buttonOnClick(View v, int position) {
         Thread udt = new UpdateDataThread(position);
         udt.start();
@@ -129,6 +157,9 @@ public class FragmentTrade extends BaseFragment {
 
     class UpdateDataThread extends Thread {
         private int index;
+
+        public UpdateDataThread() {
+        }
 
         public UpdateDataThread(int idx) {
             index = idx;
@@ -157,7 +188,7 @@ public class FragmentTrade extends BaseFragment {
                         } else {
                             String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
                             latestDate = strs[30].replace("-", "/");
-                            String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f", latestDate,
+                            String dataStr = String.format((i == 4) ? "%s\t%.3f\t%.3f\t%.3f\t%.3f" : "%s\t%.2f\t%.2f\t%.2f\t%.2f", latestDate,
                                     Double.parseDouble(strs[1]), Double.parseDouble(strs[4]), Double.parseDouble(strs[5]), Double.parseDouble(strs[3]));
                             PrintWriter pw = new PrintWriter(new FileWriter(file, true));
                             pw.println(dataStr);
