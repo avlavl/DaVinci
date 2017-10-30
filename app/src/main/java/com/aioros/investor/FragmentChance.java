@@ -41,7 +41,7 @@ public class FragmentChance extends BaseFragment {
         }
 
         // 在主线程中声明一个消息处理对象Handler
-        mMainActivity.mHomeHandler = new Handler() {
+        mMainActivity.mChanceHandler = new Handler() {
             // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
             @Override
             public void handleMessage(Message msg) {

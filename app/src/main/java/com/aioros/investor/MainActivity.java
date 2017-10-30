@@ -42,6 +42,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public Handler mHomeHandler;
     public Handler mTradeHandler;
     public Handler mInvestHandler;
+    public Handler mChanceHandler;
     public String[][] mMarketDatas = new String[20][4];
 
     private Handler mHandler;
@@ -315,25 +316,24 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             }
 
             if (mHomeHandler != null) {
-                // 使用Handler对象创建一个消息体
-                Message msgRx = mHomeHandler.obtainMessage();
+                Message msgRx = mHomeHandler.obtainMessage(); // 使用Handler对象创建一个消息体
                 msgRx.obj = mMarketDatas;
-                // 发送消息，WorkerThread 向 MainThread 发送消息
-                mHomeHandler.sendMessage(msgRx);
+                mHomeHandler.sendMessage(msgRx); // 发送消息，WorkerThread 向 MainThread 发送消息
             }
             if (mTradeHandler != null) {
-                // 使用Handler对象创建一个消息体
                 Message msgRx = mTradeHandler.obtainMessage();
                 msgRx.obj = mMarketDatas;
-                // 发送消息，WorkerThread 向 MainThread 发送消息
                 mTradeHandler.sendMessage(msgRx);
             }
             if (mInvestHandler != null) {
-                // 使用Handler对象创建一个消息体
                 Message msgRx = mInvestHandler.obtainMessage();
                 msgRx.obj = mMarketDatas;
-                // 发送消息，WorkerThread 向 MainThread 发送消息
                 mInvestHandler.sendMessage(msgRx);
+            }
+            if (mChanceHandler != null) {
+                Message msgRx = mChanceHandler.obtainMessage();
+                msgRx.obj = mMarketDatas;
+                mChanceHandler.sendMessage(msgRx);
             }
         }
     }
