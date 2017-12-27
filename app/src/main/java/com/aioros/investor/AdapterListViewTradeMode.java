@@ -42,13 +42,6 @@ public class AdapterListViewTradeMode extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        int colorFlag = Color.GRAY;
-        if (mBeanTradeModeList.get(position).mStatus) {
-            colorFlag = Color.rgb(240, 0, 0);
-        } else {
-            colorFlag = Color.rgb(0, 128, 0);
-        }
-
         int colorRatio = Color.GRAY;
         double keyRatio = Math.abs(mBeanTradeModeList.get(position).mKeyRatio);
         if (keyRatio >= 10) {
@@ -62,9 +55,10 @@ public class AdapterListViewTradeMode extends BaseAdapter {
         }
 
         View view = mInflater.inflate(R.layout.item_trade, null);
+        view.setBackgroundColor((mBeanTradeModeList.get(position).mStatus) ? Color.rgb(255, 250, 250) : Color.rgb(240, 255, 240));
 
         TextView flag = (TextView) view.findViewById(R.id.textViewItemTradeFlag);
-        flag.setBackgroundColor(colorFlag);
+        flag.setBackgroundColor((mBeanTradeModeList.get(position).mStatus) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
 
         TextView ratio = (TextView) view.findViewById(R.id.textViewItemTradeKeyRatio);
         ratio.setText(String.format("%.2f%%", mBeanTradeModeList.get(position).mKeyRatio));
@@ -76,7 +70,7 @@ public class AdapterListViewTradeMode extends BaseAdapter {
 
         TextView duration = (TextView) view.findViewById(R.id.textViewItemTradeDuration);
         duration.setText(mBeanTradeModeList.get(position).mDuration + "天");
-        duration.setTextColor(colorFlag);
+        duration.setTextColor((mBeanTradeModeList.get(position).mStatus) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
 
         TextView amount = (TextView) view.findViewById(R.id.textViewItemTradeAmount);
         amount.setText(mBeanTradeModeList.get(position).mAmount);
