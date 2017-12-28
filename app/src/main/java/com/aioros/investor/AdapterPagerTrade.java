@@ -196,7 +196,7 @@ public class AdapterPagerTrade extends PagerAdapter {
                 spDateArray[i] = (tradeMode.spIdxList.size() > i) ? tradeCheck.dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i - 1)) : "None";
                 spArray[i] = (tradeMode.spIdxList.size() > i) ? tradeCheck.priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i - 1)) : 0;
             }
-            yieldArray[i] = ((bpArray[i]) > 0 && (spArray[i] > 0)) ? Double.parseDouble(tradeMode.mAmount.replaceFirst("\\*","")) * (spArray[i] - bpArray[i]) / bpArray[i] : 0;
+            yieldArray[i] = ((bpArray[i]) > 0 && (spArray[i] > 0)) ? Double.parseDouble(tradeMode.mAmount.replaceFirst("\\*", "")) * (spArray[i] - bpArray[i]) / bpArray[i] : 0;
             ratioArray[i] = ((bpArray[i]) > 0 && (spArray[i] > 0)) ? 100 * (spArray[i] - bpArray[i]) / bpArray[i] : 0;
         }
 
@@ -221,10 +221,10 @@ public class AdapterPagerTrade extends PagerAdapter {
                 (TextView) window.findViewById(R.id.textViewDialogRatio0), (TextView) window.findViewById(R.id.textViewDialogRatio1), (TextView) window.findViewById(R.id.textViewDialogRatio2)
         };
         for (int i = 0; i < RECORD_NUM; i++) {
-            textViewDateArray[i].setText(bpDateArray[i] + " - " + spDateArray[i]);
+            textViewDateArray[i].setText(bpDateArray[i] + " -- " + spDateArray[i]);
             textViewDateArray[i].setBackgroundColor((spArray[i] > bpArray[i]) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
-            textViewBpArray[i].setText(String.format("%.2f", bpArray[i]));
-            textViewSpArray[i].setText(String.format("%.2f", spArray[i]));
+            textViewBpArray[i].setText(String.format((position == 4) ? "%.3f" : "%.2f", bpArray[i]));
+            textViewSpArray[i].setText(String.format((position == 4) ? "%.3f" : "%.2f", spArray[i]));
             textViewYieldArray[i].setText(String.format("%.2f", yieldArray[i]));
             textViewYieldArray[i].setTextColor((yieldArray[i] > 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
             textViewRatioArray[i].setText(String.format("%.3f%%", ratioArray[i]));

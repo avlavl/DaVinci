@@ -29,7 +29,7 @@
         android:layout_marginRight="5dp"
         android:background="@color/colorRed"
         android:gravity="center"
-        android:text="2017/12/13 - 2017/12/27"
+        android:text="2017/12/13 -- 2017/12/27"
         android:textColor="@color/colorWhite"
         android:textSize="13sp" />
 
@@ -140,7 +140,7 @@
         android:layout_marginRight="5dp"
         android:background="@color/colorBlue"
         android:gravity="center"
-        android:text="2017/12/13 - 2017/12/27"
+        android:text="2017/12/13 -- 2017/12/27"
         android:textColor="@color/colorWhite"
         android:textSize="13sp" />
 
@@ -251,7 +251,7 @@
         android:layout_marginRight="5dp"
         android:background="@color/colorRed"
         android:gravity="center"
-        android:text="2017/12/13 - 2017/12/27"
+        android:text="2017/12/13 -- 2017/12/27"
         android:textColor="@color/colorWhite"
         android:textSize="13sp" />
 
