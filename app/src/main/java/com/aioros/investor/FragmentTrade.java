@@ -19,8 +19,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static com.aioros.investor.TimeUtility.isCheckTime;
 
@@ -122,8 +120,7 @@ public class FragmentTrade extends BaseFragment {
     }
 
     private void checkDataUpdate(String date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String currentDate = sdf.format(new Date());
+        String currentDate = TimeUtility.getCurrentDate();
         if ((!currentDate.equals(date)) && (isCheckTime())) {
             AlertDialog.Builder builder = new AlertDialog.Builder(mMainActivity);
             builder.setIcon(R.drawable.market_select);

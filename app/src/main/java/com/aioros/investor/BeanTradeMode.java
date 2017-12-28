@@ -1,5 +1,7 @@
 package com.aioros.investor;
 
+import java.util.ArrayList;
+
 /**
  * Created by aizhang on 2017/6/24.
  */
@@ -14,6 +16,8 @@ public class BeanTradeMode {
     public String mAmount;
     public double mCost = 0;
     public double mRatio = 0;
+    public ArrayList<Integer> bpIdxList = new ArrayList<>();
+    public ArrayList<Integer> spIdxList = new ArrayList<>();
 
     public BeanTradeMode(String name, String para, String amount) {
         super();

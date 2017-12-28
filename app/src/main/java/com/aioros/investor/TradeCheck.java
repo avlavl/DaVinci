@@ -12,8 +12,6 @@ public class TradeCheck {
     public ArrayList<Double> priceList;
     public int rows;
     public Strategy strategy;
-    public ArrayList<Integer> bpIndexList = new ArrayList<>();
-    public ArrayList<Integer> spIndexList = new ArrayList<>();
 
     public TradeCheck(FileUtility fu) {
         dateList = fu.dateList;
@@ -38,16 +36,16 @@ public class TradeCheck {
                 strategy.difCrossTrade(i, bp);
             }
         }
-        bpIndexList = strategy.bpIdxList;
-        spIndexList = strategy.spIdxList;
-        if (bpIndexList.size() > spIndexList.size()) {
+        tradeMode.bpIdxList = strategy.bpIdxList;
+        tradeMode.spIdxList = strategy.spIdxList;
+        if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
         }
 
         tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
@@ -69,16 +67,16 @@ public class TradeCheck {
         for (int i = 0; i < rows; i++) {
             strategy.maCrossTrade(i, masList, malList);
         }
-        bpIndexList = strategy.bpIdxList;
-        spIndexList = strategy.spIdxList;
-        if (bpIndexList.size() > spIndexList.size()) {
+        tradeMode.bpIdxList = strategy.bpIdxList;
+        tradeMode.spIdxList = strategy.spIdxList;
+        if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
         }
 
         tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
@@ -103,16 +101,16 @@ public class TradeCheck {
                 strategy.lmShortTrade(i);
             }
         }
-        bpIndexList = strategy.bpIdxList;
-        spIndexList = strategy.spIdxList;
-        if (bpIndexList.size() > spIndexList.size()) {
+        tradeMode.bpIdxList = strategy.bpIdxList;
+        tradeMode.spIdxList = strategy.spIdxList;
+        if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
         }
 
         tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
@@ -133,16 +131,16 @@ public class TradeCheck {
         for (int i = 0; i < rows; i++) {
             strategy.barDifCrossTrade(i, bp0, bp1);
         }
-        bpIndexList = strategy.bpIdxList;
-        spIndexList = strategy.spIdxList;
-        if (bpIndexList.size() > spIndexList.size()) {
+        tradeMode.bpIdxList = strategy.bpIdxList;
+        tradeMode.spIdxList = strategy.spIdxList;
+        if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
         }
 
         tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
@@ -174,16 +172,16 @@ public class TradeCheck {
                 strategy.difMACrossTrade(i, bp, masList, malList);
             }
         }
-        bpIndexList = strategy.bpIdxList;
-        spIndexList = strategy.spIdxList;
-        if (bpIndexList.size() > spIndexList.size()) {
+        tradeMode.bpIdxList = strategy.bpIdxList;
+        tradeMode.spIdxList = strategy.spIdxList;
+        if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
         }
 
         tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
@@ -218,16 +216,16 @@ public class TradeCheck {
                 strategy.difLMSCrossTrade(i, bp);
             }
         }
-        bpIndexList = strategy.bpIdxList;
-        spIndexList = strategy.spIdxList;
-        if (bpIndexList.size() > spIndexList.size()) {
+        tradeMode.bpIdxList = strategy.bpIdxList;
+        tradeMode.spIdxList = strategy.spIdxList;
+        if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, bpIndexList.get(bpIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(bpIndexList.get(bpIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, spIndexList.get(spIndexList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(spIndexList.get(spIndexList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
+            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
         }
 
         tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by aizhang on 2017/6/25.
@@ -47,5 +48,11 @@ public class TimeUtility {
             ex.printStackTrace();
         }
         return (int) between_days;
+    }
+
+    public static String getCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String currentDate = sdf.format(new Date());
+        return currentDate;
     }
 }

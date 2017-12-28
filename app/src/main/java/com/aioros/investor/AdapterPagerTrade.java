@@ -29,6 +29,7 @@ public class AdapterPagerTrade extends PagerAdapter {
     private AdapterListViewTradeMode mAdapterListView;
     private ArrayList<ArrayList<BeanTradeMode>> mBeanTradeModeLists = new ArrayList<>();
     private FragmentTrade fragmentTrade;
+    private ArrayList<TradeCheck> mTradeCheckList = new ArrayList<>();
 
     public AdapterPagerTrade(Context context, FragmentTrade ft) {
         mContext = context;
@@ -41,6 +42,7 @@ public class AdapterPagerTrade extends PagerAdapter {
                 mBeanTradeModeList.add(new BeanTradeMode(paras[0], paras[1], paras[2]));
             }
             mBeanTradeModeLists.add(mBeanTradeModeList);
+            mTradeCheckList.add(new TradeCheck(new FileUtility()));
         }
     }
 
@@ -84,6 +86,8 @@ public class AdapterPagerTrade extends PagerAdapter {
                 }
                 tradeCheck.closeList = zoomPriceList;
             }
+            mTradeCheckList.set(position, tradeCheck);
+
             for (BeanTradeMode tradeMode : mBeanTradeModeLists.get(position)) {
                 switch (tradeMode.mModeName) {
                     case "MA":
@@ -172,17 +176,59 @@ public class AdapterPagerTrade extends PagerAdapter {
     }
 
     private void mListViewOnItemClick(int position, int item) {
-        BeanTradeMode btm = mBeanTradeModeLists.get(position).get(item);
-        String message = String.format((btm.mStatus ? "买入价：" : "卖出价：") + ((position == 4) ? "%.3f" : "%.2f") + "   涨跌幅：%.2f%%", btm.mCost, btm.mRatio);
+        int RECORD_NUM = 3;
+        int[] idxArray = new int[]{3, 5, 6, 7, 10, 3, 4, 2};
+        TradeCheck tradeCheck = mTradeCheckList.get(position);
+        BeanTradeMode tradeMode = mBeanTradeModeLists.get(position).get(item);
+        String[] bpDateArray = new String[RECORD_NUM];
+        String[] spDateArray = new String[RECORD_NUM];
+        Double[] bpArray = new Double[RECORD_NUM];
+        Double[] spArray = new Double[RECORD_NUM];
+        Double[] yieldArray = new Double[RECORD_NUM];
+        Double[] ratioArray = new Double[RECORD_NUM];
+        for (int i = 0; i < RECORD_NUM; i++) {
+            bpDateArray[i] = (tradeMode.bpIdxList.size() > i) ? tradeCheck.dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - i - 1)) : "None";
+            bpArray[i] = (tradeMode.bpIdxList.size() > i) ? tradeCheck.priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - i - 1)) : 0;
+            if (tradeMode.mStatus) {
+                spDateArray[i] = (i == 0) ? TimeUtility.getCurrentDate() : (tradeMode.spIdxList.size() > (i - 1)) ? tradeCheck.dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i)) : "None";
+                spArray[i] = (i == 0) ? Double.parseDouble(fragmentTrade.mMarketDatas[idxArray[position]][1]) : (tradeMode.spIdxList.size() > (i - 1)) ? tradeCheck.priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i)) : 0;
+            } else {
+                spDateArray[i] = (tradeMode.spIdxList.size() > i) ? tradeCheck.dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i - 1)) : "None";
+                spArray[i] = (tradeMode.spIdxList.size() > i) ? tradeCheck.priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i - 1)) : 0;
+            }
+            yieldArray[i] = ((bpArray[i]) > 0 && (spArray[i] > 0)) ? Double.parseDouble(tradeMode.mAmount.replaceFirst("\\*","")) * (spArray[i] - bpArray[i]) / bpArray[i] : 0;
+            ratioArray[i] = ((bpArray[i]) > 0 && (spArray[i] > 0)) ? 100 * (spArray[i] - bpArray[i]) / bpArray[i] : 0;
+        }
 
         AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
         alertDialog.show();
         Window window = alertDialog.getWindow();
-        window.setContentView(R.layout.dialog_basic);
-        TextView textViewTitle = (TextView) window.findViewById(R.id.textViewDialogTitle);
-        textViewTitle.setText("交易信息");
-        TextView textViewContent = (TextView) window.findViewById(R.id.textViewDialogContent);
-        textViewContent.setText(message);
-        textViewContent.setTextColor((btm.mRatio >= 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
+        window.setContentView(R.layout.dialog_record);
+
+        TextView[] textViewDateArray = {
+                (TextView) window.findViewById(R.id.textViewDialogDate0), (TextView) window.findViewById(R.id.textViewDialogDate1), (TextView) window.findViewById(R.id.textViewDialogDate2)
+        };
+        TextView[] textViewBpArray = {
+                (TextView) window.findViewById(R.id.textViewDialogBp0), (TextView) window.findViewById(R.id.textViewDialogBp1), (TextView) window.findViewById(R.id.textViewDialogBp2)
+        };
+        TextView[] textViewSpArray = {
+                (TextView) window.findViewById(R.id.textViewDialogSp0), (TextView) window.findViewById(R.id.textViewDialogSp1), (TextView) window.findViewById(R.id.textViewDialogSp2)
+        };
+        TextView[] textViewYieldArray = {
+                (TextView) window.findViewById(R.id.textViewDialogYield0), (TextView) window.findViewById(R.id.textViewDialogYield1), (TextView) window.findViewById(R.id.textViewDialogYield2)
+        };
+        TextView[] textViewRatioArray = {
+                (TextView) window.findViewById(R.id.textViewDialogRatio0), (TextView) window.findViewById(R.id.textViewDialogRatio1), (TextView) window.findViewById(R.id.textViewDialogRatio2)
+        };
+        for (int i = 0; i < RECORD_NUM; i++) {
+            textViewDateArray[i].setText(bpDateArray[i] + " - " + spDateArray[i]);
+            textViewDateArray[i].setBackgroundColor((spArray[i] > bpArray[i]) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
+            textViewBpArray[i].setText(String.format("%.2f", bpArray[i]));
+            textViewSpArray[i].setText(String.format("%.2f", spArray[i]));
+            textViewYieldArray[i].setText(String.format("%.2f", yieldArray[i]));
+            textViewYieldArray[i].setTextColor((yieldArray[i] > 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
+            textViewRatioArray[i].setText(String.format("%.3f%%", ratioArray[i]));
+            textViewRatioArray[i].setTextColor((yieldArray[i] > 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
+        }
     }
 }
