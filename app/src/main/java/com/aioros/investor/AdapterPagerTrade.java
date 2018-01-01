@@ -196,7 +196,7 @@ public class AdapterPagerTrade extends PagerAdapter {
                 spDateArray[i] = (tradeMode.spIdxList.size() > i) ? tradeCheck.dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i - 1)) : "None";
                 spArray[i] = (tradeMode.spIdxList.size() > i) ? tradeCheck.priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i - 1)) : 0;
             }
-            yieldArray[i] = ((bpArray[i]) > 0 && (spArray[i] > 0)) ? Double.parseDouble(tradeMode.mAmount.replaceFirst("\\*", "")) * (spArray[i] - bpArray[i]) / bpArray[i] : 0;
+            yieldArray[i] = ((bpArray[i]) > 0 && (spArray[i] > 0)) ? Double.parseDouble(tradeMode.mAmount.substring(0, tradeMode.mAmount.length() - 1)) * (spArray[i] - bpArray[i]) / bpArray[i] : 0;
             ratioArray[i] = ((bpArray[i]) > 0 && (spArray[i] > 0)) ? 100 * (spArray[i] - bpArray[i]) / bpArray[i] : 0;
         }
 
