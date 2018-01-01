@@ -65,7 +65,7 @@ public class AdapterListViewTradeMode extends BaseAdapter {
         ratio.setTextColor(colorRatio);
 
         TextView point = (TextView) view.findViewById(R.id.textViewItemTradeKeyPoint);
-        point.setText(String.format("%.3f", mBeanTradeModeList.get(position).mKeyPoint));
+        point.setText(String.format("%.4f", mBeanTradeModeList.get(position).mKeyPoint));
         point.setTextColor(colorRatio);
 
         TextView duration = (TextView) view.findViewById(R.id.textViewItemTradeDuration);

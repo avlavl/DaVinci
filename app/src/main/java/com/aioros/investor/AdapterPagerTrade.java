@@ -23,8 +23,8 @@ import static com.aioros.investor.Constant.STOCK_INI_ARRAY;
 public class AdapterPagerTrade extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private String mTabTitles[] = new String[]{"淘金100", "腾讯济安", "养老产业", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
-    private String mBaseNames[] = new String[]{"沪深300", "腾讯济安", "沪深300", "沪深300", "中国互联", "沪深300", "中证500", "创业板指"};
+    private String mTabTitles[] = new String[]{"淘金100", "养老产业", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
+    private String mBaseNames[] = new String[]{"沪深300", "沪深300", "沪深300", "中国互联", "沪深300", "中证500", "创业板指"};
     private ListView mListView;
     private AdapterListViewTradeMode mAdapterListView;
     private ArrayList<ArrayList<BeanTradeMode>> mBeanTradeModeLists = new ArrayList<>();
@@ -79,7 +79,7 @@ public class AdapterPagerTrade extends PagerAdapter {
                 fileUtility.importDataFile2("investor/data/" + mTabTitles[position] + ".txt");
             }
             TradeCheck tradeCheck = new TradeCheck(fileUtility);
-            if (position == 4) {
+            if (position == 3) {
                 ArrayList<Double> zoomPriceList = new ArrayList<>();
                 for (int i = 0; i < tradeCheck.rows; i++) {
                     zoomPriceList.add(tradeCheck.closeList.get(i) * 1000);
@@ -117,7 +117,7 @@ public class AdapterPagerTrade extends PagerAdapter {
                     default:
                         break;
                 }
-                if (position == 4) {
+                if (position == 3) {
                     tradeMode.mKeyPoint /= 1000;
                 }
             }
@@ -161,8 +161,8 @@ public class AdapterPagerTrade extends PagerAdapter {
         TextView textViewSelfp = (TextView) view.findViewById(R.id.textViewPagerTradeSelfp);
         TextView textViewBase = (TextView) view.findViewById(R.id.textViewPagerTradeBase);
         TextView textViewSelf = (TextView) view.findViewById(R.id.textViewPagerTradeSelf);
-        int[] idxBase = new int[]{3, 5, 3, 3, 10, 3, 4, 2};
-        int[] idxSelf = new int[]{0, 0, 6, 7, 0, 0, 0, 0};
+        int[] idxBase = new int[]{2, 2, 2, 9, 2, 3, 4};
+        int[] idxSelf = new int[]{0, 5, 6, 0, 0, 0, 0};
         String[][] marketDatas = fragmentTrade.mMarketDatas;
         textViewBasep.setText(mBaseNames[position] + ": ");
         textViewBase.setText(marketDatas[idxBase[position]][3] + "% " + marketDatas[idxBase[position]][1]);
@@ -177,7 +177,7 @@ public class AdapterPagerTrade extends PagerAdapter {
 
     private void mListViewOnItemClick(int position, int item) {
         int RECORD_NUM = 3;
-        int[] idxArray = new int[]{3, 5, 6, 7, 10, 3, 4, 2};
+        int[] idxArray = new int[]{2, 5, 6, 9, 2, 3, 4};
         TradeCheck tradeCheck = mTradeCheckList.get(position);
         BeanTradeMode tradeMode = mBeanTradeModeLists.get(position).get(item);
         String[] bpDateArray = new String[RECORD_NUM];
@@ -223,8 +223,8 @@ public class AdapterPagerTrade extends PagerAdapter {
         for (int i = 0; i < RECORD_NUM; i++) {
             textViewDateArray[i].setText(bpDateArray[i] + " -- " + spDateArray[i]);
             textViewDateArray[i].setBackgroundColor((spArray[i] > bpArray[i]) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
-            textViewBpArray[i].setText(String.format((position == 4) ? "%.3f" : "%.2f", bpArray[i]));
-            textViewSpArray[i].setText(String.format((position == 4) ? "%.3f" : "%.2f", spArray[i]));
+            textViewBpArray[i].setText(String.format((position == 3) ? "%.3f" : "%.2f", bpArray[i]));
+            textViewSpArray[i].setText(String.format((position == 3) ? "%.3f" : "%.2f", spArray[i]));
             textViewYieldArray[i].setText(String.format("%.2f", yieldArray[i]));
             textViewYieldArray[i].setTextColor((yieldArray[i] > 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
             textViewRatioArray[i].setText(String.format("%.3f%%", ratioArray[i]));

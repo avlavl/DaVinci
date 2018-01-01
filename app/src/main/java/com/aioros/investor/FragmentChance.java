@@ -36,7 +36,7 @@ public class FragmentChance extends BaseFragment {
     private AdapterListViewStock mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
     public String[][] mMarketDatas;
-    private int offset = 11;
+    private int offset = 10;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

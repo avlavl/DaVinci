@@ -23,8 +23,8 @@ import java.util.List;
 public class FragmentHome extends BaseFragment {
     private static final String TAG = "FragmentHome";
     private MainActivity mMainActivity;
-    private String[] mStockNames = new String[]{"上证指数", "深证成指", "创业板指", "沪深300", "中证500", "腾讯济安", "养老产业", "医药100", "申万证券", "中概互联", "中国互联"};
-    private String[] mStockCodes = new String[]{"000001", "399001", "399006", "000300", "000905", "000847", "399812", "000978", "399707", "513050", "164906"};
+    private String[] mStockNames = new String[]{"上证指数", "深证成指", "沪深300", "中证500", "创业板指", "养老产业", "医药100", "申万证券", "中概互联", "中国互联"};
+    private String[] mStockCodes = new String[]{"000001", "399001", "000300", "000905", "399006", "399812", "000978", "399707", "513050", "164906"};
     private ListView mListView;
     private AdapterListViewStock mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
