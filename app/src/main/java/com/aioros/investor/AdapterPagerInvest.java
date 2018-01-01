@@ -24,8 +24,8 @@ import java.util.List;
 public class AdapterPagerInvest extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private String mTabTitles[] = new String[]{"深证成指", "申万证券", "养老产业"};
-    private String mTabCodes[] = new String[]{"399001", "399707", "399812"};
+    private String mTabTitles[] = new String[]{"申万证券", "养老产业"};
+    private String mTabCodes[] = new String[]{"399707", "399812"};
     private List<BeanInvest> mInvestBeanList = null;
 
 

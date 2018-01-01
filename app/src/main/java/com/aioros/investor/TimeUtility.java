@@ -50,6 +50,22 @@ public class TimeUtility {
         return (int) between_days;
     }
 
+    public static int daysBetween(String sdate, String edate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar cal = Calendar.getInstance();
+        long between_days = 0;
+        try {
+            cal.setTime(dateFormat.parse(sdate));
+            long time1 = cal.getTimeInMillis();
+            cal.setTime(dateFormat.parse(edate));
+            long time2 = cal.getTimeInMillis();
+            between_days = (time2 - time1) / (1000 * 3600 * 24);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return Integer.parseInt(String.valueOf(between_days));
+    }
+
     public static String getCurrentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String currentDate = sdf.format(new Date());
