@@ -4,10 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/layoutHeadChance"
+        layout="@layout/panel_head" />
+
     <ListView
         android:id="@+id/listViewMETF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/layoutHeadChance"
         android:divider="@color/colorDivider"
         android:dividerHeight="1dp" />
 

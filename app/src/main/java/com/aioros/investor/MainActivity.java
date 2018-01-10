@@ -105,10 +105,6 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             mBottomPanel.initBottomPanel();
             mBottomPanel.setBottomCallback(this);
         }
-        mHeadPanel = (HeadControlPanel) findViewById(R.id.layout_headpanel);
-        if (mHeadPanel != null) {
-            mHeadPanel.initHeadPanel();
-        }
     }
 
     public static void verifyStoragePermissions(Activity activity) {
@@ -142,8 +138,6 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             tag = Constant.FRAGMENT_FLAG_MORE;
         }
         setTabSelection(tag); //切换Fragment
-        mHeadPanel.setMiddleTitle(tag); //切换标题
-        mHeadPanel.setRightTitle(tag); //切换副标题
     }
 
     private void setDefaultFirstFragment(String tag) {

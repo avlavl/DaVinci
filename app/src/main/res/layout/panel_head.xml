@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_alignParentTop="true"
-    android:background="@color/colorPanelHead"
+    android:background="@color/colorPanel0"
     android:padding="5dp">
 
     <TextView
