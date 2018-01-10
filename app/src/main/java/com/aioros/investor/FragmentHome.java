@@ -1,6 +1,8 @@
 package com.aioros.investor;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,7 +18,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +36,7 @@ public class FragmentHome extends BaseFragment {
     private MainActivity mMainActivity;
     private String[] mStockNames = new String[]{"上证指数", "深证成指", "沪深300", "中证500", "创业板指", "养老产业", "医药100", "申万证券", "中概互联", "中国互联"};
     private String[] mStockCodes = new String[]{"000001", "399001", "000300", "000905", "399006", "399812", "000978", "399707", "513050", "164906"};
+    private LinearLayout mLayoutHeadHome;
     private ListView mListView;
     private EditText mEditText;
     private ImageView mImageView;
@@ -38,6 +44,8 @@ public class FragmentHome extends BaseFragment {
     private AdapterListViewStock mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
     public String[][] mMarketDatas;
+    private Handler handlerRx;
+    private PopupWindow mPopupWindow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,6 +94,7 @@ public class FragmentHome extends BaseFragment {
             }
         });
 
+        mLayoutHeadHome = (LinearLayout) view.findViewById(R.id.layoutHeadHome);
         mEditText = (EditText) view.findViewById(R.id.editTextStockCode);
         mImageView = (ImageView) view.findViewById(R.id.imageViewDelCode);
         mButton = (Button) view.findViewById(R.id.buttonSearch);
@@ -128,6 +137,16 @@ public class FragmentHome extends BaseFragment {
                 }
             }
         });
+
+        // 在主线程中声明一个消息处理对象Handler
+        handlerRx = new Handler() {
+            // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
+            @Override
+            public void handleMessage(Message msg) {
+                String[] message = (String[]) msg.obj;
+                showMarketPopup(message);
+            }
+        };
 
         return view;
     }
@@ -247,10 +266,12 @@ public class FragmentHome extends BaseFragment {
                 }
 
                 String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split("~");
-                final String dataStr = strs[1] + "\t" + strs[2] + "\n最新：" + strs[3] + "\t涨跌：" + strs[4] + "\t涨幅" + strs[5] + "%";
-                Looper.prepare();
-                Toast.makeText(mMainActivity, dataStr, Toast.LENGTH_LONG).show();
-                Looper.loop();
+                // 使用主线程Handler对象创建一个消息体
+                Message msgRx = handlerRx.obtainMessage();
+                msgRx.obj = strs;
+
+                // 发送消息，WorkerThread 向 MainThread 发送消息
+                handlerRx.sendMessage(msgRx);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
@@ -270,5 +291,30 @@ public class FragmentHome extends BaseFragment {
         dft.start();
 
         return true;
+    }
+
+    private void showMarketPopup(String[] strs) {
+        //定义了一个全局变量   private PopupWindow mPopupWindow;
+        mPopupWindow = new PopupWindow(mMainActivity);
+        //设置PopupWindow的宽和高
+        mPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        mPopupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        //设置PopupWindow的背景透明度和颜色
+        mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.argb(210, 255, 255, 255)));
+        //设置点击PopupWindow外的其他地方退出PopupWindow。
+        mPopupWindow.setFocusable(false);
+        mPopupWindow.setOutsideTouchable(true);
+
+        //获得PopupWindow的布局
+        View popupView = mMainActivity.getLayoutInflater().inflate(R.layout.popup_window, null);
+        TextView textView0 = (TextView) popupView.findViewById(R.id.textViewPopup0);
+        textView0.setText(strs[1] + "(" + strs[2] + ")");
+        TextView textView1 = (TextView) popupView.findViewById(R.id.textViewPopup1);
+        textView1.setText("最新：" + strs[3] + "   涨跌：" + strs[4] + "   幅度" + strs[5] + "%");
+        textView1.setTextColor(Double.parseDouble(strs[4]) > 0 ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
+        //将布局添加到PopupWindow中
+        mPopupWindow.setContentView(popupView);
+
+        mPopupWindow.showAsDropDown(mLayoutHeadHome, 0, 30);
     }
 }
