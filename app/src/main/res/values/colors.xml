@@ -10,6 +10,7 @@
     <color name="colorTabNormal">#353535</color>
     <color name="colorOrange">#FF4C16</color>
     <color name="colorRed">#FF0000</color>
+    <color name="colorStockRed">#C80000</color>
     <color name="colorBlue">#008000</color>
     <color name="colorGolden">#ff7000</color>
     <color name="colorGreen">#00A2E8</color>

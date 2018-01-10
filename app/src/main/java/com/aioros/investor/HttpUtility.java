@@ -29,7 +29,7 @@ public class HttpUtility {
         try {
             mUrl = new URL(urlStr);
             HttpURLConnection urlConnection = (HttpURLConnection) mUrl.openConnection();
-            br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "GB2312"));
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }

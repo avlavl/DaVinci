@@ -5,11 +5,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,6 +32,9 @@ public class FragmentHome extends BaseFragment {
     private String[] mStockNames = new String[]{"上证指数", "深证成指", "沪深300", "中证500", "创业板指", "养老产业", "医药100", "申万证券", "中概互联", "中国互联"};
     private String[] mStockCodes = new String[]{"000001", "399001", "000300", "000905", "399006", "399812", "000978", "399707", "513050", "164906"};
     private ListView mListView;
+    private EditText mEditText;
+    private ImageView mImageView;
+    private Button mButton;
     private AdapterListViewStock mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
     public String[][] mMarketDatas;
@@ -74,6 +83,49 @@ public class FragmentHome extends BaseFragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 return mListViewOnItemLongClick(parent, view, position, id);
+            }
+        });
+
+        mEditText = (EditText) view.findViewById(R.id.editTextStockCode);
+        mImageView = (ImageView) view.findViewById(R.id.imageViewDelCode);
+        mButton = (Button) view.findViewById(R.id.buttonSearch);
+
+        mEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // 监听如果输入串长度大于0那么就显示clear按钮。
+                mImageView.setVisibility((s.length() > 0) ? View.VISIBLE : View.INVISIBLE);
+            }
+        });
+
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mEditText.setText("");
+            }
+        });
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str = mEditText.getText().toString();
+                if ((str.length() == 6) && str.matches("[0-9]*")) {
+                    mEditText.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) mMainActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mMainActivity.getWindow().getDecorView().getWindowToken(), 0);
+                    Thread gft = new getDataThread(str);
+                    gft.start();
+                } else {
+                    Toast.makeText(mMainActivity, "股票代码必须为6位数字！", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -161,6 +213,47 @@ public class FragmentHome extends BaseFragment {
             Looper.prepare();
             Toast.makeText(mMainActivity, (ret == 0) ? "下载成功" : "下载失败", Toast.LENGTH_LONG).show();
             Looper.loop();
+        }
+    }
+
+    class getDataThread extends Thread {
+        private String stockCode;
+
+        public getDataThread(String code) {
+            stockCode = code;
+        }
+
+        @Override
+        public void run() {
+            try {
+                String urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=s_s" + ((Long.parseLong(stockCode) > 500000) ? "h" : "z") + stockCode;
+                HttpUtility httpUtility = new HttpUtility();
+                String httpStr = httpUtility.getData(urlStr);
+                if (httpStr.equals("")) {
+                    Looper.prepare();
+                    Toast.makeText(mMainActivity, "无网络连接！", Toast.LENGTH_LONG).show();
+                    Looper.loop();
+                    return;
+                }
+                if (httpStr.contains("pv_none_match")) {
+                    urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=s_s" + ((Long.parseLong(stockCode) > 500000) ? "z" : "h") + stockCode;
+                    httpStr = httpUtility.getData(urlStr);
+                    if (httpStr.contains("pv_none_match")) {
+                        Looper.prepare();
+                        Toast.makeText(mMainActivity, "找不到对应的股票！", Toast.LENGTH_LONG).show();
+                        Looper.loop();
+                        return;
+                    }
+                }
+
+                String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split("~");
+                final String dataStr = strs[1] + "\t" + strs[2] + "\n最新：" + strs[3] + "\t涨跌：" + strs[4] + "\t涨幅" + strs[5] + "%";
+                Looper.prepare();
+                Toast.makeText(mMainActivity, dataStr, Toast.LENGTH_LONG).show();
+                Looper.loop();
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
         }
     }
 
