@@ -155,7 +155,14 @@ public class FragmentChance extends BaseFragment {
     }
 
     private void mListViewOnItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(mMainActivity, mBeanStockList.get(position).toString(), Toast.LENGTH_SHORT).show();
-        mMainActivity.mBottomPanel.mBtnTrade.callOnClick();
+        double value = Double.parseDouble(mBeanStockList.get(position).mStockValue);
+        double yield = 0;
+        if (value < 100) {
+            yield = 10000 * (100 - value) / value;
+            Toast.makeText(mMainActivity, String.format("预购收益：万%.2f  年化率：%.2f%%", yield, yield * 3.65), Toast.LENGTH_SHORT).show();
+        } else {
+            yield = 100 * (value - 100);
+            Toast.makeText(mMainActivity, String.format("预沽收益：万%.2f  年化率：%.2f%%", yield, yield * 3.65), Toast.LENGTH_SHORT).show();
+        }
     }
 }
