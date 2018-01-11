@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -13,7 +13,8 @@
         android:paddingBottom="10dp"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        android:paddingTop="5dp">
+        android:paddingTop="5dp"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/textViewInvestQuota"
@@ -80,11 +81,65 @@
 
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/colorItemDivider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/colorDarkBlue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="短期模型"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textViewInvestWinPointShort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="20%" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textViewInvestRoundShort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:text="第20轮"
+            android:textColor="@color/colorLightBlue"
+            android:textSize="13sp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorItemDivider" />
+
     <RelativeLayout
         android:id="@+id/layoutInvestOutput0"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_below="@id/layoutInvestValue">
+        android:layout_height="70dp">
 
         <TextView
             android:id="@+id/textViewInvestProperty"
@@ -180,17 +235,64 @@
     </RelativeLayout>
 
     <View
-        android:id="@+id/layoutInvestDivider0"
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:layout_below="@id/layoutInvestOutput0"
         android:background="@color/colorItemDivider" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/colorDarkBlue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="长期模型"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:id="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textViewInvestWinPointLong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="200%" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textViewInvestRoundLong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:text="第25轮"
+            android:textColor="@color/colorLightBlue"
+            android:textSize="13sp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorItemDivider" />
     <RelativeLayout
         android:id="@+id/layoutInvestOutput1"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_below="@id/layoutInvestDivider0">
+        android:layout_height="70dp">
 
         <TextView
             android:id="@+id/textViewInvestProperty1"
@@ -286,20 +388,23 @@
     </RelativeLayout>
 
     <View
-        android:id="@+id/layoutInvestDivider1"
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:layout_below="@id/layoutInvestOutput1"
         android:background="@color/colorItemDivider" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/buttonPagerInvest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@color/colorLightGrey"
         android:text="数据更新"
-        android:textColor="@color/colorGreen"
+        android:textColor="@color/colorLightBlue"
         android:textSize="16sp" />
 
-</RelativeLayout>
+</LinearLayout>

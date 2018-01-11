@@ -51,5 +51,5 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="数据库：20XX/XX/XX"
-        android:textColor="@color/colorDarkGreen" />
+        android:textColor="@color/colorDarkBlue" />
 </LinearLayout>
