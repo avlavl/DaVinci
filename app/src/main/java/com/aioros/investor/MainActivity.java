@@ -24,7 +24,6 @@ import static com.aioros.investor.TimeUtility.isTradeTime;
 
 public class MainActivity extends FragmentActivity implements BottomPanelCallback {
     BottomControlPanel mBottomPanel = null;
-    HeadControlPanel mHeadPanel = null;
     private static Context mContext = null;
 
     private FragmentManager mFragmentManager = null;

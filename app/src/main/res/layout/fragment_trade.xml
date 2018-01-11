@@ -7,9 +7,22 @@
     android:layout_alignParentTop="true"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/layoutHeadTrade"
-        layout="@layout/panel_head" />
+    <RelativeLayout
+        android:id="@+id/layoutHeadChance"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorRed">
+
+        <TextView
+            android:id="@+id/textViewHeadTrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="指数基金交易策略"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
     <!--app:tabMode="scrollable"  这个属性我在代码中设置了-->
     <!-- mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);-->
