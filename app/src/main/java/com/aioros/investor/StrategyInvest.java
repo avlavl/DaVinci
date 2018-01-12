@@ -273,6 +273,14 @@ public class StrategyInvest {
         return 100 * (basePoints[items - 1] - closeList.get(items - 1)) / closeList.get(items - 1);
     }
 
+    public int getInvestTimes() {
+        return bsDateList.size();
+    }
+
+    public double getCurrentCost() {
+        return recordDataList.get(recordDataList.size() - 1).cost;
+    }
+
     public class RecordData {
 
         public RecordData(String date, String type) {

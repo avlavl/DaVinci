@@ -53,29 +53,49 @@ public class AdapterPagerInvest extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         View view = mInflater.inflate(R.layout.pager_invest, null);
-        Button button = (Button) view.findViewById(R.id.buttonPagerInvest);
-        button.setText(mTabTitles[position]);
-        TextView textViewInvestQuota = (TextView) view.findViewById(R.id.textViewInvestQuota);
-        textViewInvestQuota.setText(mInvestBeanList.get(position).mQuota);
-        TextView textViewInvestRealPoint = (TextView) view.findViewById(R.id.textViewInvestRealPoint);
-        textViewInvestRealPoint.setText(mInvestBeanList.get(position).mRealPoint);
-        TextView textViewInvestBasePoint = (TextView) view.findViewById(R.id.textViewInvestBasePoint);
-        textViewInvestBasePoint.setText(mInvestBeanList.get(position).mBasePoint);
-        TextView textViewInvestProperty = (TextView) view.findViewById(R.id.textViewInvestProperty);
-        textViewInvestProperty.setText(mInvestBeanList.get(position).mProperty);
-        TextView textViewInvestYield = (TextView) view.findViewById(R.id.textViewInvestYield);
-        textViewInvestYield.setText(mInvestBeanList.get(position).mYield);
-        TextView textViewInvestKeyPoint = (TextView) view.findViewById(R.id.textViewInvestKeyPoint);
-        textViewInvestKeyPoint.setText(mInvestBeanList.get(position).mKeyPoint);
-        TextView textViewInvestKeyRatio = (TextView) view.findViewById(R.id.textViewInvestKeyRatio);
-        textViewInvestKeyRatio.setText(mInvestBeanList.get(position).mKeyRatio);
 
+        TextView textViewInvestQuota = (TextView) view.findViewById(R.id.textViewInvestQuota);
+        textViewInvestQuota.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mQuota + mInvestBeanList.get(2 * position + 1).mQuota));
+        TextView textViewInvestRealPoint = (TextView) view.findViewById(R.id.textViewInvestRealPoint);
+        textViewInvestRealPoint.setText("" + mInvestBeanList.get(2 * position).mRealPoint);
+        TextView textViewInvestBasePoint = (TextView) view.findViewById(R.id.textViewInvestBasePoint);
+        textViewInvestBasePoint.setText(String.format("%d", (int) mInvestBeanList.get(2 * position).mBasePoint));
+        TextView textViewInvestTotalProperty = (TextView) view.findViewById(R.id.textViewInvestTotalProperty);
+        textViewInvestTotalProperty.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mProperty + mInvestBeanList.get(2 * position + 1).mProperty));
+
+        TextView textViewInvestTimesShort = (TextView) view.findViewById(R.id.textViewInvestTimesShort);
+        textViewInvestTimesShort.setText(String.format("定投%d次", mInvestBeanList.get(2 * position).mTimes));
+        TextView textViewInvestWinPointShort = (TextView) view.findViewById(R.id.textViewInvestCostShort);
+        textViewInvestWinPointShort.setText(String.format("本%.2f", mInvestBeanList.get(2 * position).mCurrentCost));
+        TextView textViewInvestProperty = (TextView) view.findViewById(R.id.textViewInvestProperty);
+        textViewInvestProperty.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mProperty));
+        TextView textViewInvestYield = (TextView) view.findViewById(R.id.textViewInvestYield);
+        textViewInvestYield.setText(String.format("%.2f%%", mInvestBeanList.get(2 * position).mYield));
+        TextView textViewInvestKeyPoint = (TextView) view.findViewById(R.id.textViewInvestKeyPoint);
+        textViewInvestKeyPoint.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mKeyPoint));
+        TextView textViewInvestKeyRatio = (TextView) view.findViewById(R.id.textViewInvestKeyRatio);
+        textViewInvestKeyRatio.setText(String.format("%.2f%%", mInvestBeanList.get(2 * position).mKeyRatio));
+        TextView textViewInvestTimesLong = (TextView) view.findViewById(R.id.textViewInvestTimesLong);
+        textViewInvestTimesLong.setText(String.format("定投%d次", mInvestBeanList.get(2 * position + 1).mTimes));
+        TextView textViewInvestWinPointLong = (TextView) view.findViewById(R.id.textViewInvestCostLong);
+        textViewInvestWinPointLong.setText(String.format("本%.2f", mInvestBeanList.get(2 * position + 1).mCurrentCost));
+        TextView textViewInvestProperty1 = (TextView) view.findViewById(R.id.textViewInvestProperty1);
+        textViewInvestProperty1.setText(String.format("%.2f", mInvestBeanList.get(2 * position + 1).mProperty));
+        TextView textViewInvestYield1 = (TextView) view.findViewById(R.id.textViewInvestYield1);
+        textViewInvestYield1.setText(String.format("%.2f%%", mInvestBeanList.get(2 * position + 1).mYield));
+        TextView textViewInvestKeyPoint1 = (TextView) view.findViewById(R.id.textViewInvestKeyPoint1);
+        textViewInvestKeyPoint1.setText(String.format("%.2f", mInvestBeanList.get(2 * position + 1).mKeyPoint));
+        TextView textViewInvestKeyRatio1 = (TextView) view.findViewById(R.id.textViewInvestKeyRatio1);
+        textViewInvestKeyRatio1.setText(String.format("%.2f%%", mInvestBeanList.get(2 * position + 1).mKeyRatio));
+
+        Button button = (Button) view.findViewById(R.id.buttonPagerInvest);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 buttonOnClick(v, position);
             }
         });
+
         container.addView(view);
         return view;
     }

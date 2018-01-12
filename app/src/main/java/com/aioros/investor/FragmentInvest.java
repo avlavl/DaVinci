@@ -36,26 +36,31 @@ public class FragmentInvest extends BaseFragment {
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
         mMarketDatas = mMainActivity.mMarketDatas;
-        mBeanInvestList.add(new BeanInvest(1000, 7, 0.2, 1.5, 20));
-        mBeanInvestList.add(new BeanInvest(1400, 10, 0.2, 1.5, 20));
+        mBeanInvestList.add(new BeanInvest(1000, 7, 1.5, 100, 0.2));
+        mBeanInvestList.add(new BeanInvest(1000, 7, 1.5, 25, 2));
+        mBeanInvestList.add(new BeanInvest(1400, 10, 1.5, 20, 0.2));
+        mBeanInvestList.add(new BeanInvest(1400, 10, 1.5, 25, 2));
 
         for (int i = 0; i < indexArray.length; i++) {
-            mBeanInvestList.get(i).mRealPoint = mMarketDatas[indexArray[i]][1];
             fileUtility.importDataFile("investor/data/W" + mTabTitles[i] + ".txt");
             weeksArray[i] = fileUtility.rows;
             if (weeksArray[i] > 0) {
-                StrategyInvest strategyInvest = new StrategyInvest(fileUtility);
-                strategyInvest.sysInvestEva(mBeanInvestList.get(i));
-                double basePoint = strategyInvest.basePoints[strategyInvest.items - 1];
-                mBeanInvestList.get(i).mBasePoint = Double.toString(basePoint);
-                double diffRate = Double.parseDouble(mBeanInvestList.get(i).mRealPoint) / basePoint;
-                double divisor = mBeanInvestList.get(i).mDivisor;
-                double investAmount = (basePoint / divisor) / Math.pow(diffRate, mBeanInvestList.get(i).mDiffCoef);
-                mBeanInvestList.get(i).mQuota = (diffRate <= 1) ? String.format("%.2f", investAmount) : "无需投资";
-                mBeanInvestList.get(i).mProperty = String.format("%d", (int) strategyInvest.getCurrentAsset());
-                mBeanInvestList.get(i).mYield = String.format("%.2f%%", strategyInvest.getCurrentYield());
-                mBeanInvestList.get(i).mKeyPoint = String.format("%.2f", strategyInvest.getKeyPoint());
-                mBeanInvestList.get(i).mKeyRatio = String.format("%.2f%%", strategyInvest.getKeyRatio());
+                for (int j = 0; j < 2; j++) {
+                    mBeanInvestList.get(2 * i + j).mRealPoint = Double.parseDouble(mMarketDatas[indexArray[i]][1]);
+                    StrategyInvest strategyInvest = new StrategyInvest(fileUtility);
+                    strategyInvest.sysInvestEva(mBeanInvestList.get(2 * i + j));
+                    double basePoint = strategyInvest.basePoints[strategyInvest.items - 1] + mBeanInvestList.get(2 * i + j).mSlope;
+                    mBeanInvestList.get(2 * i + j).mBasePoint = basePoint;
+                    double diffRate = mBeanInvestList.get(2 * i + j).mRealPoint / basePoint;
+                    double investAmount = (basePoint / mBeanInvestList.get(2 * i + j).mDivisor) / Math.pow(diffRate, mBeanInvestList.get(2 * i + j).mDiffCoef);
+                    mBeanInvestList.get(2 * i + j).mQuota = (diffRate <= 1) ? investAmount : 0;
+                    mBeanInvestList.get(2 * i + j).mTimes = strategyInvest.getInvestTimes();
+                    mBeanInvestList.get(2 * i + j).mCurrentCost = strategyInvest.getCurrentCost();
+                    mBeanInvestList.get(2 * i + j).mProperty = strategyInvest.getCurrentAsset();
+                    mBeanInvestList.get(2 * i + j).mYield = strategyInvest.getCurrentYield();
+                    mBeanInvestList.get(2 * i + j).mKeyPoint = strategyInvest.getKeyPoint();
+                    mBeanInvestList.get(2 * i + j).mKeyRatio = strategyInvest.getKeyRatio();
+                }
             }
         }
 
@@ -66,14 +71,15 @@ public class FragmentInvest extends BaseFragment {
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
                 for (int i = 0; i < indexArray.length; i++) {
-                    mBeanInvestList.get(i).mRealPoint = mMarketDatas[indexArray[i]][1];
                     if (weeksArray[i] > 0) {
-                        double basePoint = mBeanInvestList.get(i).mStartPoint + weeksArray[i] * mBeanInvestList.get(i).mSlope;
-                        mBeanInvestList.get(i).mBasePoint = Double.toString(basePoint);
-                        double diffRate = Double.parseDouble(mBeanInvestList.get(i).mRealPoint) / basePoint;
-                        double divisor = mBeanInvestList.get(i).mDivisor;
-                        double investAmount = (basePoint / divisor) / Math.pow(diffRate, mBeanInvestList.get(i).mDiffCoef);
-                        mBeanInvestList.get(i).mQuota = (diffRate <= 1) ? String.format("%.2f", investAmount) : "无需投资";
+                        for (int j = 0; j < 2; j++) {
+                            mBeanInvestList.get(2 * i + j).mRealPoint = Double.parseDouble(mMarketDatas[indexArray[i]][1]);
+                            double basePoint = mBeanInvestList.get(2 * i + j).mStartPoint + weeksArray[i] * mBeanInvestList.get(2 * i + j).mSlope;
+                            mBeanInvestList.get(2 * i + j).mBasePoint = basePoint;
+                            double diffRate = mBeanInvestList.get(2 * i + j).mRealPoint / basePoint;
+                            double investAmount = (basePoint / mBeanInvestList.get(2 * i + j).mDivisor) / Math.pow(diffRate, mBeanInvestList.get(2 * i + j).mDiffCoef);
+                            mBeanInvestList.get(2 * i + j).mQuota = (diffRate <= 1) ? investAmount : 0;
+                        }
                     }
                 }
                 mAdapterPager.notifyDataSetChanged();
