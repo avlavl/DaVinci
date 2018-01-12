@@ -16,10 +16,17 @@ public class BeanStock {
         mStockRatio = ratio;
     }
 
-    @Override
-    public String toString() {
-        return "BeanStock [mStockName=" + mStockName + ", mStockCode=" + mStockCode
-                + ", mStockValue=" + mStockValue + ", mStockScope=" + mStockScope
-                + ", mStockRatio=" + mStockRatio + "]";
+    public String getDailyRate() {
+        double value = Double.parseDouble(mStockValue);
+        double rate = (value < 100) ? 10000 * (100 - value) / value : 100 * (value - 100);
+        String dailyRate = String.format("万 %.1f", rate);
+        return dailyRate;
+    }
+
+    public String getAnualRatio() {
+        double value = Double.parseDouble(mStockValue);
+        double ratio = (value < 100) ? 36500 * (100 - value) / value : 365 * (value - 100);
+        String anualRatio = String.format("%.2f%%", ratio);
+        return anualRatio;
     }
 }

@@ -57,21 +57,21 @@ public class AdapterListViewStock extends BaseAdapter {
         }
         View view = mInflater.inflate(R.layout.item_stock, null);
 
-        TextView name = (TextView) view.findViewById(R.id.textview_stockname);
+        TextView name = (TextView) view.findViewById(R.id.textViewStockName);
         name.setText(mStockBeanList.get(position).mStockName);
 
-        TextView code = (TextView) view.findViewById(R.id.textview_stockcode);
+        TextView code = (TextView) view.findViewById(R.id.textViewStockCode);
         code.setText(mStockBeanList.get(position).mStockCode);
 
-        TextView value = (TextView) view.findViewById(R.id.textview_stockvalue);
+        TextView value = (TextView) view.findViewById(R.id.textViewStockValue);
         value.setText(mStockBeanList.get(position).mStockValue);
         value.setTextColor(colorF);
 
-        TextView scope = (TextView) view.findViewById(R.id.textview_stockscope);
+        TextView scope = (TextView) view.findViewById(R.id.textViewStockScope);
         scope.setText(mStockBeanList.get(position).mStockScope);
         scope.setTextColor(colorF);
 
-        TextView ratio = (TextView) view.findViewById(R.id.textview_stockratio);
+        TextView ratio = (TextView) view.findViewById(R.id.textViewStockRatio);
         ratio.setText(mStockBeanList.get(position).mStockRatio);
         ratio.setBackgroundColor(colorB);
 

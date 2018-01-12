@@ -5,7 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorDivider">#FF505050</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorBlack2">#202020</color>
     <color name="colorPanel0">#FF404040</color>
+    <color name="colorBlack5">#505050</color>
     <color name="colorPanel1">#101010</color>
     <color name="colorTabSelect">#303030</color>
     <color name="colorTabNormal">#353535</color>

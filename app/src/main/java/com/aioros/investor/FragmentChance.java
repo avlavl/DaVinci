@@ -33,7 +33,7 @@ public class FragmentChance extends BaseFragment {
     private String[] mStockNames = new String[]{"华宝添益", "银华日利", "建信添益", "理财金H", "交易货币", "富国货币", "华泰货币", "现金添富", "华夏快线"};
     private String[] mStockCodes = new String[]{"511990", "511880", "511660", "511810", "511690", "511900", "511830", "511980", "511650"};
     private ListView mListView;
-    private AdapterListViewStock mAdapterListView;
+    private AdapterListViewMetf mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
     public String[][] mMarketDatas;
     private int offset = 10;
@@ -53,14 +53,11 @@ public class FragmentChance extends BaseFragment {
             // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
             @Override
             public void handleMessage(Message msg) {
-                System.out.println("-------------mChanceHandler handle");
                 mMarketDatas = (String[][]) msg.obj;
                 for (int i = 0; i < mStockNames.length; i++) {
                     mBeanStockList.get(i).mStockValue = mMarketDatas[offset + i][1];
-                    mBeanStockList.get(i).mStockScope = mMarketDatas[offset + i][2];
-                    mBeanStockList.get(i).mStockRatio = mMarketDatas[offset + i][3] + "%";
                     double value = Double.parseDouble(mBeanStockList.get(i).mStockValue);
-                    if (value < 99.97) {
+                    if (value < 99.5) {
                         NotificationManager notificationManager = (NotificationManager) mMainActivity.getSystemService(NOTIFICATION_SERVICE);
                         Notification.Builder builder = new Notification.Builder(mMainActivity);
                         builder.setSmallIcon(R.mipmap.ic_app_logo);
@@ -86,8 +83,8 @@ public class FragmentChance extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_chance, container, false);
         Log.d(TAG, "onCreateView---->");
         mFragmentManager = getActivity().getFragmentManager();
-        mListView = (ListView) view.findViewById(R.id.listViewMETF);
-        mAdapterListView = new AdapterListViewStock(mMainActivity, mBeanStockList);
+        mListView = (ListView) view.findViewById(R.id.listViewChance);
+        mAdapterListView = new AdapterListViewMetf(mMainActivity, mBeanStockList);
         mListView.setAdapter(mAdapterListView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -159,10 +156,10 @@ public class FragmentChance extends BaseFragment {
         double yield = 0;
         if (value < 100) {
             yield = 10000 * (100 - value) / value;
-            Toast.makeText(mMainActivity, String.format("预购收益：万%.2f  年化率：%.2f%%", yield, yield * 3.65), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, String.format("预购收益：万%.1f  ", yield) + ((yield > 10) ? "买入" : "等待"), Toast.LENGTH_SHORT).show();
         } else {
             yield = 100 * (value - 100);
-            Toast.makeText(mMainActivity, String.format("预沽收益：万%.2f  年化率：%.2f%%", yield, yield * 3.65), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, String.format("预沽收益：万%.1f  ", yield) + ((yield > 10) ? "卖出" : "等待"), Toast.LENGTH_SHORT).show();
         }
     }
 }
