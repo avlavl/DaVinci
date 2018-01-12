@@ -56,8 +56,9 @@ public class FragmentInvest extends BaseFragment {
                     mBeanInvestList.get(2 * i + j).mQuota = (diffRate <= 1) ? investAmount : 0;
                     mBeanInvestList.get(2 * i + j).mTimes = strategyInvest.getInvestTimes();
                     mBeanInvestList.get(2 * i + j).mCurrentCost = strategyInvest.getCurrentCost();
-                    mBeanInvestList.get(2 * i + j).mProperty = strategyInvest.getCurrentAsset();
-                    mBeanInvestList.get(2 * i + j).mYield = strategyInvest.getCurrentYield();
+                    mBeanInvestList.get(2 * i + j).mTotalNumber = strategyInvest.totalNumber;
+                    mBeanInvestList.get(2 * i + j).mProperty = strategyInvest.totalNumber * mBeanInvestList.get(2 * i + j).mRealPoint;
+                    mBeanInvestList.get(2 * i + j).mYield = 100 * (mBeanInvestList.get(2 * i + j).mRealPoint - strategyInvest.getCurrentCost()) / strategyInvest.getCurrentCost();
                     mBeanInvestList.get(2 * i + j).mKeyPoint = strategyInvest.getKeyPoint();
                     mBeanInvestList.get(2 * i + j).mKeyRatio = strategyInvest.getKeyRatio();
                 }
@@ -79,6 +80,8 @@ public class FragmentInvest extends BaseFragment {
                             double diffRate = mBeanInvestList.get(2 * i + j).mRealPoint / basePoint;
                             double investAmount = (basePoint / mBeanInvestList.get(2 * i + j).mDivisor) / Math.pow(diffRate, mBeanInvestList.get(2 * i + j).mDiffCoef);
                             mBeanInvestList.get(2 * i + j).mQuota = (diffRate <= 1) ? investAmount : 0;
+                            mBeanInvestList.get(2 * i + j).mProperty = mBeanInvestList.get(2 * i + j).mTotalNumber * mBeanInvestList.get(2 * i + j).mRealPoint;
+                            mBeanInvestList.get(2 * i + j).mYield = 100 * (mBeanInvestList.get(2 * i + j).mRealPoint - mBeanInvestList.get(2 * i + j).mCurrentCost) / mBeanInvestList.get(2 * i + j).mCurrentCost;
                         }
                     }
                 }

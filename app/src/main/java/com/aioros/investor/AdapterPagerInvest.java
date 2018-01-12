@@ -72,7 +72,7 @@ public class AdapterPagerInvest extends PagerAdapter {
         textViewInvestProperty0.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mProperty));
         TextView textViewInvestYield0 = (TextView) view.findViewById(R.id.textViewInvestYield0);
         textViewInvestYield0.setText(String.format("%.2f%%", mInvestBeanList.get(2 * position).mYield));
-        textViewInvestYield0.setTextColor(mInvestBeanList.get(2 * position).mYield < 0 ? Color.rgb(0, 128, 0) : Color.rgb(200, 0, 0));
+        textViewInvestYield0.setTextColor(mInvestBeanList.get(2 * position).mYield > 0 ? Color.rgb(200, 0, 0) : Color.rgb(0, 128, 0));
         TextView textViewInvestKeyPoint0 = (TextView) view.findViewById(R.id.textViewInvestKeyPoint0);
         textViewInvestKeyPoint0.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mKeyPoint));
         TextView textViewInvestKeyRatio0 = (TextView) view.findViewById(R.id.textViewInvestKeyRatio0);
@@ -85,7 +85,7 @@ public class AdapterPagerInvest extends PagerAdapter {
         textViewInvestProperty1.setText(String.format("%.2f", mInvestBeanList.get(2 * position + 1).mProperty));
         TextView textViewInvestYield1 = (TextView) view.findViewById(R.id.textViewInvestYield1);
         textViewInvestYield1.setText(String.format("%.2f%%", mInvestBeanList.get(2 * position + 1).mYield));
-        textViewInvestYield1.setTextColor(mInvestBeanList.get(2 * position + 1).mYield < 0 ? Color.rgb(0, 128, 0) : Color.rgb(200, 0, 0));
+        textViewInvestYield1.setTextColor(mInvestBeanList.get(2 * position + 1).mYield > 0 ? Color.rgb(200, 0, 0) : Color.rgb(0, 128, 0));
         TextView textViewInvestKeyPoint1 = (TextView) view.findViewById(R.id.textViewInvestKeyPoint1);
         textViewInvestKeyPoint1.setText(String.format("%.2f", mInvestBeanList.get(2 * position + 1).mKeyPoint));
         TextView textViewInvestKeyRatio1 = (TextView) view.findViewById(R.id.textViewInvestKeyRatio1);

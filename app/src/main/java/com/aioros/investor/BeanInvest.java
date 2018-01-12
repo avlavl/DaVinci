@@ -20,6 +20,7 @@ public class BeanInvest {
     public double mKeyRatio = 0;
     public int mTimes = 0;
     public double mCurrentCost = 0;
+    public double mTotalNumber = 0;
 
     public BeanInvest(int startPoint, double slope, double diffCoef, int divisor, double winLevel) {
         super();
