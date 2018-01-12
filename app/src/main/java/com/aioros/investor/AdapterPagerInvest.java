@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import static com.aioros.investor.TimeUtility.isWeekUpdateTime;
+
 /**
  * Created by aizhang on 2017/6/17.
  */
@@ -121,8 +123,12 @@ public class AdapterPagerInvest extends PagerAdapter {
     }
 
     private void buttonOnClick(View v, int position) {
-        Thread dft = new UpdateDataThread(position);
-        dft.start();
+        if (isWeekUpdateTime()) {
+            Thread dft = new UpdateDataThread(position);
+            dft.start();
+        } else {
+            Toast.makeText(mContext, "请周五后更新数据！", Toast.LENGTH_SHORT).show();
+        }
     }
 
     class UpdateDataThread extends Thread {

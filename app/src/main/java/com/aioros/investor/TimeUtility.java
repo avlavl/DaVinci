@@ -32,6 +32,15 @@ public class TimeUtility {
         return cal.get(Calendar.HOUR_OF_DAY) >= 15;
     }
 
+    public static boolean isWeekUpdateTime() {
+        Calendar cal = Calendar.getInstance();
+        if ((cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) || (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY))
+            return true;
+        if ((cal.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) && (cal.get(Calendar.HOUR_OF_DAY) >= 15))
+            return true;
+        return false;
+    }
+
     public static int daysBetween(ArrayList<String> dates, int idxs, int idxe) {
         String sdate = dates.get(idxs);
         String edate = dates.get(idxe);
