@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class FragmentInvest extends BaseFragment {
     private List<BeanInvest> mBeanInvestList = new ArrayList<BeanInvest>();
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    private TextView mTextViewDate;
     private FileUtility fileUtility = new FileUtility();
     public String[][] mMarketDatas;
     private String mTabTitles[] = new String[]{"申万证券", "养老产业"};
@@ -100,6 +102,12 @@ public class FragmentInvest extends BaseFragment {
         mViewPager.setAdapter(mAdapterPager);
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayoutInvest);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        fileUtility.importDataFile("investor/data/W申万证券.txt");
+        String fileDate = fileUtility.dateList.get(fileUtility.rows - 1);
+        mTextViewDate = (TextView) view.findViewById(R.id.textViewInvestDate);
+        mTextViewDate.setText(fileDate);
+
         mAdapterPager.notifyDataSetChanged();
         return view;
     }

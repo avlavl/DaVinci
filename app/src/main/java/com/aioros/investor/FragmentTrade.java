@@ -70,7 +70,7 @@ public class FragmentTrade extends BaseFragment {
         fileUtility.importDataFile("investor/data/沪深300.txt");
         String fileDate = fileUtility.dateList.get(fileUtility.rows - 1);
         mTextViewDate = (TextView) view.findViewById(R.id.textViewTradeDate);
-        mTextViewDate.setText("数据库：" + fileDate);
+        mTextViewDate.setText(fileDate);
         checkDataUpdate(fileDate);
 
         mHandler = new Handler() {
@@ -79,7 +79,7 @@ public class FragmentTrade extends BaseFragment {
                 String message = (String) msg.obj;
                 Toast.makeText(mMainActivity, message, Toast.LENGTH_LONG).show();
                 if (message.equals("更新成功！"))
-                    mTextViewDate.setText("数据库：" + latestDate);
+                    mTextViewDate.setText(latestDate);
             }
         };
 

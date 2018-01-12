@@ -151,7 +151,7 @@
             android:layout_marginRight="10dp"
             android:text="— 6532.15 —"
             android:textColor="@color/colorDarkGrey"
-            android:textSize="13sp"/>
+            android:textSize="13sp" />
 
     </LinearLayout>
 
@@ -199,7 +199,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="-4.37%"
-             android:textSize="16sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="80dp"
@@ -310,7 +310,7 @@
             android:layout_marginRight="10dp"
             android:text="— 6437.13 —"
             android:textColor="@color/colorDarkGrey"
-            android:textSize="13sp"/>
+            android:textSize="13sp" />
     </LinearLayout>
 
     <View
@@ -424,19 +424,20 @@
         android:layout_height="8dp"
         android:background="@color/colorItemDivider" />
 
+    <Button
+        android:id="@+id/buttonPagerInvest"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_button"
+        android:text="数据更新"
+        android:textColor="@color/colorLightBlue"
+        android:textSize="16sp" />
+
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />
-
-    <Button
-        android:id="@+id/buttonPagerInvest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorLightGrey"
-        android:text="数据更新"
-        android:textColor="@color/colorLightBlue"
-        android:textSize="16sp" />
-
 </LinearLayout>
