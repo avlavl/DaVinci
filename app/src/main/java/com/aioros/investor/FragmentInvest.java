@@ -1,6 +1,7 @@
 package com.aioros.investor;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
@@ -9,26 +10,37 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.aioros.investor.TimeUtility.isWeekUpdateTime;
 
 /**
  * Created by aizhang on 2017/6/7.
  */
-
 public class FragmentInvest extends BaseFragment {
     private static final String TAG = "FragmentInvest";
     private MainActivity mMainActivity;
     private AdapterPagerInvest mAdapterPager;
     private List<BeanInvest> mBeanInvestList = new ArrayList<BeanInvest>();
-    private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    private ViewPager mViewPager;
     private TextView mTextViewDate;
+    private Button mButtonUpdate;
     private FileUtility fileUtility = new FileUtility();
+    public Handler mHandler;
+    private String latestDate;
     public String[][] mMarketDatas;
     private String mTabTitles[] = new String[]{"申万证券", "养老产业"};
+    private String mTabCodes[] = new String[]{"z399707", "z399812"};
     private int[] indexArray = new int[]{7, 5};
     private int[] weeksArray = new int[2];
 
@@ -94,8 +106,8 @@ public class FragmentInvest extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_invest, container, false);
         Log.d(TAG, "onCreateView---->");
+        View view = inflater.inflate(R.layout.fragment_invest, container, false);
         mFragmentManager = getActivity().getFragmentManager();
         mAdapterPager = new AdapterPagerInvest(mMainActivity, mBeanInvestList);
         mViewPager = (ViewPager) view.findViewById(R.id.viewPagerInvest);
@@ -108,6 +120,28 @@ public class FragmentInvest extends BaseFragment {
         mTextViewDate = (TextView) view.findViewById(R.id.textViewInvestDate);
         mTextViewDate.setText(fileDate);
 
+        mButtonUpdate = (Button) view.findViewById(R.id.buttonInvestUpdate);
+        mButtonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonOnClick(v);
+            }
+        });
+        int durations = TimeUtility.daysBetween(fileDate, TimeUtility.getCurrentDate());
+        mButtonUpdate.setVisibility(((durations > 6) && isWeekUpdateTime()) ? View.VISIBLE : View.INVISIBLE);
+
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                String message = (String) msg.obj;
+                Toast.makeText(mMainActivity, message, Toast.LENGTH_LONG).show();
+                if (message.equals("更新成功！")) {
+                    mTextViewDate.setText(latestDate);
+                    mButtonUpdate.setVisibility(View.INVISIBLE);
+                }
+            }
+        };
+
         mAdapterPager.notifyDataSetChanged();
         return view;
     }
@@ -116,5 +150,50 @@ public class FragmentInvest extends BaseFragment {
     public void onResume() {
         super.onResume();
         MainActivity.currFragTag = Constant.FRAGMENT_FLAG_INVEST;
+    }
+
+    private void buttonOnClick(View v) {
+        Thread udt = new UpdateDataThread();
+        udt.start();
+    }
+
+    class UpdateDataThread extends Thread {
+        @Override
+        public void run() {
+            Message msg = mHandler.obtainMessage();
+            String storageDir = Environment.getExternalStorageDirectory().toString();
+            for (int i = 1; i < mTabTitles.length; i++) {
+                String filePath = storageDir + "/investor/data/W" + mTabTitles[i] + ".txt";
+                File file = new File(filePath);
+                if (file.exists()) {
+                    try {
+                        String urlStr = "http://hq.sinajs.cn/list=s" + mTabCodes[i];
+                        HttpUtility httpUtility = new HttpUtility();
+                        String httpStr = httpUtility.getData(urlStr);
+                        if (httpStr.equals("")) {
+                            msg.obj = "网络无连接！";
+                            mHandler.sendMessage(msg);
+                            return;
+                        } else if (httpStr.contains("\"\"")) {
+                            msg.obj = "找不到对应的股票！";
+                            mHandler.sendMessage(msg);
+                            return;
+                        } else {
+                            String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
+                            latestDate = strs[30].replace("-", "/");
+                            String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f", latestDate,
+                                    Double.parseDouble(strs[1]), Double.parseDouble(strs[4]), Double.parseDouble(strs[5]), Double.parseDouble(strs[3]));
+                            PrintWriter pw = new PrintWriter(new FileWriter(file, true));
+                            pw.println(dataStr);
+                            pw.close();
+                        }
+                    } catch (IOException | NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            msg.obj = "更新成功！";
+            mHandler.sendMessage(msg);
+        }
     }
 }

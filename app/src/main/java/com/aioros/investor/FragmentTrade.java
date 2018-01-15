@@ -31,13 +31,13 @@ public class FragmentTrade extends BaseFragment {
     private AdapterPagerTrade mAdapterPager;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    private String mTabTitles[] = new String[]{"淘金100", "养老产业", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
-    private String mTabCodes[] = new String[]{"H30537", "z399812", "h000978", "z164906", "h000300", "h000905", "z399006"};
     private TextView mTextViewDate;
     private FileUtility fileUtility = new FileUtility();
     public Handler mHandler;
     private String latestDate;
     public String[][] mMarketDatas;
+    private String mTabTitles[] = new String[]{"淘金100", "养老产业", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
+    private String mTabCodes[] = new String[]{"H30537", "z399812", "h000978", "z164906", "h000300", "h000905", "z399006"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,33 +83,6 @@ public class FragmentTrade extends BaseFragment {
             }
         };
 
-//        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
-//            TabLayout.Tab tab = mTabLayout.getTabAt(i);
-//            //tab.setText(mAdapterPager.getPageTitle(i));
-//            tab.setCustomView(mAdapterPager.getTabView(i));
-//            if (tab.getCustomView() != null) {
-//                View tabView = (View) tab.getCustomView().getParent();
-//                tabView.setTag(i);
-//                tabView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        int pos = (int) v.getTag();
-//                        Toast.makeText(mMainActivity, "您还没有登录:" + pos, Toast.LENGTH_SHORT).show();
-//                        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
-//                            TabLayout.Tab tab = mTabLayout.getTabAt(i);
-//                            View tabView = (View) tab.getCustomView().getParent();
-//                            TextView tv = (TextView) tabView.findViewById(R.id.textview_tabs);
-//                            if (pos == i) {
-//                                tv.setTextColor(Color.RED);
-//                                tab.select();
-//                            } else {
-//                                tv.setTextColor(Color.WHITE);
-//                            }
-//                        }
-//                    }
-//                });
-//            }
-//        }
         return view;
     }
 
@@ -138,17 +111,7 @@ public class FragmentTrade extends BaseFragment {
         }
     }
 
-
     class UpdateDataThread extends Thread {
-        private int index;
-
-        public UpdateDataThread() {
-        }
-
-        public UpdateDataThread(int idx) {
-            index = idx;
-        }
-
         @Override
         public void run() {
             Message msg = mHandler.obtainMessage();
@@ -181,10 +144,6 @@ public class FragmentTrade extends BaseFragment {
                     } catch (IOException | NumberFormatException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    msg.obj = "请先建立基础文件";
-                    mHandler.sendMessage(msg);
-                    return;
                 }
             }
             msg.obj = "更新成功！";
