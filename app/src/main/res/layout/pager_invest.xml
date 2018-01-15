@@ -34,31 +34,9 @@
             android:textColor="@color/colorWhite" />
 
         <TextView
-            android:id="@+id/textViewInvestRealPoint"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewInvestQuotap"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="6420.43"
-            android:textColor="@color/colorWhite"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/textViewInvestRealPointp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewInvestRealPoint"
-            android:gravity="center"
-            android:text="当前点位"
-            android:textColor="@color/colorWhite"
-            android:textSize="12sp" />
-
-        <TextView
             android:id="@+id/textViewInvestTotalProperty"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_below="@id/textViewInvestQuotap"
             android:layout_marginTop="10dp"
             android:gravity="center"
@@ -70,7 +48,6 @@
             android:id="@+id/textViewInvestTotalPropertyp"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_below="@id/textViewInvestTotalProperty"
             android:gravity="center"
             android:text="总资产"
@@ -97,6 +74,29 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="本周基点"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textViewInvestRealPoint"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/textViewInvestQuotap"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="6420.43"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textViewInvestRealPointp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/textViewInvestRealPoint"
+            android:gravity="center"
+            android:text="当前点位"
             android:textColor="@color/colorWhite"
             android:textSize="12sp" />
 

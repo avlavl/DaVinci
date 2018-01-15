@@ -47,9 +47,9 @@ public class AdapterListViewMetf extends BaseAdapter {
         if (mStockBeanList.get(position).mStockValue.contains("--")) {
             color = Color.DKGRAY;
         } else if (Double.parseDouble(mStockBeanList.get(position).mStockValue) > 100) {
-            color = Color.HSVToColor(new float[]{300.f, 5 * (Float.parseFloat(mStockBeanList.get(position).mStockValue) - 100), 0.5f});
+            color = Color.HSVToColor(new float[]{300.f, 0.2f + 4 * (Float.parseFloat(mStockBeanList.get(position).mStockValue) - 100), 0.5f});
         } else if (Double.parseDouble(mStockBeanList.get(position).mStockValue) < 100) {
-            color = Color.HSVToColor(new float[]{180.f, 5 * (Float.parseFloat(mStockBeanList.get(position).mStockValue) - 100), 0.5f});
+            color = Color.HSVToColor(new float[]{180.f, 0.2f + 4 * (100 - Float.parseFloat(mStockBeanList.get(position).mStockValue)), 0.5f});
         }
         View view = mInflater.inflate(R.layout.item_metf, null);
 

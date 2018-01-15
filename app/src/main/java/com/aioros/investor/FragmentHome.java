@@ -310,7 +310,7 @@ public class FragmentHome extends BaseFragment {
         TextView textView0 = (TextView) popupView.findViewById(R.id.textViewPopup0);
         textView0.setText(strs[1] + "(" + strs[2] + ")");
         TextView textView1 = (TextView) popupView.findViewById(R.id.textViewPopup1);
-        textView1.setText("最新：" + strs[3] + "   涨跌：" + strs[4] + "   幅度" + strs[5] + "%");
+        textView1.setText("最新：" + strs[3] + "   涨跌：" + strs[4] + "   幅度: " + strs[5] + "%");
         textView1.setTextColor(Double.parseDouble(strs[4]) > 0 ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
         //将布局添加到PopupWindow中
         mPopupWindow.setContentView(popupView);
