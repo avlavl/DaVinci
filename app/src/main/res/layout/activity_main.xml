@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root_layout"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.aioros.investor.MainActivity">
 
-    <include
-        android:id="@+id/layout_bottompanel"
-        layout="@layout/panel_bottom" />
-
     <FrameLayout
-        android:id="@+id/fragment_content"
+        android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/layout_bottompanel" />
-</RelativeLayout>
+        android:layout_weight="1" />
+
+    <include
+        android:id="@+id/layoutBottomPanel"
+        layout="@layout/panel_bottom" />
+
+</LinearLayout>

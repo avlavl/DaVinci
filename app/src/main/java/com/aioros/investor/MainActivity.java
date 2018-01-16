@@ -99,7 +99,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     }
 
     private void initUI() {
-        mBottomPanel = (BottomControlPanel) findViewById(R.id.layout_bottompanel);
+        mBottomPanel = (BottomControlPanel) findViewById(R.id.layoutBottomPanel);
         if (mBottomPanel != null) {
             mBottomPanel.initBottomPanel();
             mBottomPanel.setBottomCallback(this);
@@ -216,7 +216,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         if (currFragTag != null && !currFragTag.equals("")) {
             detachFragment(getFragment(currFragTag));
         }
-        attachFragment(R.id.fragment_content, getFragment(tag), tag);
+        attachFragment(R.id.layoutContent, getFragment(tag), tag);
         commitTransactions(tag);
     }
 

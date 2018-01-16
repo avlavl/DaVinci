@@ -57,7 +57,7 @@ public class AdapterListViewTradeMode extends BaseAdapter {
         View view = mInflater.inflate(R.layout.item_trade, null);
         view.setBackgroundColor((mBeanTradeModeList.get(position).mStatus) ? Color.rgb(255, 250, 250) : Color.rgb(240, 255, 240));
 
-        TextView flag = (TextView) view.findViewById(R.id.textViewItemTradeFlag);
+        View flag = (View) view.findViewById(R.id.viewItemTradeFlag);
         flag.setBackgroundColor((mBeanTradeModeList.get(position).mStatus) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
 
         TextView ratio = (TextView) view.findViewById(R.id.textViewItemTradeKeyRatio);

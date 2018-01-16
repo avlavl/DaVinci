@@ -6,30 +6,30 @@
     android:layout_height="match_parent"
     android:layout_margin="1dp">
 
-    <TextView
-        android:id="@+id/textViewItemTradeFlag"
+    <View
+        android:id="@+id/viewItemTradeFlag"
+        android:layout_width="6dp"
         android:layout_height="60dp"
-        android:background="@color/colorRed"
-        android:layout_width="6dp" />
+        android:background="@color/colorRed" />
 
     <TextView
         android:id="@+id/textViewItemTradeKeyRatio"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/textViewItemTradeFlag"
+        android:layout_toRightOf="@+id/viewItemTradeFlag"
         android:gravity="right"
         android:padding="5dp"
         android:text="-3.32%"
+        android:textColor="@color/colorGolden"
         android:textSize="25sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorGolden" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textViewItemTradeKeyPoint"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textViewItemTradeFlag"
-        android:layout_toRightOf="@+id/textViewItemTradeFlag"
+        android:layout_alignBottom="@+id/viewItemTradeFlag"
+        android:layout_toRightOf="@+id/viewItemTradeFlag"
         android:gravity="center"
         android:text="3502.57"
         android:textSize="16sp" />
@@ -39,11 +39,11 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginLeft="120dp"
-        android:layout_toRightOf="@+id/textViewItemTradeFlag"
+        android:layout_toRightOf="@+id/viewItemTradeFlag"
         android:gravity="center_vertical|right"
         android:text="38天"
-        android:textSize="16sp"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewItemTradeAmount"
@@ -53,8 +53,8 @@
         android:layout_marginRight="100dp"
         android:gravity="center_vertical|right"
         android:text="7000A"
-        android:textSize="16sp"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewItemTradeModeName"
@@ -64,17 +64,17 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:text="BARLML"
-        android:textSize="16sp"
-        android:textColor="@android:color/holo_purple" />
+        android:textColor="@android:color/holo_purple"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewItemTradeModePara"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textViewItemTradeFlag"
+        android:layout_alignBottom="@+id/viewItemTradeFlag"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
         android:text="-3,17,6"
         android:textSize="15sp" />
 
