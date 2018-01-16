@@ -36,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
             android:text="沪深300："
             android:textColor="@color/colorWhite"
             android:textSize="12sp" />
@@ -55,7 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="180dp"
+            android:layout_marginLeft="185dp"
+            android:text="沪深300："
             android:textColor="@color/colorWhite"
             android:textSize="12sp" />
 
@@ -64,6 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/textViewTradeSelfName"
+            android:text="2.5% 4021.25"
+            android:textColor="@color/colorWhite"
             android:textSize="16sp" />
     </RelativeLayout>
 

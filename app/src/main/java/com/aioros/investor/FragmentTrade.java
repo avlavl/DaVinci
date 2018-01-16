@@ -44,6 +44,7 @@ public class FragmentTrade extends BaseFragment {
     private String mTabTitles[] = new String[]{"淘金100", "养老产业", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
     private String mTabCodes[] = new String[]{"H30537", "z399812", "h000978", "z164906", "h000300", "h000905", "z399006"};
     private String mBaseNames[] = new String[]{"沪深300", "沪深300", "沪深300", "中国互联", "沪深300", "中证500", "创业板指"};
+    private int itemIndex = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,16 @@ public class FragmentTrade extends BaseFragment {
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
                 updateStockData(mViewPager.getCurrentItem());
+            }
+        };
+
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                String message = (String) msg.obj;
+                Toast.makeText(mMainActivity, message, Toast.LENGTH_LONG).show();
+                if (message.equals("更新成功！"))
+                    mTextViewDate.setText(latestDate);
             }
         };
     }
@@ -78,11 +89,14 @@ public class FragmentTrade extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                updateStockData(position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
+                if (state == 0) {
+                    itemIndex = mViewPager.getCurrentItem();
+                    updateStockData(itemIndex);
+                }
             }
         });
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayoutTrade);
@@ -92,23 +106,13 @@ public class FragmentTrade extends BaseFragment {
         mTextViewSelfName = (TextView) view.findViewById(R.id.textViewTradeSelfName);
         mTextViewBaseData = (TextView) view.findViewById(R.id.textViewTradeBaseData);
         mTextViewSelfData = (TextView) view.findViewById(R.id.textViewTradeSelfData);
-        updateStockData(0);
+        updateStockData(itemIndex);
 
         fileUtility.importDataFile("investor/data/沪深300.txt");
         String fileDate = fileUtility.dateList.get(fileUtility.rows - 1);
         mTextViewDate = (TextView) view.findViewById(R.id.textViewTradeDate);
         mTextViewDate.setText(fileDate);
         checkDataUpdate(fileDate);
-
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                String message = (String) msg.obj;
-                Toast.makeText(mMainActivity, message, Toast.LENGTH_LONG).show();
-                if (message.equals("更新成功！"))
-                    mTextViewDate.setText(latestDate);
-            }
-        };
 
         return view;
     }
