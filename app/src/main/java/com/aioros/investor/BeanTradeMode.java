@@ -14,8 +14,6 @@ public class BeanTradeMode {
     public boolean mStatus = true;
     public int mDuration = 0;
     public String mAmount;
-    public double mCost = 0;
-    public double mRatio = 0;
     public ArrayList<Integer> bpIdxList = new ArrayList<>();
     public ArrayList<Integer> spIdxList = new ArrayList<>();
 

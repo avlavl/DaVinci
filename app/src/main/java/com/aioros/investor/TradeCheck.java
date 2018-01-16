@@ -40,15 +40,12 @@ public class TradeCheck {
         tradeMode.spIdxList = strategy.spIdxList;
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
         }
 
-        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         tradeMode.mKeyPoint = macd.getMACDKey(tradeMode.mModeName, bp);
         tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - closeList.get(rows - 1)) / closeList.get(rows - 1);
     }
@@ -71,15 +68,12 @@ public class TradeCheck {
         tradeMode.spIdxList = strategy.spIdxList;
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
         }
 
-        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         tradeMode.mKeyPoint = ma.getMAKey(mas, mal);
         tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - closeList.get(rows - 1)) / closeList.get(rows - 1);
     }
@@ -105,15 +99,12 @@ public class TradeCheck {
         tradeMode.spIdxList = strategy.spIdxList;
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
         }
 
-        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         tradeMode.mKeyPoint = livermore.getLMKey(tradeMode.mModeName);
         tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - closeList.get(rows - 1)) / closeList.get(rows - 1);
     }
@@ -135,15 +126,12 @@ public class TradeCheck {
         tradeMode.spIdxList = strategy.spIdxList;
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
         }
 
-        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         double barKey = macd.getBARKey(bp0);
         double difKey = macd.getDIFKey(bp1);
         tradeMode.mKeyPoint = (barKey > difKey) ? barKey : difKey;
@@ -176,15 +164,12 @@ public class TradeCheck {
         tradeMode.spIdxList = strategy.spIdxList;
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
         }
 
-        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         double maKey = ma.getMAKey(mas, mal);
         double macdKey = macd.getMACDKey(tradeMode.mModeName, bp);
         tradeMode.mKeyPoint = (maKey > macdKey) ? maKey : macdKey;
@@ -220,15 +205,12 @@ public class TradeCheck {
         tradeMode.spIdxList = strategy.spIdxList;
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
         } else {
             tradeMode.mStatus = false;
-            tradeMode.mDuration = TimeUtility.daysBetween(dateList, tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1), rows - 1);
-            tradeMode.mCost = priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
         }
 
-        tradeMode.mRatio = (priceList.get(rows - 1) - tradeMode.mCost) * 100 / tradeMode.mCost;
         double lmKey = livermore.getLMKey(tradeMode.mModeName);
         double macdKey = macd.getMACDKey(tradeMode.mModeName, bp);
         tradeMode.mKeyPoint = (lmKey > macdKey) ? lmKey : macdKey;
