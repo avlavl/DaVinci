@@ -4,48 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorTabSelect"
-        android:divider="@color/colorItemDivider"
-        android:dividerHeight="8dp">
-
-        <TextView
-            android:id="@+id/textViewPagerTradeBasep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="沪深300："
-            android:textColor="@color/colorWhite"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textViewPagerTradeBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/textViewPagerTradeBasep"
-            android:text="沪深300："
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/textViewPagerTradeSelfp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="180dp"
-            android:textColor="@color/colorWhite"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textViewPagerTradeSelf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/textViewPagerTradeSelfp"
-            android:textSize="16sp" />
-    </RelativeLayout>
-
     <ListView
         android:id="@+id/listViewPagerTrade"
         android:layout_width="match_parent"

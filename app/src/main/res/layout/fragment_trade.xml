@@ -24,6 +24,49 @@
             android:textSize="20sp" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlack5"
+        android:divider="@color/colorItemDivider"
+        android:dividerHeight="8dp">
+
+        <TextView
+            android:id="@+id/textViewTradeBaseName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="沪深300："
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textViewTradeBaseData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textViewTradeBaseName"
+            android:text="2.5% 4021.25"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textViewTradeSelfName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="180dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textViewTradeSelfData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textViewTradeSelfName"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
     <!--app:tabMode="scrollable"  这个属性我在代码中设置了-->
     <!-- mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);-->
     <android.support.design.widget.TabLayout

@@ -124,7 +124,6 @@ public class AdapterPagerTrade extends PagerAdapter {
         }
 
         View view = mInflater.inflate(R.layout.pager_trade, null);
-        updateTextView(view, position);
         mListView = (ListView) view.findViewById(R.id.listViewPagerTrade);
         mAdapterListView = new AdapterListViewTradeMode(mContext, mBeanTradeModeLists.get(position));
         mListView.setAdapter(mAdapterListView);
@@ -154,25 +153,6 @@ public class AdapterPagerTrade extends PagerAdapter {
         TextView textView = (TextView) view.findViewById(R.id.textview_tabs);
         textView.setText(mTabTitles[position]);
         return view;
-    }
-
-    public void updateTextView(View view, int position) {
-        TextView textViewBasep = (TextView) view.findViewById(R.id.textViewPagerTradeBasep);
-        TextView textViewSelfp = (TextView) view.findViewById(R.id.textViewPagerTradeSelfp);
-        TextView textViewBase = (TextView) view.findViewById(R.id.textViewPagerTradeBase);
-        TextView textViewSelf = (TextView) view.findViewById(R.id.textViewPagerTradeSelf);
-        int[] idxBase = new int[]{2, 2, 2, 9, 2, 3, 4};
-        int[] idxSelf = new int[]{0, 5, 6, 0, 0, 0, 0};
-        String[][] marketDatas = fragmentTrade.mMarketDatas;
-        textViewBasep.setText(mBaseNames[position] + ": ");
-        textViewBase.setText(marketDatas[idxBase[position]][3] + "% " + marketDatas[idxBase[position]][1]);
-        textViewBase.setTextColor((Double.parseDouble(marketDatas[idxBase[position]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
-
-        if (idxSelf[position] != 0) {
-            textViewSelfp.setText(mTabTitles[position] + ": ");
-            textViewSelf.setText(marketDatas[idxSelf[position]][3] + "% " + marketDatas[idxSelf[position]][1]);
-            textViewSelf.setTextColor((Double.parseDouble(marketDatas[idxSelf[position]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
-        }
     }
 
     private void mListViewOnItemClick(int position, int item) {

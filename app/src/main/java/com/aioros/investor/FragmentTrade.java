@@ -1,6 +1,7 @@
 package com.aioros.investor;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -32,12 +33,17 @@ public class FragmentTrade extends BaseFragment {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private TextView mTextViewDate;
+    private TextView mTextViewBaseName;
+    private TextView mTextViewBaseData;
+    private TextView mTextViewSelfName;
+    private TextView mTextViewSelfData;
     private FileUtility fileUtility = new FileUtility();
     public Handler mHandler;
     private String latestDate;
     public String[][] mMarketDatas;
     private String mTabTitles[] = new String[]{"淘金100", "养老产业", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
     private String mTabCodes[] = new String[]{"H30537", "z399812", "h000978", "z164906", "h000300", "h000905", "z399006"};
+    private String mBaseNames[] = new String[]{"沪深300", "沪深300", "沪深300", "中国互联", "沪深300", "中证500", "创业板指"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,7 @@ public class FragmentTrade extends BaseFragment {
             @Override
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
+                updateStockData(mViewPager.getCurrentItem());
             }
         };
     }
@@ -64,8 +71,28 @@ public class FragmentTrade extends BaseFragment {
         mAdapterPager = new AdapterPagerTrade(mMainActivity, this);
         mViewPager = (ViewPager) view.findViewById(R.id.viewPagerTrade);
         mViewPager.setAdapter(mAdapterPager);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                updateStockData(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayoutTrade);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        mTextViewBaseName = (TextView) view.findViewById(R.id.textViewTradeBaseName);
+        mTextViewSelfName = (TextView) view.findViewById(R.id.textViewTradeSelfName);
+        mTextViewBaseData = (TextView) view.findViewById(R.id.textViewTradeBaseData);
+        mTextViewSelfData = (TextView) view.findViewById(R.id.textViewTradeSelfData);
+        updateStockData(0);
 
         fileUtility.importDataFile("investor/data/沪深300.txt");
         String fileDate = fileUtility.dateList.get(fileUtility.rows - 1);
@@ -90,6 +117,26 @@ public class FragmentTrade extends BaseFragment {
     public void onResume() {
         super.onResume();
         MainActivity.currFragTag = Constant.FRAGMENT_FLAG_TRADE;
+    }
+
+    public void updateStockData(int index) {
+        int[] idxBase = new int[]{2, 2, 2, 9, 2, 3, 4};
+        int[] idxSelf = new int[]{0, 5, 6, 0, 0, 0, 0};
+        String[][] marketDatas = mMarketDatas;
+        mTextViewBaseName.setText(mBaseNames[index] + ": ");
+        mTextViewBaseData.setText(marketDatas[idxBase[index]][3] + "% " + marketDatas[idxBase[index]][1]);
+        mTextViewBaseData.setTextColor((Double.parseDouble(marketDatas[idxBase[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
+
+        if (idxSelf[index] != 0) {
+            mTextViewSelfName.setVisibility(View.VISIBLE);
+            mTextViewSelfData.setVisibility(View.VISIBLE);
+            mTextViewSelfName.setText(mTabTitles[index] + ": ");
+            mTextViewSelfData.setText(marketDatas[idxSelf[index]][3] + "% " + marketDatas[idxSelf[index]][1]);
+            mTextViewSelfData.setTextColor((Double.parseDouble(marketDatas[idxSelf[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
+        } else {
+            mTextViewSelfName.setVisibility(View.INVISIBLE);
+            mTextViewSelfData.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void checkDataUpdate(String date) {
