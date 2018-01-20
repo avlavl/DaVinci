@@ -162,7 +162,7 @@ public class FragmentInvest extends BaseFragment {
         public void run() {
             Message msg = mHandler.obtainMessage();
             String storageDir = Environment.getExternalStorageDirectory().toString();
-            for (int i = 1; i < mTabTitles.length; i++) {
+            for (int i = 0; i < mTabTitles.length; i++) {
                 String filePath = storageDir + "/investor/data/W" + mTabTitles[i] + ".txt";
                 File file = new File(filePath);
                 if (file.exists()) {
