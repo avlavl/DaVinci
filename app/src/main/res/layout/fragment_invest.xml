@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorOrange">
+    android:background="@color/colorOrangeRed">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,9 +23,9 @@
             app:tabBackground="@drawable/tablayout_invest"
             app:tabIndicatorHeight="0dp"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/colorOrange"
+            app:tabSelectedTextColor="@color/colorOrangeRed"
             app:tabTextAppearance="@style/TabLayoutTextStyle"
-            app:tabTextColor="@color/colorLightGrey" />
+            app:tabTextColor="@color/colorgray91" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPagerInvest"
@@ -58,7 +58,7 @@
                 android:layout_below="@id/buttonInvestUpdate"
                 android:layout_centerHorizontal="true"
                 android:text="2018/01/01"
-                android:textColor="@color/colorGrey"
+                android:textColor="@color/colorLightGrey"
                 android:textSize="12sp" />
 
             <View
@@ -68,7 +68,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_toLeftOf="@id/textViewInvestDate"
-                android:background="@color/colorLightGrey" />
+                android:background="@color/colorgray91" />
 
             <View
                 android:layout_width="120dp"
@@ -77,7 +77,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@id/textViewInvestDate"
-                android:background="@color/colorLightGrey" />
+                android:background="@color/colorgray91" />
         </RelativeLayout>
     </LinearLayout>
 

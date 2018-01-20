@@ -22,14 +22,14 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="股票代码"
-            android:textColor="@color/colorLightGrey"
+            android:textColor="@color/colorgray91"
             android:textSize="12sp" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/colorGrey" />
+            android:background="@color/colorLightGrey" />
 
         <EditText
             android:id="@+id/editTextStockCode"
@@ -42,8 +42,8 @@
             android:hint="请输入股票代码..."
             android:inputType="number"
             android:paddingLeft="3dp"
-            android:textColor="@color/colorGrey"
-            android:textColorHint="@color/colorDarkGrey"
+            android:textColor="@color/colorLightGrey"
+            android:textColorHint="@color/colorMediumGrey"
             android:textCursorDrawable="@drawable/shape_cursor"
             android:textSize="13sp" />
 

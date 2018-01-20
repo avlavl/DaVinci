@@ -9,7 +9,7 @@
         android:id="@+id/layoutInvestValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorOrange"
+        android:background="@color/colorOrangeRed"
         android:paddingBottom="10dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="420.65"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorLightGolden"
             android:textSize="50sp" />
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="20563.43"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorLightYellow"
             android:textSize="16sp" />
 
         <TextView
@@ -63,7 +63,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="7356"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorLightYellow"
             android:textSize="16sp" />
 
         <TextView
@@ -86,7 +86,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="6420.43"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorLightYellow"
             android:textSize="16sp" />
 
         <TextView
@@ -118,7 +118,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
-            android:background="@color/colorDarkBlue" />
+            android:background="@color/colorRoyalBlue0" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -128,13 +128,19 @@
             android:textColor="@color/colorBlack"
             android:textSize="15sp" />
 
+        <View
+            android:layout_width="3dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:background="@color/colorRed" />
 
         <TextView
             android:id="@+id/textViewInvestTimes0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:text="定投25次"
             android:textSize="13sp" />
 
@@ -150,7 +156,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
             android:text="— 6532.15 —"
-            android:textColor="@color/colorDarkGrey"
+            android:textColor="@color/colorGolden"
             android:textSize="13sp" />
 
     </LinearLayout>
@@ -175,7 +181,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="8725.8"
-            android:textColor="@color/colorDarkBlue"
+            android:textColor="@color/colorRoyalBlue0"
             android:textSize="16sp" />
 
         <TextView
@@ -222,7 +228,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="8047.11"
-            android:textColor="@color/colorDarkBlue"
+            android:textColor="@color/colorRoyalBlue0"
             android:textSize="16sp" />
 
         <TextView
@@ -246,7 +252,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="25.49%"
-            android:textColor="@color/colorDarkBlue"
+            android:textColor="@color/colorRoyalBlue0"
             android:textSize="16sp" />
 
         <TextView
@@ -277,7 +283,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
-            android:background="@color/colorDarkBlue" />
+            android:background="@color/colorRoyalBlue0" />
 
         <TextView
             android:id="@+id/textView"
@@ -288,12 +294,19 @@
             android:textColor="@color/colorBlack"
             android:textSize="15sp" />
 
+        <View
+            android:layout_width="3dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:background="@color/colorRed" />
+
         <TextView
             android:id="@+id/textViewInvestTimes1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:text="定投30次"
             android:textSize="13sp" />
 
@@ -309,7 +322,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
             android:text="— 6437.13 —"
-            android:textColor="@color/colorDarkGrey"
+            android:textColor="@color/colorGolden"
             android:textSize="13sp" />
     </LinearLayout>
 
@@ -333,7 +346,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="10653.8"
-            android:textColor="@color/colorDarkBlue"
+            android:textColor="@color/colorRoyalBlue0"
             android:textSize="16sp" />
 
         <TextView
@@ -380,7 +393,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="15036.11"
-            android:textColor="@color/colorDarkBlue"
+            android:textColor="@color/colorRoyalBlue0"
             android:textSize="16sp" />
 
         <TextView
@@ -404,7 +417,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="186.35%"
-            android:textColor="@color/colorDarkBlue"
+            android:textColor="@color/colorRoyalBlue0"
             android:textSize="16sp" />
 
         <TextView
