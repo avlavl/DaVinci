@@ -181,7 +181,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="8725.8"
-            android:textColor="@color/colorRoyalBlue0"
+            android:textColor="@color/colorgrey21"
             android:textSize="16sp" />
 
         <TextView
@@ -228,7 +228,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="8047.11"
-            android:textColor="@color/colorRoyalBlue0"
+            android:textColor="@color/colorgrey21"
             android:textSize="16sp" />
 
         <TextView
@@ -252,8 +252,9 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="25.49%"
-            android:textColor="@color/colorRoyalBlue0"
-            android:textSize="16sp" />
+            android:textColor="@color/colorgrey21"
+            android:textSize="16sp"
+            android:layout_alignBottom="@+id/textViewInvestKeyPoint0" />
 
         <TextView
             android:layout_width="80dp"
@@ -346,7 +347,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="10653.8"
-            android:textColor="@color/colorRoyalBlue0"
+            android:textColor="@color/colorgrey21"
             android:textSize="16sp" />
 
         <TextView
@@ -393,7 +394,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="15036.11"
-            android:textColor="@color/colorRoyalBlue0"
+            android:textColor="@color/colorgrey21"
             android:textSize="16sp" />
 
         <TextView
@@ -408,19 +409,6 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textViewInvestKeyRatio1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:text="186.35%"
-            android:textColor="@color/colorRoyalBlue0"
-            android:textSize="16sp" />
-
-        <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -429,7 +417,21 @@
             android:layout_marginRight="5dp"
             android:gravity="center"
             android:text="关键比"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:id="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/textViewInvestKeyRatio1"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="186.35%"
+            android:textColor="@color/colorgrey21"
+            android:textSize="16sp"
+            android:layout_alignBaseline="@+id/textViewInvestKeyPoint1"
+            android:layout_alignBottom="@+id/textViewInvestKeyPoint1"
+            android:layout_alignStart="@+id/textView2" />
     </RelativeLayout>
 
     <View
