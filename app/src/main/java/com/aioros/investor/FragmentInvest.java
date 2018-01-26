@@ -74,7 +74,7 @@ public class FragmentInvest extends BaseFragment {
                     mBeanInvestList.get(2 * i + j).mProperty = strategyInvest.totalNumber * mBeanInvestList.get(2 * i + j).mRealPoint;
                     mBeanInvestList.get(2 * i + j).mYield = 100 * (mBeanInvestList.get(2 * i + j).mRealPoint - strategyInvest.getCurrentCost()) / strategyInvest.getCurrentCost();
                     mBeanInvestList.get(2 * i + j).mKeyPoint = strategyInvest.getKeyPoint();
-                    mBeanInvestList.get(2 * i + j).mKeyRatio = strategyInvest.getKeyRatio();
+                    mBeanInvestList.get(2 * i + j).mKeyRatio = 100 * (mBeanInvestList.get(2 * i + j).mKeyPoint - mBeanInvestList.get(2 * i + j).mRealPoint) / mBeanInvestList.get(2 * i + j).mRealPoint;
                 }
             }
         }
@@ -96,6 +96,7 @@ public class FragmentInvest extends BaseFragment {
                             mBeanInvestList.get(2 * i + j).mQuota = (diffRate <= 1) ? investAmount : 0;
                             mBeanInvestList.get(2 * i + j).mProperty = mBeanInvestList.get(2 * i + j).mTotalNumber * mBeanInvestList.get(2 * i + j).mRealPoint;
                             mBeanInvestList.get(2 * i + j).mYield = 100 * (mBeanInvestList.get(2 * i + j).mRealPoint - mBeanInvestList.get(2 * i + j).mCurrentCost) / mBeanInvestList.get(2 * i + j).mCurrentCost;
+                            mBeanInvestList.get(2 * i + j).mKeyRatio = 100 * (mBeanInvestList.get(2 * i + j).mKeyPoint - mBeanInvestList.get(2 * i + j).mRealPoint) / mBeanInvestList.get(2 * i + j).mRealPoint;
                         }
                     }
                 }
