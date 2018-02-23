@@ -182,7 +182,7 @@ public class FragmentInvest extends BaseFragment {
                         } else {
                             String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
                             latestDate = strs[30].replace("-", "/");
-                            String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f", latestDate,
+                            String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f\r", latestDate,
                                     Double.parseDouble(strs[1]), Double.parseDouble(strs[4]), Double.parseDouble(strs[5]), Double.parseDouble(strs[3]));
                             PrintWriter pw = new PrintWriter(new FileWriter(file, true));
                             pw.println(dataStr);
