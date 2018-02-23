@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,12 +18,14 @@ public class AdapterListViewTradeMode extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<BeanTradeMode> mBeanTradeModeList = null;
+    private double mPoint;
 
 
-    public AdapterListViewTradeMode(Context context, List<BeanTradeMode> beanList) {
+    public AdapterListViewTradeMode(Context context, List<BeanTradeMode> beanList, double point) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mBeanTradeModeList = beanList;
+        mPoint = point;
     }
 
     @Override
@@ -80,6 +83,21 @@ public class AdapterListViewTradeMode extends BaseAdapter {
 
         TextView para = (TextView) view.findViewById(R.id.textViewItemTradeModePara);
         para.setText(mBeanTradeModeList.get(position).mModePara);
+
+        if (Math.abs(mBeanTradeModeList.get(position).mKeyRatio) < 10) {
+            //System.out.println("RP:" + mPoint + "  KP:" + mBeanTradeModeList.get(position).mKeyPoint);
+            ImageView imageViewTradeFlag = (ImageView) view.findViewById(R.id.imageViewTradeFlag);
+            if ((mBeanTradeModeList.get(position).mStatus) && (mPoint <= mBeanTradeModeList.get(position).mKeyPoint)) {
+                imageViewTradeFlag.setVisibility(View.VISIBLE);
+                imageViewTradeFlag.setImageResource(R.drawable.icon_sale);
+            } else if ((!mBeanTradeModeList.get(position).mStatus) && (mPoint >= mBeanTradeModeList.get(position).mKeyPoint)) {
+                imageViewTradeFlag.setVisibility(View.VISIBLE);
+                imageViewTradeFlag.setImageResource(R.drawable.icon_buy);
+            } else {
+                imageViewTradeFlag.setVisibility(View.INVISIBLE);
+            }
+        }
+
         return view;
     }
 }

@@ -44,7 +44,10 @@ public class FragmentTrade extends BaseFragment {
     private String mTabTitles[] = new String[]{"淘金100", "养老产业", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
     private String mTabCodes[] = new String[]{"H30537", "z399812", "h000978", "z164906", "h000300", "h000905", "z399006"};
     private String mBaseNames[] = new String[]{"沪深300", "沪深300", "沪深300", "中国互联", "沪深300", "中证500", "创业板指"};
+    private int[] mIdxBase = new int[]{2, 2, 2, 9, 2, 3, 4};
+    private int[] mIdxSelf = new int[]{0, 5, 6, 0, 0, 0, 0};
     private int itemIndex = 0;
+    public double[] mRealPoints = new double[7];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,13 +55,18 @@ public class FragmentTrade extends BaseFragment {
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
         mMarketDatas = mMainActivity.mMarketDatas;
-
+        for (int i = 0; i < mRealPoints.length; i++) {
+            mRealPoints[i] = Double.parseDouble(mMarketDatas[mIdxBase[i]][1]);
+        }
         // 在主线程中声明一个消息处理对象Handler
         mMainActivity.mTradeHandler = new Handler() {
             // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
             @Override
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
+                for (int i = 0; i < mRealPoints.length; i++) {
+                    mRealPoints[i] = Double.parseDouble(mMarketDatas[mIdxBase[i]][1]);
+                }
                 updateStockData(mViewPager.getCurrentItem());
             }
         };
@@ -124,19 +132,17 @@ public class FragmentTrade extends BaseFragment {
     }
 
     public void updateStockData(int index) {
-        int[] idxBase = new int[]{2, 2, 2, 9, 2, 3, 4};
-        int[] idxSelf = new int[]{0, 5, 6, 0, 0, 0, 0};
         String[][] marketDatas = mMarketDatas;
         mTextViewBaseName.setText(mBaseNames[index] + ": ");
-        mTextViewBaseData.setText(marketDatas[idxBase[index]][3] + "% " + marketDatas[idxBase[index]][1]);
-        mTextViewBaseData.setTextColor((Double.parseDouble(marketDatas[idxBase[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
+        mTextViewBaseData.setText(marketDatas[mIdxBase[index]][3] + "% " + marketDatas[mIdxBase[index]][1]);
+        mTextViewBaseData.setTextColor((Double.parseDouble(marketDatas[mIdxBase[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
 
-        if (idxSelf[index] != 0) {
+        if (mIdxSelf[index] != 0) {
             mTextViewSelfName.setVisibility(View.VISIBLE);
             mTextViewSelfData.setVisibility(View.VISIBLE);
             mTextViewSelfName.setText(mTabTitles[index] + ": ");
-            mTextViewSelfData.setText(marketDatas[idxSelf[index]][3] + "% " + marketDatas[idxSelf[index]][1]);
-            mTextViewSelfData.setTextColor((Double.parseDouble(marketDatas[idxSelf[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
+            mTextViewSelfData.setText(marketDatas[mIdxSelf[index]][3] + "% " + marketDatas[mIdxSelf[index]][1]);
+            mTextViewSelfData.setTextColor((Double.parseDouble(marketDatas[mIdxSelf[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
         } else {
             mTextViewSelfName.setVisibility(View.INVISIBLE);
             mTextViewSelfData.setVisibility(View.INVISIBLE);

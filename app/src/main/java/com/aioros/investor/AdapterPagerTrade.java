@@ -125,7 +125,7 @@ public class AdapterPagerTrade extends PagerAdapter {
 
         View view = mInflater.inflate(R.layout.pager_trade, null);
         mListView = (ListView) view.findViewById(R.id.listViewPagerTrade);
-        mAdapterListView = new AdapterListViewTradeMode(mContext, mBeanTradeModeLists.get(position));
+        mAdapterListView = new AdapterListViewTradeMode(mContext, mBeanTradeModeLists.get(position), fragmentTrade.mRealPoints[position]);
         mListView.setAdapter(mAdapterListView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
