@@ -308,6 +308,13 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 }
             }
 
+//            for (int i = 0; i < 9; i++) {
+//                double value = Double.parseDouble(mMarketDatas[10 + i][1]);
+//                if (value > 101) {
+//                    //mBottomPanel.highlightBtn();
+//                }
+//            }
+
             if (mHomeHandler != null) {
                 Message msgRx = mHomeHandler.obtainMessage(); // 使用Handler对象创建一个消息体
                 msgRx.obj = mMarketDatas;

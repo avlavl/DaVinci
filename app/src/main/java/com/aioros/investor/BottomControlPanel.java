@@ -118,6 +118,12 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
         }
     }
 
+    public void highlightBtn() {
+        if (mBtnChance != null) {
+            mBtnChance.setChecked(Constant.BTN_FLAG_CHANCE);
+        }
+    }
+
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
