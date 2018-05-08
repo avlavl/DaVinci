@@ -19,6 +19,7 @@ public class ImageText extends LinearLayout {
     private final static int DEFAULT_IMAGE_HEIGHT = 64;
     private int CHECKED_COLOR = Color.rgb(240, 0, 0); //选中红色
     private int UNCHECKED_COLOR = Color.GRAY;   //自然灰色
+    private int HIGHLIGHT_COLOR = Color.rgb(00, 191, 255); //高亮色
 
     public ImageText(Context context) {
         super(context);
@@ -88,6 +89,12 @@ public class ImageText extends LinearLayout {
         }
         if (mImageView != null) {
             mImageView.setImageResource(checkDrawableId);
+        }
+    }
+
+    public void setHighlight() {
+        if (mTextView != null) {
+            mTextView.setTextColor(HIGHLIGHT_COLOR);
         }
     }
 }

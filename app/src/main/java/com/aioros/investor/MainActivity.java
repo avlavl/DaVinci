@@ -5,8 +5,13 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,6 +22,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
+import java.io.File;
 
 import com.aioros.investor.BottomControlPanel.BottomPanelCallback;
 
@@ -45,6 +51,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public String[][] mMarketDatas = new String[20][4];
 
     private Handler mHandler;
+    private int mEventStatus = 0;  // 0: initial, 1: trigger, 2: maintain, -1: clear
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -79,16 +86,17 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 } else {
                     delay = 60000;
                 }
+                if (mEventStatus == 1) {
+                    mEventStatus = 2;
+                    mBottomPanel.chanceBtnHighlight();
+                    chanceNotify();
+                }
                 mHandler.postDelayed(this, delay);
             }
         };
 
-        if (isTradeTime()) {
-            mHandler.postDelayed(runnable, 1);
-        } else {
-            new NetworkThread().start();
-            mHandler.postDelayed(runnable, 60000);
-        }
+        new NetworkThread().start();
+        mHandler.postDelayed(runnable, 3000);
     }
 
     @Override
@@ -136,6 +144,15 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         } else if ((itemId & Constant.BTN_FLAG_MORE) != 0) {
             tag = Constant.FRAGMENT_FLAG_MORE;
         }
+
+        if (mEventStatus > 0) {
+            if ((itemId & Constant.BTN_FLAG_CHANCE) != 0) {
+                mEventStatus = -1;
+            } else {
+                mBottomPanel.chanceBtnHighlight();
+            }
+        }
+
         setTabSelection(tag); //切换Fragment
     }
 
@@ -260,6 +277,23 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         // TODO Auto-generated method stub
     }
 
+    /* 通知机会事件 */
+    private void chanceNotify() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setSmallIcon(R.mipmap.ic_app_logo);
+        builder.setContentTitle("投资人"); //下拉通知栏标题
+        builder.setContentText("通知：有货币基金达到投资下限！"); //下拉通知栏内容
+        builder.setAutoCancel(true);
+        builder.setSound(Uri.fromFile(new File("/system/media/audio/notifications/CrystalRing.ogg")));
+        builder.setDefaults(Notification.DEFAULT_VIBRATE);
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        builder.setContentIntent(contentIntent); //点击跳转的intent
+        Notification notification = builder.build();
+        notificationManager.notify((int) System.currentTimeMillis(), notification);
+    }
+
     /*
   * 新浪实时数据接口：
   * http://hq.sinajs.cn/list=sh600000,sh600004
@@ -308,12 +342,14 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 }
             }
 
-//            for (int i = 0; i < 9; i++) {
-//                double value = Double.parseDouble(mMarketDatas[10 + i][1]);
-//                if (value > 101) {
-//                    //mBottomPanel.highlightBtn();
-//                }
-//            }
+            if (mEventStatus == 0) {
+                for (int i = 0; i < 9; i++) {
+                    if (Double.parseDouble(mMarketDatas[10 + i][1]) > 101) {
+                        mEventStatus = 1;
+                        break;
+                    }
+                }
+            }
 
             if (mHomeHandler != null) {
                 Message msgRx = mHomeHandler.obtainMessage(); // 使用Handler对象创建一个消息体

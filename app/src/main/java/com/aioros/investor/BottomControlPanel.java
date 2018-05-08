@@ -118,9 +118,9 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
         }
     }
 
-    public void highlightBtn() {
+    public void chanceBtnHighlight() {
         if (mBtnChance != null) {
-            mBtnChance.setChecked(Constant.BTN_FLAG_CHANCE);
+            mBtnChance.setHighlight();
         }
     }
 
