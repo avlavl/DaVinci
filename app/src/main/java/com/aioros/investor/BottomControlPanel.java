@@ -51,15 +51,15 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
             mBtnTrade.setText("交易");
         }
         if (mBtnInvest != null) {
-            mBtnInvest.setImage(R.drawable.property_normal);
+            mBtnInvest.setImage(R.drawable.invest_normal);
             mBtnInvest.setText("定投");
         }
         if (mBtnChance != null) {
-            mBtnChance.setImage(R.drawable.notice_normal);
+            mBtnChance.setImage(R.drawable.chance_normal);
             mBtnChance.setText("机会");
         }
         if (mBtnMore != null) {
-            mBtnMore.setImage(R.drawable.material_normal);
+            mBtnMore.setImage(R.drawable.more_normal);
             mBtnMore.setText("更多");
         }
         setBtnListener();
@@ -118,9 +118,9 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
         }
     }
 
-    public void chanceBtnHighlight() {
+    public void chanceBtnNotice() {
         if (mBtnChance != null) {
-            mBtnChance.setHighlight();
+            mBtnChance.setNotice(Constant.BTN_FLAG_CHANCE);
         }
     }
 

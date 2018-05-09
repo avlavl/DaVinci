@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
+
 import java.io.File;
 
 import com.aioros.investor.BottomControlPanel.BottomPanelCallback;
@@ -88,8 +89,8 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 }
                 if (mEventStatus == 1) {
                     mEventStatus = 2;
-                    mBottomPanel.chanceBtnHighlight();
-                    chanceNotify();
+                    mBottomPanel.chanceBtnNotice();
+                    pushNotice("投资人", "通知：货币基金组合进入投资域 ...");
                 }
                 mHandler.postDelayed(this, delay);
             }
@@ -149,7 +150,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             if ((itemId & Constant.BTN_FLAG_CHANCE) != 0) {
                 mEventStatus = -1;
             } else {
-                mBottomPanel.chanceBtnHighlight();
+                mBottomPanel.chanceBtnNotice();
             }
         }
 
@@ -277,13 +278,13 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         // TODO Auto-generated method stub
     }
 
-    /* 通知机会事件 */
-    private void chanceNotify() {
+    /* 推送通知 */
+    private void pushNotice(String title, String text) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_app_logo);
-        builder.setContentTitle("投资人"); //下拉通知栏标题
-        builder.setContentText("通知：有货币基金达到投资下限！"); //下拉通知栏内容
+        builder.setContentTitle(title); //下拉通知栏标题
+        builder.setContentText(text); //下拉通知栏内容
         builder.setAutoCancel(true);
         builder.setSound(Uri.fromFile(new File("/system/media/audio/notifications/CrystalRing.ogg")));
         builder.setDefaults(Notification.DEFAULT_VIBRATE);
@@ -344,7 +345,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
 
             if (mEventStatus == 0) {
                 for (int i = 0; i < 9; i++) {
-                    if (Double.parseDouble(mMarketDatas[10 + i][1]) > 101) {
+                    if (Double.parseDouble(mMarketDatas[10 + i][1]) < 99.8) {
                         mEventStatus = 1;
                         break;
                     }

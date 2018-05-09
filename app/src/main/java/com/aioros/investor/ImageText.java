@@ -76,13 +76,13 @@ public class ImageText extends LinearLayout {
                 checkDrawableId = R.drawable.trade_select;
                 break;
             case Constant.BTN_FLAG_INVEST:
-                checkDrawableId = R.drawable.property_select;
+                checkDrawableId = R.drawable.invest_select;
                 break;
             case Constant.BTN_FLAG_CHANCE:
-                checkDrawableId = R.drawable.notice_select;
+                checkDrawableId = R.drawable.chance_select;
                 break;
             case Constant.BTN_FLAG_MORE:
-                checkDrawableId = R.drawable.material_select;
+                checkDrawableId = R.drawable.more_select;
                 break;
             default:
                 break;
@@ -92,9 +92,29 @@ public class ImageText extends LinearLayout {
         }
     }
 
-    public void setHighlight() {
-        if (mTextView != null) {
-            mTextView.setTextColor(HIGHLIGHT_COLOR);
+    public void setNotice(int itemID) {
+        int noticeDrawableId = -1;
+        switch (itemID) {
+            case Constant.BTN_FLAG_HOME:
+                noticeDrawableId = R.drawable.home_normal;
+                break;
+            case Constant.BTN_FLAG_TRADE:
+                noticeDrawableId = R.drawable.trade_normal;
+                break;
+            case Constant.BTN_FLAG_INVEST:
+                noticeDrawableId = R.drawable.invest_normal;
+                break;
+            case Constant.BTN_FLAG_CHANCE:
+                noticeDrawableId = R.drawable.chance_notice;
+                break;
+            case Constant.BTN_FLAG_MORE:
+                noticeDrawableId = R.drawable.more_normal;
+                break;
+            default:
+                break;
+        }
+        if (mImageView != null) {
+            mImageView.setImageResource(noticeDrawableId);
         }
     }
 }
