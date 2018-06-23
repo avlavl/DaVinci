@@ -39,10 +39,10 @@ public class FragmentInvest extends BaseFragment {
     public Handler mHandler;
     private String latestDate;
     public String[][] mMarketDatas;
-    private String mTabTitles[] = new String[]{"申万证券", "养老产业"};
-    private String mTabCodes[] = new String[]{"z399707", "z399812"};
-    private int[] indexArray = new int[]{5, 6};
-    private int[] weeksArray = new int[2];
+    private String mTabTitles[] = new String[]{"申万证券", "养老产业", "中证传媒"};
+    private String mTabCodes[] = new String[]{"z399707", "z399812", "z399971"};
+    private int[] indexArray = new int[]{5, 6, 7};
+    private int[] weeksArray = new int[3];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +54,8 @@ public class FragmentInvest extends BaseFragment {
         mBeanInvestList.add(new BeanInvest(1000, 7, 1.5, 25, 2));
         mBeanInvestList.add(new BeanInvest(1200, 11, 1.5, 120, 0.3));    // 1/120 + 1/40 = 1/30
         mBeanInvestList.add(new BeanInvest(1200, 11, 1.5, 40, 2));
+        mBeanInvestList.add(new BeanInvest(2200, 2, 1.5, 24, 0.2));    // 1/24 + 1/12 = 1/8
+        mBeanInvestList.add(new BeanInvest(2200, 2, 1.5, 12, 1));
 
         for (int i = 0; i < indexArray.length; i++) {
             fileUtility.importDataFile("investor/data/W" + mTabTitles[i] + ".txt");

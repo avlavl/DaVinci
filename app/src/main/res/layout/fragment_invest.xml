@@ -15,7 +15,7 @@
         <!-- mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);-->
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayoutInvest"
-            android:layout_width="160dp"
+            android:layout_width="240dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
