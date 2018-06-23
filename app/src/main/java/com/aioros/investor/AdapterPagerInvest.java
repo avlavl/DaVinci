@@ -61,26 +61,29 @@ public class AdapterPagerInvest extends PagerAdapter {
         textViewInvestCost0.setText(String.format("— %.2f —", mInvestBeanList.get(2 * position).mCurrentCost));
         TextView textViewInvestProperty0 = (TextView) view.findViewById(R.id.textViewInvestProperty0);
         textViewInvestProperty0.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mProperty));
+        TextView textViewInvestIncome0 = (TextView) view.findViewById(R.id.textViewInvestIncome0);
+        textViewInvestIncome0.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mIncome));
+        textViewInvestIncome0.setTextColor(mInvestBeanList.get(2 * position).mIncome > 0 ? Color.rgb(200, 0, 0) : Color.rgb(0, 128, 0));
         TextView textViewInvestYield0 = (TextView) view.findViewById(R.id.textViewInvestYield0);
         textViewInvestYield0.setText(String.format("%.2f%%", mInvestBeanList.get(2 * position).mYield));
         textViewInvestYield0.setTextColor(mInvestBeanList.get(2 * position).mYield > 0 ? Color.rgb(200, 0, 0) : Color.rgb(0, 128, 0));
         TextView textViewInvestKeyPoint0 = (TextView) view.findViewById(R.id.textViewInvestKeyPoint0);
         textViewInvestKeyPoint0.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mKeyPoint));
-        TextView textViewInvestKeyRatio0 = (TextView) view.findViewById(R.id.textViewInvestKeyRatio0);
-        textViewInvestKeyRatio0.setText(String.format("%.2f%%", mInvestBeanList.get(2 * position).mKeyRatio));
+
         TextView textViewInvestTimes1 = (TextView) view.findViewById(R.id.textViewInvestTimes1);
         textViewInvestTimes1.setText(String.format("定投%d次", mInvestBeanList.get(2 * position + 1).mTimes));
         TextView textViewInvestCost1 = (TextView) view.findViewById(R.id.textViewInvestCost1);
         textViewInvestCost1.setText(String.format("— %.2f —", mInvestBeanList.get(2 * position + 1).mCurrentCost));
         TextView textViewInvestProperty1 = (TextView) view.findViewById(R.id.textViewInvestProperty1);
         textViewInvestProperty1.setText(String.format("%.2f", mInvestBeanList.get(2 * position + 1).mProperty));
+        TextView textViewInvestIncome1 = (TextView) view.findViewById(R.id.textViewInvestIncome1);
+        textViewInvestIncome1.setText(String.format("%.2f", mInvestBeanList.get(2 * position + 1).mIncome));
+        textViewInvestIncome1.setTextColor(mInvestBeanList.get(2 * position + 1).mIncome > 0 ? Color.rgb(200, 0, 0) : Color.rgb(0, 128, 0));
         TextView textViewInvestYield1 = (TextView) view.findViewById(R.id.textViewInvestYield1);
         textViewInvestYield1.setText(String.format("%.2f%%", mInvestBeanList.get(2 * position + 1).mYield));
         textViewInvestYield1.setTextColor(mInvestBeanList.get(2 * position + 1).mYield > 0 ? Color.rgb(200, 0, 0) : Color.rgb(0, 128, 0));
         TextView textViewInvestKeyPoint1 = (TextView) view.findViewById(R.id.textViewInvestKeyPoint1);
         textViewInvestKeyPoint1.setText(String.format("%.2f", mInvestBeanList.get(2 * position + 1).mKeyPoint));
-        TextView textViewInvestKeyRatio1 = (TextView) view.findViewById(R.id.textViewInvestKeyRatio1);
-        textViewInvestKeyRatio1.setText(String.format("%.2f%%", mInvestBeanList.get(2 * position + 1).mKeyRatio));
 
         container.addView(view);
         return view;

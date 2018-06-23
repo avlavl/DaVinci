@@ -192,11 +192,11 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"
             android:gravity="center"
-            android:text="净资产"
+            android:text="总资产"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textViewInvestYield0"
+            android:id="@+id/textViewInvestIncome0"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -204,7 +204,7 @@
             android:layout_marginLeft="95dp"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="-4.37%"
+            android:text="-1253.6"
             android:textSize="16sp" />
 
         <TextView
@@ -215,6 +215,29 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="95dp"
             android:gravity="center"
+            android:text="累计收益"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textViewInvestYield0"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="95dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="-4.37%"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="95dp"
+            android:gravity="center"
             android:text="收益率"
             android:textSize="12sp" />
 
@@ -222,9 +245,10 @@
             android:id="@+id/textViewInvestKeyPoint0"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textViewInvestYield0"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="95dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="8047.11"
@@ -237,34 +261,9 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="15dp"
-            android:layout_marginRight="95dp"
+            android:layout_marginRight="5dp"
             android:gravity="center"
             android:text="关键位"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textViewInvestKeyRatio0"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:text="25.49%"
-            android:textColor="@color/colorgrey21"
-            android:textSize="16sp"
-            android:layout_alignBottom="@+id/textViewInvestKeyPoint0" />
-
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center"
-            android:text="关键比"
             android:textSize="12sp" />
     </RelativeLayout>
 
@@ -358,11 +357,11 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"
             android:gravity="center"
-            android:text="净资产"
+            android:text="总资产"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textViewInvestYield1"
+            android:id="@+id/textViewInvestIncome1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -370,7 +369,7 @@
             android:layout_marginLeft="95dp"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="-5.13%"
+            android:text="-2028.96"
             android:textSize="16sp" />
 
         <TextView
@@ -381,6 +380,29 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="95dp"
             android:gravity="center"
+            android:text="累计收益"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textViewInvestYield1"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="95dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="-5.13%"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="95dp"
+            android:gravity="center"
             android:text="收益率"
             android:textSize="12sp" />
 
@@ -388,9 +410,10 @@
             android:id="@+id/textViewInvestKeyPoint1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textViewInvestYield1"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="95dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="15036.11"
@@ -403,35 +426,10 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="15dp"
-            android:layout_marginRight="95dp"
+            android:layout_marginRight="5dp"
             android:gravity="center"
             android:text="关键位"
             android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center"
-            android:text="关键比"
-            android:textSize="12sp"
-            android:id="@+id/textView2" />
-
-        <TextView
-            android:id="@+id/textViewInvestKeyRatio1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:gravity="center"
-            android:text="186.35%"
-            android:textColor="@color/colorgrey21"
-            android:textSize="16sp"
-            android:layout_alignBaseline="@+id/textViewInvestKeyPoint1"
-            android:layout_alignBottom="@+id/textViewInvestKeyPoint1"
-            android:layout_alignStart="@+id/textView2" />
     </RelativeLayout>
 
     <View

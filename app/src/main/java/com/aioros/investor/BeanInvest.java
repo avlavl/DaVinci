@@ -15,9 +15,9 @@ public class BeanInvest {
     public double mRealPoint = 0;
     public double mBasePoint = 0;
     public double mProperty = 0;
+    public double mIncome = 0;
     public double mYield = 0;
     public double mKeyPoint = 0;
-    public double mKeyRatio = 0;
     public int mTimes = 0;
     public double mCurrentCost = 0;
     public double mTotalNumber = 0;
