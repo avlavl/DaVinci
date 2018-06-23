@@ -50,10 +50,10 @@ public class FragmentInvest extends BaseFragment {
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
         mMarketDatas = mMainActivity.mMarketDatas;
-        mBeanInvestList.add(new BeanInvest(1000, 7, 1.5, 100, 0.2));
+        mBeanInvestList.add(new BeanInvest(1000, 7, 1.5, 100, 0.2));    // 1/100 + 1/25 = 1/20
         mBeanInvestList.add(new BeanInvest(1000, 7, 1.5, 25, 2));
-        mBeanInvestList.add(new BeanInvest(1400, 10, 1.5, 20, 0.2));
-        mBeanInvestList.add(new BeanInvest(1400, 10, 1.5, 25, 2));
+        mBeanInvestList.add(new BeanInvest(1200, 11, 1.5, 120, 0.3));    // 1/120 + 1/40 = 1/30
+        mBeanInvestList.add(new BeanInvest(1200, 11, 1.5, 40, 2));
 
         for (int i = 0; i < indexArray.length; i++) {
             fileUtility.importDataFile("investor/data/W" + mTabTitles[i] + ".txt");
