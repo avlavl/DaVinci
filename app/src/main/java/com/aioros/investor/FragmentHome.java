@@ -34,8 +34,8 @@ import java.util.List;
 public class FragmentHome extends BaseFragment {
     private static final String TAG = "FragmentHome";
     private MainActivity mMainActivity;
-    private String[] mStockNames = new String[]{"上证指数", "深证成指", "沪深300", "中证500", "创业板指", "养老产业", "医药100", "申万证券", "中概互联", "中国互联"};
-    private String[] mStockCodes = new String[]{"000001", "399001", "000300", "000905", "399006", "399812", "000978", "399707", "513050", "164906"};
+    private String[] mStockNames = new String[]{"上证指数", "创业板指", "沪深300", "中证500", "医药100", "申万证券", "养老产业", "中证传媒", "中概互联", "中国互联"};
+    private String[] mStockCodes = new String[]{"000001", "399006", "000300", "000905", "000978", "399707", "399812", "399971", "513050", "164906"};
     private LinearLayout mLayoutHeadHome;
     private ListView mListView;
     private EditText mEditText;

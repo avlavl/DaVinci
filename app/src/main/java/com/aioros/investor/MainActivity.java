@@ -310,7 +310,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             String httpStr = "";
             do {
                 String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=" : "http://hq.sinajs.cn/list=") +
-                        "s_sh000001,s_sz399001,s_sh000300,s_sh000905,s_sz399006,s_sz399812,s_sh000978,s_sz399707,s_sh513050,s_sz164906," +
+                        "s_sh000001,s_sz399006,s_sh000300,s_sh000905,s_sh000978,s_sz399707,s_sz399812,s_sz399971,s_sh513050,s_sz164906," +
                         "s_sh511990,s_sh511880,s_sh511660,s_sh511810,s_sh511690,s_sh511900,s_sh511830,s_sh511980,s_sh511650";
                 HttpUtility httpUtility = new HttpUtility();
                 httpStr = httpUtility.getData(urlStr);

@@ -41,7 +41,7 @@ public class FragmentInvest extends BaseFragment {
     public String[][] mMarketDatas;
     private String mTabTitles[] = new String[]{"申万证券", "养老产业"};
     private String mTabCodes[] = new String[]{"z399707", "z399812"};
-    private int[] indexArray = new int[]{7, 5};
+    private int[] indexArray = new int[]{5, 6};
     private int[] weeksArray = new int[2];
 
     @Override
