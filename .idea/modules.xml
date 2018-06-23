@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Investor.iml" filepath="$PROJECT_DIR$/Investor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DaVinci.iml" filepath="$PROJECT_DIR$/DaVinci.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
