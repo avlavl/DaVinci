@@ -34,32 +34,10 @@
             android:textColor="@color/colorWhite" />
 
         <TextView
-            android:id="@+id/textViewInvestTotalProperty"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewInvestQuotap"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="20563.43"
-            android:textColor="@color/colorLightYellow"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/textViewInvestTotalPropertyp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewInvestTotalProperty"
-            android:gravity="center"
-            android:text="总资产"
-            android:textColor="@color/colorWhite"
-            android:textSize="12sp" />
-
-        <TextView
             android:id="@+id/textViewInvestBasePoint"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewInvestQuotap"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="7356"
@@ -67,11 +45,9 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textViewInvestBasePointp"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewInvestBasePoint"
-            android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="本周基点"
             android:textColor="@color/colorWhite"
@@ -81,8 +57,8 @@
             android:id="@+id/textViewInvestRealPoint"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_below="@id/textViewInvestQuotap"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="6420.43"
@@ -90,13 +66,34 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textViewInvestRealPointp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewInvestRealPoint"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="当前点位"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textViewInvestDispersion"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/textViewInvestRealPoint"
+            android:layout_below="@id/textViewInvestQuotap"
+            android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="当前点位"
+            android:text="0.8728"
+            android:textColor="@color/colorLightYellow"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/textViewInvestDispersion"
+            android:gravity="center"
+            android:text="离差率"
             android:textColor="@color/colorWhite"
             android:textSize="12sp" />
 
@@ -104,7 +101,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="8dp"
         android:background="@color/colorItemDivider" />
 
     <LinearLayout
@@ -192,7 +189,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"
             android:gravity="center"
-            android:text="总资产"
+            android:text="净资产"
             android:textSize="12sp" />
 
         <TextView
@@ -286,7 +283,6 @@
             android:background="@color/colorRoyalBlue0" />
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -357,7 +353,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"
             android:gravity="center"
-            android:text="总资产"
+            android:text="净资产"
             android:textSize="12sp" />
 
         <TextView
@@ -436,4 +432,98 @@
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:background="@color/colorItemDivider" />
+
+    <RelativeLayout
+        android:id="@+id/layoutInvestAnalyze"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <TextView
+            android:id="@+id/textViewInvestTotalProperty"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="20563.43"
+            android:textColor="@color/colorDeepSkyBlue2"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="总资产"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="123dp"
+            android:background="@color/colorItemDivider" />
+
+        <TextView
+            android:id="@+id/textViewInvestTotalIncome"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="-2028.96"
+            android:textColor="@color/colorGreen4"
+            android:textSize="20sp" />
+        />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="总收益"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="123dp"
+            android:background="@color/colorItemDivider" />
+
+        <TextView
+            android:id="@+id/textViewInvestWeekIncome"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="+105.73"
+            android:textColor="@color/colorRed"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="本周收益"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
 </LinearLayout>

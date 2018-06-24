@@ -44,6 +44,7 @@ public class FragmentInvest extends BaseFragment {
     private String mTabCodes[] = new String[]{"z399707", "z399812", "z399971"};
     private int[] indexArray = new int[]{INDEX_SWZQ, INDEX_YLCY, INDEX_ZZCM};
     private int[] weeksArray = new int[NUMBER_INVEST_ITEM];
+    private double[] closeArray = new double[NUMBER_INVEST_ITEM];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class FragmentInvest extends BaseFragment {
         for (int i = 0; i < indexArray.length; i++) {
             fileUtility.importDataFile("investor/data/W" + mTabTitles[i] + ".txt");
             weeksArray[i] = fileUtility.rows;
+            closeArray[i] = fileUtility.closeList.get(fileUtility.rows - 1);
             if (weeksArray[i] > 0) {
                 for (int j = 0; j < 2; j++) {
                     mBeanInvestList.get(2 * i + j).mRealPoint = Double.parseDouble(mMarketDatas[indexArray[i]][1]);
@@ -68,14 +70,15 @@ public class FragmentInvest extends BaseFragment {
                     strategyInvest.sysInvestEva(mBeanInvestList.get(2 * i + j));
                     double basePoint = strategyInvest.basePoints[strategyInvest.items - 1] + mBeanInvestList.get(2 * i + j).mSlope;
                     mBeanInvestList.get(2 * i + j).mBasePoint = basePoint;
-                    double diffRate = mBeanInvestList.get(2 * i + j).mRealPoint / basePoint;
-                    double investAmount = (basePoint / mBeanInvestList.get(2 * i + j).mDivisor) / Math.pow(diffRate, mBeanInvestList.get(2 * i + j).mDiffCoef);
-                    mBeanInvestList.get(2 * i + j).mQuota = (diffRate <= 1) ? investAmount : 0;
+                    mBeanInvestList.get(2 * i + j).mDispersion = mBeanInvestList.get(2 * i + j).mRealPoint / basePoint;
+                    double investAmount = (basePoint / mBeanInvestList.get(2 * i + j).mDivisor) / Math.pow(mBeanInvestList.get(2 * i + j).mDispersion, mBeanInvestList.get(2 * i + j).mDiffCoef);
+                    mBeanInvestList.get(2 * i + j).mQuota = (mBeanInvestList.get(2 * i + j).mDispersion <= 1) ? investAmount : 0;
                     mBeanInvestList.get(2 * i + j).mTimes = strategyInvest.getInvestTimes();
                     mBeanInvestList.get(2 * i + j).mCurrentCost = strategyInvest.getCurrentCost();
                     mBeanInvestList.get(2 * i + j).mTotalNumber = strategyInvest.totalNumber;
                     mBeanInvestList.get(2 * i + j).mProperty = strategyInvest.totalNumber * mBeanInvestList.get(2 * i + j).mRealPoint;
                     mBeanInvestList.get(2 * i + j).mIncome = strategyInvest.totalNumber * (mBeanInvestList.get(2 * i + j).mRealPoint - mBeanInvestList.get(2 * i + j).mCurrentCost);
+                    mBeanInvestList.get(2 * i + j).mWeekIncome = strategyInvest.totalNumber * (mBeanInvestList.get(2 * i + j).mRealPoint - closeArray[i]);
                     mBeanInvestList.get(2 * i + j).mYield = 100 * (mBeanInvestList.get(2 * i + j).mRealPoint - mBeanInvestList.get(2 * i + j).mCurrentCost) / mBeanInvestList.get(2 * i + j).mCurrentCost;
                     mBeanInvestList.get(2 * i + j).mKeyPoint = strategyInvest.getKeyPoint();
                 }
@@ -94,11 +97,12 @@ public class FragmentInvest extends BaseFragment {
                             mBeanInvestList.get(2 * i + j).mRealPoint = Double.parseDouble(mMarketDatas[indexArray[i]][1]);
                             double basePoint = mBeanInvestList.get(2 * i + j).mStartPoint + weeksArray[i] * mBeanInvestList.get(2 * i + j).mSlope;
                             mBeanInvestList.get(2 * i + j).mBasePoint = basePoint;
-                            double diffRate = mBeanInvestList.get(2 * i + j).mRealPoint / basePoint;
-                            double investAmount = (basePoint / mBeanInvestList.get(2 * i + j).mDivisor) / Math.pow(diffRate, mBeanInvestList.get(2 * i + j).mDiffCoef);
-                            mBeanInvestList.get(2 * i + j).mQuota = (diffRate <= 1) ? investAmount : 0;
+                            mBeanInvestList.get(2 * i + j).mDispersion = mBeanInvestList.get(2 * i + j).mRealPoint / basePoint;
+                            double investAmount = (basePoint / mBeanInvestList.get(2 * i + j).mDivisor) / Math.pow(mBeanInvestList.get(2 * i + j).mDispersion, mBeanInvestList.get(2 * i + j).mDiffCoef);
+                            mBeanInvestList.get(2 * i + j).mQuota = (mBeanInvestList.get(2 * i + j).mDispersion <= 1) ? investAmount : 0;
                             mBeanInvestList.get(2 * i + j).mProperty = mBeanInvestList.get(2 * i + j).mTotalNumber * mBeanInvestList.get(2 * i + j).mRealPoint;
                             mBeanInvestList.get(2 * i + j).mIncome = mBeanInvestList.get(2 * i + j).mTotalNumber * (mBeanInvestList.get(2 * i + j).mRealPoint - mBeanInvestList.get(2 * i + j).mCurrentCost);
+                            mBeanInvestList.get(2 * i + j).mWeekIncome = mBeanInvestList.get(2 * i + j).mTotalNumber * (mBeanInvestList.get(2 * i + j).mRealPoint - closeArray[i]);
                             mBeanInvestList.get(2 * i + j).mYield = 100 * (mBeanInvestList.get(2 * i + j).mRealPoint - mBeanInvestList.get(2 * i + j).mCurrentCost) / mBeanInvestList.get(2 * i + j).mCurrentCost;
                         }
                     }

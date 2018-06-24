@@ -48,12 +48,22 @@ public class AdapterPagerInvest extends PagerAdapter {
 
         TextView textViewInvestQuota = (TextView) view.findViewById(R.id.textViewInvestQuota);
         textViewInvestQuota.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mQuota + mInvestBeanList.get(2 * position + 1).mQuota));
-        TextView textViewInvestRealPoint = (TextView) view.findViewById(R.id.textViewInvestRealPoint);
-        textViewInvestRealPoint.setText("" + mInvestBeanList.get(2 * position).mRealPoint);
         TextView textViewInvestBasePoint = (TextView) view.findViewById(R.id.textViewInvestBasePoint);
         textViewInvestBasePoint.setText(String.format("%d", (int) mInvestBeanList.get(2 * position).mBasePoint));
+        TextView textViewInvestDispersion = (TextView) view.findViewById(R.id.textViewInvestDispersion);
+        textViewInvestDispersion.setText(String.format("%.4f", mInvestBeanList.get(2 * position).mDispersion));
+        TextView textViewInvestRealPoint = (TextView) view.findViewById(R.id.textViewInvestRealPoint);
+        textViewInvestRealPoint.setText("" + mInvestBeanList.get(2 * position).mRealPoint);
         TextView textViewInvestTotalProperty = (TextView) view.findViewById(R.id.textViewInvestTotalProperty);
         textViewInvestTotalProperty.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mProperty + mInvestBeanList.get(2 * position + 1).mProperty));
+        double totalIncome = mInvestBeanList.get(2 * position).mIncome + mInvestBeanList.get(2 * position + 1).mIncome;
+        TextView textViewInvestTotalIncome = (TextView) view.findViewById(R.id.textViewInvestTotalIncome);
+        textViewInvestTotalIncome.setText(String.format(((totalIncome > 0) ? "+" : "") + "%.2f", totalIncome));
+        textViewInvestTotalIncome.setTextColor(totalIncome > 0 ? Color.rgb(200, 0, 0) : Color.rgb(0, 128, 0));
+        double weekIncome = mInvestBeanList.get(2 * position).mWeekIncome + mInvestBeanList.get(2 * position + 1).mWeekIncome;
+        TextView textViewInvestWeekIncome = (TextView) view.findViewById(R.id.textViewInvestWeekIncome);
+        textViewInvestWeekIncome.setText(String.format(((weekIncome > 0) ? "+" : "") + "%.2f", weekIncome));
+        textViewInvestWeekIncome.setTextColor(weekIncome > 0 ? Color.rgb(200, 0, 0) : Color.rgb(0, 128, 0));
 
         TextView textViewInvestTimes0 = (TextView) view.findViewById(R.id.textViewInvestTimes0);
         textViewInvestTimes0.setText(String.format("定投%d次", mInvestBeanList.get(2 * position).mTimes));
