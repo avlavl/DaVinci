@@ -27,6 +27,7 @@ import java.io.File;
 
 import com.aioros.investor.BottomControlPanel.BottomPanelCallback;
 
+import static com.aioros.investor.Constant.*;
 import static com.aioros.investor.TimeUtility.isTradeTime;
 
 public class MainActivity extends FragmentActivity implements BottomPanelCallback {
@@ -134,20 +135,20 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     @Override
     public void onBottomPanelClick(int itemId) {
         String tag = "";
-        if ((itemId & Constant.BTN_FLAG_HOME) != 0) {
-            tag = Constant.FRAGMENT_FLAG_HOME;
-        } else if ((itemId & Constant.BTN_FLAG_TRADE) != 0) {
-            tag = Constant.FRAGMENT_FLAG_TRADE;
-        } else if ((itemId & Constant.BTN_FLAG_INVEST) != 0) {
-            tag = Constant.FRAGMENT_FLAG_INVEST;
+        if ((itemId & BTN_FLAG_HOME) != 0) {
+            tag = FRAGMENT_FLAG_HOME;
+        } else if ((itemId & BTN_FLAG_TRADE) != 0) {
+            tag = FRAGMENT_FLAG_TRADE;
+        } else if ((itemId & BTN_FLAG_INVEST) != 0) {
+            tag = FRAGMENT_FLAG_INVEST;
         } else if ((itemId & Constant.BTN_FLAG_CHANCE) != 0) {
-            tag = Constant.FRAGMENT_FLAG_CHANCE;
-        } else if ((itemId & Constant.BTN_FLAG_MORE) != 0) {
-            tag = Constant.FRAGMENT_FLAG_MORE;
+            tag = FRAGMENT_FLAG_CHANCE;
+        } else if ((itemId & BTN_FLAG_MORE) != 0) {
+            tag = FRAGMENT_FLAG_MORE;
         }
 
         if (mEventStatus > 0) {
-            if ((itemId & Constant.BTN_FLAG_CHANCE) != 0) {
+            if ((itemId & BTN_FLAG_CHANCE) != 0) {
                 mEventStatus = -1;
             } else {
                 mBottomPanel.chanceBtnNotice();
@@ -191,15 +192,15 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
 
     private Fragment getFragment(String tag) {
         switch (tag) {
-            case Constant.FRAGMENT_FLAG_HOME:
+            case FRAGMENT_FLAG_HOME:
                 return mFragmentHome;
-            case Constant.FRAGMENT_FLAG_TRADE:
+            case FRAGMENT_FLAG_TRADE:
                 return mFragmentTrade;
-            case Constant.FRAGMENT_FLAG_INVEST:
+            case FRAGMENT_FLAG_INVEST:
                 return mFragmentInvest;
-            case Constant.FRAGMENT_FLAG_CHANCE:
+            case FRAGMENT_FLAG_CHANCE:
                 return mFragmentChance;
-            case Constant.FRAGMENT_FLAG_MORE:
+            case FRAGMENT_FLAG_MORE:
                 return mFragmentMore;
             default:
                 return null;
@@ -243,23 +244,23 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public void setTabSelection(String tag) {
         // 开启一个Fragment事务
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_HOME)) {
+        if (TextUtils.equals(tag, FRAGMENT_FLAG_HOME)) {
             if (mFragmentHome == null) {
                 mFragmentHome = new FragmentHome();
             }
-        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_TRADE)) {
+        } else if (TextUtils.equals(tag, FRAGMENT_FLAG_TRADE)) {
             if (mFragmentTrade == null) {
                 mFragmentTrade = new FragmentTrade();
             }
-        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_INVEST)) {
+        } else if (TextUtils.equals(tag, FRAGMENT_FLAG_INVEST)) {
             if (mFragmentInvest == null) {
                 mFragmentInvest = new FragmentInvest();
             }
-        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_CHANCE)) {
+        } else if (TextUtils.equals(tag, FRAGMENT_FLAG_CHANCE)) {
             if (mFragmentChance == null) {
                 mFragmentChance = new FragmentChance();
             }
-        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_MORE)) {
+        } else if (TextUtils.equals(tag, FRAGMENT_FLAG_MORE)) {
             if (mFragmentMore == null) {
                 mFragmentMore = new FragmentMore();
             }
@@ -344,8 +345,8 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             }
 
             if (mEventStatus == 0) {
-                for (int i = 0; i < 9; i++) {
-                    if (Double.parseDouble(mMarketDatas[10 + i][1]) < 99.8) {
+                for (int i = 0; i < NUMBER_METF; i++) {
+                    if (Double.parseDouble(mMarketDatas[INDEX_METF + i][1]) < 99.8) {
                         mEventStatus = 1;
                         break;
                     }

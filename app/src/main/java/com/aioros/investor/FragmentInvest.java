@@ -21,6 +21,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.aioros.investor.Constant.*;
 import static com.aioros.investor.TimeUtility.isWeekUpdateTime;
 
 /**
@@ -41,8 +42,8 @@ public class FragmentInvest extends BaseFragment {
     public String[][] mMarketDatas;
     private String mTabTitles[] = new String[]{"申万证券", "养老产业", "中证传媒"};
     private String mTabCodes[] = new String[]{"z399707", "z399812", "z399971"};
-    private int[] indexArray = new int[]{5, 6, 7};
-    private int[] weeksArray = new int[3];
+    private int[] indexArray = new int[]{INDEX_SWZQ, INDEX_YLCY, INDEX_ZZCM};
+    private int[] weeksArray = new int[NUMBER_INVEST_ITEM];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

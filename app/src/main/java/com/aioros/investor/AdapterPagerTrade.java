@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static com.aioros.investor.Constant.STOCK_INI_ARRAY;
+import static com.aioros.investor.Constant.*;
 
 /**
  * Created by aizhang on 2017/6/17.
@@ -23,8 +23,8 @@ import static com.aioros.investor.Constant.STOCK_INI_ARRAY;
 public class AdapterPagerTrade extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private String mTabTitles[] = new String[]{"淘金100", "养老产业", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
-    private String mBaseNames[] = new String[]{"沪深300", "沪深300", "沪深300", "中国互联", "沪深300", "中证500", "创业板指"};
+    private String mTabTitles[] = new String[]{"淘金100", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
+    private String mBaseNames[] = new String[]{"沪深300", "沪深300", "中国互联", "沪深300", "中证500", "创业板指"};
     private ListView mListView;
     private AdapterListViewTradeMode mAdapterListView;
     private ArrayList<ArrayList<BeanTradeMode>> mBeanTradeModeLists = new ArrayList<>();
@@ -35,9 +35,9 @@ public class AdapterPagerTrade extends PagerAdapter {
         mContext = context;
         fragmentTrade = ft;
         mInflater = LayoutInflater.from(context);
-        for (int i = 0; i < STOCK_INI_ARRAY.length; i++) {
+        for (int i = 0; i < STOCK_PARA_ARRAY.length; i++) {
             ArrayList<BeanTradeMode> mBeanTradeModeList = new ArrayList<>();
-            for (String mode : STOCK_INI_ARRAY[i]) {
+            for (String mode : STOCK_PARA_ARRAY[i]) {
                 String[] paras = mode.split(" ");
                 mBeanTradeModeList.add(new BeanTradeMode(paras[0], paras[1], paras[2]));
             }
@@ -79,7 +79,7 @@ public class AdapterPagerTrade extends PagerAdapter {
                 fileUtility.importDataFile2("investor/data/" + mTabTitles[position] + ".txt");
             }
             TradeCheck tradeCheck = new TradeCheck(fileUtility);
-            if (position == 3) {
+            if (position == INDEX_TRADE_ZUHL) {
                 ArrayList<Double> zoomPriceList = new ArrayList<>();
                 for (int i = 0; i < tradeCheck.rows; i++) {
                     zoomPriceList.add(tradeCheck.closeList.get(i) * 1000);
@@ -117,7 +117,7 @@ public class AdapterPagerTrade extends PagerAdapter {
                     default:
                         break;
                 }
-                if (position == 3) {
+                if (position == INDEX_TRADE_ZUHL) {
                     tradeMode.mKeyPoint /= 1000;
                 }
             }
@@ -157,7 +157,7 @@ public class AdapterPagerTrade extends PagerAdapter {
 
     private void mListViewOnItemClick(int position, int item) {
         int RECORD_NUM = 3;
-        int[] idxArray = new int[]{2, 5, 6, 9, 2, 3, 4};
+        int[] idxArray = new int[]{INDEX_HSSB, INDEX_YYYB, INDEX_ZUHL, INDEX_HSSB, INDEX_ZZWB, INDEX_CYBZ};
         TradeCheck tradeCheck = mTradeCheckList.get(position);
         BeanTradeMode tradeMode = mBeanTradeModeLists.get(position).get(item);
         String[] bpDateArray = new String[RECORD_NUM];
@@ -203,8 +203,8 @@ public class AdapterPagerTrade extends PagerAdapter {
         for (int i = 0; i < RECORD_NUM; i++) {
             textViewDateArray[i].setText(bpDateArray[i] + " -- " + spDateArray[i]);
             textViewDateArray[i].setBackgroundColor((spArray[i] > bpArray[i]) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
-            textViewBpArray[i].setText(String.format((position == 3) ? "%.3f" : "%.2f", bpArray[i]));
-            textViewSpArray[i].setText(String.format((position == 3) ? "%.3f" : "%.2f", spArray[i]));
+            textViewBpArray[i].setText(String.format((position == INDEX_TRADE_ZUHL) ? "%.3f" : "%.2f", bpArray[i]));
+            textViewSpArray[i].setText(String.format((position == INDEX_TRADE_ZUHL) ? "%.3f" : "%.2f", spArray[i]));
             textViewYieldArray[i].setText(String.format("%.2f", yieldArray[i]));
             textViewYieldArray[i].setTextColor((yieldArray[i] > 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
             textViewRatioArray[i].setText(String.format("%.3f%%", ratioArray[i]));

@@ -15,14 +15,28 @@ public class Constant {
     public static final String FRAGMENT_FLAG_CHANCE = "机会";
     public static final String FRAGMENT_FLAG_MORE = "更多";
 
-    public static final String[][] STOCK_INI_ARRAY = {
+    public static final int INDEX_SZZS = 0;
+    public static final int INDEX_CYBZ = 1;
+    public static final int INDEX_HSSB = 2;
+    public static final int INDEX_ZZWB = 3;
+    public static final int INDEX_YYYB = 4;
+    public static final int INDEX_SWZQ = 5;
+    public static final int INDEX_YLCY = 6;
+    public static final int INDEX_ZZCM = 7;
+    public static final int INDEX_ZAHL = 8;
+    public static final int INDEX_ZUHL = 9;
+    public static final int INDEX_METF = 10;
+    public static final int INDEX_TRADE_ZUHL = 2;
+
+    public static final int NUMBER_STOCK = 10;
+    public static final int NUMBER_METF = 9;
+    public static final int NUMBER_TRADE_ITEM = 6;
+    public static final int NUMBER_INVEST_ITEM = 3;
+
+    public static final String[][] STOCK_PARA_ARRAY = {
             {       // 淘金100
                     "BARMA -2,9,45 15000C", "BARLML -3,17,6 15000C", "DIF -7 25000B",
                     "BARLML -3,17,2 10000c", "DIFMA 91,1,30 8000c", "BARMA 33,9,45 7000c"
-            },
-            {       // 养老产业
-                    "DIFMA -13,1,40 7000C", "BARLML -14,17,2 8000C", "MA 10,176 10000A",
-                    "DIFLMS -36,18,2 6000a", "DIFLMS 21,17,2 5000b", "BARLMS 9,17,3 4000c"
             },
             {       // 医药100
                     "MA 1,40 3000C", "MA 3,206 5000A", "DIFLML -41,5,2 5000A",

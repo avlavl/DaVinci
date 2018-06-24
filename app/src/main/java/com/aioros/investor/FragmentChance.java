@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
+import static com.aioros.investor.Constant.INDEX_METF;
 
 /**
  * Created by aizhang on 2017/6/7.
@@ -36,7 +37,6 @@ public class FragmentChance extends BaseFragment {
     private AdapterListViewMetf mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
     public String[][] mMarketDatas;
-    private int offset = 10;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class FragmentChance extends BaseFragment {
         mMainActivity = (MainActivity) getActivity();
         mMarketDatas = mMainActivity.mMarketDatas;
         for (int i = 0; i < mStockNames.length; i++) {
-            mBeanStockList.add(new BeanStock(mStockNames[i], mStockCodes[i], mMarketDatas[offset + i][1], mMarketDatas[offset + i][2], mMarketDatas[offset + i][3] + "%"));
+            mBeanStockList.add(new BeanStock(mStockNames[i], mStockCodes[i], mMarketDatas[INDEX_METF + i][1], mMarketDatas[INDEX_METF + i][2], mMarketDatas[INDEX_METF + i][3] + "%"));
         }
 
         // 在主线程中声明一个消息处理对象Handler
@@ -55,7 +55,7 @@ public class FragmentChance extends BaseFragment {
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
                 for (int i = 0; i < mStockNames.length; i++) {
-                    mBeanStockList.get(i).mStockValue = mMarketDatas[offset + i][1];
+                    mBeanStockList.get(i).mStockValue = mMarketDatas[INDEX_METF + i][1];
                 }
                 mAdapterListView.notifyDataSetChanged();
             }
