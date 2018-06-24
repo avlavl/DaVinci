@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import static com.aioros.investor.Constant.*;
+
 public class ImageText extends LinearLayout {
     private Context mContext = null;
     private ImageView mImageView = null;
@@ -69,19 +71,19 @@ public class ImageText extends LinearLayout {
         }
         int checkDrawableId = -1;
         switch (itemID) {
-            case Constant.BTN_FLAG_HOME:
+            case BTN_FLAG_HOME:
                 checkDrawableId = R.drawable.home_select;
                 break;
-            case Constant.BTN_FLAG_TRADE:
+            case BTN_FLAG_TRADE:
                 checkDrawableId = R.drawable.trade_select;
                 break;
-            case Constant.BTN_FLAG_INVEST:
+            case BTN_FLAG_INVEST:
                 checkDrawableId = R.drawable.invest_select;
                 break;
-            case Constant.BTN_FLAG_CHANCE:
+            case BTN_FLAG_CHANCE:
                 checkDrawableId = R.drawable.chance_select;
                 break;
-            case Constant.BTN_FLAG_MORE:
+            case BTN_FLAG_MORE:
                 checkDrawableId = R.drawable.more_select;
                 break;
             default:
@@ -95,19 +97,19 @@ public class ImageText extends LinearLayout {
     public void setNotice(int itemID) {
         int noticeDrawableId = -1;
         switch (itemID) {
-            case Constant.BTN_FLAG_HOME:
+            case BTN_FLAG_HOME:
                 noticeDrawableId = R.drawable.home_normal;
                 break;
-            case Constant.BTN_FLAG_TRADE:
+            case BTN_FLAG_TRADE:
                 noticeDrawableId = R.drawable.trade_normal;
                 break;
-            case Constant.BTN_FLAG_INVEST:
+            case BTN_FLAG_INVEST:
                 noticeDrawableId = R.drawable.invest_normal;
                 break;
-            case Constant.BTN_FLAG_CHANCE:
+            case BTN_FLAG_CHANCE:
                 noticeDrawableId = R.drawable.chance_notice;
                 break;
-            case Constant.BTN_FLAG_MORE:
+            case BTN_FLAG_MORE:
                 noticeDrawableId = R.drawable.more_normal;
                 break;
             default:

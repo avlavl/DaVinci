@@ -27,6 +27,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.aioros.investor.Constant.*;
+
 /**
  * Created by aizhang on 2017/6/7.
  */
@@ -34,8 +36,6 @@ import java.util.List;
 public class FragmentHome extends BaseFragment {
     private static final String TAG = "FragmentHome";
     private MainActivity mMainActivity;
-    private String[] mStockNames = new String[]{"上证指数", "创业板指", "沪深300", "中证500", "医药100", "申万证券", "养老产业", "中证传媒", "中概互联", "中国互联"};
-    private String[] mStockCodes = new String[]{"000001", "399006", "000300", "000905", "000978", "399707", "399812", "399971", "513050", "164906"};
     private LinearLayout mLayoutHeadHome;
     private ListView mListView;
     private EditText mEditText;
@@ -52,8 +52,8 @@ public class FragmentHome extends BaseFragment {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
-        for (int i = 0; i < mStockNames.length; i++) {
-            mBeanStockList.add(new BeanStock(mStockNames[i], mStockCodes[i], "--", "0.00", "0.00%"));
+        for (int i = 0; i < NUMBER_STOCK; i++) {
+            mBeanStockList.add(new BeanStock(NAME_STOCK_ARRAY[i], CODE_STOCK_ARRAY[i], "--", "0.00", "0.00%"));
         }
 
         // 在主线程中声明一个消息处理对象Handler
@@ -62,7 +62,7 @@ public class FragmentHome extends BaseFragment {
             @Override
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
-                for (int i = 0; i < mStockNames.length; i++) {
+                for (int i = 0; i < NUMBER_STOCK; i++) {
                     mBeanStockList.get(i).mStockValue = mMarketDatas[i][1];
                     mBeanStockList.get(i).mStockScope = mMarketDatas[i][2];
                     mBeanStockList.get(i).mStockRatio = mMarketDatas[i][3] + "%";
@@ -173,7 +173,7 @@ public class FragmentHome extends BaseFragment {
     public void onResume() {
         super.onResume();
         Log.e(TAG, "onresume---->");
-        MainActivity.currFragTag = Constant.FRAGMENT_FLAG_HOME;
+        MainActivity.currFragTag = FRAGMENT_FLAG_HOME;
     }
 
     @Override

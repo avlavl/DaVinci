@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import static com.aioros.investor.Constant.*;
+
 
 public class BaseFragment extends Fragment {
     private static final String TAG = "BaseFragment";
@@ -81,15 +83,15 @@ public class BaseFragment extends Fragment {
 
     public static BaseFragment newInstance(Context context, String tag) {
         BaseFragment baseFragment = null;
-        if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_HOME)) {
+        if (TextUtils.equals(tag, FRAGMENT_FLAG_HOME)) {
             baseFragment = new FragmentHome();
-        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_TRADE)) {
+        } else if (TextUtils.equals(tag, FRAGMENT_FLAG_TRADE)) {
             baseFragment = new FragmentTrade();
-        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_INVEST)) {
+        } else if (TextUtils.equals(tag, FRAGMENT_FLAG_INVEST)) {
             baseFragment = new FragmentInvest();
-        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_CHANCE)) {
+        } else if (TextUtils.equals(tag, FRAGMENT_FLAG_CHANCE)) {
             baseFragment = new FragmentChance();
-        } else if (TextUtils.equals(tag, Constant.FRAGMENT_FLAG_MORE)) {
+        } else if (TextUtils.equals(tag, FRAGMENT_FLAG_MORE)) {
             baseFragment = new FragmentMore();
         }
         return baseFragment;

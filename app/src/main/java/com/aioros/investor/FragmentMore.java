@@ -8,6 +8,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import static com.aioros.investor.Constant.FRAGMENT_FLAG_MORE;
 import static com.aioros.investor.R.id.webView;
 
 /**
@@ -42,6 +43,6 @@ public class FragmentMore extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        MainActivity.currFragTag = Constant.FRAGMENT_FLAG_MORE;
+        MainActivity.currFragTag = FRAGMENT_FLAG_MORE;
     }
 }

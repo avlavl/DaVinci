@@ -129,7 +129,7 @@ public class FragmentTrade extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        MainActivity.currFragTag = Constant.FRAGMENT_FLAG_TRADE;
+        MainActivity.currFragTag = FRAGMENT_FLAG_TRADE;
     }
 
     public void updateStockData(int index) {

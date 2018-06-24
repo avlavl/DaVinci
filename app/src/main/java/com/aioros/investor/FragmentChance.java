@@ -1,11 +1,6 @@
 package com.aioros.investor;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,12 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
-import static com.aioros.investor.Constant.INDEX_METF;
+import static com.aioros.investor.Constant.*;
 
 /**
  * Created by aizhang on 2017/6/7.
@@ -31,8 +24,6 @@ import static com.aioros.investor.Constant.INDEX_METF;
 public class FragmentChance extends BaseFragment {
     private static final String TAG = "FragmentChance";
     private MainActivity mMainActivity;
-    private String[] mStockNames = new String[]{"华宝添益", "银华日利", "建信添益", "理财金H", "交易货币", "富国货币", "华泰货币", "现金添富", "华夏快线"};
-    private String[] mStockCodes = new String[]{"511990", "511880", "511660", "511810", "511690", "511900", "511830", "511980", "511650"};
     private ListView mListView;
     private AdapterListViewMetf mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
@@ -44,8 +35,8 @@ public class FragmentChance extends BaseFragment {
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
         mMarketDatas = mMainActivity.mMarketDatas;
-        for (int i = 0; i < mStockNames.length; i++) {
-            mBeanStockList.add(new BeanStock(mStockNames[i], mStockCodes[i], mMarketDatas[INDEX_METF + i][1], mMarketDatas[INDEX_METF + i][2], mMarketDatas[INDEX_METF + i][3] + "%"));
+        for (int i = 0; i < NUMBER_METF; i++) {
+            mBeanStockList.add(new BeanStock(NAME_METF_ARRAY[i], CODE_METF_ARRAY[i], mMarketDatas[INDEX_METF + i][1], mMarketDatas[INDEX_METF + i][2], mMarketDatas[INDEX_METF + i][3] + "%"));
         }
 
         // 在主线程中声明一个消息处理对象Handler
@@ -54,7 +45,7 @@ public class FragmentChance extends BaseFragment {
             @Override
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
-                for (int i = 0; i < mStockNames.length; i++) {
+                for (int i = 0; i < NUMBER_METF; i++) {
                     mBeanStockList.get(i).mStockValue = mMarketDatas[INDEX_METF + i][1];
                 }
                 mAdapterListView.notifyDataSetChanged();
@@ -102,7 +93,7 @@ public class FragmentChance extends BaseFragment {
     public void onResume() {
         super.onResume();
         Log.e(TAG, "onresume---->");
-        MainActivity.currFragTag = Constant.FRAGMENT_FLAG_CHANCE;
+        MainActivity.currFragTag = FRAGMENT_FLAG_CHANCE;
     }
 
     @Override

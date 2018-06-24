@@ -153,7 +153,7 @@ public class FragmentInvest extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        MainActivity.currFragTag = Constant.FRAGMENT_FLAG_INVEST;
+        MainActivity.currFragTag = FRAGMENT_FLAG_INVEST;
     }
 
     private void buttonOnClick(View v) {

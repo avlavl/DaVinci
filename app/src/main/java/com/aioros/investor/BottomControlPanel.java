@@ -8,6 +8,8 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.aioros.investor.Constant.*;
+
 
 public class BottomControlPanel extends RelativeLayout implements View.OnClickListener {
     private Context mContext;
@@ -44,23 +46,23 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
     public void initBottomPanel() {
         if (mBtnHome != null) {
             mBtnHome.setImage(R.drawable.home_normal);
-            mBtnHome.setText("主页");
+            mBtnHome.setText(FRAGMENT_FLAG_HOME);
         }
         if (mBtnTrade != null) {
             mBtnTrade.setImage(R.drawable.trade_normal);
-            mBtnTrade.setText("交易");
+            mBtnTrade.setText(FRAGMENT_FLAG_TRADE);
         }
         if (mBtnInvest != null) {
             mBtnInvest.setImage(R.drawable.invest_normal);
-            mBtnInvest.setText("定投");
+            mBtnInvest.setText(FRAGMENT_FLAG_INVEST);
         }
         if (mBtnChance != null) {
             mBtnChance.setImage(R.drawable.chance_normal);
-            mBtnChance.setText("机会");
+            mBtnChance.setText(FRAGMENT_FLAG_CHANCE);
         }
         if (mBtnMore != null) {
             mBtnMore.setImage(R.drawable.more_normal);
-            mBtnMore.setText("更多");
+            mBtnMore.setText(FRAGMENT_FLAG_MORE);
         }
         setBtnListener();
     }
@@ -85,23 +87,23 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
         int index = -1;
         switch (v.getId()) {
             case R.id.imagetext_home:
-                index = Constant.BTN_FLAG_HOME;
+                index = BTN_FLAG_HOME;
                 mBtnHome.setChecked(index);
                 break;
             case R.id.imagetext_trade:
-                index = Constant.BTN_FLAG_TRADE;
+                index = BTN_FLAG_TRADE;
                 mBtnTrade.setChecked(index);
                 break;
             case R.id.imagetext_invest:
-                index = Constant.BTN_FLAG_INVEST;
+                index = BTN_FLAG_INVEST;
                 mBtnInvest.setChecked(index);
                 break;
             case R.id.imagetext_chance:
-                index = Constant.BTN_FLAG_CHANCE;
+                index = BTN_FLAG_CHANCE;
                 mBtnChance.setChecked(index);
                 break;
             case R.id.imagetext_more:
-                index = Constant.BTN_FLAG_MORE;
+                index = BTN_FLAG_MORE;
                 mBtnMore.setChecked(index);
                 break;
             default:
@@ -114,13 +116,13 @@ public class BottomControlPanel extends RelativeLayout implements View.OnClickLi
 
     public void defaultBtnChecked() {
         if (mBtnHome != null) {
-            mBtnHome.setChecked(Constant.BTN_FLAG_HOME);
+            mBtnHome.setChecked(BTN_FLAG_HOME);
         }
     }
 
     public void chanceBtnNotice() {
         if (mBtnChance != null) {
-            mBtnChance.setNotice(Constant.BTN_FLAG_CHANCE);
+            mBtnChance.setNotice(BTN_FLAG_CHANCE);
         }
     }
 

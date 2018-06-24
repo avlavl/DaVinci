@@ -72,7 +72,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         mContext = this;
         initUI();
         mFragmentManager = getFragmentManager();
-        setDefaultFirstFragment(Constant.FRAGMENT_FLAG_HOME);
+        setDefaultFirstFragment(FRAGMENT_FLAG_HOME);
 
         verifyStoragePermissions(this);
 
@@ -141,7 +141,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             tag = FRAGMENT_FLAG_TRADE;
         } else if ((itemId & BTN_FLAG_INVEST) != 0) {
             tag = FRAGMENT_FLAG_INVEST;
-        } else if ((itemId & Constant.BTN_FLAG_CHANCE) != 0) {
+        } else if ((itemId & BTN_FLAG_CHANCE) != 0) {
             tag = FRAGMENT_FLAG_CHANCE;
         } else if ((itemId & BTN_FLAG_MORE) != 0) {
             tag = FRAGMENT_FLAG_MORE;

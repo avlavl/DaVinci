@@ -33,6 +33,11 @@ public class Constant {
     public static final int NUMBER_TRADE_ITEM = 6;
     public static final int NUMBER_INVEST_ITEM = 3;
 
+    public static final String[] NAME_STOCK_ARRAY = new String[]{"上证指数", "创业板指", "沪深300", "中证500", "医药100", "申万证券", "养老产业", "中证传媒", "中概互联", "中国互联"};
+    public static final String[] CODE_STOCK_ARRAY = new String[]{"000001", "399006", "000300", "000905", "000978", "399707", "399812", "399971", "513050", "164906"};
+    public static final String[] NAME_METF_ARRAY = new String[]{"华宝添益", "银华日利", "建信添益", "理财金H", "交易货币", "富国货币", "华泰货币", "现金添富", "华夏快线"};
+    public static final String[] CODE_METF_ARRAY = new String[]{"511990", "511880", "511660", "511810", "511690", "511900", "511830", "511980", "511650"};
+
     public static final String[][] STOCK_PARA_ARRAY = {
             {       // 淘金100
                     "BARMA -2,9,45 15000C", "BARLML -3,17,6 15000C", "DIF -7 25000B",
