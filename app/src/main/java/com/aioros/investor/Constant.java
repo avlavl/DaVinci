@@ -44,20 +44,20 @@ public class Constant {
 
     public static final String[][] STOCK_PARA_ARRAY = {
             {       // 淘金100
-                    "BARMA -2,9,45 15000C", "BARLML -3,17,6 15000C", "DIF -7 25000B",
-                    "BARLML -3,17,2 10000c", "DIFMA 91,1,30 8000c", "BARMA 33,9,45 7000c"
+                    "BARMA -2,9,45 15000C", "DIF -7 18000B",
+                    "BARLML -3,17,2 10000c", "DIFMA 91,1,30 7000c"
             },
             {       // 全指医药
-                    "DIFMA -14,1,37 10000C", "MA 10,176 7000C",
-                    "DIFLMS 20,18,2 6000C", "BARLML 65,7,2 5000C"
+                    "DIFMA -14,1,37 20000C", "MA 10,176 18000A",
+                    "DIFLMS 20,18,2 10000b", "BARLML 65,7,2 2000c"
             },
             {       // 中证军工
-                    "MA 1,14 10000C", "BARLML -76,8,4 5000C",
-                    "BARLMS -50,17,2 5000C", "BARLML 97,18,8 5000C"
+                    "MA 1,14 25000C", "BARLML -76,8,4 12000B",
+                    "BARLMS -50,17,2 8000C", "BARLML 97,18,8 5000c"
             },
             {       // 创业板指
-                    "DIFMA -42,7,15 7000C", "BARLML -55,7,4 10000C",
-                    "BARLMS -62,8,4 5000b", "DIFMA 63,3,18 2000b"
+                    "DIFMA -42,7,15 15000C", "BARLML -55,7,4 15000A",
+                    "BARLMS -62,8,4 15000b", "DIFMA 63,3,18 5000b"
             },
             {       // 中国互联
                     "BARMA -13,8,25 15000B", "BARDIF -7,-17 15000B", "DIFLMS 2,6,2 10000a"
