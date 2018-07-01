@@ -23,8 +23,8 @@ import static com.aioros.investor.Constant.*;
 public class AdapterPagerTrade extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private String mTabTitles[] = new String[]{"淘金100", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
-    private String mBaseNames[] = new String[]{"沪深300", "沪深300", "中国互联", "沪深300", "中证500", "创业板指"};
+    private String mTabTitles[] = new String[]{"淘金100", "全指医药", "中证军工", "创业板指", "中国互联"};
+    private String mBaseNames[] = new String[]{"沪深300", "沪深300", "中证军工", "创业板指", "中国互联"};
     private ListView mListView;
     private AdapterListViewTradeMode mAdapterListView;
     private ArrayList<ArrayList<BeanTradeMode>> mBeanTradeModeLists = new ArrayList<>();
@@ -157,7 +157,7 @@ public class AdapterPagerTrade extends PagerAdapter {
 
     private void mListViewOnItemClick(int position, int item) {
         int RECORD_NUM = 3;
-        int[] idxArray = new int[]{INDEX_HSSB, INDEX_YYYB, INDEX_ZUHL, INDEX_HSSB, INDEX_ZZWB, INDEX_CYBZ};
+        int[] idxArray = new int[]{INDEX_HSSB, INDEX_QZYY, INDEX_ZZJG, INDEX_CYBZ, INDEX_ZGHL};
         TradeCheck tradeCheck = mTradeCheckList.get(position);
         BeanTradeMode tradeMode = mBeanTradeModeLists.get(position).get(item);
         String[] bpDateArray = new String[RECORD_NUM];

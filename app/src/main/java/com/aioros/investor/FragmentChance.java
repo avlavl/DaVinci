@@ -36,7 +36,7 @@ public class FragmentChance extends BaseFragment {
         mMainActivity = (MainActivity) getActivity();
         mMarketDatas = mMainActivity.mMarketDatas;
         for (int i = 0; i < NUMBER_METF; i++) {
-            mBeanStockList.add(new BeanStock(NAME_METF_ARRAY[i], CODE_METF_ARRAY[i], mMarketDatas[INDEX_METF + i][1], mMarketDatas[INDEX_METF + i][2], mMarketDatas[INDEX_METF + i][3] + "%"));
+            mBeanStockList.add(new BeanStock(CHANCE_METF_NAMES[i], CHANCE_METF_CODES[i], mMarketDatas[INDEX_METF + i][1], mMarketDatas[INDEX_METF + i][2], mMarketDatas[INDEX_METF + i][3] + "%"));
         }
 
         // 在主线程中声明一个消息处理对象Handler

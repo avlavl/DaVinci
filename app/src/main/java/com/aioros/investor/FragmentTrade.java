@@ -42,11 +42,11 @@ public class FragmentTrade extends BaseFragment {
     public Handler mHandler;
     private String latestDate;
     public String[][] mMarketDatas;
-    private String mTabTitles[] = new String[]{"淘金100", "医药100", "中国互联", "沪深300", "中证500", "创业板指"};
-    private String mTabCodes[] = new String[]{"H30537", "h000978", "z164906", "h000300", "h000905", "z399006"};
-    private String mBaseNames[] = new String[]{"沪深300", "沪深300", "中国互联", "沪深300", "中证500", "创业板指"};
-    private int[] mIdxBase = new int[]{INDEX_HSSB, INDEX_HSSB, INDEX_ZUHL, INDEX_HSSB, INDEX_ZZWB, INDEX_CYBZ};
-    private int[] mIdxSelf = new int[]{0, INDEX_YYYB, 0, 0, 0, 0};
+    private String mTabTitles[] = new String[]{"淘金100", "全指医药", "中证军工", "创业板指", "中国互联"};
+    private String mTabCodes[] = new String[]{"H30537", "h000991", "z399967", "z399006", "z164906"};
+    private String mBaseNames[] = new String[]{"沪深300", "沪深300", "中证军工", "创业板指", "中国互联"};
+    private int[] mIdxBase = new int[]{INDEX_HSSB, INDEX_QZYY, INDEX_ZZJG, INDEX_CYBZ, INDEX_ZGHL};
+    private int[] mIdxSelf = new int[]{0, INDEX_HSSB, 0, 0, 0};
     private int itemIndex = 0;
     public double[] mRealPoints = new double[NUMBER_TRADE_ITEM];
 

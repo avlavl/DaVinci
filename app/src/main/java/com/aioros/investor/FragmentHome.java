@@ -53,7 +53,7 @@ public class FragmentHome extends BaseFragment {
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
         for (int i = 0; i < NUMBER_STOCK; i++) {
-            mBeanStockList.add(new BeanStock(NAME_STOCK_ARRAY[i], CODE_STOCK_ARRAY[i], "--", "0.00", "0.00%"));
+            mBeanStockList.add(new BeanStock(HOME_STOCK_NAMES[i], HOME_STOCK_CODES[i], "--", "0.00", "0.00%"));
         }
 
         // 在主线程中声明一个消息处理对象Handler
