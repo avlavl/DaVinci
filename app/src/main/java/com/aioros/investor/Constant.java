@@ -27,7 +27,7 @@ public class Constant {
     public static final int INDEX_ZGHL = 9;
     public static final int INDEX_METF = 10;
 
-    public static final int INDEX_TRADE_ZUHL = 4;
+    public static final int INDEX_TRADE_ZGHL = 4;
 
     public static final int NUMBER_STOCK = 10;
     public static final int NUMBER_METF = 9;
@@ -41,6 +41,8 @@ public class Constant {
     public static final String[] HOME_STOCK_CODES = new String[]{"000001", "000300", "000905", "399006", "000991", "399967", "399707", "399812", "399971", "164906"};
     public static final String[] CHANCE_METF_NAMES = new String[]{"华宝添益", "银华日利", "建信添益", "理财金H", "交易货币", "富国货币", "华泰货币", "现金添富", "华夏快线"};
     public static final String[] CHANCE_METF_CODES = new String[]{"511990", "511880", "511660", "511810", "511690", "511900", "511830", "511980", "511650"};
+    public static final String[] TRADE_FILE_NAMES = new String[]{"沪深300", "全指医药", "中证军工", "创业板指", "中国互联"};
+    public static final String[] TRADE_FILE_CODES = new String[]{"h000300", "h000991", "z399967", "z399006", "z164906"};
 
     public static final String[][] STOCK_PARA_ARRAY = {
             {       // 淘金100

@@ -79,7 +79,7 @@ public class AdapterPagerTrade extends PagerAdapter {
                 fileUtility.importDataFile2("investor/data/" + mTabTitles[position] + ".txt");
             }
             TradeCheck tradeCheck = new TradeCheck(fileUtility);
-            if (position == INDEX_TRADE_ZUHL) {
+            if (position == INDEX_TRADE_ZGHL) {
                 ArrayList<Double> zoomPriceList = new ArrayList<>();
                 for (int i = 0; i < tradeCheck.rows; i++) {
                     zoomPriceList.add(tradeCheck.closeList.get(i) * 1000);
@@ -117,7 +117,7 @@ public class AdapterPagerTrade extends PagerAdapter {
                     default:
                         break;
                 }
-                if (position == INDEX_TRADE_ZUHL) {
+                if (position == INDEX_TRADE_ZGHL) {
                     tradeMode.mKeyPoint /= 1000;
                 }
             }
@@ -203,8 +203,8 @@ public class AdapterPagerTrade extends PagerAdapter {
         for (int i = 0; i < RECORD_NUM; i++) {
             textViewDateArray[i].setText(bpDateArray[i] + " -- " + spDateArray[i]);
             textViewDateArray[i].setBackgroundColor((spArray[i] > bpArray[i]) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
-            textViewBpArray[i].setText(String.format((position == INDEX_TRADE_ZUHL) ? "%.3f" : "%.2f", bpArray[i]));
-            textViewSpArray[i].setText(String.format((position == INDEX_TRADE_ZUHL) ? "%.3f" : "%.2f", spArray[i]));
+            textViewBpArray[i].setText(String.format((position == INDEX_TRADE_ZGHL) ? "%.3f" : "%.2f", bpArray[i]));
+            textViewSpArray[i].setText(String.format((position == INDEX_TRADE_ZGHL) ? "%.3f" : "%.2f", spArray[i]));
             textViewYieldArray[i].setText(String.format("%.2f", yieldArray[i]));
             textViewYieldArray[i].setTextColor((yieldArray[i] > 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
             textViewRatioArray[i].setText(String.format("%.3f%%", ratioArray[i]));

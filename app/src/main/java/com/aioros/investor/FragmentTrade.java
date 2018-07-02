@@ -43,7 +43,6 @@ public class FragmentTrade extends BaseFragment {
     private String latestDate;
     public String[][] mMarketDatas;
     private String mTabTitles[] = new String[]{"淘金100", "全指医药", "中证军工", "创业板指", "中国互联"};
-    private String mTabCodes[] = new String[]{"H30537", "h000991", "z399967", "z399006", "z164906"};
     private String mBaseNames[] = new String[]{"沪深300", "沪深300", "中证军工", "创业板指", "中国互联"};
     private int[] mIdxBase = new int[]{INDEX_HSSB, INDEX_QZYY, INDEX_ZZJG, INDEX_CYBZ, INDEX_ZGHL};
     private int[] mIdxSelf = new int[]{0, INDEX_HSSB, 0, 0, 0};
@@ -117,7 +116,7 @@ public class FragmentTrade extends BaseFragment {
         mTextViewSelfData = (TextView) view.findViewById(R.id.textViewTradeSelfData);
         updateStockData(itemIndex);
 
-        fileUtility.importDataFile("investor/data/沪深300.txt");
+        fileUtility.importDataFile("investor/data/" + TRADE_FILE_NAMES[0] + ".txt");
         String fileDate = fileUtility.dateList.get(fileUtility.rows - 1);
         mTextViewDate = (TextView) view.findViewById(R.id.textViewTradeDate);
         mTextViewDate.setText(fileDate);
@@ -174,12 +173,12 @@ public class FragmentTrade extends BaseFragment {
         public void run() {
             Message msg = mHandler.obtainMessage();
             String storageDir = Environment.getExternalStorageDirectory().toString();
-            for (int i = 1; i < mTabTitles.length; i++) {
-                String filePath = storageDir + "/investor/data/" + mTabTitles[i] + ".txt";
+            for (int i = 0; i < TRADE_FILE_NAMES.length; i++) {
+                String filePath = storageDir + "/investor/data/" + TRADE_FILE_NAMES[i] + ".txt";
                 File file = new File(filePath);
                 if (file.exists()) {
                     try {
-                        String urlStr = "http://hq.sinajs.cn/list=s" + mTabCodes[i];
+                        String urlStr = "http://hq.sinajs.cn/list=s" + TRADE_FILE_CODES[i];
                         HttpUtility httpUtility = new HttpUtility();
                         String httpStr = httpUtility.getData(urlStr);
                         if (httpStr.equals("")) {
@@ -193,7 +192,7 @@ public class FragmentTrade extends BaseFragment {
                         } else {
                             String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
                             latestDate = strs[30].replace("-", "/");
-                            String dataStr = String.format((i == INDEX_TRADE_ZUHL) ? "%s\t%.3f\t%.3f\t%.3f\t%.3f\r" : "%s\t%.2f\t%.2f\t%.2f\t%.2f\r", latestDate,
+                            String dataStr = String.format((i == INDEX_TRADE_ZGHL) ? "%s\t%.3f\t%.3f\t%.3f\t%.3f\r" : "%s\t%.2f\t%.2f\t%.2f\t%.2f\r", latestDate,
                                     Double.parseDouble(strs[1]), Double.parseDouble(strs[4]), Double.parseDouble(strs[5]), Double.parseDouble(strs[3]));
                             PrintWriter pw = new PrintWriter(new FileWriter(file, true));
                             pw.println(dataStr);
