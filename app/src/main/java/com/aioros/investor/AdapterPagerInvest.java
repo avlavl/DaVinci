@@ -47,9 +47,9 @@ public class AdapterPagerInvest extends PagerAdapter {
         View view = mInflater.inflate(R.layout.pager_invest, null);
 
         TextView textViewInvestQuota = (TextView) view.findViewById(R.id.textViewInvestQuota);
-        textViewInvestQuota.setText(String.format("%.2f", mInvestBeanList.get(2 * position).mQuota + mInvestBeanList.get(2 * position + 1).mQuota));
+        textViewInvestQuota.setText((mInvestBeanList.get(2 * position).mQuota != 0) ? String.format("%.2f", mInvestBeanList.get(2 * position).mQuota + mInvestBeanList.get(2 * position + 1).mQuota) : "无需定投");
         TextView textViewInvestBasePoint = (TextView) view.findViewById(R.id.textViewInvestBasePoint);
-        textViewInvestBasePoint.setText(String.format("%d", (int) mInvestBeanList.get(2 * position).mBasePoint));
+        textViewInvestBasePoint.setText(String.format("%.1f", mInvestBeanList.get(2 * position).mBasePoint));
         TextView textViewInvestDispersion = (TextView) view.findViewById(R.id.textViewInvestDispersion);
         textViewInvestDispersion.setText(String.format("%.4f", mInvestBeanList.get(2 * position).mDispersion));
         TextView textViewInvestRealPoint = (TextView) view.findViewById(R.id.textViewInvestRealPoint);

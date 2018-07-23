@@ -18,6 +18,7 @@ public class StrategyInvest {
     public boolean sysInvestEva(BeanInvest beanInvest) {
         winLevel = beanInvest.mWinLevel;
         diffCoef = beanInvest.mDiffCoef;
+        investLevel = beanInvest.mInvestLevel;
         totalInput = 0;
         totalPrice = 0;
         totalNumber = 0;
@@ -65,7 +66,7 @@ public class StrategyInvest {
             basePoints[i] = beanInvest.mStartPoint + i * beanInvest.mSlope;
             diffRate = closeList.get(i) / basePoints[i];
             diffRateList.add(diffRate);
-            if (diffRate < 1) {
+            if (diffRate < investLevel) {
                 RecordData recordData = new RecordData(dateList.get(i), "投入");
                 input = (basePoints[i] / Math.pow(diffRate, diffCoef)) / beanInvest.mDivisor;
                 number = input / closeList.get(i);
@@ -262,7 +263,7 @@ public class StrategyInvest {
             double keyPoint = (totalInput / totalNumber) * (1 + winLevel);
             return keyPoint;
         }
-        return basePoints[items - 1];
+        return basePoints[items - 1] * investLevel;
     }
 
     public double getKeyRatio() {
@@ -304,6 +305,7 @@ public class StrategyInvest {
     public ArrayList<String> dateList = new ArrayList<>();
 
     public double winLevel;
+    public double investLevel;
     public double[] basePoints;
 
     public int items;

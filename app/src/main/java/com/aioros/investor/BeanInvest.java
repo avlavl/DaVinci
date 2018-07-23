@@ -7,6 +7,7 @@ package com.aioros.investor;
 public class BeanInvest {
     public int mStartPoint;
     public double mSlope;
+    public double mInvestLevel;
     public double mDiffCoef;
     public int mDivisor;
     public double mWinLevel;
@@ -24,10 +25,11 @@ public class BeanInvest {
     public double mCurrentCost = 0;
     public double mTotalNumber = 0;
 
-    public BeanInvest(int startPoint, double slope, double diffCoef, int divisor, double winLevel) {
+    public BeanInvest(int startPoint, double slope, double investLevel, double diffCoef, int divisor, double winLevel) {
         super();
         mStartPoint = startPoint;
         mSlope = slope;
+        mInvestLevel = investLevel;
         mDiffCoef = diffCoef;
         mDivisor = divisor;
         mWinLevel = winLevel;
