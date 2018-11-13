@@ -36,7 +36,8 @@ public class FragmentMore extends BaseFragment {
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         //WebView加载web资源
-        mWebView.loadUrl("https://www.jisilu.cn/question/15659");
+        //mWebView.loadUrl("https://www.jisilu.cn/question/15659");
+        mWebView.loadUrl("http://data.etfquant.cn");
         return view;
     }
 
