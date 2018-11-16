@@ -1,7 +1,6 @@
 package com.aioros.investor;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.aioros.investor.Constant.*;
 
@@ -154,28 +154,31 @@ public class AdapterPagerTrade extends PagerAdapter {
     }
 
     private void mListViewOnItemClick(int position, int item) {
-        int RECORD_NUM = 3;
         int[] idxArray = new int[]{INDEX_QZYY, INDEX_ZZJG, INDEX_CYBZ, INDEX_ZGHL};
         TradeCheck tradeCheck = mTradeCheckList.get(position);
         BeanTradeMode tradeMode = mBeanTradeModeLists.get(position).get(item);
-        String[] bpDateArray = new String[RECORD_NUM];
-        String[] spDateArray = new String[RECORD_NUM];
-        Double[] bpArray = new Double[RECORD_NUM];
-        Double[] spArray = new Double[RECORD_NUM];
-        Double[] yieldArray = new Double[RECORD_NUM];
-        Double[] ratioArray = new Double[RECORD_NUM];
-        for (int i = 0; i < RECORD_NUM; i++) {
-            bpDateArray[i] = (tradeMode.bpIdxList.size() > i) ? tradeCheck.dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - i - 1)) : "None";
-            bpArray[i] = (tradeMode.bpIdxList.size() > i) ? tradeCheck.priceList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - i - 1)) : 0;
+        int tradeBpLogs = tradeMode.bpIdxList.size();
+        int tradeSpLogs = tradeMode.spIdxList.size();
+        String[] bpDateArray = new String[tradeBpLogs];
+        String[] spDateArray = new String[tradeBpLogs];
+        Integer[] daysArray = new Integer[tradeBpLogs];
+        Double[] bpValArray = new Double[tradeBpLogs];
+        Double[] spValArray = new Double[tradeBpLogs];
+        Double[] yieldArray = new Double[tradeBpLogs];
+        Double[] ratioArray = new Double[tradeBpLogs];
+        for (int i = 0; i < tradeBpLogs; i++) {
+            bpDateArray[i] = tradeCheck.dateList.get(tradeMode.bpIdxList.get(tradeBpLogs - i - 1));
+            bpValArray[i] = tradeCheck.priceList.get(tradeMode.bpIdxList.get(tradeBpLogs - i - 1));
             if (tradeMode.mStatus) {
-                spDateArray[i] = (i == 0) ? TimeUtility.getCurrentDate() : (tradeMode.spIdxList.size() > (i - 1)) ? tradeCheck.dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i)) : "None";
-                spArray[i] = (i == 0) ? Double.parseDouble(mFragmentTrade.mMarketDatas[idxArray[position]][1]) : (tradeMode.spIdxList.size() > (i - 1)) ? tradeCheck.priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i)) : 0;
+                spDateArray[i] = (i == 0) ? TimeUtility.getCurrentDate() : tradeCheck.dateList.get(tradeMode.spIdxList.get(tradeSpLogs - i));
+                spValArray[i] = (i == 0) ? Double.parseDouble(mFragmentTrade.mMarketDatas[idxArray[position]][1]) : tradeCheck.priceList.get(tradeMode.spIdxList.get(tradeSpLogs - i));
             } else {
-                spDateArray[i] = (tradeMode.spIdxList.size() > i) ? tradeCheck.dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i - 1)) : "None";
-                spArray[i] = (tradeMode.spIdxList.size() > i) ? tradeCheck.priceList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - i - 1)) : 0;
+                spDateArray[i] = tradeCheck.dateList.get(tradeMode.spIdxList.get(tradeSpLogs - i - 1));
+                spValArray[i] = tradeCheck.priceList.get(tradeMode.spIdxList.get(tradeSpLogs - i - 1));
             }
-            yieldArray[i] = ((bpArray[i]) > 0 && (spArray[i] > 0)) ? Double.parseDouble(tradeMode.mAmount.substring(0, tradeMode.mAmount.length() - 1)) * (spArray[i] - bpArray[i]) / bpArray[i] : 0;
-            ratioArray[i] = ((bpArray[i]) > 0 && (spArray[i] > 0)) ? 100 * (spArray[i] - bpArray[i]) / bpArray[i] : 0;
+            daysArray[i] = TimeUtility.daysBetween(bpDateArray[i], spDateArray[i]);
+            yieldArray[i] = ((bpValArray[i]) > 0 && (spValArray[i] > 0)) ? Double.parseDouble(tradeMode.mAmount.substring(0, tradeMode.mAmount.length() - 1)) * (spValArray[i] - bpValArray[i]) / bpValArray[i] : 0;
+            ratioArray[i] = ((bpValArray[i]) > 0 && (spValArray[i] > 0)) ? 100 * (spValArray[i] - bpValArray[i]) / bpValArray[i] : 0;
         }
 
         AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
@@ -183,30 +186,12 @@ public class AdapterPagerTrade extends PagerAdapter {
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.dialog_record);
 
-        TextView[] textViewDateArray = {
-                (TextView) window.findViewById(R.id.textViewDialogDate0), (TextView) window.findViewById(R.id.textViewDialogDate1), (TextView) window.findViewById(R.id.textViewDialogDate2)
-        };
-        TextView[] textViewBpArray = {
-                (TextView) window.findViewById(R.id.textViewDialogBp0), (TextView) window.findViewById(R.id.textViewDialogBp1), (TextView) window.findViewById(R.id.textViewDialogBp2)
-        };
-        TextView[] textViewSpArray = {
-                (TextView) window.findViewById(R.id.textViewDialogSp0), (TextView) window.findViewById(R.id.textViewDialogSp1), (TextView) window.findViewById(R.id.textViewDialogSp2)
-        };
-        TextView[] textViewYieldArray = {
-                (TextView) window.findViewById(R.id.textViewDialogYield0), (TextView) window.findViewById(R.id.textViewDialogYield1), (TextView) window.findViewById(R.id.textViewDialogYield2)
-        };
-        TextView[] textViewRatioArray = {
-                (TextView) window.findViewById(R.id.textViewDialogRatio0), (TextView) window.findViewById(R.id.textViewDialogRatio1), (TextView) window.findViewById(R.id.textViewDialogRatio2)
-        };
-        for (int i = 0; i < RECORD_NUM; i++) {
-            textViewDateArray[i].setText(bpDateArray[i] + " -- " + spDateArray[i]);
-            textViewDateArray[i].setBackgroundColor((spArray[i] > bpArray[i]) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
-            textViewBpArray[i].setText(String.format((position == INDEX_TRADE_ZGHL) ? "%.3f" : "%.2f", bpArray[i]));
-            textViewSpArray[i].setText(String.format((position == INDEX_TRADE_ZGHL) ? "%.3f" : "%.2f", spArray[i]));
-            textViewYieldArray[i].setText(String.format("%.2f", yieldArray[i]));
-            textViewYieldArray[i].setTextColor((yieldArray[i] > 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
-            textViewRatioArray[i].setText(String.format("%.3f%%", ratioArray[i]));
-            textViewRatioArray[i].setTextColor((yieldArray[i] > 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
+        List<BeanTradeRecord> mBeanTradeRecordList = new ArrayList<BeanTradeRecord>();
+        for (int i = 0; i < tradeBpLogs; i++) {
+            mBeanTradeRecordList.add(new BeanTradeRecord(bpDateArray[i], spDateArray[i], daysArray[i], bpValArray[i], spValArray[i], yieldArray[i], ratioArray[i]));
         }
+        ListView listView = (ListView) window.findViewById(R.id.listViewTradeLog);
+        AdapterListViewTradeRecord adapterListView = new AdapterListViewTradeRecord(mContext, mBeanTradeRecordList, position);
+        listView.setAdapter(adapterListView);
     }
 }

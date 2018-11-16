@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+
+    android:gravity="center|left"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layoutTradeLogDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorRed">
+
+        <TextView
+            android:id="@+id/textViewTradeLogBpDate"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/viewItemTradeFlag"
+            android:gravity="right"
+            android:padding="1dp"
+            android:text="2017/12/13"
+            android:textColor="@color/colorWhite"
+            android:textSize="11sp" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dp"
+            android:layout_toLeftOf="@+id/textViewTradeLogDays"
+            android:background="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/textViewTradeLogDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="1dp"
+            android:text="88"
+            android:textColor="@color/colorWhite"
+            android:textSize="11sp" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/textViewTradeLogDays"
+            android:background="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/textViewTradeLogSpDate"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="left"
+            android:padding="1dp"
+            android:text="2017/12/13"
+            android:textColor="@color/colorWhite"
+            android:textSize="11sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="买入"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/textViewTradeLogBp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="10249.21"
+                android:textSize="12sp"
+                android:textStyle="normal|bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="卖出"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/textViewTradeLogSp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="11249.21"
+                android:textSize="12sp"
+                android:textStyle="normal|bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="收益"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/textViewTradeLogYield"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="125"
+                android:textSize="12sp"
+                android:textStyle="normal|bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="收益率"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/textViewTradeLogRatio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="-13.8945%"
+                android:textSize="12sp"
+                android:textStyle="normal|bold" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
