@@ -82,6 +82,7 @@ public class FragmentInvest extends BaseFragment {
                     mBeanInvestList.get(2 * i + j).mWeekIncome = strategyInvest.totalNumber * (mBeanInvestList.get(2 * i + j).mRealPoint - closeArray[i]);
                     mBeanInvestList.get(2 * i + j).mYield = (mBeanInvestList.get(2 * i + j).mCurrentCost != 0) ? 100 * (mBeanInvestList.get(2 * i + j).mRealPoint - mBeanInvestList.get(2 * i + j).mCurrentCost) / mBeanInvestList.get(2 * i + j).mCurrentCost : 0;
                     mBeanInvestList.get(2 * i + j).mKeyPoint = strategyInvest.getKeyPoint();
+                    mBeanInvestList.get(2 * i + j).mWeeks = strategyInvest.getInvestWeeks();
                 }
             }
         }

@@ -158,7 +158,7 @@ public class AdapterPagerInvest extends PagerAdapter {
         int investLogs = recordDataList.size();
         int investLogs1 = recordDataList1.size();
         int investLogs2 = recordDataList2.size();
-        int showLogs = mInvestBeanList.get(2 * position + item).mTimes;
+        int showLogs = mInvestBeanList.get(2 * position + item).mWeeks;
         String[] dataArray = new String[investLogs];
         Double[] priceArray = new Double[investLogs];
         Double[] costArray = new Double[investLogs];

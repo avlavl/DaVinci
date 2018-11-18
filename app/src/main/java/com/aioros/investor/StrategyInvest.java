@@ -282,6 +282,16 @@ public class StrategyInvest {
         return recordDataList.get(recordDataList.size() - 1).cost;
     }
 
+    public int getInvestWeeks() {
+        int records = recordDataList.size();
+        for (int i = 0; i < records; i++) {
+            if (recordDataList.get(records - 1 - i).type.equals("赎回")) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     public class RecordData {
 
         public RecordData(String date, String type) {
