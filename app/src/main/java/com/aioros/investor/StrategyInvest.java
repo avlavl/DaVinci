@@ -10,8 +10,8 @@ import java.util.Collections;
 public class StrategyInvest {
 
     public StrategyInvest(FileUtility fu) {
-        dateList = fu.dateList;
-        closeList = fu.closeList;
+        dateList = fu.dateList1;
+        closeList = fu.closeList1;
         items = dateList.size();
     }
 

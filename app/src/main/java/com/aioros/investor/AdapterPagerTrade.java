@@ -72,7 +72,7 @@ public class AdapterPagerTrade extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         FileUtility fileUtility = new FileUtility();
-        if (fileUtility.importDataFile("investor/data/" + mFragmentTrade.mBaseNames[position] + ".txt") == 0) {
+        if (fileUtility.importDataFile1("investor/data/" + mFragmentTrade.mBaseNames[position] + ".txt") == 0) {
             if (false == mFragmentTrade.mTabTitles[position].equals(mFragmentTrade.mBaseNames[position])) {
                 fileUtility.importDataFile2("investor/data/" + mFragmentTrade.mTabTitles[position] + ".txt");
             }
@@ -130,8 +130,15 @@ public class AdapterPagerTrade extends PagerAdapter {
             public void onItemClick(AdapterView<?> parent, View view, int item, long id) {
                 mListViewOnItemClick(position, item);
             }
-
         });
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int item, long id) {
+                mListViewOnItemLongClick(position, item);
+                return true;
+            }
+        });
+
         container.addView(view);
         return view;
     }
@@ -155,26 +162,43 @@ public class AdapterPagerTrade extends PagerAdapter {
 
     private void mListViewOnItemClick(int position, int item) {
         int[] idxArray = new int[]{INDEX_QZYY, INDEX_ZZJG, INDEX_CYBZ, INDEX_ZGHL};
-        TradeCheck tradeCheck = mTradeCheckList.get(position);
         BeanTradeMode tradeMode = mBeanTradeModeLists.get(position).get(item);
-        int tradeBpLogs = tradeMode.bpIdxList.size();
-        int tradeSpLogs = tradeMode.spIdxList.size();
-        String[] bpDateArray = new String[tradeBpLogs];
-        String[] spDateArray = new String[tradeBpLogs];
-        Integer[] daysArray = new Integer[tradeBpLogs];
-        Double[] bpValArray = new Double[tradeBpLogs];
-        Double[] spValArray = new Double[tradeBpLogs];
-        Double[] yieldArray = new Double[tradeBpLogs];
-        Double[] ratioArray = new Double[tradeBpLogs];
-        for (int i = 0; i < tradeBpLogs; i++) {
-            bpDateArray[i] = tradeCheck.dateList.get(tradeMode.bpIdxList.get(tradeBpLogs - i - 1));
-            bpValArray[i] = tradeCheck.priceList.get(tradeMode.bpIdxList.get(tradeBpLogs - i - 1));
+        TradeCheck tradeCheck = mTradeCheckList.get(position);
+        ArrayList<String> dateList = (tradeCheck.rows2 == 0) ? tradeCheck.dateList : tradeCheck.dateList2;
+        ArrayList<Double> closeList = (tradeCheck.rows2 == 0) ? tradeCheck.closeList : tradeCheck.closeList2;
+        if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
+            tradeMode.spIdxList.add(tradeCheck.rows - 1);
+        }
+        ArrayList<Integer> bpIdxList = tradeMode.bpIdxList;
+        ArrayList<Integer> spIdxList = tradeMode.spIdxList;
+        if (tradeCheck.rows2 != 0) {
+            int offset = tradeCheck.rows - tradeCheck.rows2;
+            bpIdxList = new ArrayList<>();
+            spIdxList = new ArrayList<>();
+            for (int i = 0; i < tradeMode.bpIdxList.size(); i++) {
+                if (tradeMode.spIdxList.get(i) > offset) {
+                    bpIdxList.add((tradeMode.bpIdxList.get(i) > offset) ? (tradeMode.bpIdxList.get(i) - offset) : 0);
+                    spIdxList.add(tradeMode.spIdxList.get(i) - offset);
+                }
+            }
+        }
+        int tradeLogs = bpIdxList.size();
+        String[] bpDateArray = new String[tradeLogs];
+        String[] spDateArray = new String[tradeLogs];
+        Integer[] daysArray = new Integer[tradeLogs];
+        Double[] bpValArray = new Double[tradeLogs];
+        Double[] spValArray = new Double[tradeLogs];
+        Double[] yieldArray = new Double[tradeLogs];
+        Double[] ratioArray = new Double[tradeLogs];
+        for (int i = 0; i < tradeLogs; i++) {
+            bpDateArray[i] = dateList.get(bpIdxList.get(tradeLogs - i - 1));
+            bpValArray[i] = closeList.get(bpIdxList.get(tradeLogs - i - 1));
             if (tradeMode.mStatus) {
-                spDateArray[i] = (i == 0) ? TimeUtility.getCurrentDate() : tradeCheck.dateList.get(tradeMode.spIdxList.get(tradeSpLogs - i));
-                spValArray[i] = (i == 0) ? Double.parseDouble(mFragmentTrade.mMarketDatas[idxArray[position]][1]) : tradeCheck.priceList.get(tradeMode.spIdxList.get(tradeSpLogs - i));
+                spDateArray[i] = (i == 0) ? TimeUtility.getCurrentDate() : dateList.get(spIdxList.get(tradeLogs - 1 - i));
+                spValArray[i] = (i == 0) ? Double.parseDouble(mFragmentTrade.mMarketDatas[idxArray[position]][1]) : closeList.get(spIdxList.get(tradeLogs - 1 - i));
             } else {
-                spDateArray[i] = tradeCheck.dateList.get(tradeMode.spIdxList.get(tradeSpLogs - i - 1));
-                spValArray[i] = tradeCheck.priceList.get(tradeMode.spIdxList.get(tradeSpLogs - i - 1));
+                spDateArray[i] = dateList.get(spIdxList.get(tradeLogs - i - 1));
+                spValArray[i] = closeList.get(spIdxList.get(tradeLogs - i - 1));
             }
             daysArray[i] = TimeUtility.daysBetween(bpDateArray[i], spDateArray[i]);
             yieldArray[i] = ((bpValArray[i]) > 0 && (spValArray[i] > 0)) ? Double.parseDouble(tradeMode.mAmount.substring(0, tradeMode.mAmount.length() - 1)) * (spValArray[i] - bpValArray[i]) / bpValArray[i] : 0;
@@ -187,11 +211,108 @@ public class AdapterPagerTrade extends PagerAdapter {
         window.setContentView(R.layout.dialog_record);
 
         List<BeanTradeRecord> mBeanTradeRecordList = new ArrayList<BeanTradeRecord>();
-        for (int i = 0; i < tradeBpLogs; i++) {
+        for (int i = 0; i < tradeLogs; i++) {
             mBeanTradeRecordList.add(new BeanTradeRecord(bpDateArray[i], spDateArray[i], daysArray[i], bpValArray[i], spValArray[i], yieldArray[i], ratioArray[i]));
         }
         ListView listView = (ListView) window.findViewById(R.id.listViewTradeLog);
         AdapterListViewTradeRecord adapterListView = new AdapterListViewTradeRecord(mContext, mBeanTradeRecordList, position);
         listView.setAdapter(adapterListView);
+    }
+
+    private void mListViewOnItemLongClick(int position, int item) {
+        BeanTradeMode tradeMode = mBeanTradeModeLists.get(position).get(item);
+        TradeCheck tradeCheck = mTradeCheckList.get(position);
+        ArrayList<String> dateList = (tradeCheck.rows2 == 0) ? tradeCheck.dateList : tradeCheck.dateList2;
+        ArrayList<Double> closeList = (tradeCheck.rows2 == 0) ? tradeCheck.closeList : tradeCheck.closeList2;
+        if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
+            tradeMode.spIdxList.add(tradeCheck.rows - 1);
+        }
+        ArrayList<Integer> bpIdxList = tradeMode.bpIdxList;
+        ArrayList<Integer> spIdxList = tradeMode.spIdxList;
+        if (tradeCheck.rows2 != 0) {
+            int offset = tradeCheck.rows - tradeCheck.rows2;
+            bpIdxList = new ArrayList<>();
+            spIdxList = new ArrayList<>();
+            for (int i = 0; i < tradeMode.bpIdxList.size(); i++) {
+                if (tradeMode.spIdxList.get(i) > offset) {
+                    bpIdxList.add((tradeMode.bpIdxList.get(i) > offset) ? (tradeMode.bpIdxList.get(i) - offset) : 0);
+                    spIdxList.add(tradeMode.spIdxList.get(i) - offset);
+                }
+            }
+        }
+
+        TradeHandle tradeHandle = new TradeHandle(dateList, closeList, bpIdxList, spIdxList);
+        ArrayList<Double> fundList = tradeHandle.synthesize();
+
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        window.setContentView(R.layout.dialog_trade_info);
+
+        TextView textViewCurrentAsset = (TextView) window.findViewById(R.id.textViewDialogCurrentAsset);
+        textViewCurrentAsset.setText(String.format("%.2f", tradeHandle.getCurrentAsset()));
+        TextView textViewInitAsset = (TextView) window.findViewById(R.id.textViewDialogInitAsset);
+        textViewInitAsset.setText(String.format("%.2f", tradeHandle.getInitAsset()));
+        TextView textViewNetProfit = (TextView) window.findViewById(R.id.textViewDialogNetProfit);
+        textViewNetProfit.setText(String.format("%.2f", tradeHandle.getNetProfit()));
+        TextView textViewObjectRate = (TextView) window.findViewById(R.id.textViewDialogObjectRate);
+        textViewObjectRate.setText(String.format("%.3f%%", tradeHandle.getObjectRate()));
+        TextView textViewSystemRate = (TextView) window.findViewById(R.id.textViewDialogSystemRate);
+        textViewSystemRate.setText(String.format("%.3f%%", tradeHandle.getSystemRate()));
+        TextView textViewSysObjRatio = (TextView) window.findViewById(R.id.textViewDialogSysObjRatio);
+        textViewSysObjRatio.setText(String.format("%.3f", tradeHandle.getSysObjRatio()));
+        TextView textViewAnnualRate = (TextView) window.findViewById(R.id.textViewDialogAnnualRate);
+        textViewAnnualRate.setText(String.format("%.3f%%", tradeHandle.getAnnualRate()));
+        TextView textViewTradeYears = (TextView) window.findViewById(R.id.textViewDialogTradeYears);
+        textViewTradeYears.setText(String.format("%.3f年", tradeHandle.getTradeYears()));
+        TextView textViewPositionYears = (TextView) window.findViewById(R.id.textViewDialogPositionYears);
+        textViewPositionYears.setText(String.format("%.3f年", tradeHandle.getPositionYears()));
+        TextView textViewPositionDaysRate = (TextView) window.findViewById(R.id.textViewDialogPositionDaysRate);
+        textViewPositionDaysRate.setText(String.format("%.3f%%", tradeHandle.getPositionDaysRate()));
+        TextView textViewMeanPositionDays = (TextView) window.findViewById(R.id.textViewDialogMeanPositionDays);
+        textViewMeanPositionDays.setText(String.format("%.2f天", tradeHandle.getMeanPositionDays()));
+        TextView textViewMeanGainDays = (TextView) window.findViewById(R.id.textViewDialogMeanGainDays);
+        textViewMeanGainDays.setText(String.format("%.2f天", tradeHandle.getMeanGainDays()));
+        TextView textViewMeanLossDays = (TextView) window.findViewById(R.id.textViewDialogMeanLossDays);
+        textViewMeanLossDays.setText(String.format("%.2f天", tradeHandle.getMeanLossDays()));
+        TextView textViewStandardAnnualRate = (TextView) window.findViewById(R.id.textViewDialogStandardAnnualRate);
+        textViewStandardAnnualRate.setText(String.format("%.3f%%", tradeHandle.getStandardAnnualRate()));
+        TextView textViewPositionAnnualRate = (TextView) window.findViewById(R.id.textViewDialogPositionAnnualRate);
+        textViewPositionAnnualRate.setText(String.format("%.3f%%", tradeHandle.getPositionAnnualRate()));
+        TextView textViewEvenEarningRate = (TextView) window.findViewById(R.id.textViewDialogEvenEarningRate);
+        textViewEvenEarningRate.setText(String.format("%.3f%%", tradeHandle.getEvenEarningRate()));
+
+        TextView textViewTradeTimes = (TextView) window.findViewById(R.id.textViewTradeTimes);
+        textViewTradeTimes.setText(String.format("%d次", tradeHandle.getTradeTimes()));
+        TextView textViewGainTimes = (TextView) window.findViewById(R.id.textViewGainTimes);
+        textViewGainTimes.setText(String.format("%d次", tradeHandle.getGainTimes()));
+        TextView textViewLossTimes = (TextView) window.findViewById(R.id.textViewLossTimes);
+        textViewLossTimes.setText(String.format("%d次", tradeHandle.getLossTimes()));
+        TextView textViewWinRate = (TextView) window.findViewById(R.id.textViewWinRate);
+        textViewWinRate.setText(String.format("%.3f%%", tradeHandle.getWinRate()));
+        TextView textViewMeanGain = (TextView) window.findViewById(R.id.textViewMeanGain);
+        textViewMeanGain.setText(String.format("%.3f%%", tradeHandle.getMeanGain()));
+        TextView textViewMeanLoss = (TextView) window.findViewById(R.id.textViewMeanLoss);
+        textViewMeanLoss.setText(String.format("%.3f%%", tradeHandle.getMeanLoss()));
+        TextView textViewOdds = (TextView) window.findViewById(R.id.textViewOdds);
+        textViewOdds.setText(String.format("%.3f", tradeHandle.getOdds()));
+        TextView textViewExpectation = (TextView) window.findViewById(R.id.textViewExpectation);
+        textViewExpectation.setText(String.format("%.3f", tradeHandle.getExpectation()));
+        TextView textViewGainProfit = (TextView) window.findViewById(R.id.textViewGainProfit);
+        textViewGainProfit.setText(String.format("%.2f", tradeHandle.getGainProfit()));
+        TextView textViewLossProfit = (TextView) window.findViewById(R.id.textViewLossProfit);
+        textViewLossProfit.setText(String.format("%.2f", tradeHandle.getLossProfit()));
+        TextView textViewMaxGain = (TextView) window.findViewById(R.id.textViewMaxGain);
+        textViewMaxGain.setText(String.format("%.3f%%", tradeHandle.getMaxGain()));
+        TextView textViewMaxLoss = (TextView) window.findViewById(R.id.textViewMaxLoss);
+        textViewMaxLoss.setText(String.format("%.3f%%", tradeHandle.getMaxLoss()));
+        TextView textViewMaxGainTimes = (TextView) window.findViewById(R.id.textViewMaxGainTimes);
+        textViewMaxGainTimes.setText(String.format("%d次", tradeHandle.getMaxGainTimes()));
+        TextView textViewMaxLossTimes = (TextView) window.findViewById(R.id.textViewMaxLossTimes);
+        textViewMaxLossTimes.setText(String.format("%d次", tradeHandle.getMaxLossTimes()));
+        TextView textViewMaxGainRatio = (TextView) window.findViewById(R.id.textViewMaxGainRatio);
+        textViewMaxGainRatio.setText(String.format("%.3f%%", tradeHandle.getMaxGainRatio()));
+        TextView textViewMaxLossRatio = (TextView) window.findViewById(R.id.textViewMaxLossRatio);
+        textViewMaxLossRatio.setText(String.format("%.3f%%", tradeHandle.getMaxLossRatio()));
     }
 }

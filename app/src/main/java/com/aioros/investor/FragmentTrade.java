@@ -116,8 +116,8 @@ public class FragmentTrade extends BaseFragment {
         mTextViewSelfData = (TextView) view.findViewById(R.id.textViewTradeSelfData);
         updateStockData(itemIndex);
 
-        fileUtility.importDataFile("investor/data/" + TRADE_FILE_NAMES[0] + ".txt");
-        String fileDate = fileUtility.dateList.get(fileUtility.rows - 1);
+        fileUtility.importDataFile1("investor/data/" + TRADE_FILE_NAMES[0] + ".txt");
+        String fileDate = fileUtility.dateList1.get(fileUtility.rows1 - 1);
         mTextViewDate = (TextView) view.findViewById(R.id.textViewTradeDate);
         mTextViewDate.setText(fileDate);
         checkDataUpdate(fileDate);

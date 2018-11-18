@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 public class FileUtility {
     private String storageDirectory;
-    public int rows = 0;
-    public int rows2 = 0;
-    public ArrayList<String> dateList;
-    public ArrayList<Double> closeList;
+    public ArrayList<String> dateList1;
+    public ArrayList<String> dateList2;
+    public ArrayList<Double> closeList1;
     public ArrayList<Double> closeList2;
-
+    public int rows1 = 0;
+    public int rows2 = 0;
 
     public FileUtility() {
         storageDirectory = Environment.getExternalStorageDirectory() + "/";
@@ -33,10 +33,9 @@ public class FileUtility {
         return storageDirectory;
     }
 
-    public int importDataFile(String fileName) {
-        dateList = new ArrayList<>();
-        closeList = new ArrayList<>();
-        rows = 0;
+    public int importDataFile1(String fileName) {
+        dateList1 = new ArrayList<>();
+        closeList1 = new ArrayList<>();
         try {
             File file = new File(storageDirectory + fileName);
             if (!file.exists()) {
@@ -49,10 +48,10 @@ public class FileUtility {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] words = line.split("\t");
-                dateList.add(words[0]);
-                closeList.add(Double.parseDouble(words[4]));
+                dateList1.add(words[0]);
+                closeList1.add(Double.parseDouble(words[4]));
             }
-            rows = dateList.size();
+            rows1 = dateList1.size();
             br.close();
             isr.close();
             return 0;
@@ -63,8 +62,8 @@ public class FileUtility {
     }
 
     public int importDataFile2(String fileName) {
+        dateList2 = new ArrayList<>();
         closeList2 = new ArrayList<>();
-        rows2 = 0;
         try {
             File file = new File(storageDirectory + fileName);
             if (!file.exists()) {
@@ -77,6 +76,7 @@ public class FileUtility {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] words = line.split("\t");
+                dateList2.add(words[0]);
                 closeList2.add(Double.parseDouble(words[4]));
             }
             rows2 = closeList2.size();

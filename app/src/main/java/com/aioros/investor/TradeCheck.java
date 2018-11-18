@@ -9,15 +9,19 @@ import java.util.ArrayList;
 public class TradeCheck {
     public ArrayList<String> dateList;
     public ArrayList<Double> closeList;
-    public ArrayList<Double> priceList;
-    public int rows;
+    public ArrayList<String> dateList2;
+    public ArrayList<Double> closeList2;
+    public int rows, rows2;
+
     public Strategy strategy;
 
     public TradeCheck(FileUtility fu) {
-        dateList = fu.dateList;
-        closeList = fu.closeList;
-        rows = fu.rows;
-        priceList = (rows != fu.rows2) ? fu.closeList : fu.closeList2;
+        dateList = fu.dateList1;
+        closeList = fu.closeList1;
+        dateList2 = fu.dateList2;
+        closeList2 = fu.closeList2;
+        rows = fu.rows1;
+        rows2 = fu.rows2;
     }
 
     public void sysMACDChk(BeanTradeMode tradeMode) {

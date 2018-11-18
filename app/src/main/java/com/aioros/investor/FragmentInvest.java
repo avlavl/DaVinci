@@ -60,9 +60,9 @@ public class FragmentInvest extends BaseFragment {
         mBeanInvestList.add(new BeanInvest(1780, 2.9, 0.9, 2, 12, 1));
 
         for (int i = 0; i < indexArray.length; i++) {
-            fileUtility.importDataFile("investor/data/W" + mTabTitles[i] + ".txt");
-            weeksArray[i] = fileUtility.rows;
-            closeArray[i] = fileUtility.closeList.get(fileUtility.rows - 1);
+            fileUtility.importDataFile1("investor/data/W" + mTabTitles[i] + ".txt");
+            weeksArray[i] = fileUtility.rows1;
+            closeArray[i] = fileUtility.closeList1.get(fileUtility.rows1 - 1);
             if (weeksArray[i] > 0) {
                 for (int j = 0; j < 2; j++) {
                     mBeanInvestList.get(2 * i + j).mRealPoint = Double.parseDouble(mMarketDatas[indexArray[i]][1]);
@@ -123,8 +123,8 @@ public class FragmentInvest extends BaseFragment {
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayoutInvest);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        fileUtility.importDataFile("investor/data/W申万证券.txt");
-        String fileDate = fileUtility.dateList.get(fileUtility.rows - 1);
+        fileUtility.importDataFile1("investor/data/W申万证券.txt");
+        String fileDate = fileUtility.dateList1.get(fileUtility.rows1 - 1);
         mTextViewDate = (TextView) view.findViewById(R.id.textViewInvestDate);
         mTextViewDate.setText(fileDate);
 
