@@ -68,6 +68,7 @@ public class FragmentInvest extends BaseFragment {
                     mBeanInvestList.get(2 * i + j).mRealPoint = Double.parseDouble(mMarketDatas[indexArray[i]][1]);
                     StrategyInvest strategyInvest = new StrategyInvest(fileUtility);
                     strategyInvest.sysInvestEva(mBeanInvestList.get(2 * i + j));
+                    mBeanInvestList.get(2 * i + j).mRecordDataList = strategyInvest.recordDataList;
                     double basePoint = strategyInvest.basePoints[strategyInvest.items - 1] + mBeanInvestList.get(2 * i + j).mSlope;
                     mBeanInvestList.get(2 * i + j).mBasePoint = basePoint;
                     mBeanInvestList.get(2 * i + j).mDispersion = mBeanInvestList.get(2 * i + j).mRealPoint / basePoint;
@@ -125,7 +126,7 @@ public class FragmentInvest extends BaseFragment {
 
         fileUtility.importDataFile1("investor/data/W申万证券.txt");
         String fileDate = fileUtility.dateList1.get(fileUtility.rows1 - 1);
-        mTextViewDate = (TextView) view.findViewById(R.id.textViewInvestDate);
+        mTextViewDate = (TextView) view.findViewById(R.id.textViewTradeRecordBpDate);
         mTextViewDate.setText(fileDate);
 
         mButtonUpdate = (Button) view.findViewById(R.id.buttonInvestUpdate);

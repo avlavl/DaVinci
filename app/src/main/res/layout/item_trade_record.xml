@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/layoutTradeLogDate"
+        android:id="@+id/layoutTradeRecordDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -17,7 +17,7 @@
         android:background="@color/colorRed">
 
         <TextView
-            android:id="@+id/textViewTradeLogBpDate"
+            android:id="@+id/textViewTradeRecordBpDate"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/viewItemTradeFlag"
@@ -32,11 +32,11 @@
             android:layout_height="1dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="3dp"
-            android:layout_toLeftOf="@+id/textViewTradeLogDays"
+            android:layout_toLeftOf="@+id/textViewTradeRecordDays"
             android:background="@color/colorWhite" />
 
         <TextView
-            android:id="@+id/textViewTradeLogDays"
+            android:id="@+id/textViewTradeRecordDays"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -50,11 +50,11 @@
             android:layout_height="1dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
-            android:layout_toRightOf="@+id/textViewTradeLogDays"
+            android:layout_toRightOf="@+id/textViewTradeRecordDays"
             android:background="@color/colorWhite" />
 
         <TextView
-            android:id="@+id/textViewTradeLogSpDate"
+            android:id="@+id/textViewTradeRecordSpDate"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -85,7 +85,7 @@
                 android:textSize="11sp" />
 
             <TextView
-                android:id="@+id/textViewTradeLogBp"
+                android:id="@+id/textViewTradeRecordBp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -108,7 +108,7 @@
                 android:textSize="11sp" />
 
             <TextView
-                android:id="@+id/textViewTradeLogSp"
+                android:id="@+id/textViewTradeRecordSp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -131,7 +131,7 @@
                 android:textSize="11sp" />
 
             <TextView
-                android:id="@+id/textViewTradeLogYield"
+                android:id="@+id/textViewTradeRecordYield"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -154,7 +154,7 @@
                 android:textSize="11sp" />
 
             <TextView
-                android:id="@+id/textViewTradeLogRatio"
+                android:id="@+id/textViewTradeRecordRatio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

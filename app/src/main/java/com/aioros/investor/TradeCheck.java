@@ -13,7 +13,7 @@ public class TradeCheck {
     public ArrayList<Double> closeList2;
     public int rows, rows2;
 
-    public Strategy strategy;
+    public StrategyTrade strategy;
 
     public TradeCheck(FileUtility fu) {
         dateList = fu.dateList1;
@@ -30,7 +30,7 @@ public class TradeCheck {
 
         MACD macd = new MACD(closeList, 12, 26, 9);
         macd.init();
-        strategy = new Strategy(closeList);
+        strategy = new StrategyTrade(closeList);
         strategy.macd = macd;
 
         for (int i = 0; i < rows; i++) {
@@ -60,7 +60,7 @@ public class TradeCheck {
         int mal = Integer.parseInt(ps[1]);
 
         MAL ma = new MAL(closeList);
-        strategy = new Strategy(closeList);
+        strategy = new StrategyTrade(closeList);
         strategy.ma = ma;
 
         ArrayList<Double> masList = ma.getMAList(mas);
@@ -88,7 +88,7 @@ public class TradeCheck {
         int t2 = Integer.parseInt(ps[1]);
 
         Livermore livermore = new Livermore(true, t1, t2);
-        strategy = new Strategy(closeList);
+        strategy = new StrategyTrade(closeList);
         strategy.livermore = livermore;
 
         for (int i = 0; i < rows; i++) {
@@ -120,7 +120,7 @@ public class TradeCheck {
 
         MACD macd = new MACD(closeList, 12, 26, 9);
         macd.init();
-        strategy = new Strategy(closeList);
+        strategy = new StrategyTrade(closeList);
         strategy.macd = macd;
 
         for (int i = 0; i < rows; i++) {
@@ -151,7 +151,7 @@ public class TradeCheck {
         MACD macd = new MACD(closeList, 12, 26, 9);
         macd.init();
         MAL ma = new MAL(closeList);
-        strategy = new Strategy(closeList);
+        strategy = new StrategyTrade(closeList);
         strategy.macd = macd;
         strategy.ma = ma;
 
@@ -189,7 +189,7 @@ public class TradeCheck {
         MACD macd = new MACD(closeList, 12, 26, 9);
         macd.init();
         Livermore livermore = new Livermore(true, t1, t2);
-        strategy = new Strategy(closeList);
+        strategy = new StrategyTrade(closeList);
         strategy.macd = macd;
         strategy.livermore = livermore;
 

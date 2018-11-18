@@ -208,7 +208,7 @@ public class AdapterPagerTrade extends PagerAdapter {
         AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
         alertDialog.show();
         Window window = alertDialog.getWindow();
-        window.setContentView(R.layout.dialog_record);
+        window.setContentView(R.layout.dialog_trade_record);
 
         List<BeanTradeRecord> mBeanTradeRecordList = new ArrayList<BeanTradeRecord>();
         for (int i = 0; i < tradeLogs; i++) {

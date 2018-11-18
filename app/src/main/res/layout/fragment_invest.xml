@@ -52,7 +52,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textViewInvestDate"
+                android:id="@+id/textViewTradeRecordBpDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/buttonInvestUpdate"
@@ -67,7 +67,7 @@
                 android:layout_below="@id/buttonInvestUpdate"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="8dp"
-                android:layout_toLeftOf="@id/textViewInvestDate"
+                android:layout_toLeftOf="@id/textViewTradeRecordBpDate"
                 android:background="@color/colorgray91" />
 
             <View
@@ -76,7 +76,7 @@
                 android:layout_below="@id/buttonInvestUpdate"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="8dp"
-                android:layout_toRightOf="@id/textViewInvestDate"
+                android:layout_toRightOf="@id/textViewTradeRecordBpDate"
                 android:background="@color/colorgray91" />
         </RelativeLayout>
     </LinearLayout>

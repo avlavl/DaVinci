@@ -3,11 +3,15 @@ package com.aioros.investor;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +50,7 @@ public class AdapterPagerInvest extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         View view = mInflater.inflate(R.layout.pager_invest, null);
 
-        TextView textViewInvestQuota = (TextView) view.findViewById(R.id.textViewInvestQuota);
+        TextView textViewInvestQuota = (TextView) view.findViewById(R.id.textViewTradeRecordBp);
         textViewInvestQuota.setText((mInvestBeanList.get(2 * position).mQuota != 0) ? String.format("%.2f", mInvestBeanList.get(2 * position).mQuota + mInvestBeanList.get(2 * position + 1).mQuota) : "无需定投");
         TextView textViewInvestBasePoint = (TextView) view.findViewById(R.id.textViewInvestBasePoint);
         textViewInvestBasePoint.setText(String.format("%.1f", mInvestBeanList.get(2 * position).mBasePoint));
@@ -95,6 +99,37 @@ public class AdapterPagerInvest extends PagerAdapter {
         TextView textViewInvestKeyPoint1 = (TextView) view.findViewById(R.id.textViewInvestKeyPoint1);
         textViewInvestKeyPoint1.setText(String.format("%.2f", mInvestBeanList.get(2 * position + 1).mKeyPoint));
 
+        View layoutRecord0 = (View) view.findViewById(R.id.layoutInvestRecord0);
+        layoutRecord0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLayoutRecordOnClick(position, 0);
+            }
+        });
+
+        View layoutInfo0 = (View) view.findViewById(R.id.layoutInvestInfo0);
+        layoutInfo0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLayoutInfoOnClick(position, 0);
+            }
+        });
+
+        View layoutRecord1 = (View) view.findViewById(R.id.layoutInvestRecord1);
+        layoutRecord1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLayoutRecordOnClick(position, 1);
+            }
+        });
+
+        View layoutInfo1 = (View) view.findViewById(R.id.layoutInvestInfo1);
+        layoutInfo1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLayoutInfoOnClick(position, 1);
+            }
+        });
         container.addView(view);
         return view;
     }
@@ -114,5 +149,51 @@ public class AdapterPagerInvest extends PagerAdapter {
         TextView textView = (TextView) view.findViewById(R.id.textview_tabs);
         textView.setText(mTabTitles[position]);
         return view;
+    }
+
+    private void mLayoutRecordOnClick(int position, int item) {
+        ArrayList<StrategyInvest.RecordData> recordDataList = mInvestBeanList.get(2 * position + item).mRecordDataList;
+        ArrayList<StrategyInvest.RecordData> recordDataList1 = mInvestBeanList.get(2 * position).mRecordDataList;
+        ArrayList<StrategyInvest.RecordData> recordDataList2 = mInvestBeanList.get(2 * position + 1).mRecordDataList;
+        int investLogs = recordDataList.size();
+        int investLogs1 = recordDataList1.size();
+        int investLogs2 = recordDataList2.size();
+        int showLogs = mInvestBeanList.get(2 * position + item).mTimes;
+        String[] dataArray = new String[investLogs];
+        Double[] priceArray = new Double[investLogs];
+        Double[] costArray = new Double[investLogs];
+        Double[] quotaArray = new Double[investLogs];
+        Double[] amountArray = new Double[investLogs];
+        Double[] yieldArray = new Double[investLogs];
+        Double[] ratioArray = new Double[investLogs];
+        for (int i = 0; i < showLogs; i++) {
+            dataArray[i] = recordDataList.get(investLogs - 1 - i).date;
+            priceArray[i] = recordDataList.get(investLogs - 1 - i).price;
+            costArray[i] = recordDataList.get(investLogs - 1 - i).cost;
+            quotaArray[i] = recordDataList1.get(investLogs1 - 1 - i).input + recordDataList2.get(investLogs2 - 1 - i).input;
+            amountArray[i] = recordDataList1.get(investLogs1 - 1 - i).totalInput + recordDataList2.get(investLogs2 - 1 - i).totalInput;
+            yieldArray[i] = recordDataList1.get(investLogs1 - 1 - i).profit + recordDataList2.get(investLogs2 - 1 - i).profit;
+            ratioArray[i] = yieldArray[i] * 100 / amountArray[i];
+        }
+
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        window.setContentView(R.layout.dialog_invest_record);
+
+        List<BeanInvestRecord> mBeanInvestRecordList = new ArrayList<BeanInvestRecord>();
+        for (int i = 0; i < showLogs; i++) {
+            mBeanInvestRecordList.add(new BeanInvestRecord(dataArray[i], priceArray[i], costArray[i], quotaArray[i], amountArray[i], yieldArray[i], ratioArray[i]));
+        }
+        ListView listView = (ListView) window.findViewById(R.id.listViewInvestLog);
+        AdapterListViewInvestRecord adapterListView = new AdapterListViewInvestRecord(mContext, mBeanInvestRecordList);
+        listView.setAdapter(adapterListView);
+    }
+
+    private void mLayoutInfoOnClick(int position, int item) {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        window.setContentView(R.layout.dialog_invest_info);
     }
 }

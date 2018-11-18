@@ -2,7 +2,6 @@ package com.aioros.investor;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,33 +46,33 @@ public class AdapterListViewTradeRecord extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.item_trade_log, null);
+        View view = mInflater.inflate(R.layout.item_trade_record, null);
         BeanTradeRecord beanTradeRecord = mTradeLogBeanList.get(position);
         int color = (beanTradeRecord.mYield > 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0);
 
-        View dateView = (View) view.findViewById(R.id.layoutTradeLogDate);
+        View dateView = (View) view.findViewById(R.id.layoutTradeRecordDate);
         dateView.setBackgroundColor(color);
 
-        TextView bpDate = (TextView) view.findViewById(R.id.textViewTradeLogBpDate);
+        TextView bpDate = (TextView) view.findViewById(R.id.textViewTradeRecordBpDate);
         bpDate.setText(beanTradeRecord.mBpDate);
 
-        TextView spDate = (TextView) view.findViewById(R.id.textViewTradeLogSpDate);
+        TextView spDate = (TextView) view.findViewById(R.id.textViewTradeRecordSpDate);
         spDate.setText(beanTradeRecord.mSpDate);
 
-        TextView days = (TextView) view.findViewById(R.id.textViewTradeLogDays);
+        TextView days = (TextView) view.findViewById(R.id.textViewTradeRecordDays);
         days.setText(String.format("%d天", beanTradeRecord.mDays));
 
-        TextView bp = (TextView) view.findViewById(R.id.textViewTradeLogBp);
+        TextView bp = (TextView) view.findViewById(R.id.textViewTradeRecordBp);
         bp.setText(String.format((mPosition == INDEX_TRADE_ZGHL) ? "%.3f" : "%.2f", beanTradeRecord.mBpVal));
 
-        TextView sp = (TextView) view.findViewById(R.id.textViewTradeLogSp);
+        TextView sp = (TextView) view.findViewById(R.id.textViewTradeRecordSp);
         sp.setText(String.format((mPosition == INDEX_TRADE_ZGHL) ? "%.3f" : "%.2f", beanTradeRecord.mSpVal));
 
-        TextView yield = (TextView) view.findViewById(R.id.textViewTradeLogYield);
+        TextView yield = (TextView) view.findViewById(R.id.textViewTradeRecordYield);
         yield.setText(String.format("%.2f", beanTradeRecord.mYield));
         yield.setTextColor(color);
 
-        TextView ratio = (TextView) view.findViewById(R.id.textViewTradeLogRatio);
+        TextView ratio = (TextView) view.findViewById(R.id.textViewTradeRecordRatio);
         ratio.setText(String.format("%.3f%%", beanTradeRecord.mRatio));
         ratio.setTextColor(color);
 

@@ -16,7 +16,7 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:id="@+id/textViewInvestQuota"
+            android:id="@+id/textViewTradeRecordBp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -28,7 +28,7 @@
             android:id="@+id/textViewInvestQuotap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewInvestQuota"
+            android:layout_below="@id/textViewTradeRecordBp"
             android:gravity="center"
             android:text="定投额度(元)"
             android:textColor="@color/colorWhite" />
@@ -202,6 +202,7 @@
         android:background="@color/colorWhiteSmoke" />
 
     <LinearLayout
+        android:id="@+id/layoutInvestRecord0"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal">
@@ -261,7 +262,7 @@
         android:background="@color/colorItemDivider" />
 
     <RelativeLayout
-        android:id="@+id/layoutInvestOutput0"
+        android:id="@+id/layoutInvestInfo0"
         android:layout_width="match_parent"
         android:layout_height="70dp">
 
@@ -367,6 +368,7 @@
         android:background="@color/colorWhiteSmoke" />
 
     <LinearLayout
+        android:id="@+id/layoutInvestRecord1"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal">
@@ -425,7 +427,7 @@
         android:background="@color/colorItemDivider" />
 
     <RelativeLayout
-        android:id="@+id/layoutInvestOutput1"
+        android:id="@+id/layoutInvestInfo1"
         android:layout_width="match_parent"
         android:layout_height="70dp">
 

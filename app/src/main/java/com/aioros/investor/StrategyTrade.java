@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import static com.aioros.investor.FormulaLib.CROSS;
 import static com.aioros.investor.FormulaLib.REFD;
 
-public class Strategy {
+public class StrategyTrade {
 
-    public Strategy(ArrayList<Double> pList) {
+    public StrategyTrade(ArrayList<Double> pList) {
         priceList = pList;
     }
 

@@ -1,5 +1,7 @@
 package com.aioros.investor;
 
+import java.util.ArrayList;
+
 /**
  * Created by aizhang on 2017/6/19.
  */
@@ -24,6 +26,7 @@ public class BeanInvest {
     public int mTimes = 0;
     public double mCurrentCost = 0;
     public double mTotalNumber = 0;
+    public ArrayList<StrategyInvest.RecordData> mRecordDataList = new ArrayList<>();
 
     public BeanInvest(int startPoint, double slope, double investLevel, double diffCoef, int divisor, double winLevel) {
         super();
