@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@color/colorRed">
+        android:background="@drawable/shape_rectangle">
 
         <TextView
             android:id="@+id/textViewTradeRecordBpDate"
@@ -28,12 +28,12 @@
             android:textSize="11sp" />
 
         <View
-            android:layout_width="10dp"
-            android:layout_height="1dp"
+            android:layout_width="3dp"
+            android:layout_height="3dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="3dp"
             android:layout_toLeftOf="@+id/textViewTradeRecordDays"
-            android:background="@color/colorWhite" />
+            android:background="@drawable/shape_circle" />
 
         <TextView
             android:id="@+id/textViewTradeRecordDays"
@@ -46,12 +46,12 @@
             android:textSize="11sp" />
 
         <View
-            android:layout_width="10dp"
-            android:layout_height="1dp"
+            android:layout_width="3dp"
+            android:layout_height="3dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
             android:layout_toRightOf="@+id/textViewTradeRecordDays"
-            android:background="@color/colorWhite" />
+            android:background="@drawable/shape_circle" />
 
         <TextView
             android:id="@+id/textViewTradeRecordSpDate"

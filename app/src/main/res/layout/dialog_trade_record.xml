@@ -9,7 +9,7 @@
         android:id="@+id/textViewDialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorDeepSkyBlue"
+        android:background="@color/colorRed"
         android:gravity="center"
         android:padding="8dp"
         android:text="交易信息"
@@ -33,5 +33,5 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="12dp"
-        android:background="@color/colorDeepSkyBlue" />
+        android:background="@color/colorRed" />
 </LinearLayout>

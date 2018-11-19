@@ -2,6 +2,7 @@ package com.aioros.investor;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,8 @@ public class AdapterListViewTradeRecord extends BaseAdapter {
         int color = (beanTradeRecord.mYield > 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0);
 
         View dateView = (View) view.findViewById(R.id.layoutTradeRecordDate);
-        dateView.setBackgroundColor(color);
+        GradientDrawable gradientDrawable = (GradientDrawable) dateView.getBackground();
+        gradientDrawable.setColor(color);
 
         TextView bpDate = (TextView) view.findViewById(R.id.textViewTradeRecordBpDate);
         bpDate.setText(beanTradeRecord.mBpDate);
