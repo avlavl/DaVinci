@@ -78,11 +78,11 @@ public class AdapterPagerTrade extends PagerAdapter {
             }
             TradeCheck tradeCheck = new TradeCheck(fileUtility);
             if (position == INDEX_TRADE_ZGHL) {
-                ArrayList<Double> zoomPriceList = new ArrayList<>();
+                ArrayList<Double> zoomCloseList = new ArrayList<>();
                 for (int i = 0; i < tradeCheck.rows; i++) {
-                    zoomPriceList.add(tradeCheck.closeList.get(i) * 1000);
+                    zoomCloseList.add(tradeCheck.closeList.get(i) * 1000);
                 }
-                tradeCheck.closeList = zoomPriceList;
+                tradeCheck.closeList = zoomCloseList;
             }
             mTradeCheckList.set(position, tradeCheck);
 
@@ -166,6 +166,13 @@ public class AdapterPagerTrade extends PagerAdapter {
         TradeCheck tradeCheck = mTradeCheckList.get(position);
         ArrayList<String> dateList = (tradeCheck.rows2 == 0) ? tradeCheck.dateList : tradeCheck.dateList2;
         ArrayList<Double> closeList = (tradeCheck.rows2 == 0) ? tradeCheck.closeList : tradeCheck.closeList2;
+        if (position == INDEX_TRADE_ZGHL) {
+            ArrayList<Double> zoomCloseList = new ArrayList<>();
+            for (int i = 0; i < tradeCheck.rows; i++) {
+                zoomCloseList.add(tradeCheck.closeList.get(i) / 1000);
+            }
+            closeList = zoomCloseList;
+        }
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.spIdxList.add(tradeCheck.rows - 1);
         }
