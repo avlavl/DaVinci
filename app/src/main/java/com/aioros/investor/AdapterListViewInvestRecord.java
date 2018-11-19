@@ -47,7 +47,7 @@ public class AdapterListViewInvestRecord extends BaseAdapter {
         int color = (beanInvestRecord.mYield > 0) ? Color.rgb(255, 100, 100) : Color.rgb(90, 180, 90);
 
         View dateView = (View) view.findViewById(R.id.layoutInvestRecordDate);
-        dateView.setBackgroundColor(color);
+        dateView.setBackgroundColor((beanInvestRecord.mQuota == 0) ? Color.rgb(128, 128, 128) : color);
 
         TextView date = (TextView) view.findViewById(R.id.textViewInvestRecordDate);
         date.setText(beanInvestRecord.mDate);
