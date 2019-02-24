@@ -13,7 +13,7 @@ public class Constant {
     public static final String FRAGMENT_FLAG_TRADE = "交易";
     public static final String FRAGMENT_FLAG_INVEST = "定投";
     public static final String FRAGMENT_FLAG_CHANCE = "机会";
-    public static final String FRAGMENT_FLAG_MORE = "更多";
+    public static final String FRAGMENT_FLAG_MORE = "资讯";
 
     public static final int INDEX_SZZS = 0;
     public static final int INDEX_HSSB = 1;

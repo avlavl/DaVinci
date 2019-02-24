@@ -1,6 +1,7 @@
 package com.aioros.investor;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import static com.aioros.investor.R.id.webView;
  */
 
 public class FragmentMore extends BaseFragment {
-    private WebView mWebView;
+    public WebView mWebView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class FragmentMore extends BaseFragment {
 
         //WebView加载web资源
         //mWebView.loadUrl("https://www.jisilu.cn/question/15659");
-        mWebView.loadUrl("http://data.etfquant.cn");
+        mWebView.loadUrl("http://m.jrj.com.cn/");    // http://m.hexun.com/
         return view;
     }
 

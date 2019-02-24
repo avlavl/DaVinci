@@ -20,6 +20,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.widget.Toast;
 
@@ -156,6 +157,16 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         }
 
         setTabSelection(tag); //切换Fragment
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (TextUtils.equals(FRAGMENT_FLAG_MORE, currFragTag) && (keyCode == KeyEvent.KEYCODE_BACK) && mFragmentMore.mWebView.canGoBack()) {
+            mFragmentMore.mWebView.goBack();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 
     private void setDefaultFirstFragment(String tag) {
