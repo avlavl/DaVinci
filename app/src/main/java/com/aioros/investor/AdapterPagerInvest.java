@@ -153,11 +153,8 @@ public class AdapterPagerInvest extends PagerAdapter {
 
     private void mLayoutRecordOnClick(int position, int item) {
         ArrayList<StrategyInvest.RecordData> recordDataList = mInvestBeanList.get(2 * position + item).mRecordDataList;
-        ArrayList<StrategyInvest.RecordData> recordDataList1 = mInvestBeanList.get(2 * position).mRecordDataList;
-        ArrayList<StrategyInvest.RecordData> recordDataList2 = mInvestBeanList.get(2 * position + 1).mRecordDataList;
+        float coe = (float) (mInvestBeanList.get(2 * position).mDivisor + mInvestBeanList.get(2 * position + 1).mDivisor) / mInvestBeanList.get(2 * position + ((item + 1) % 2)).mDivisor;
         int investLogs = recordDataList.size();
-        int investLogs1 = recordDataList1.size();
-        int investLogs2 = recordDataList2.size();
         int showLogs = mInvestBeanList.get(2 * position + item).mWeeks;
         String[] dataArray = new String[investLogs];
         Double[] priceArray = new Double[investLogs];
@@ -170,9 +167,9 @@ public class AdapterPagerInvest extends PagerAdapter {
             dataArray[i] = recordDataList.get(investLogs - 1 - i).date;
             priceArray[i] = recordDataList.get(investLogs - 1 - i).price;
             costArray[i] = recordDataList.get(investLogs - 1 - i).cost;
-            quotaArray[i] = recordDataList1.get(investLogs1 - 1 - i).input + recordDataList2.get(investLogs2 - 1 - i).input;
-            amountArray[i] = recordDataList1.get(investLogs1 - 1 - i).totalInput + recordDataList2.get(investLogs2 - 1 - i).totalInput;
-            yieldArray[i] = recordDataList1.get(investLogs1 - 1 - i).profit + recordDataList2.get(investLogs2 - 1 - i).profit;
+            quotaArray[i] = recordDataList.get(investLogs - 1 - i).input * coe;
+            amountArray[i] = recordDataList.get(investLogs - 1 - i).totalInput;
+            yieldArray[i] = recordDataList.get(investLogs - 1 - i).profit;
             ratioArray[i] = yieldArray[i] * 100 / amountArray[i];
         }
 
