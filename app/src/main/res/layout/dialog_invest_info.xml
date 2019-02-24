@@ -31,15 +31,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="11058.26"
-                android:textColor="?android:attr/colorPressedHighlight"
+                android:text="11轮"
+                android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="当前资产"
+                android:text="定投轮数"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -55,15 +55,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="993.26"
-                android:textColor="?android:attr/colorPressedHighlight"
+                android:text="189397.23元"
+                android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="起始资金"
+                android:text="累加投入"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -79,8 +79,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="10065.0"
-                android:textColor="?android:attr/colorPressedHighlight"
+                android:text="45121.66元"
+                android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
             <TextView
@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="751.522%"
+                android:text="23.824%"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="标的收益率"
+                android:text="总收益率"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -133,7 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="1013.330%"
+                android:text="18.842年"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -141,7 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="系统收益率"
+                android:text="测试年限"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -159,7 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="1.348"
+                android:text="406笔"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -167,7 +167,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="系统标的比"
+                android:text="定投笔数"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -185,7 +185,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="19.042%"
+                android:text="41.296%"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -193,7 +193,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="系统年化率"
+                android:text="定投时间比"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -211,7 +211,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="13.826年"
+                android:text="1.969年"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -219,7 +219,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="测试周期"
+                android:text="最长周期"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -243,7 +243,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="7.316年"
+                android:text="99次"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -251,7 +251,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="持仓周期"
+                android:text="最长定投轮"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -269,7 +269,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="52.766%"
+                android:text="33.46次"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -277,7 +277,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="持仓时间比"
+                android:text="平均定投轮"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -295,7 +295,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="21.724天"
+                android:text="万32.22"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -303,7 +303,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="平均持仓期"
+                android:text="平均日化率"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -320,15 +320,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="30.0天"
-                android:textColor="@color/colorRed1"
+                android:text="248.168天"
+                android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="平均盈利期"
+                android:text="平均持仓期"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -352,15 +352,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="13.0天"
-                android:textColor="@color/colorGreen4"
+                android:text="86183.63元"
+                android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="平均亏损期"
+                android:text="最大投入"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -378,7 +378,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="21.098%"
+                android:text="17217.93元"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -386,7 +386,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="标准年化率"
+                android:text="平均投入"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -404,15 +404,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="39.876%"
-                android:textColor="@color/colorWhite"
+                android:text="-11256.63元"
+                android:textColor="@color/colorGreen4"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="持仓年化率"
+                android:text="最大亏损"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -430,15 +430,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="2.372%"
-                android:textColor="@color/colorWhite"
+                android:text="-30.141%"
+                android:textColor="@color/colorGreen4"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="单次均收益"
+                android:text="最大回撤比"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -460,7 +460,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="123次"
+                android:text="0.6572"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -468,7 +468,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="交易次数"
+                android:text="平均负离差"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -484,15 +484,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="59次"
-                android:textColor="@color/colorRed1"
+                android:text="0.2135"
+                android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="盈利次数"
+                android:text="最小负离差"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -510,15 +510,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="64次"
-                android:textColor="@color/colorGreen4"
+                android:text="1.877"
+                android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="亏损次数"
+                android:text="平均买入比"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
@@ -536,7 +536,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="47.967%"
+                android:text="10.136"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -544,7 +544,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="胜率(P)"
+                android:text="最大买入比"
                 android:textColor="@color/colorgray81"
                 android:textSize="11sp" />
 
