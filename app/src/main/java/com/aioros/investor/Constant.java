@@ -16,29 +16,30 @@ public class Constant {
     public static final String FRAGMENT_FLAG_MORE = "资讯";
 
     public static final int INDEX_SZZS = 0;
-    public static final int INDEX_HSSB = 1;
-    public static final int INDEX_ZZWB = 2;
-    public static final int INDEX_CYBZ = 3;
-    public static final int INDEX_QZYY = 4;
-    public static final int INDEX_ZZJG = 5;
-    public static final int INDEX_SWZQ = 6;
-    public static final int INDEX_YLCY = 7;
-    public static final int INDEX_ZZCM = 8;
-    public static final int INDEX_ZGHL = 9;
-    public static final int INDEX_METF = 10;
+    public static final int INDEX_SZCZ = 1;
+    public static final int INDEX_CYBZ = 2;
+    public static final int INDEX_HSSB = 3;
+    public static final int INDEX_ZZWB = 4;
+    public static final int INDEX_QZYY = 5;
+    public static final int INDEX_ZZJG = 6;
+    public static final int INDEX_SWZQ = 7;
+    public static final int INDEX_YLCY = 8;
+    public static final int INDEX_ZZCM = 9;
+    public static final int INDEX_ZGHL = 10;
+    public static final int INDEX_METF = 11;
 
     public static final int INDEX_TRADE_ZGHL = 3;
 
-    public static final int NUMBER_STOCK = 10;
+    public static final int NUMBER_STOCK = 11;
     public static final int NUMBER_METF = 9;
     public static final int NUMBER_TRADE_ITEM = 4;
     public static final int NUMBER_INVEST_ITEM = 3;
 
-    public static final String STOCK_CODE_STR = "s_sh000001,s_sh000300,s_sh000905,s_sz399006,s_sh000991,s_sz399967,s_sz399707,s_sz399812,s_sz399971,s_sz164906,";
+    public static final String STOCK_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399707,s_sz399812,s_sz399971,s_sz164906,";
     public static final String METF_CODE_STR = "s_sh511990,s_sh511880,s_sh511660,s_sh511810,s_sh511690,s_sh511900,s_sh511830,s_sh511980,s_sh511650";
 
-    public static final String[] HOME_STOCK_NAMES = new String[]{"上证指数", "沪深300", "中证500", "创业板指", "全指医药", "中证军工", "申万证券", "养老产业", "中证传媒", "中国互联"};
-    public static final String[] HOME_STOCK_CODES = new String[]{"000001", "000300", "000905", "399006", "000991", "399967", "399707", "399812", "399971", "164906"};
+    public static final String[] HOME_STOCK_NAMES = new String[]{"上证指数", "深证成指", "创业板指", "沪深300", "中证500", "全指医药", "中证军工", "申万证券", "养老产业", "中证传媒", "中国互联"};
+    public static final String[] HOME_STOCK_CODES = new String[]{"000001", "399001", "399006", "000300", "000905", "000991", "399967", "399707", "399812", "399971", "164906"};
     public static final String[] CHANCE_METF_NAMES = new String[]{"华宝添益", "银华日利", "建信添益", "理财金H", "交易货币", "富国货币", "华泰货币", "现金添富", "华夏快线"};
     public static final String[] CHANCE_METF_CODES = new String[]{"511990", "511880", "511660", "511810", "511690", "511900", "511830", "511980", "511650"};
     public static final String[] TRADE_FILE_NAMES = new String[]{"全指医药", "中证军工", "创业板指", "中国互联", "沪深300"};
