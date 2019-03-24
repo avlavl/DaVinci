@@ -75,6 +75,7 @@ public class FragmentHome extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        //view.setFitsSystemWindows(true);
         Log.d(TAG, "onCreateView---->");
         mFragmentManager = getActivity().getFragmentManager();
         mListView = (ListView) view.findViewById(R.id.listViewStock);

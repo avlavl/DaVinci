@@ -16,12 +16,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.io.File;
@@ -100,6 +102,16 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
 
         new NetworkThread().start();
         mHandler.postDelayed(runnable, 3000);
+
+        //判断SDK版本是否大于等于4.4  因为该属性只有19版本才能设置
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+//            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+//            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
+//                    localLayoutParams.flags);
+            getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
     }
 
     @Override

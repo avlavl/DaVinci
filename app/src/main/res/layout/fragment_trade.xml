@@ -7,6 +7,11 @@
     android:layout_alignParentTop="true"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/colorRed" />
+
     <RelativeLayout
         android:id="@+id/layoutHeadChance"
         android:layout_width="match_parent"
