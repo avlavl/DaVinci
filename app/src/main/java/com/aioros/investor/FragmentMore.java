@@ -34,11 +34,12 @@ public class FragmentMore extends BaseFragment {
         });
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         //WebView加载web资源
         //mWebView.loadUrl("https://www.jisilu.cn/question/15659");
-        mWebView.loadUrl("http://m.jrj.com.cn/");    // http://m.hexun.com/
+        mWebView.loadUrl("https://m.yicai.com");    // http://m.hexun.com/
+        mWebView.reload();
         return view;
     }
 
