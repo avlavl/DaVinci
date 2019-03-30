@@ -161,7 +161,7 @@ public class AdapterPagerTrade extends PagerAdapter {
     }
 
     private void mListViewOnItemClick(int position, int item) {
-        int[] idxArray = new int[]{INDEX_QZYY, INDEX_ZZJG, INDEX_CYBZ, INDEX_ZGHL};
+        int[] idxArray = new int[]{INDEX_QZYY, INDEX_ZZJG, INDEX_SWZQ, INDEX_HSSB, INDEX_CYBZ, INDEX_ZGHL};
         BeanTradeMode tradeMode = mBeanTradeModeLists.get(position).get(item);
         TradeCheck tradeCheck = mTradeCheckList.get(position);
         ArrayList<String> dateList = (tradeCheck.rows2 == 0) ? tradeCheck.dateList : tradeCheck.dateList2;

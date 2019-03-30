@@ -28,11 +28,11 @@ public class Constant {
     public static final int INDEX_ZGHL = 10;
     public static final int INDEX_METF = 11;
 
-    public static final int INDEX_TRADE_ZGHL = 3;
+    public static final int INDEX_TRADE_ZGHL = 5;
 
     public static final int NUMBER_STOCK = 11;
     public static final int NUMBER_METF = 9;
-    public static final int NUMBER_TRADE_ITEM = 4;
+    public static final int NUMBER_TRADE_ITEM = 6;
     public static final int NUMBER_INVEST_ITEM = 3;
 
     public static final String STOCK_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399707,s_sz399812,s_sz399971,s_sz164906,";
@@ -53,6 +53,14 @@ public class Constant {
             {       // 中证军工
                     "MA 1,14 40000C", "BARLML -76,8,4 20000B",
                     "BARLMS -50,17,2 12000C", "BARLML 97,18,8 8000c"
+            },
+            {       // 申万证券
+                    "DIFMA -80,2,19 15000C", "DIFMA -14,9,130 15000B",
+                    "BARMA 14,1,40 15000c", "BARLMS 8,13,3 15000c"
+            },
+            {       // 沪深300
+                    "BARMA -11,2,115 20000C", "DIFMA -36,1,119 20000B",
+                    "BARLMS -27,17,3 10000b", "DIFLMS -44,17,3 10000a"
             },
             {       // 创业板指
                     "DIFMA -42,7,15 15000C", "BARLML -55,7,4 15000A",
