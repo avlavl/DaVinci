@@ -32,7 +32,7 @@ public class Constant {
 
     public static final int NUMBER_STOCK = 11;
     public static final int NUMBER_METF = 9;
-    public static final int NUMBER_TRADE_ITEM = 6;
+    public static final int NUMBER_TRADE_ITEM = 5;
     public static final int NUMBER_INVEST_ITEM = 3;
 
     public static final String STOCK_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399707,s_sz399812,s_sz399971,s_sz164906,";
@@ -42,8 +42,8 @@ public class Constant {
     public static final String[] HOME_STOCK_CODES = new String[]{"000001", "399001", "399006", "000300", "000905", "000991", "399967", "399707", "399812", "399971", "164906"};
     public static final String[] CHANCE_METF_NAMES = new String[]{"华宝添益", "银华日利", "建信添益", "理财金H", "交易货币", "富国货币", "华泰货币", "现金添富", "华夏快线"};
     public static final String[] CHANCE_METF_CODES = new String[]{"511990", "511880", "511660", "511810", "511690", "511900", "511830", "511980", "511650"};
-    public static final String[] TRADE_FILE_NAMES = new String[]{"全指医药", "中证军工", "创业板指", "中国互联", "沪深300"};
-    public static final String[] TRADE_FILE_CODES = new String[]{"h000991", "z399967", "z399006", "z164906", "h000300"};
+    public static final String[] TRADE_FILE_NAMES = new String[]{"全指医药", "中证军工", "创业板指", "申万证券", "沪深300"};
+    public static final String[] TRADE_FILE_CODES = new String[]{"h000991", "z399967", "z399006", "z399707", "h000300"};
 
     public static final String[][] STOCK_PARA_ARRAY = {
             {       // 全指医药
@@ -65,9 +65,9 @@ public class Constant {
             {       // 创业板指
                     "DIFMA -42,7,15 15000C", "BARLML -55,7,4 15000A",
                     "BARLMS -62,8,4 15000b", "DIFMA 63,3,18 5000b"
-            },
-            {       // 中国互联
-                    "BARMA -10,10,23 15000B", "BARDIF -7,-17 25000B", "DIFLMS 2,6,2 10000a"
             }
+//            {       // 中国互联
+//                    "BARMA -10,10,23 15000B", "BARDIF -7,-17 25000B", "DIFLMS 2,6,2 10000a"
+//            }
     };
 }
