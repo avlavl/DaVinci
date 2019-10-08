@@ -77,13 +77,6 @@ public class AdapterPagerTrade extends PagerAdapter {
                 fileUtility.importDataFile2("investor/data/" + mFragmentTrade.mTabTitles[position] + ".txt");
             }
             TradeCheck tradeCheck = new TradeCheck(fileUtility);
-            if (position == INDEX_TRADE_ZGHL) {
-                ArrayList<Double> zoomCloseList = new ArrayList<>();
-                for (int i = 0; i < tradeCheck.rows; i++) {
-                    zoomCloseList.add(tradeCheck.closeList.get(i) * 1000);
-                }
-                tradeCheck.closeList = zoomCloseList;
-            }
             mTradeCheckList.set(position, tradeCheck);
 
             for (BeanTradeMode tradeMode : mBeanTradeModeLists.get(position)) {
@@ -114,9 +107,6 @@ public class AdapterPagerTrade extends PagerAdapter {
                         break;
                     default:
                         break;
-                }
-                if (position == INDEX_TRADE_ZGHL) {
-                    tradeMode.mKeyPoint /= 1000;
                 }
             }
         }
@@ -166,13 +156,6 @@ public class AdapterPagerTrade extends PagerAdapter {
         TradeCheck tradeCheck = mTradeCheckList.get(position);
         ArrayList<String> dateList = (tradeCheck.rows2 == 0) ? tradeCheck.dateList : tradeCheck.dateList2;
         ArrayList<Double> closeList = (tradeCheck.rows2 == 0) ? tradeCheck.closeList : tradeCheck.closeList2;
-        if (position == INDEX_TRADE_ZGHL) {
-            ArrayList<Double> zoomCloseList = new ArrayList<>();
-            for (int i = 0; i < tradeCheck.rows; i++) {
-                zoomCloseList.add(tradeCheck.closeList.get(i) / 1000);
-            }
-            closeList = zoomCloseList;
-        }
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.spIdxList.add(tradeCheck.rows - 1);
         }

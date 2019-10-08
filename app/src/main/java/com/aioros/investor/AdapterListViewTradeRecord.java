@@ -65,10 +65,10 @@ public class AdapterListViewTradeRecord extends BaseAdapter {
         days.setText(String.format("%d天", beanTradeRecord.mDays));
 
         TextView bp = (TextView) view.findViewById(R.id.textViewTradeRecordBp);
-        bp.setText(String.format((mPosition == INDEX_TRADE_ZGHL) ? "%.3f" : "%.2f", beanTradeRecord.mBpVal));
+        bp.setText(String.format("%.2f", beanTradeRecord.mBpVal));
 
         TextView sp = (TextView) view.findViewById(R.id.textViewTradeRecordSp);
-        sp.setText(String.format((mPosition == INDEX_TRADE_ZGHL) ? "%.3f" : "%.2f", beanTradeRecord.mSpVal));
+        sp.setText(String.format("%.2f", beanTradeRecord.mSpVal));
 
         TextView yield = (TextView) view.findViewById(R.id.textViewTradeRecordYield);
         yield.setText(String.format("%.2f", beanTradeRecord.mYield));
