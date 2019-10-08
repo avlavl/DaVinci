@@ -41,6 +41,7 @@ public class FragmentTrade extends BaseFragment {
     private FileUtility fileUtility = new FileUtility();
     public Handler mHandler;
     private String latestDate;
+    private String updateDate;
     public String[][] mMarketDatas;
     public String mTabTitles[] = new String[]{"全指医药", "中证军工", "申万证券", "沪深300", "贵州茅台"};
     public String mBaseNames[] = new String[]{"沪深300", "中证军工", "申万证券", "沪深300", "贵州茅台"};
@@ -77,7 +78,7 @@ public class FragmentTrade extends BaseFragment {
                 String message = (String) msg.obj;
                 Toast.makeText(mMainActivity, message, Toast.LENGTH_LONG).show();
                 if (message.equals("更新成功！"))
-                    mTextViewDate.setText(latestDate);
+                    mTextViewDate.setText(updateDate);
             }
         };
     }
@@ -117,10 +118,10 @@ public class FragmentTrade extends BaseFragment {
         updateStockData(itemIndex);
 
         fileUtility.importDataFile1("investor/data/" + TRADE_FILE_NAMES[0] + ".txt");
-        String fileDate = fileUtility.dateList1.get(fileUtility.rows1 - 1);
+        latestDate = fileUtility.dateList1.get(fileUtility.rows1 - 1);
         mTextViewDate = (TextView) view.findViewById(R.id.textViewTradeDate);
-        mTextViewDate.setText(fileDate);
-        checkDataUpdate(fileDate);
+        mTextViewDate.setText(latestDate);
+        checkDataUpdate();
 
         return view;
     }
@@ -149,22 +150,11 @@ public class FragmentTrade extends BaseFragment {
         }
     }
 
-    private void checkDataUpdate(String date) {
+    private void checkDataUpdate() {
         String currentDate = TimeUtility.getCurrentDate();
-        if ((!currentDate.equals(date)) && (isCheckTime())) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(mMainActivity);
-            builder.setIcon(R.drawable.market_select);
-            builder.setTitle("数据更新");
-            builder.setMessage("有新的交易数据，请及时更新数据库。");
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Thread udt = new UpdateDataThread();
-                    udt.start();
-                }
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+        if ((!currentDate.equals(latestDate)) && (isCheckTime())) {
+            Thread udt = new UpdateDataThread();
+            udt.start();
         }
     }
 
@@ -191,8 +181,10 @@ public class FragmentTrade extends BaseFragment {
                             return;
                         } else {
                             String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
-                            latestDate = strs[30].replace("-", "/");
-                            String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f\r", latestDate,
+                            updateDate = strs[30].replace("-", "/");
+                            if (updateDate.equals(latestDate))
+                                return;
+                            String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f\r", updateDate,
                                     Double.parseDouble(strs[1]), Double.parseDouble(strs[4]), Double.parseDouble(strs[5]), Double.parseDouble(strs[3]));
                             PrintWriter pw = new PrintWriter(new FileWriter(file, true));
                             pw.println(dataStr);
