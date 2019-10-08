@@ -42,9 +42,9 @@ public class FragmentTrade extends BaseFragment {
     public Handler mHandler;
     private String latestDate;
     public String[][] mMarketDatas;
-    public String mTabTitles[] = new String[]{"全指医药", "中证军工", "申万证券", "沪深300", "创业板指"};
-    public String mBaseNames[] = new String[]{"沪深300", "中证军工", "申万证券", "沪深300", "创业板指"};
-    private int[] mIdxBase = new int[]{INDEX_HSSB, INDEX_ZZJG, INDEX_SWZQ, INDEX_HSSB, INDEX_CYBZ};
+    public String mTabTitles[] = new String[]{"全指医药", "中证军工", "申万证券", "沪深300", "贵州茅台"};
+    public String mBaseNames[] = new String[]{"沪深300", "中证军工", "申万证券", "沪深300", "贵州茅台"};
+    private int[] mIdxBase = new int[]{INDEX_HSSB, INDEX_ZZJG, INDEX_SWZQ, INDEX_HSSB, INDEX_GZMT};
     private int[] mIdxSelf = new int[]{INDEX_QZYY, 0, 0, 0, 0};
     private int itemIndex = 0;
     public double[] mRealPoints = new double[NUMBER_TRADE_ITEM];
