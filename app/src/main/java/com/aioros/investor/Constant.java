@@ -45,20 +45,20 @@ public class Constant {
 
     public static final String[][] STOCK_PARA_ARRAY = {
             {       // 全指医药
-                    "DIFMA -14,1,37 35000C", "MA 10,176 25000A",
-                    "DIFLMS 20,18,2 17000b", "BARLML 65,7,2 3000c"
+                    "DIFMA -11,1,37 30000C", "MA 10,176 30000A",
+                    "DIFLMS 20,18,2 16000b", "BARLML 56,7,2 4000c"
             },
             {       // 中证军工
-                    "MA 1,14 40000C", "BARLML -76,8,4 20000B",
-                    "BARLMS -50,17,2 12000C", "BARLML 97,18,8 8000c"
+                    "MA 1,14 40000C", "BARLML -77,8,4 20000B",
+                    "BARLMS -50,17,2 12000C", "BARMA 74,10,144 8000c"
             },
             {       // 申万证券
-                    "DIFMA -80,2,19 15000C", "DIFMA -14,9,130 15000B",
-                    "BARMA 14,1,40 15000c", "BARLMS 8,13,3 15000c"
+                    "DIFMA -80,2,19 22000C", "DIFMA -14,9,130 20000B",
+                    "BARLMS 8,13,3 12000c", "BARLMS 100,11,3 6000c"
             },
             {       // 沪深300
-                    "BARMA -11,2,115 20000C", "DIFMA -36,1,119 20000B",
-                    "BARLMS -27,17,3 10000b", "DIFLMS -44,17,3 10000a"
+                    "BARMA -27,2,115 20000C", "MA 4,151 20000B",
+                    "DIFLMS 21,17,3 10000b", "DIFLMS -36,18,3 10000a"
             },
             {       // 贵州茅台
                     "MA 9,200 100000A"
