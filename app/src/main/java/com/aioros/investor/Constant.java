@@ -34,8 +34,6 @@ public class Constant {
     public static final int NUMBER_INVEST_ITEM = 3;
 
     public static final String STOCK_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399707,s_sz399812,s_sz399971,s_sh600519";
-    public static final String METF_CODE_STR = ",s_sh511990,s_sh511880,s_sh511660,s_sh511810,s_sh511690,s_sh511900,s_sh511830,s_sh511980,s_sh511650";
-
     public static final String[] HOME_STOCK_NAMES = new String[]{"上证指数", "深证成指", "创业板指", "沪深300", "中证500", "全指医药", "中证军工", "申万证券", "养老产业", "中证传媒", "贵州茅台"};
     public static final String[] HOME_STOCK_CODES = new String[]{"000001", "399001", "399006", "000300", "000905", "000991", "399967", "399707", "399812", "399971", "600519"};
     public static final String[] TRADE_FILE_NAMES = new String[]{"全指医药", "中证军工", "申万证券", "沪深300", "贵州茅台"};

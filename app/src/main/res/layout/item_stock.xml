@@ -18,8 +18,8 @@
             android:id="@+id/textViewStockName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="上证指数"
-            android:textColor="#E0E0E0"
+            android:text="投资人"
+            android:textColor="@color/colorLightGolden"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -27,7 +27,7 @@
             android:id="@+id/textViewStockCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="000001"
+            android:text="518888"
             android:textColor="#909090"
             android:textSize="13sp"
             android:textStyle="bold" />
@@ -35,23 +35,22 @@
 
     <TextView
         android:id="@+id/textViewStockValue"
-        android:layout_width="95dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:gravity="right"
-        android:text="3100.00"
-        android:textColor="@color/colorRed"
+        android:text="188.8"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textViewStockScope"
-        android:layout_width="70dp"
+        android:id="@+id/textViewStockProb"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:gravity="right"
-        android:text="12.36"
-        android:textColor="@color/colorRed"
+        android:gravity="center"
+        android:text="98%"
+        android:textColor="@color/colorLightGolden"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -64,7 +63,7 @@
         android:background="@color/colorRed"
         android:gravity="center"
         android:padding="5dp"
-        android:text="0.12%"
+        android:text="8.88%"
         android:textColor="@color/colorWhite"
         android:textSize="16sp"
         android:textStyle="bold" />

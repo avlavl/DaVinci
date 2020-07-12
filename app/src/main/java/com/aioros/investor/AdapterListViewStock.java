@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by aizhang on 2017/6/18.
+ * Created by aizhang on 2018/1/12.
  */
 
 public class AdapterListViewStock extends BaseAdapter {
@@ -67,9 +67,8 @@ public class AdapterListViewStock extends BaseAdapter {
         value.setText(mStockBeanList.get(position).mStockValue);
         value.setTextColor(colorF);
 
-        TextView scope = (TextView) view.findViewById(R.id.textViewStockScope);
-        scope.setText(mStockBeanList.get(position).mStockScope);
-        scope.setTextColor(colorF);
+        TextView prob = (TextView) view.findViewById(R.id.textViewStockProb);
+        prob.setText(String.format("%.1f%%", Double.parseDouble(mStockBeanList.get(position).mStockProb) * 100));
 
         TextView ratio = (TextView) view.findViewById(R.id.textViewStockRatio);
         ratio.setText(mStockBeanList.get(position).mStockRatio);

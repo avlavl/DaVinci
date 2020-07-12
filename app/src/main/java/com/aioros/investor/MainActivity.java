@@ -57,7 +57,6 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public String[][] mMarketDatas = new String[21][6];
 
     private Handler mHandler;
-    private int mEventStatus = 0;  // 0: initial, 1: trigger, 2: maintain, -1: clear
     private String mStockCodeStr;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -99,11 +98,6 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                     new NetworkThread().start();
                 } else {
                     delay = 60000;
-                }
-                if (mEventStatus == 1) {
-                    mEventStatus = 2;
-                    mBottomPanel.chanceBtnNotice();
-                    pushNotice("投资人", "通知：货币基金组合进入投资域 ...");
                 }
                 mHandler.postDelayed(this, delay);
             }
@@ -167,14 +161,6 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             tag = FRAGMENT_FLAG_CHANCE;
         } else if ((itemId & BTN_FLAG_MORE) != 0) {
             tag = FRAGMENT_FLAG_MORE;
-        }
-
-        if (mEventStatus > 0) {
-            if ((itemId & BTN_FLAG_CHANCE) != 0) {
-                mEventStatus = -1;
-            } else {
-                mBottomPanel.chanceBtnNotice();
-            }
         }
 
         setTabSelection(tag); //切换Fragment
@@ -373,15 +359,6 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                     mMarketDatas[i][2] = String.format("%.2f", Double.parseDouble(strs[1]));
                     mMarketDatas[i][3] = String.format("%.2f", Double.parseDouble(strs[2]));
                     mMarketDatas[i][4] = strs[3];
-                }
-            }
-
-            if (mEventStatus == 0) {
-                for (int i = 0; i < NUMBER_STOCK; i++) {
-                    if (Double.parseDouble(mMarketDatas[INDEX_STOCK + i][1]) < 99.8) {
-                        mEventStatus = 1;
-                        break;
-                    }
                 }
             }
 

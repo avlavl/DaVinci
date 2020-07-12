@@ -41,7 +41,7 @@ public class FragmentHome extends BaseFragment {
     private EditText mEditText;
     private ImageView mImageView;
     private Button mButton;
-    private AdapterListViewStock mAdapterListView;
+    private AdapterListViewIndex mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
     public String[][] mMarketDatas;
     private Handler handlerRx;
@@ -79,7 +79,7 @@ public class FragmentHome extends BaseFragment {
         Log.d(TAG, "onCreateView---->");
         mFragmentManager = getActivity().getFragmentManager();
         mListView = (ListView) view.findViewById(R.id.listViewStock);
-        mAdapterListView = new AdapterListViewStock(mMainActivity, mBeanStockList);
+        mAdapterListView = new AdapterListViewIndex(mMainActivity, mBeanStockList);
         mListView.setAdapter(mAdapterListView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

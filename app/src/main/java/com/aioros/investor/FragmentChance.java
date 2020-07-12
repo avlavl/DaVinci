@@ -25,7 +25,7 @@ public class FragmentChance extends BaseFragment {
     private static final String TAG = "FragmentChance";
     private MainActivity mMainActivity;
     private ListView mListView;
-    private AdapterListViewMetf mAdapterListView;
+    private AdapterListViewStock mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
     public String[][] mMarketDatas;
 
@@ -59,7 +59,7 @@ public class FragmentChance extends BaseFragment {
         Log.d(TAG, "onCreateView---->");
         mFragmentManager = getActivity().getFragmentManager();
         mListView = (ListView) view.findViewById(R.id.listViewChance);
-        mAdapterListView = new AdapterListViewMetf(mMainActivity, mBeanStockList);
+        mAdapterListView = new AdapterListViewStock(mMainActivity, mBeanStockList);
         mListView.setAdapter(mAdapterListView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -127,14 +127,5 @@ public class FragmentChance extends BaseFragment {
     }
 
     private void mListViewOnItemClick(AdapterView<?> parent, View view, int position, long id) {
-        double value = Double.parseDouble(mBeanStockList.get(position).mStockValue);
-        double yield = 0;
-        if (value < 100) {
-            yield = 10000 * (100 - value) / value;
-            Toast.makeText(mMainActivity, String.format("预购收益：万%.1f  ", yield) + ((yield > 10) ? "买入" : "等待"), Toast.LENGTH_SHORT).show();
-        } else {
-            yield = 100 * (value - 100);
-            Toast.makeText(mMainActivity, String.format("预沽收益：万%.1f  ", yield) + ((yield > 10) ? "卖出" : "等待"), Toast.LENGTH_SHORT).show();
-        }
     }
 }
