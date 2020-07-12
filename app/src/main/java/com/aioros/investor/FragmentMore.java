@@ -30,7 +30,7 @@ public class FragmentMore extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_more, container, false);
         mWebView = (WebView) view.findViewById(webView);
         //WebView加载web资源
-        mWebView.loadUrl("https://m.yicai.com");
+        mWebView.loadUrl("http://120.55.49.62/show.php");
         mWebView.reload();
 
         //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
@@ -48,6 +48,7 @@ public class FragmentMore extends BaseFragment {
         settings.setBuiltInZoomControls(true);
 
         mTextView1 = (TextView) view.findViewById(R.id.textViewWeb1);
+        mTextView1.setTextColor(Color.rgb(240, 160, 80));
         mTextView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +60,6 @@ public class FragmentMore extends BaseFragment {
             }
         });
         mTextView2 = (TextView) view.findViewById(R.id.textViewWeb2);
-        mTextView2.setTextColor(Color.rgb(240, 160, 80));
         mTextView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
