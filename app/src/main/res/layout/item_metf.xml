@@ -18,16 +18,16 @@
             android:id="@+id/textViewMetfName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="华宝添益"
+            android:text="投资人"
             android:textColor="@color/colorLightGolden"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewMetfCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="511990"
+            android:text="518888"
             android:textColor="#909090"
             android:textSize="13sp"
             android:textStyle="bold" />
@@ -39,22 +39,23 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:gravity="left"
-        android:text="100.025"
+        android:text="188.8"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textViewDailyRate"
+        android:id="@+id/textViewMetfProb"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:gravity="left"
-        android:text="万 2.3"
+        android:text="98%"
+        android:textColor="@color/colorLightGolden"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textViewAnualRatio"
+        android:id="@+id/textViewMetfRatio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -62,7 +63,7 @@
         android:background="@color/colorRed"
         android:gravity="center"
         android:padding="5dp"
-        android:text="8.12%"
+        android:text="8.88%"
         android:textColor="@color/colorWhite"
         android:textSize="16sp"
         android:textStyle="bold" />

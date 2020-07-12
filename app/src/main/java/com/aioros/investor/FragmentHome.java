@@ -52,7 +52,7 @@ public class FragmentHome extends BaseFragment {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
-        for (int i = 0; i < NUMBER_STOCK; i++) {
+        for (int i = 0; i < NUMBER_INDEX; i++) {
             mBeanStockList.add(new BeanStock(HOME_STOCK_NAMES[i], HOME_STOCK_CODES[i], "--", "0.00", "0.00%"));
         }
 
@@ -62,10 +62,10 @@ public class FragmentHome extends BaseFragment {
             @Override
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
-                for (int i = 0; i < NUMBER_STOCK; i++) {
-                    mBeanStockList.get(i).mStockValue = mMarketDatas[i][1];
-                    mBeanStockList.get(i).mStockScope = mMarketDatas[i][2];
-                    mBeanStockList.get(i).mStockRatio = mMarketDatas[i][3] + "%";
+                for (int i = 0; i < NUMBER_INDEX; i++) {
+                    mBeanStockList.get(i).mStockValue = mMarketDatas[i][2];
+                    mBeanStockList.get(i).mStockScope = mMarketDatas[i][3];
+                    mBeanStockList.get(i).mStockRatio = mMarketDatas[i][4] + "%";
                 }
                 mAdapterListView.notifyDataSetChanged();
             }

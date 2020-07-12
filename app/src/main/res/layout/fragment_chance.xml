@@ -7,15 +7,16 @@
     android:orientation="vertical">
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:background="@color/colorDeepSkyBlue" />
+        android:background="@color/colorGold" />
 
     <RelativeLayout
         android:id="@+id/layoutHeadChance"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorDeepSkyBlue">
+        android:background="@color/colorGold">
 
         <TextView
             android:id="@+id/textViewHeadChance"
@@ -23,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="货币ETF基金"
+            android:text="选股模型"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -41,12 +42,12 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:gravity="center"
-            android:text="指数代码"
+            android:text="股票代码"
             android:textColor="@color/colorgray81"
             android:textSize="13sp" />
 
         <TextView
-            android:layout_width="90dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
@@ -57,13 +58,13 @@
             android:textSize="13sp" />
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:gravity="left"
             android:paddingLeft="8dp"
-            android:text="日收益"
+            android:text="上涨概率"
             android:textColor="@color/colorgray81"
             android:textSize="13sp" />
 
@@ -73,7 +74,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:gravity="center"
-            android:text="年化收益"
+            android:text="涨幅"
             android:textColor="@color/colorgray81"
             android:textSize="13sp" />
     </LinearLayout>

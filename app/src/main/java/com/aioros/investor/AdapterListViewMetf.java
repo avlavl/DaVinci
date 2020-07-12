@@ -43,13 +43,17 @@ public class AdapterListViewMetf extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        int color = Color.DKGRAY;
+        int colorF = Color.DKGRAY;
+        int colorB = Color.DKGRAY;
         if (mStockBeanList.get(position).mStockValue.contains("--")) {
-            color = Color.DKGRAY;
-        } else if (Double.parseDouble(mStockBeanList.get(position).mStockValue) > 100) {
-            color = Color.HSVToColor(new float[]{300.f, 0.2f + 4 * (Float.parseFloat(mStockBeanList.get(position).mStockValue) - 100), 0.5f});
-        } else if (Double.parseDouble(mStockBeanList.get(position).mStockValue) < 100) {
-            color = Color.HSVToColor(new float[]{180.f, 0.2f + 4 * (100 - Float.parseFloat(mStockBeanList.get(position).mStockValue)), 0.5f});
+            colorF = Color.DKGRAY;
+            colorB = Color.DKGRAY;
+        } else if (Double.parseDouble(mStockBeanList.get(position).mStockScope) > 0) {
+            colorF = Color.rgb(240, 0, 0);
+            colorB = Color.rgb(200, 0, 0);
+        } else if (Double.parseDouble(mStockBeanList.get(position).mStockScope) < 0) {
+            colorF = Color.rgb(0, 200, 0);
+            colorB = Color.rgb(0, 128, 0);
         }
         View view = mInflater.inflate(R.layout.item_metf, null);
 
@@ -61,15 +65,14 @@ public class AdapterListViewMetf extends BaseAdapter {
 
         TextView value = (TextView) view.findViewById(R.id.textViewMetfValue);
         value.setText(mStockBeanList.get(position).mStockValue);
-        value.setTextColor(color);
+        value.setTextColor(colorF);
 
-        TextView rate = (TextView) view.findViewById(R.id.textViewDailyRate);
-        rate.setText(mStockBeanList.get(position).getDailyRate());
-        rate.setTextColor(color);
+        TextView prob = (TextView) view.findViewById(R.id.textViewMetfProb);
+        prob.setText(String.format("%.1f%%", Double.parseDouble(mStockBeanList.get(position).mStockProb) * 100));
 
-        TextView ratio = (TextView) view.findViewById(R.id.textViewAnualRatio);
-        ratio.setText(mStockBeanList.get(position).getAnualRatio());
-        ratio.setBackgroundColor(color);
+        TextView ratio = (TextView) view.findViewById(R.id.textViewMetfRatio);
+        ratio.setText(mStockBeanList.get(position).mStockRatio);
+        ratio.setBackgroundColor(colorB);
 
         return view;
     }

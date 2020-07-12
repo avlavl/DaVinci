@@ -35,8 +35,8 @@ public class FragmentChance extends BaseFragment {
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
         mMarketDatas = mMainActivity.mMarketDatas;
-        for (int i = 0; i < NUMBER_METF; i++) {
-            mBeanStockList.add(new BeanStock(CHANCE_METF_NAMES[i], CHANCE_METF_CODES[i], mMarketDatas[INDEX_METF + i][1], mMarketDatas[INDEX_METF + i][2], mMarketDatas[INDEX_METF + i][3] + "%"));
+        for (int i = 0; i < NUMBER_STOCK; i++) {
+            mBeanStockList.add(new BeanStock(mMarketDatas[INDEX_STOCK + i][0], mMarketDatas[INDEX_STOCK + i][1], mMarketDatas[INDEX_STOCK + i][2], mMarketDatas[INDEX_STOCK + i][3], mMarketDatas[INDEX_STOCK + i][4] + "%", mMarketDatas[INDEX_STOCK + i][5]));
         }
 
         // 在主线程中声明一个消息处理对象Handler
@@ -45,8 +45,8 @@ public class FragmentChance extends BaseFragment {
             @Override
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
-                for (int i = 0; i < NUMBER_METF; i++) {
-                    mBeanStockList.get(i).mStockValue = mMarketDatas[INDEX_METF + i][1];
+                for (int i = 0; i < NUMBER_STOCK; i++) {
+                    mBeanStockList.get(i).mStockValue = mMarketDatas[INDEX_STOCK + i][2];
                 }
                 mAdapterListView.notifyDataSetChanged();
             }

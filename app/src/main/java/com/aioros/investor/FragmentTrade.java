@@ -57,7 +57,7 @@ public class FragmentTrade extends BaseFragment {
         mMainActivity = (MainActivity) getActivity();
         mMarketDatas = mMainActivity.mMarketDatas;
         for (int i = 0; i < mRealPoints.length; i++) {
-            mRealPoints[i] = Double.parseDouble(mMarketDatas[mIdxBase[i]][1]);
+            mRealPoints[i] = Double.parseDouble(mMarketDatas[mIdxBase[i]][2]);
         }
         // 在主线程中声明一个消息处理对象Handler
         mMainActivity.mTradeHandler = new Handler() {
@@ -66,7 +66,7 @@ public class FragmentTrade extends BaseFragment {
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
                 for (int i = 0; i < mRealPoints.length; i++) {
-                    mRealPoints[i] = Double.parseDouble(mMarketDatas[mIdxBase[i]][1]);
+                    mRealPoints[i] = Double.parseDouble(mMarketDatas[mIdxBase[i]][2]);
                 }
                 updateStockData(mViewPager.getCurrentItem());
             }
@@ -135,14 +135,14 @@ public class FragmentTrade extends BaseFragment {
     public void updateStockData(int index) {
         String[][] marketDatas = mMarketDatas;
         mTextViewBaseName.setText(mBaseNames[index] + ": ");
-        mTextViewBaseData.setText(marketDatas[mIdxBase[index]][3] + "% " + marketDatas[mIdxBase[index]][1]);
+        mTextViewBaseData.setText(marketDatas[mIdxBase[index]][4] + "% " + marketDatas[mIdxBase[index]][2]);
         mTextViewBaseData.setTextColor((Double.parseDouble(marketDatas[mIdxBase[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
 
         if (mIdxSelf[index] != 0) {
             mTextViewSelfName.setVisibility(View.VISIBLE);
             mTextViewSelfData.setVisibility(View.VISIBLE);
             mTextViewSelfName.setText(mTabTitles[index] + ": ");
-            mTextViewSelfData.setText(marketDatas[mIdxSelf[index]][3] + "% " + marketDatas[mIdxSelf[index]][1]);
+            mTextViewSelfData.setText(marketDatas[mIdxSelf[index]][4] + "% " + marketDatas[mIdxSelf[index]][2]);
             mTextViewSelfData.setTextColor((Double.parseDouble(marketDatas[mIdxSelf[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
         } else {
             mTextViewSelfName.setVisibility(View.INVISIBLE);

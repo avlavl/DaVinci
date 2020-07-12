@@ -65,7 +65,7 @@ public class FragmentInvest extends BaseFragment {
             closeArray[i] = fileUtility.closeList1.get(fileUtility.rows1 - 1);
             if (weeksArray[i] > 0) {
                 for (int j = 0; j < 2; j++) {
-                    mBeanInvestList.get(2 * i + j).mRealPoint = Double.parseDouble(mMarketDatas[indexArray[i]][1]);
+                    mBeanInvestList.get(2 * i + j).mRealPoint = Double.parseDouble(mMarketDatas[indexArray[i]][2]);
                     StrategyInvest strategyInvest = new StrategyInvest(fileUtility);
                     strategyInvest.sysInvestEva(mBeanInvestList.get(2 * i + j));
                     mBeanInvestList.get(2 * i + j).mRecordDataList = strategyInvest.recordDataList;
@@ -96,7 +96,7 @@ public class FragmentInvest extends BaseFragment {
                 for (int i = 0; i < indexArray.length; i++) {
                     if (weeksArray[i] > 0) {
                         for (int j = 0; j < 2; j++) {
-                            mBeanInvestList.get(2 * i + j).mRealPoint = Double.parseDouble(mMarketDatas[indexArray[i]][1]);
+                            mBeanInvestList.get(2 * i + j).mRealPoint = Double.parseDouble(mMarketDatas[indexArray[i]][2]);
                             double basePoint = mBeanInvestList.get(2 * i + j).mStartPoint + weeksArray[i] * mBeanInvestList.get(2 * i + j).mSlope;
                             mBeanInvestList.get(2 * i + j).mBasePoint = basePoint;
                             mBeanInvestList.get(2 * i + j).mDispersion = mBeanInvestList.get(2 * i + j).mRealPoint / basePoint;

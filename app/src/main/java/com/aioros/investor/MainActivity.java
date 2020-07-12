@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import com.aioros.investor.BottomControlPanel.BottomPanelCallback;
 
@@ -53,10 +54,11 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public Handler mTradeHandler;
     public Handler mInvestHandler;
     public Handler mChanceHandler;
-    public String[][] mMarketDatas = new String[20][4];
+    public String[][] mMarketDatas = new String[21][6];
 
     private Handler mHandler;
     private int mEventStatus = 0;  // 0: initial, 1: trigger, 2: maintain, -1: clear
+    private String mStockCodeStr;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -78,6 +80,13 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         setDefaultFirstFragment(FRAGMENT_FLAG_HOME);
 
         verifyStoragePermissions(this);
+
+        FileUtility fileUtility = new FileUtility();
+        fileUtility.importStockData("investor/data/stocks.txt");
+        mStockCodeStr = fileUtility.stockCodeStr;
+        for (int i = 0; i < NUMBER_STOCK; i++) {
+            mMarketDatas[INDEX_STOCK + i][5] = fileUtility.probList.get(i);
+        }
 
         // 在主线程中声明一个消息处理对象Handler
         mHandler = new Handler();
@@ -333,7 +342,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         public void run() {
             String httpStr = "";
             do {
-                String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=" : "http://hq.sinajs.cn/list=") + STOCK_CODE_STR + METF_CODE_STR;
+                String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=" : "http://hq.sinajs.cn/list=") + STOCK_CODE_STR + mStockCodeStr;
                 HttpUtility httpUtility = new HttpUtility();
                 httpStr = httpUtility.getData(urlStr);
                 if (httpStr.equals("")) {
@@ -353,21 +362,23 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 if (mDataSource == 0) {
                     String[] strs = items[i].substring(items[i].indexOf("\"") + 1, items[i].lastIndexOf("\"")).split("~");
                     mMarketDatas[i][0] = strs[1];
-                    mMarketDatas[i][1] = strs[3];
-                    mMarketDatas[i][2] = strs[4];
-                    mMarketDatas[i][3] = strs[5];
+                    mMarketDatas[i][1] = strs[2];
+                    mMarketDatas[i][2] = strs[3];
+                    mMarketDatas[i][3] = strs[4];
+                    mMarketDatas[i][4] = strs[5];
                 } else {
                     String[] strs = items[i].substring(items[i].indexOf("\"") + 1, items[i].lastIndexOf("\"")).split(",");
                     mMarketDatas[i][0] = strs[0];
-                    mMarketDatas[i][1] = String.format("%.3f", Double.parseDouble(strs[1]));
-                    mMarketDatas[i][2] = String.format("%.3f", Double.parseDouble(strs[2]));
-                    mMarketDatas[i][3] = strs[3];
+                    mMarketDatas[i][1] = items[i].substring(items[i].indexOf("=") - 6, items[i].lastIndexOf("="));
+                    mMarketDatas[i][2] = String.format("%.2f", Double.parseDouble(strs[1]));
+                    mMarketDatas[i][3] = String.format("%.2f", Double.parseDouble(strs[2]));
+                    mMarketDatas[i][4] = strs[3];
                 }
             }
 
             if (mEventStatus == 0) {
-                for (int i = 0; i < NUMBER_METF; i++) {
-                    if (Double.parseDouble(mMarketDatas[INDEX_METF + i][1]) < 99.8) {
+                for (int i = 0; i < NUMBER_STOCK; i++) {
+                    if (Double.parseDouble(mMarketDatas[INDEX_STOCK + i][1]) < 99.8) {
                         mEventStatus = 1;
                         break;
                     }

@@ -24,6 +24,9 @@ public class FileUtility {
     public ArrayList<Double> closeList2;
     public int rows1 = 0;
     public int rows2 = 0;
+    public String stockCodeStr = "";
+    public ArrayList<String> nameList;
+    public ArrayList<String> probList;
 
     public FileUtility() {
         storageDirectory = Environment.getExternalStorageDirectory() + "/";
@@ -80,6 +83,37 @@ public class FileUtility {
                 closeList2.add(Double.parseDouble(words[4]));
             }
             rows2 = closeList2.size();
+            br.close();
+            isr.close();
+            return 0;
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public int importStockData(String fileName) {
+        nameList = new ArrayList<>();
+        probList = new ArrayList<>();
+        try {
+            File file = new File(storageDirectory + fileName);
+            if (!file.exists()) {
+                return -1;
+            }
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "gbk");
+            BufferedReader br = new BufferedReader(isr);
+            br.readLine();
+            br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split(":");
+                if (words.length == 3) {
+                    String[] cs = words[0].split("\\.");
+                    stockCodeStr += ",s_" + cs[1].toLowerCase() + cs[0];
+                    nameList.add(words[1]);
+                    probList.add(words[2]);
+                }
+            }
             br.close();
             isr.close();
             return 0;
