@@ -185,7 +185,7 @@ public class AdapterPagerTrade extends PagerAdapter {
             bpValArray[i] = closeList.get(bpIdxList.get(tradeLogs - i - 1));
             if (tradeMode.mStatus) {
                 spDateArray[i] = (i == 0) ? TimeUtility.getCurrentDate() : dateList.get(spIdxList.get(tradeLogs - 1 - i));
-                spValArray[i] = (i == 0) ? Double.parseDouble(mFragmentTrade.mMarketDatas[idxArray[position]][1]) : closeList.get(spIdxList.get(tradeLogs - 1 - i));
+                spValArray[i] = (i == 0) ? Double.parseDouble(mFragmentTrade.mMarketDatas[idxArray[position]][2]) : closeList.get(spIdxList.get(tradeLogs - 1 - i));
             } else {
                 spDateArray[i] = dateList.get(spIdxList.get(tradeLogs - i - 1));
                 spValArray[i] = closeList.get(spIdxList.get(tradeLogs - i - 1));
