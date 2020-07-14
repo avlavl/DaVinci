@@ -80,4 +80,10 @@ public class TimeUtility {
         String currentDate = sdf.format(new Date());
         return currentDate;
     }
+
+    public static String getCurrentDateSimple() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String currentDate = sdf.format(new Date());
+        return currentDate;
+    }
 }

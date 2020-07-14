@@ -40,6 +40,25 @@ public class HttpUtility {
         return sb.toString();
     }
 
+    public String getHtmlData(String urlStr) {
+        StringBuffer sb = new StringBuffer();
+        BufferedReader br = null;
+        String line = null;
+
+        try {
+            mUrl = new URL(urlStr);
+            HttpURLConnection urlConnection = (HttpURLConnection) mUrl.openConnection();
+            br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
     public int updateFile(String urlStr, String path, String name) {
         StringBuffer sb = new StringBuffer();
         BufferedReader br = null;

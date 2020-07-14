@@ -25,6 +25,7 @@ public class FileUtility {
     public int rows1 = 0;
     public int rows2 = 0;
     public String stockCodeStr = "";
+    public String aiTraderDate = "";
     public ArrayList<String> nameList;
     public ArrayList<String> probList;
 
@@ -102,11 +103,11 @@ public class FileUtility {
             }
             InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "gbk");
             BufferedReader br = new BufferedReader(isr);
-            br.readLine();
-            br.readLine();
-            String line;
+            String line = br.readLine();
+            String[] words = line.split(":");
+            aiTraderDate = words[1];
             while ((line = br.readLine()) != null) {
-                String[] words = line.split(":");
+                words = line.split(":");
                 if (words.length == 3) {
                     String[] cs = words[0].split("\\.");
                     stockCodeStr += ",s_" + cs[1].toLowerCase() + cs[0];

@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -27,11 +28,15 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import com.aioros.investor.BottomControlPanel.BottomPanelCallback;
 
 import static com.aioros.investor.Constant.*;
+import static com.aioros.investor.TimeUtility.isCheckTime;
 import static com.aioros.investor.TimeUtility.isTradeTime;
 
 public class MainActivity extends FragmentActivity implements BottomPanelCallback {
@@ -57,7 +62,9 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public String[][] mMarketDatas = new String[21][6];
 
     private Handler mHandler;
+    private Handler mAiHandler;
     private String mStockCodeStr;
+    private String mAiTraderDate;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -81,11 +88,13 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         verifyStoragePermissions(this);
 
         FileUtility fileUtility = new FileUtility();
-        fileUtility.importStockData("investor/data/stocks.txt");
+        fileUtility.importStockData("investor/data/aiTrader.txt");
         mStockCodeStr = fileUtility.stockCodeStr;
+        mAiTraderDate = fileUtility.aiTraderDate;
         for (int i = 0; i < NUMBER_STOCK; i++) {
             mMarketDatas[INDEX_STOCK + i][5] = fileUtility.probList.get(i);
         }
+        checkAiTraderUpdate();
 
         // 在主线程中声明一个消息处理对象Handler
         mHandler = new Handler();
@@ -105,6 +114,14 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
 
         new NetworkThread().start();
         mHandler.postDelayed(runnable, 3000);
+
+        mAiHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                String message = (String) msg.obj;
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+            }
+        };
 
         //判断SDK版本是否大于等于4.4  因为该属性只有19版本才能设置
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
@@ -382,6 +399,53 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 msgRx.obj = mMarketDatas;
                 mChanceHandler.sendMessage(msgRx);
             }
+        }
+    }
+
+    private void checkAiTraderUpdate() {
+        String currentDate = TimeUtility.getCurrentDateSimple();
+        if ((!currentDate.equals(mAiTraderDate)) && (isCheckTime())) {
+            Thread uatt = new UpdateAiTraderThread();
+            uatt.start();
+        }
+    }
+
+    class UpdateAiTraderThread extends Thread {
+        @Override
+        public void run() {
+            Message msg = mAiHandler.obtainMessage();
+            String storageDir = Environment.getExternalStorageDirectory().toString();
+            String filePath = storageDir + "/investor/data/aiTrader.txt";
+            File file = new File(filePath);
+            if (file.exists()) {
+                file.delete();
+            }
+            try {
+                String urlStr = "http://120.55.49.62/show.php";
+                HttpUtility httpUtility = new HttpUtility();
+                String httpStr = httpUtility.getHtmlData(urlStr);
+                if (httpStr.equals("")) {
+                    msg.obj = "网络无连接！";
+                    mAiHandler.sendMessage(msg);
+                    return;
+                } else if (httpStr.contains("\"\"")) {
+                    msg.obj = "找不到对应的股票！";
+                    mAiHandler.sendMessage(msg);
+                    return;
+                } else {
+                    String str = httpStr.substring(3, httpStr.indexOf("</br>") - 4);
+                    String strs[] = str.split("</p><p>");
+                    PrintWriter pw = new PrintWriter(new FileWriter(file, true));
+                    for (int i = 0; i < strs.length; i++) {
+                        pw.println(strs[i]);
+                    }
+                    pw.close();
+                }
+            } catch (IOException | NumberFormatException e) {
+                e.printStackTrace();
+            }
+            msg.obj = "智能选股已更新！";
+            mAiHandler.sendMessage(msg);
         }
     }
 }
