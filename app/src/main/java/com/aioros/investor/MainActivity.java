@@ -65,6 +65,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     private Handler mAiHandler;
     private String mStockCodeStr;
     private String mAiTraderDate;
+    private FileUtility fileUtility;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -87,7 +88,24 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
 
         verifyStoragePermissions(this);
 
-        FileUtility fileUtility = new FileUtility();
+        mAiHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                String message = (String) msg.obj;
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                if (message.equals("智能选股已更新！")) {
+                    fileUtility.importStockData("investor/data/aiTrader.txt");
+                    mStockCodeStr = fileUtility.stockCodeStr;
+                    mAiTraderDate = fileUtility.aiTraderDate;
+                    for (int i = 0; i < NUMBER_STOCK; i++) {
+                        mMarketDatas[INDEX_STOCK + i][5] = fileUtility.probList.get(i);
+                    }
+
+                }
+            }
+        };
+
+        fileUtility = new FileUtility();
         fileUtility.importStockData("investor/data/aiTrader.txt");
         mStockCodeStr = fileUtility.stockCodeStr;
         mAiTraderDate = fileUtility.aiTraderDate;
@@ -114,14 +132,6 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
 
         new NetworkThread().start();
         mHandler.postDelayed(runnable, 3000);
-
-        mAiHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                String message = (String) msg.obj;
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-            }
-        };
 
         //判断SDK版本是否大于等于4.4  因为该属性只有19版本才能设置
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
