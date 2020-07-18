@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:background="@color/colorGold"
         android:gravity="center"
-        android:padding="8dp"
+        android:padding="10dp"
         android:text="今日选股"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
@@ -85,7 +85,12 @@
         android:layout_height="285dp" />
 
     <TextView
+        android:id="@+id/textViewChanceTopx"
         android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="@color/colorGold" />
+        android:layout_height="30dp"
+        android:background="@color/colorGold"
+        android:gravity="center"
+        android:text="TOP10"
+        android:textColor="@color/colorWhite"
+        android:textSize="13sp" />
 </LinearLayout>
