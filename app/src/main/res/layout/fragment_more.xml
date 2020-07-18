@@ -31,7 +31,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1.0"
                 android:gravity="center"
-                android:text="选股"
+                android:text="一财"
                 android:textColor="@color/colorgray81"
                 android:textSize="13sp" />
 
@@ -44,7 +44,7 @@
                 android:layout_weight="1.0"
                 android:gravity="center"
                 android:paddingRight="5dp"
-                android:text="一财"
+                android:text="头条"
                 android:textColor="@color/colorgray81"
                 android:textSize="13sp" />
 
@@ -57,7 +57,7 @@
                 android:layout_weight="1.0"
                 android:gravity="center"
                 android:paddingRight="5dp"
-                android:text="和讯"
+                android:text="港股"
                 android:textColor="@color/colorgray81"
                 android:textSize="13sp" />
 
@@ -69,7 +69,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1.0"
                 android:gravity="center"
-                android:text="港股"
+                android:text="选股"
                 android:textColor="@color/colorgray81"
                 android:textSize="13sp" />
         </LinearLayout>
