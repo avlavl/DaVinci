@@ -14,12 +14,14 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.aioros.investor.Constant.*;
+import static com.aioros.investor.TimeUtility.isAiCheckTime;
 
 /**
  * Created by aizhang on 2017/6/7.
@@ -91,6 +93,7 @@ public class FragmentChance extends BaseFragment {
                 buttonOnClick(v);
             }
         });
+        mButtonChance.setVisibility(isAiCheckTime() ? View.VISIBLE : View.INVISIBLE);
 
         return view;
     }
@@ -166,14 +169,16 @@ public class FragmentChance extends BaseFragment {
                 String urlStr = "http://120.55.49.62/show.php";
                 HttpUtility httpUtility = new HttpUtility();
                 String httpStr = httpUtility.getHtmlData(urlStr);
+                String aiUpdateInfo;
                 if (httpStr.contains("aitrader")) {
                     String str = httpStr.substring(3, httpStr.indexOf("</br>") - 4);
                     String strs[] = str.split("</p><p>");
                     String codeStr = "";
-                    String aiTraderDate = "";
+                    String[] words = strs[0].split(":");
+                    aiUpdateInfo = words[2].toUpperCase();
                     ArrayList<String> probList = new ArrayList<>();
-                    for (int i = 2; i < strs.length; i++) {
-                        String[] words = strs[i].split(":");
+                    for (int i = 2; i < 12; i++) {
+                        words = strs[i].split(":");
                         if (words.length == 3) {
                             String[] cs = words[0].split("\\.");
                             codeStr += ((i == 2) ? "s_" : ",s_") + cs[1].toLowerCase() + cs[0];
@@ -218,6 +223,8 @@ public class FragmentChance extends BaseFragment {
                     alertDialog.show();
                     Window window = alertDialog.getWindow();
                     window.setContentView(R.layout.dialog_chance_stocks);
+                    TextView topx = (TextView) window.findViewById(R.id.textViewChanceTopx);
+                    topx.setText(aiUpdateInfo);
 
                     ListView listView = (ListView) window.findViewById(R.id.listViewChanceStocks);
                     AdapterListViewChanceStocks adapterListView = new AdapterListViewChanceStocks(mMainActivity, mStockDatas);
