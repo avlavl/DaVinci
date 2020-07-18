@@ -55,6 +55,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public static String currFragTag = "";
     public static int mDataSource = 0;
 
+    public Handler mMainHandler;
     public Handler mHomeHandler;
     public Handler mTradeHandler;
     public Handler mInvestHandler;
@@ -62,7 +63,6 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public String[][] mMarketDatas = new String[21][6];
 
     private Handler mHandler;
-    private Handler mAiHandler;
     private String mStockCodeStr;
     private String mAiTraderDate;
     private FileUtility fileUtility;
@@ -88,7 +88,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
 
         verifyStoragePermissions(this);
 
-        mAiHandler = new Handler() {
+        mMainHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 String message = (String) msg.obj;
@@ -100,7 +100,6 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                     for (int i = 0; i < NUMBER_STOCK; i++) {
                         mMarketDatas[INDEX_STOCK + i][5] = fileUtility.probList.get(i);
                     }
-
                 }
             }
         };
@@ -353,15 +352,15 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     class NetworkThread extends Thread {
         @Override
         public void run() {
+            Message msg = mMainHandler.obtainMessage();
             String httpStr = "";
             do {
                 String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=" : "http://hq.sinajs.cn/list=") + STOCK_CODE_STR + mStockCodeStr;
                 HttpUtility httpUtility = new HttpUtility();
                 httpStr = httpUtility.getData(urlStr);
                 if (httpStr.equals("")) {
-                    Looper.prepare();
-                    Toast.makeText(MainActivity.this, "无网络连接！", Toast.LENGTH_LONG).show();
-                    Looper.loop();
+                    msg.obj = "无网络连接！";
+                    mMainHandler.sendMessage(msg);
                     return;
                 } else if (httpStr.contains("pv_none_match")) {
                     mDataSource = 1;
@@ -423,7 +422,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     class UpdateAiTraderThread extends Thread {
         @Override
         public void run() {
-            Message msg = mAiHandler.obtainMessage();
+            Message msg = mMainHandler.obtainMessage();
             String storageDir = Environment.getExternalStorageDirectory().toString();
             String filePath = storageDir + "/investor/data/aiTrader.txt";
             File file = new File(filePath);
@@ -434,15 +433,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 String urlStr = "http://120.55.49.62/show.php";
                 HttpUtility httpUtility = new HttpUtility();
                 String httpStr = httpUtility.getHtmlData(urlStr);
-                if (httpStr.equals("")) {
-                    msg.obj = "网络无连接！";
-                    mAiHandler.sendMessage(msg);
-                    return;
-                } else if (httpStr.contains("\"\"")) {
-                    msg.obj = "找不到对应的股票！";
-                    mAiHandler.sendMessage(msg);
-                    return;
-                } else {
+                if (httpStr.contains("aitrader")) {
                     String str = httpStr.substring(3, httpStr.indexOf("</br>") - 4);
                     String strs[] = str.split("</p><p>");
                     PrintWriter pw = new PrintWriter(new FileWriter(file, true));
@@ -450,12 +441,16 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                         pw.println(strs[i]);
                     }
                     pw.close();
+                } else {
+                    msg.obj = "无法访问服务器！";
+                    mMainHandler.sendMessage(msg);
+                    return;
                 }
             } catch (IOException | NumberFormatException e) {
                 e.printStackTrace();
             }
             msg.obj = "智能选股已更新！";
-            mAiHandler.sendMessage(msg);
+            mMainHandler.sendMessage(msg);
         }
     }
 }

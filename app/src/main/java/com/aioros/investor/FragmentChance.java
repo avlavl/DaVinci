@@ -34,6 +34,7 @@ public class FragmentChance extends BaseFragment {
     public String[][] mMarketDatas;
     public String[][] mStockDatas = new String[10][5];
     private Button mButtonChance;
+    public Handler mHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,14 @@ public class FragmentChance extends BaseFragment {
                     mBeanStockList.get(i).mStockValue = mMarketDatas[INDEX_STOCK + i][2];
                 }
                 mAdapterListView.notifyDataSetChanged();
+            }
+        };
+
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                String message = (String) msg.obj;
+                Toast.makeText(mMainActivity, message, Toast.LENGTH_LONG).show();
             }
         };
     }
@@ -152,16 +161,12 @@ public class FragmentChance extends BaseFragment {
     class UpdateTestThread extends Thread {
         @Override
         public void run() {
-            //Message msg = mAiHandler.obtainMessage();
+            Message msg = mHandler.obtainMessage();
             try {
                 String urlStr = "http://120.55.49.62/show.php";
                 HttpUtility httpUtility = new HttpUtility();
                 String httpStr = httpUtility.getHtmlData(urlStr);
-                if (httpStr.equals("")) {
-                    //msg.obj = "网络无连接！";
-                    //mAiHandler.sendMessage(msg);
-                    return;
-                } else {
+                if (httpStr.contains("aitrader")) {
                     String str = httpStr.substring(3, httpStr.indexOf("</br>") - 4);
                     String strs[] = str.split("</p><p>");
                     String codeStr = "";
@@ -180,9 +185,8 @@ public class FragmentChance extends BaseFragment {
                         urlStr = ((dataSouce == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=" : "http://hq.sinajs.cn/list=") + codeStr;
                         httpStr = httpUtility.getData(urlStr);
                         if (httpStr.equals("")) {
-                            Looper.prepare();
-                            Toast.makeText(mMainActivity, "无网络连接！", Toast.LENGTH_LONG).show();
-                            Looper.loop();
+                            msg.obj = "无网络连接！";
+                            mHandler.sendMessage(msg);
                             return;
                         } else if (httpStr.contains("pv_none_match")) {
                             dataSouce = 1;
@@ -219,13 +223,14 @@ public class FragmentChance extends BaseFragment {
                     AdapterListViewChanceStocks adapterListView = new AdapterListViewChanceStocks(mMainActivity, mStockDatas);
                     listView.setAdapter(adapterListView);
                     Looper.loop();
+                } else {
+                    msg.obj = "无法访问服务器！";
+                    mHandler.sendMessage(msg);
+                    return;
                 }
-                System.out.println(mStockDatas);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
-            //msg.obj = "智能选股已更新！";
-            //mAiHandler.sendMessage(msg);
         }
     }
 }
