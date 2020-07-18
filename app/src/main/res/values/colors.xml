@@ -16,6 +16,7 @@
     <color name="colorLightGolden">#FFD000</color>
     <color name="colorMediumGrey">#808080</color>
     <color name="colorItemDivider">#EEEEEE</color>
+    <color name="colorBackground">#F0F0F0</color>
 
     <color name="colorSnow">#FFFAFA</color>
     <color name="colorGhostWhite">#F8F8FF</color>

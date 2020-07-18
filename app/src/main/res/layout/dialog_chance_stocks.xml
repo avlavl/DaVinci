@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/textViewChanceDialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGold"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="今日选股"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="380dp"
+        android:layout_height="2dp"
+        android:background="@color/colorBackground" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="名称"
+            android:textColor="@color/colorBlack2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="代码"
+            android:textColor="@color/colorBlack2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="股价"
+            android:textColor="@color/colorBlack2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="涨幅"
+            android:textColor="@color/colorBlack2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="概率"
+            android:textColor="@color/colorBlack2"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="380dp"
+        android:layout_height="2dp"
+        android:background="@color/colorBackground" />
+
+    <TextView
+        android:layout_width="380dp"
+        android:layout_height="5dp" />
+
+    <ListView
+        android:id="@+id/listViewChanceStocks"
+        android:layout_width="match_parent"
+        android:layout_height="285dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/colorGold" />
+</LinearLayout>

@@ -88,8 +88,29 @@
     <ListView
         android:id="@+id/listViewChance"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
         android:divider="@color/colorDivider"
         android:dividerHeight="1dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPanel2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonChance"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_button_chance"
+            android:text="今日选股"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp" />
+    </LinearLayout>
 
 </LinearLayout>
