@@ -179,7 +179,7 @@ public class FragmentChance extends BaseFragment {
                     ArrayList<String> probList = new ArrayList<>();
                     for (int i = 2; i < 12; i++) {
                         words = strs[i].split(":");
-                        if (words.length == 3) {
+                        if (words.length == 5) {
                             String[] cs = words[0].split("\\.");
                             codeStr += ((i == 2) ? "s_" : ",s_") + cs[1].toLowerCase() + cs[0];
                             probList.add(words[2]);

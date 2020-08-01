@@ -108,7 +108,7 @@ public class FileUtility {
             aiTraderDate = words[1];
             while ((line = br.readLine()) != null) {
                 words = line.split(":");
-                if (words.length == 3) {
+                if (words.length == 5) {
                     String[] cs = words[0].split("\\.");
                     stockCodeStr += ",s_" + cs[1].toLowerCase() + cs[0];
                     nameList.add(words[1]);
