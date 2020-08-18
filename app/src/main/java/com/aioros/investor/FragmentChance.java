@@ -56,6 +56,7 @@ public class FragmentChance extends BaseFragment {
                 mMarketDatas = (String[][]) msg.obj;
                 for (int i = 0; i < NUMBER_STOCK; i++) {
                     mBeanStockList.get(i).mStockValue = mMarketDatas[INDEX_STOCK + i][2];
+                    mBeanStockList.get(i).mStockRatio = mMarketDatas[INDEX_STOCK + i][4] + "%";
                 }
                 mAdapterListView.notifyDataSetChanged();
             }

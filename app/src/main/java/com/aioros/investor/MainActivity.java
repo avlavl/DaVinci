@@ -373,11 +373,11 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             for (int i = 0; i < items.length; i++) {
                 if (mDataSource == 0) {
                     String[] strs = items[i].substring(items[i].indexOf("\"") + 1, items[i].lastIndexOf("\"")).split("~");
-                    mMarketDatas[i][0] = strs[1];
-                    mMarketDatas[i][1] = strs[2];
-                    mMarketDatas[i][2] = strs[3];
-                    mMarketDatas[i][3] = strs[4];
-                    mMarketDatas[i][4] = strs[5];
+                    mMarketDatas[i][0] = strs[1];   // 名称， 如创业板指
+                    mMarketDatas[i][1] = strs[2];   // 代码， 如399006
+                    mMarketDatas[i][2] = strs[3];   // 点位， 如2701.06
+                    mMarketDatas[i][3] = strs[4];   // 涨跌， 如4.67
+                    mMarketDatas[i][4] = strs[5];   // 涨幅， 如0.17
                 } else {
                     String[] strs = items[i].substring(items[i].indexOf("\"") + 1, items[i].lastIndexOf("\"")).split(",");
                     mMarketDatas[i][0] = strs[0];
