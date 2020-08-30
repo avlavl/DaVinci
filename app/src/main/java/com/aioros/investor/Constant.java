@@ -24,7 +24,7 @@ public class Constant {
     public static final int INDEX_ZZJG = 6;
     public static final int INDEX_SWZQ = 7;
     public static final int INDEX_YLCY = 8;
-    public static final int INDEX_ZZCM = 9;
+    public static final int INDEX_YYYB = 9;
     public static final int INDEX_GZMT = 10;
     public static final int INDEX_STOCK = 11;
 
@@ -33,9 +33,9 @@ public class Constant {
     public static final int NUMBER_TRADE_ITEM = 5;
     public static final int NUMBER_INVEST_ITEM = 3;
 
-    public static final String STOCK_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399707,s_sz399812,s_sz399971,s_sh600519";
-    public static final String[] HOME_STOCK_NAMES = new String[]{"上证指数", "深证成指", "创业板指", "沪深300", "中证500", "全指医药", "中证军工", "申万证券", "养老产业", "中证传媒", "贵州茅台"};
-    public static final String[] HOME_STOCK_CODES = new String[]{"000001", "399001", "399006", "000300", "000905", "000991", "399967", "399707", "399812", "399971", "600519"};
+    public static final String STOCK_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399707,s_sz399812,s_sh000978,s_sh600519";
+    public static final String[] HOME_STOCK_NAMES = new String[]{"上证指数", "深证成指", "创业板指", "沪深300", "中证500", "全指医药", "中证军工", "申万证券", "养老产业", "医药100", "贵州茅台"};
+    public static final String[] HOME_STOCK_CODES = new String[]{"000001", "399001", "399006", "000300", "000905", "000991", "399967", "399707", "399812", "000978", "600519"};
     public static final String[] TRADE_FILE_NAMES = new String[]{"全指医药", "中证军工", "申万证券", "沪深300", "贵州茅台"};
     public static final String[] TRADE_FILE_CODES = new String[]{"h000991", "z399967", "z399707", "h000300", "h600519"};
 
