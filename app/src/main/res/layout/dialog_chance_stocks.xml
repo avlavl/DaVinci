@@ -30,7 +30,7 @@
         android:padding="3dp">
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="名称"
@@ -38,7 +38,7 @@
             android:textSize="13sp" />
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="代码"
@@ -46,7 +46,7 @@
             android:textSize="13sp" />
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="股价"
@@ -54,7 +54,7 @@
             android:textSize="13sp" />
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="55dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="涨幅"
@@ -62,10 +62,18 @@
             android:textSize="13sp" />
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="55dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="概率"
+            android:textColor="@color/colorBlack2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="金额"
             android:textColor="@color/colorBlack2"
             android:textSize="13sp" />
     </LinearLayout>

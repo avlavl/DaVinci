@@ -47,6 +47,7 @@ public class AdapterListViewChanceStocks extends BaseAdapter {
         String[] stockData = mStockDatas[position];
         int color = Color.rgb(128, 128, 128);
         double probs = Double.parseDouble(stockData[4]) * 100;
+        double moneys = probs * 550;
         if (probs >= 90) {
             color = Color.rgb(255, 30, 30);
         } else if (probs >= 75) {
@@ -70,6 +71,9 @@ public class AdapterListViewChanceStocks extends BaseAdapter {
 
         TextView prob = (TextView) view.findViewById(R.id.textViewChanceProb);
         prob.setText(String.format("%.1f%%", probs));
+
+        TextView money = (TextView) view.findViewById(R.id.textViewChanceMoney);
+        money.setText(String.format("¥%d", (int)moneys));
 
         return view;
     }

@@ -107,7 +107,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/shape_button_chance"
             android:text="今日选股"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorLightGolden"
             android:textSize="16sp" />
     </LinearLayout>
 
