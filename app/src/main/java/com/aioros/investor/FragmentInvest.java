@@ -40,9 +40,9 @@ public class FragmentInvest extends BaseFragment {
     public Handler mHandler;
     private String latestDate;
     public String[][] mMarketDatas;
-    private String mTabTitles[] = new String[]{"申万证券", "养老产业", "中证传媒"};
-    private String mTabCodes[] = new String[]{"z399707", "z399812", "z399971"};
-    private int[] indexArray = new int[]{INDEX_SWZQ, INDEX_YLCY, INDEX_ZZCM};
+    private String mTabTitles[] = new String[]{"申万证券", "养老产业", "中证500"};
+    private String mTabCodes[] = new String[]{"z399707", "z399812", "h000905"};
+    private int[] indexArray = new int[]{INDEX_SWZQ, INDEX_YLCY, INDEX_ZZWB};
     private int[] weeksArray = new int[NUMBER_INVEST_ITEM];
     private double[] closeArray = new double[NUMBER_INVEST_ITEM];
 
@@ -56,8 +56,8 @@ public class FragmentInvest extends BaseFragment {
         mBeanInvestList.add(new BeanInvest(1000, 6.9, 0.8, 1.5, 25, 2));
         mBeanInvestList.add(new BeanInvest(1250, 10.3, 1, 2, 108, 0.5));    // 1/108 + 1/36 = 1/27
         mBeanInvestList.add(new BeanInvest(1250, 10.3, 1, 2, 36, 2));
-        mBeanInvestList.add(new BeanInvest(1780, 2.9, 0.9, 2, 24, 0.5));    // 1/24 + 1/12 = 1/8
-        mBeanInvestList.add(new BeanInvest(1780, 2.9, 0.9, 2, 12, 1));
+        mBeanInvestList.add(new BeanInvest(2300, 6.3, 1, 2, 48, 0.3));    // 1/48 + 1/24 = 1/16
+        mBeanInvestList.add(new BeanInvest(2300, 6.3, 1, 2, 24, 2));
 
         for (int i = 0; i < indexArray.length; i++) {
             fileUtility.importDataFile1("investor/data/W" + mTabTitles[i] + ".txt");
