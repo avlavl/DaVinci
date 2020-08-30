@@ -31,7 +31,7 @@ public class Constant {
     public static final int NUMBER_INDEX = 11;
     public static final int NUMBER_STOCK = 10;
     public static final int NUMBER_TRADE_ITEM = 5;
-    public static final int NUMBER_INVEST_ITEM = 3;
+    public static final int NUMBER_INVEST_ITEM = 4;
 
     public static final String STOCK_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399707,s_sz399812,s_sh000978,s_sh600519";
     public static final String[] HOME_STOCK_NAMES = new String[]{"上证指数", "深证成指", "创业板指", "沪深300", "中证500", "全指医药", "中证军工", "申万证券", "养老产业", "医药100", "贵州茅台"};
