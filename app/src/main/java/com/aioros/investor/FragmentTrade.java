@@ -172,7 +172,7 @@ public class FragmentTrade extends BaseFragment {
                         HttpUtility httpUtility = new HttpUtility();
                         String httpStr = httpUtility.getData(urlStr);
                         if (httpStr.equals("")) {
-                            msg.obj = "无网络连接！";
+                            msg.obj = "Lose connection!";
                             mHandler.sendMessage(msg);
                             return;
                         } else if (httpStr.contains("\"\"")) {

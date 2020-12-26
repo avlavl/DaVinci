@@ -40,8 +40,7 @@ public class FragmentInvest extends BaseFragment {
     public Handler mHandler;
     private String latestDate;
     public String[][] mMarketDatas;
-    private String mTabTitles[] = new String[]{"申万证券", "养老产业", "医药100", "中证500"};
-    private String mTabCodes[] = new String[]{"z399707", "z399812", "h000978", "h000905"};
+    public static int mDataSource = 0;
     private int[] indexArray = new int[]{INDEX_SWZQ, INDEX_YLCY, INDEX_YYYB, INDEX_ZZWB};
     private int[] weeksArray = new int[NUMBER_INVEST_ITEM];
     private double[] closeArray = new double[NUMBER_INVEST_ITEM];
@@ -62,7 +61,7 @@ public class FragmentInvest extends BaseFragment {
         mBeanInvestList.add(new BeanInvest(2300, 6.3, 1, 2, 24, 2));
 
         for (int i = 0; i < indexArray.length; i++) {
-            fileUtility.importDataFile1("investor/data/W" + mTabTitles[i] + ".txt");
+            fileUtility.importDataFile1("investor/data/W" + INVEST_INDEX_NAMES[i] + ".txt");
             weeksArray[i] = fileUtility.rows1;
             closeArray[i] = fileUtility.closeList1.get(fileUtility.rows1 - 1);
             if (weeksArray[i] > 0) {
@@ -174,31 +173,43 @@ public class FragmentInvest extends BaseFragment {
         public void run() {
             Message msg = mHandler.obtainMessage();
             String storageDir = Environment.getExternalStorageDirectory().toString();
-            for (int i = 0; i < mTabTitles.length; i++) {
-                String filePath = storageDir + "/investor/data/W" + mTabTitles[i] + ".txt";
+            for (int i = 0; i < INVEST_INDEX_NAMES.length; i++) {
+                String filePath = storageDir + "/investor/data/W" + INVEST_INDEX_NAMES[i] + ".txt";
                 File file = new File(filePath);
                 if (file.exists()) {
-                    try {
-                        String urlStr = "http://hq.sinajs.cn/list=s" + mTabCodes[i];
+                    String httpStr = "";
+                    String dataStr = "";
+                    do {
+                        String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=s_s" : "http://hq.sinajs.cn/list=s") + INVEST_INDEX_CODES[i];
                         HttpUtility httpUtility = new HttpUtility();
-                        String httpStr = httpUtility.getData(urlStr);
+                        httpStr = httpUtility.getData(urlStr);
                         if (httpStr.equals("")) {
-                            msg.obj = "网络无连接！";
+                            msg.obj = "Lose connection!";
                             mHandler.sendMessage(msg);
                             return;
+                        } else if (httpStr.contains("pv_none_match")) {
+                            mDataSource = 1;
                         } else if (httpStr.contains("\"\"")) {
-                            msg.obj = "找不到对应的股票！";
-                            mHandler.sendMessage(msg);
-                            return;
-                        } else {
-                            String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
-                            latestDate = strs[30].replace("-", "/");
-                            String dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f\r", latestDate,
-                                    Double.parseDouble(strs[1]), Double.parseDouble(strs[4]), Double.parseDouble(strs[5]), Double.parseDouble(strs[3]));
-                            PrintWriter pw = new PrintWriter(new FileWriter(file, true));
-                            pw.println(dataStr);
-                            pw.close();
+                            mDataSource = 0;
                         }
+                    } while (httpStr.contains("pv_none_match") || httpStr.contains("\"\""));
+
+                    if (mDataSource == 0) {
+                        String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split("~");
+                        latestDate = TimeUtility.getCurrentDate();
+                        dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f\r", latestDate,
+                                Double.parseDouble(strs[3]), Double.parseDouble(strs[3]), Double.parseDouble(strs[3]), Double.parseDouble(strs[3]));
+                    } else {
+                        String[] strs = httpStr.substring(httpStr.indexOf("\"") + 1, httpStr.lastIndexOf("\"")).split(",");
+                        latestDate = strs[30].replace("-", "/");
+                        dataStr = String.format("%s\t%.2f\t%.2f\t%.2f\t%.2f\r", latestDate,
+                                Double.parseDouble(strs[1]), Double.parseDouble(strs[4]), Double.parseDouble(strs[5]), Double.parseDouble(strs[3]));
+                    }
+
+                    try {
+                        PrintWriter pw = new PrintWriter(new FileWriter(file, true));
+                        pw.println(dataStr);
+                        pw.close();
                     } catch (IOException | NumberFormatException e) {
                         e.printStackTrace();
                     }

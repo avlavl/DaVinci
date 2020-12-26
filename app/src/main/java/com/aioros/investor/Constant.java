@@ -38,6 +38,8 @@ public class Constant {
     public static final String[] HOME_STOCK_CODES = new String[]{"000001", "399001", "399006", "000300", "000905", "000991", "399967", "399707", "399812", "000978", "600519"};
     public static final String[] TRADE_FILE_NAMES = new String[]{"全指医药", "中证军工", "申万证券", "沪深300", "贵州茅台"};
     public static final String[] TRADE_FILE_CODES = new String[]{"h000991", "z399967", "z399707", "h000300", "h600519"};
+    public static final String[] INVEST_INDEX_NAMES = new String[]{"申万证券", "养老产业", "医药100", "中证500"};
+    public static final String[] INVEST_INDEX_CODES = new String[]{"z399707", "z399812", "h000978", "h000905"};
 
     public static final String[][] STOCK_PARA_ARRAY = {
             {       // 全指医药
