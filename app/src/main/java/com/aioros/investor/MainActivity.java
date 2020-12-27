@@ -377,7 +377,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
 
             if (mEventStatus == 0) {
                 for (int i = 0; i < NUMBER_CHANCE; i++) {
-                    if (Double.parseDouble(mMarketDatas[INDEX_STOCK + i][1]) < 99.8) {
+                    if (Double.parseDouble(mMarketDatas[INDEX_STOCK + i][2]) < 99.9) {
                         mEventStatus = 1;
                         break;
                     }

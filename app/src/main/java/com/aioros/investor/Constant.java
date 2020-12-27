@@ -35,6 +35,7 @@ public class Constant {
 
     public static final String HOME_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399707,s_sz399812,s_sh000978,s_sh600519";
     public static final String CHANCE_CODE_STR = ",s_sh511990,s_sh511880,s_sh511660,s_sh511810,s_sh511690";
+
     public static final String[] HOME_NAMES = new String[]{"上证指数", "深证成指", "创业板指", "沪深300", "中证500", "全指医药", "中证军工", "申万证券", "养老产业", "医药100", "贵州茅台"};
     public static final String[] HOME_CODES = new String[]{"000001", "399001", "399006", "000300", "000905", "000991", "399967", "399707", "399812", "000978", "600519"};
     public static final String[] TRADE_NAMES = new String[]{"全指医药", "中证军工", "申万证券", "沪深300", "贵州茅台"};

@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:gravity="right"
-        android:text="3100.00"
+        android:text="3500.00"
         android:textColor="@color/colorRed"
         android:textSize="18sp"
         android:textStyle="bold" />
