@@ -28,18 +28,21 @@ public class Constant {
     public static final int INDEX_GZMT = 10;
     public static final int INDEX_STOCK = 11;
 
-    public static final int NUMBER_INDEX = 11;
-    public static final int NUMBER_STOCK = 10;
-    public static final int NUMBER_TRADE_ITEM = 5;
-    public static final int NUMBER_INVEST_ITEM = 4;
+    public static final int NUMBER_HOME = 11;
+    public static final int NUMBER_TRADE = 5;
+    public static final int NUMBER_INVEST = 4;
+    public static final int NUMBER_CHANCE = 5;
 
-    public static final String STOCK_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399707,s_sz399812,s_sh000978,s_sh600519";
-    public static final String[] HOME_STOCK_NAMES = new String[]{"上证指数", "深证成指", "创业板指", "沪深300", "中证500", "全指医药", "中证军工", "申万证券", "养老产业", "医药100", "贵州茅台"};
-    public static final String[] HOME_STOCK_CODES = new String[]{"000001", "399001", "399006", "000300", "000905", "000991", "399967", "399707", "399812", "000978", "600519"};
-    public static final String[] TRADE_FILE_NAMES = new String[]{"全指医药", "中证军工", "申万证券", "沪深300", "贵州茅台"};
-    public static final String[] TRADE_FILE_CODES = new String[]{"h000991", "z399967", "z399707", "h000300", "h600519"};
-    public static final String[] INVEST_INDEX_NAMES = new String[]{"申万证券", "养老产业", "医药100", "中证500"};
-    public static final String[] INVEST_INDEX_CODES = new String[]{"z399707", "z399812", "h000978", "h000905"};
+    public static final String HOME_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399707,s_sz399812,s_sh000978,s_sh600519";
+    public static final String CHANCE_CODE_STR = ",s_sh511990,s_sh511880,s_sh511660,s_sh511810,s_sh511690";
+    public static final String[] HOME_NAMES = new String[]{"上证指数", "深证成指", "创业板指", "沪深300", "中证500", "全指医药", "中证军工", "申万证券", "养老产业", "医药100", "贵州茅台"};
+    public static final String[] HOME_CODES = new String[]{"000001", "399001", "399006", "000300", "000905", "000991", "399967", "399707", "399812", "000978", "600519"};
+    public static final String[] TRADE_NAMES = new String[]{"全指医药", "中证军工", "申万证券", "沪深300", "贵州茅台"};
+    public static final String[] TRADE_CODES = new String[]{"h000991", "z399967", "z399707", "h000300", "h600519"};
+    public static final String[] INVEST_NAMES = new String[]{"申万证券", "养老产业", "医药100", "中证500"};
+    public static final String[] INVEST_CODES = new String[]{"z399707", "z399812", "h000978", "h000905"};
+    public static final String[] CHANCE_NAMES = new String[]{"华宝添益", "银华日利", "建信添益", "理财金H", "交易货币"};
+    public static final String[] CHANCE_CODES = new String[]{"511990", "511880", "511660", "511810", "511690"};
 
     public static final String[][] STOCK_PARA_ARRAY = {
             {       // 全指医药

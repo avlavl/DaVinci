@@ -15,47 +15,46 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewStockName"
+            android:id="@+id/textViewMetfName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="投资人"
+            android:text="华宝添益"
             android:textColor="@color/colorLightGolden"
-            android:textSize="17sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewStockCode"
+            android:id="@+id/textViewMetfCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="518888"
+            android:text="511990"
             android:textColor="#909090"
             android:textSize="13sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textViewStockValue"
-        android:layout_width="80dp"
+        android:id="@+id/textViewMetfValue"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:gravity="right"
-        android:text="188.8"
+        android:gravity="left"
+        android:text="100.025"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textViewStockProb"
-        android:layout_width="80dp"
+        android:id="@+id/textViewDailyRate"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:gravity="center"
-        android:text="98%"
-        android:textColor="@color/colorLightGolden"
+        android:gravity="left"
+        android:text="万 2.3"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textViewStockRatio"
+        android:id="@+id/textViewAnualRatio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -63,7 +62,7 @@
         android:background="@color/colorRed"
         android:gravity="center"
         android:padding="5dp"
-        android:text="8.88%"
+        android:text="8.12%"
         android:textColor="@color/colorWhite"
         android:textSize="16sp"
         android:textStyle="bold" />

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="选股模型"
+            android:text="货币ETF基金"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -37,7 +37,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="85dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
@@ -70,7 +70,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:paddingLeft="8dp"
-            android:text="概率"
+            android:text="日收益"
             android:textColor="@color/colorgray81"
             android:textSize="13sp" />
 
@@ -80,7 +80,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:gravity="center"
-            android:text="涨幅"
+            android:text="年化收益"
             android:textColor="@color/colorgray81"
             android:textSize="13sp" />
     </LinearLayout>
@@ -106,7 +106,7 @@
             android:layout_height="40dp"
             android:layout_margin="5dp"
             android:background="@drawable/shape_button_chance"
-            android:text="今日选股"
+            android:text="机 会"
             android:textColor="@color/colorLightGolden"
             android:textSize="16sp" />
     </LinearLayout>

@@ -13,9 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
@@ -28,15 +26,10 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import com.aioros.investor.BottomControlPanel.BottomPanelCallback;
 
 import static com.aioros.investor.Constant.*;
-import static com.aioros.investor.TimeUtility.isCheckTime;
 import static com.aioros.investor.TimeUtility.isTradeTime;
 
 public class MainActivity extends FragmentActivity implements BottomPanelCallback {
@@ -60,12 +53,10 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public Handler mTradeHandler;
     public Handler mInvestHandler;
     public Handler mChanceHandler;
-    public String[][] mMarketDatas = new String[21][6];
+    public String[][] mMarketDatas = new String[16][5];
 
     private Handler mHandler;
-    private String mStockCodeStr;
-    private String mAiTraderDate;
-    private FileUtility fileUtility;
+    private int mEventStatus = 0;  // 0: initial, 1: trigger, 2: maintain, -1: clear
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -93,25 +84,8 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             public void handleMessage(Message msg) {
                 String message = (String) msg.obj;
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                if (message.equals("智能选股已更新！")) {
-                    fileUtility.importStockData("investor/data/aiTrader.txt");
-                    mStockCodeStr = fileUtility.stockCodeStr;
-                    mAiTraderDate = fileUtility.aiTraderDate;
-                    for (int i = 0; i < NUMBER_STOCK; i++) {
-                        mMarketDatas[INDEX_STOCK + i][5] = fileUtility.probList.get(i);
-                    }
-                }
             }
         };
-
-        fileUtility = new FileUtility();
-        fileUtility.importStockData("investor/data/aiTrader.txt");
-        mStockCodeStr = fileUtility.stockCodeStr;
-        mAiTraderDate = fileUtility.aiTraderDate;
-        for (int i = 0; i < NUMBER_STOCK; i++) {
-            mMarketDatas[INDEX_STOCK + i][5] = fileUtility.probList.get(i);
-        }
-        checkAiTraderUpdate();
 
         // 在主线程中声明一个消息处理对象Handler
         mHandler = new Handler();
@@ -124,6 +98,11 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                     new NetworkThread().start();
                 } else {
                     delay = 60000;
+                }
+                if (mEventStatus == 1) {
+                    mEventStatus = 2;
+                    mBottomPanel.chanceBtnNotice();
+                    pushNotice("投资人", "通知：货币基金组合进入投资域 ...");
                 }
                 mHandler.postDelayed(this, delay);
             }
@@ -187,6 +166,14 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             tag = FRAGMENT_FLAG_CHANCE;
         } else if ((itemId & BTN_FLAG_MORE) != 0) {
             tag = FRAGMENT_FLAG_MORE;
+        }
+
+        if (mEventStatus > 0) {
+            if ((itemId & BTN_FLAG_CHANCE) != 0) {
+                mEventStatus = -1;
+            } else {
+                mBottomPanel.chanceBtnNotice();
+            }
         }
 
         setTabSelection(tag); //切换Fragment
@@ -355,11 +342,11 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             Message msg = mMainHandler.obtainMessage();
             String httpStr = "";
             do {
-                String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=" : "http://hq.sinajs.cn/list=") + STOCK_CODE_STR + mStockCodeStr;
+                String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=" : "http://hq.sinajs.cn/list=") + HOME_CODE_STR + CHANCE_CODE_STR;
                 HttpUtility httpUtility = new HttpUtility();
                 httpStr = httpUtility.getData(urlStr);
                 if (httpStr.equals("")) {
-                    msg.obj = "无网络连接！";
+                    msg.obj = "Lose connection 0 ！";
                     mMainHandler.sendMessage(msg);
                     return;
                 } else if (httpStr.contains("pv_none_match")) {
@@ -388,6 +375,15 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 }
             }
 
+            if (mEventStatus == 0) {
+                for (int i = 0; i < NUMBER_CHANCE; i++) {
+                    if (Double.parseDouble(mMarketDatas[INDEX_STOCK + i][1]) < 99.8) {
+                        mEventStatus = 1;
+                        break;
+                    }
+                }
+            }
+
             if (mHomeHandler != null) {
                 Message msgRx = mHomeHandler.obtainMessage(); // 使用Handler对象创建一个消息体
                 msgRx.obj = mMarketDatas;
@@ -408,49 +404,6 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 msgRx.obj = mMarketDatas;
                 mChanceHandler.sendMessage(msgRx);
             }
-        }
-    }
-
-    private void checkAiTraderUpdate() {
-        String currentDate = TimeUtility.getCurrentDateSimple();
-        if ((!currentDate.equals(mAiTraderDate)) && (isCheckTime())) {
-            Thread uatt = new UpdateAiTraderThread();
-            uatt.start();
-        }
-    }
-
-    class UpdateAiTraderThread extends Thread {
-        @Override
-        public void run() {
-            Message msg = mMainHandler.obtainMessage();
-            String storageDir = Environment.getExternalStorageDirectory().toString();
-            String filePath = storageDir + "/investor/data/aiTrader.txt";
-            File file = new File(filePath);
-            if (file.exists()) {
-                file.delete();
-            }
-            try {
-                String urlStr = "http://120.55.49.62/show.php";
-                HttpUtility httpUtility = new HttpUtility();
-                String httpStr = httpUtility.getHtmlData(urlStr);
-                if (httpStr.contains("aitrader")) {
-                    String str = httpStr.substring(3, httpStr.indexOf("</br>") - 4);
-                    String strs[] = str.split("</p><p>");
-                    PrintWriter pw = new PrintWriter(new FileWriter(file, true));
-                    for (int i = 0; i < strs.length; i++) {
-                        pw.println(strs[i]);
-                    }
-                    pw.close();
-                } else {
-                    msg.obj = "无法访问服务器！";
-                    mMainHandler.sendMessage(msg);
-                    return;
-                }
-            } catch (IOException | NumberFormatException e) {
-                e.printStackTrace();
-            }
-            msg.obj = "智能选股已更新！";
-            mMainHandler.sendMessage(msg);
         }
     }
 }

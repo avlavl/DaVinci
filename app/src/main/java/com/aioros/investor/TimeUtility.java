@@ -25,17 +25,6 @@ public class TimeUtility {
         return true;
     }
 
-    public static boolean isAiCheckTime() {
-        Calendar cal = Calendar.getInstance();
-        if ((cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) || (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY))
-            return false;
-        if ((cal.get(Calendar.HOUR_OF_DAY) < 14) || (cal.get(Calendar.HOUR_OF_DAY) >= 15))
-            return false;
-        if ((cal.get(Calendar.HOUR_OF_DAY) < 15) && (cal.get(Calendar.MINUTE) < 50))
-            return false;
-        return true;
-    }
-
     public static boolean isCheckTime() {
         Calendar cal = Calendar.getInstance();
         if ((cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) || (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY))
@@ -88,12 +77,6 @@ public class TimeUtility {
 
     public static String getCurrentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String currentDate = sdf.format(new Date());
-        return currentDate;
-    }
-
-    public static String getCurrentDateSimple() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String currentDate = sdf.format(new Date());
         return currentDate;
     }

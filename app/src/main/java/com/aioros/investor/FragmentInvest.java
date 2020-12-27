@@ -42,8 +42,8 @@ public class FragmentInvest extends BaseFragment {
     public String[][] mMarketDatas;
     public static int mDataSource = 0;
     private int[] indexArray = new int[]{INDEX_SWZQ, INDEX_YLCY, INDEX_YYYB, INDEX_ZZWB};
-    private int[] weeksArray = new int[NUMBER_INVEST_ITEM];
-    private double[] closeArray = new double[NUMBER_INVEST_ITEM];
+    private int[] weeksArray = new int[NUMBER_INVEST];
+    private double[] closeArray = new double[NUMBER_INVEST];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class FragmentInvest extends BaseFragment {
         mBeanInvestList.add(new BeanInvest(2300, 6.3, 1, 2, 24, 2));
 
         for (int i = 0; i < indexArray.length; i++) {
-            fileUtility.importDataFile1("investor/data/W" + INVEST_INDEX_NAMES[i] + ".txt");
+            fileUtility.importDataFile1("investor/data/W" + INVEST_NAMES[i] + ".txt");
             weeksArray[i] = fileUtility.rows1;
             closeArray[i] = fileUtility.closeList1.get(fileUtility.rows1 - 1);
             if (weeksArray[i] > 0) {
@@ -173,18 +173,18 @@ public class FragmentInvest extends BaseFragment {
         public void run() {
             Message msg = mHandler.obtainMessage();
             String storageDir = Environment.getExternalStorageDirectory().toString();
-            for (int i = 0; i < INVEST_INDEX_NAMES.length; i++) {
-                String filePath = storageDir + "/investor/data/W" + INVEST_INDEX_NAMES[i] + ".txt";
+            for (int i = 0; i < INVEST_NAMES.length; i++) {
+                String filePath = storageDir + "/investor/data/W" + INVEST_NAMES[i] + ".txt";
                 File file = new File(filePath);
                 if (file.exists()) {
                     String httpStr = "";
                     String dataStr = "";
                     do {
-                        String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=s_s" : "http://hq.sinajs.cn/list=s") + INVEST_INDEX_CODES[i];
+                        String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=s_s" : "http://hq.sinajs.cn/list=s") + INVEST_CODES[i];
                         HttpUtility httpUtility = new HttpUtility();
                         httpStr = httpUtility.getData(urlStr);
                         if (httpStr.equals("")) {
-                            msg.obj = "Lose connection!";
+                            msg.obj = "Lose connection 2 !";
                             mHandler.sendMessage(msg);
                             return;
                         } else if (httpStr.contains("pv_none_match")) {

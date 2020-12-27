@@ -1,6 +1,5 @@
 package com.aioros.investor;
 
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
@@ -8,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +46,7 @@ public class FragmentTrade extends BaseFragment {
     private int[] mIdxBase = new int[]{INDEX_HSSB, INDEX_ZZJG, INDEX_SWZQ, INDEX_HSSB, INDEX_GZMT};
     private int[] mIdxSelf = new int[]{INDEX_QZYY, 0, 0, 0, 0};
     private int itemIndex = 0;
-    public double[] mRealPoints = new double[NUMBER_TRADE_ITEM];
+    public double[] mRealPoints = new double[NUMBER_TRADE];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,7 +115,7 @@ public class FragmentTrade extends BaseFragment {
         mTextViewSelfData = (TextView) view.findViewById(R.id.textViewTradeSelfData);
         updateStockData(itemIndex);
 
-        fileUtility.importDataFile1("investor/data/" + TRADE_FILE_NAMES[0] + ".txt");
+        fileUtility.importDataFile1("investor/data/" + TRADE_NAMES[0] + ".txt");
         latestDate = fileUtility.dateList1.get(fileUtility.rows1 - 1);
         mTextViewDate = (TextView) view.findViewById(R.id.textViewTradeDate);
         mTextViewDate.setText(latestDate);
@@ -163,16 +161,16 @@ public class FragmentTrade extends BaseFragment {
         public void run() {
             Message msg = mHandler.obtainMessage();
             String storageDir = Environment.getExternalStorageDirectory().toString();
-            for (int i = 0; i < TRADE_FILE_NAMES.length; i++) {
-                String filePath = storageDir + "/investor/data/" + TRADE_FILE_NAMES[i] + ".txt";
+            for (int i = 0; i < TRADE_NAMES.length; i++) {
+                String filePath = storageDir + "/investor/data/" + TRADE_NAMES[i] + ".txt";
                 File file = new File(filePath);
                 if (file.exists()) {
                     try {
-                        String urlStr = "http://hq.sinajs.cn/list=s" + TRADE_FILE_CODES[i];
+                        String urlStr = "http://hq.sinajs.cn/list=s" + TRADE_CODES[i];
                         HttpUtility httpUtility = new HttpUtility();
                         String httpStr = httpUtility.getData(urlStr);
                         if (httpStr.equals("")) {
-                            msg.obj = "Lose connection!";
+                            msg.obj = "Lose connection 1 !";
                             mHandler.sendMessage(msg);
                             return;
                         } else if (httpStr.contains("\"\"")) {

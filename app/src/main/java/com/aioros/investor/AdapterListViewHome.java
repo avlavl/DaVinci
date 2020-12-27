@@ -11,16 +11,16 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by aizhang on 2018/1/12.
+ * Created by aizhang on 2017/6/18.
  */
 
-public class AdapterListViewStock extends BaseAdapter {
+public class AdapterListViewHome extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<BeanStock> mStockBeanList = null;
 
 
-    public AdapterListViewStock(Context context, List<BeanStock> beanList) {
+    public AdapterListViewHome(Context context, List<BeanStock> beanList) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mStockBeanList = beanList;
@@ -55,22 +55,23 @@ public class AdapterListViewStock extends BaseAdapter {
             colorF = Color.rgb(0, 200, 0);
             colorB = Color.rgb(0, 128, 0);
         }
-        View view = mInflater.inflate(R.layout.item_stock, null);
+        View view = mInflater.inflate(R.layout.item_home, null);
 
-        TextView name = (TextView) view.findViewById(R.id.textViewStockName);
+        TextView name = (TextView) view.findViewById(R.id.textViewIndexName);
         name.setText(mStockBeanList.get(position).mStockName);
 
-        TextView code = (TextView) view.findViewById(R.id.textViewStockCode);
+        TextView code = (TextView) view.findViewById(R.id.textViewIndexCode);
         code.setText(mStockBeanList.get(position).mStockCode);
 
-        TextView value = (TextView) view.findViewById(R.id.textViewStockValue);
+        TextView value = (TextView) view.findViewById(R.id.textViewIndexValue);
         value.setText(mStockBeanList.get(position).mStockValue);
         value.setTextColor(colorF);
 
-        TextView prob = (TextView) view.findViewById(R.id.textViewStockProb);
-        prob.setText(String.format("%.1f%%", Double.parseDouble(mStockBeanList.get(position).mStockProb) * 100));
+        TextView scope = (TextView) view.findViewById(R.id.textViewIndexScope);
+        scope.setText(mStockBeanList.get(position).mStockScope);
+        scope.setTextColor(colorF);
 
-        TextView ratio = (TextView) view.findViewById(R.id.textViewStockRatio);
+        TextView ratio = (TextView) view.findViewById(R.id.textViewIndexRatio);
         ratio.setText(mStockBeanList.get(position).mStockRatio);
         ratio.setBackgroundColor(colorB);
 
