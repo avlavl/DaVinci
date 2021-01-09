@@ -53,7 +53,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public Handler mTradeHandler;
     public Handler mInvestHandler;
     public Handler mChanceHandler;
-    public String[][] mMarketDatas = new String[16][5];
+    public String[][] mMarketDatas = new String[17][5];
 
     private Handler mHandler;
     private int mEventStatus = 0;  // 0: initial, 1: trigger, 2: maintain, -1: clear

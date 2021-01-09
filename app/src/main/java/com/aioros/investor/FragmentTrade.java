@@ -41,10 +41,6 @@ public class FragmentTrade extends BaseFragment {
     private String latestDate;
     private String updateDate;
     public String[][] mMarketDatas;
-    public String mTabTitles[] = new String[]{"全指医药", "中证军工", "申万证券", "沪深300", "贵州茅台"};
-    public String mBaseNames[] = new String[]{"沪深300", "中证军工", "申万证券", "沪深300", "贵州茅台"};
-    private int[] mIdxBase = new int[]{INDEX_HSSB, INDEX_ZZJG, INDEX_SWZQ, INDEX_HSSB, INDEX_GZMT};
-    private int[] mIdxSelf = new int[]{INDEX_QZYY, 0, 0, 0, 0};
     private int itemIndex = 0;
     public double[] mRealPoints = new double[NUMBER_TRADE];
 
@@ -55,7 +51,7 @@ public class FragmentTrade extends BaseFragment {
         mMainActivity = (MainActivity) getActivity();
         mMarketDatas = mMainActivity.mMarketDatas;
         for (int i = 0; i < mRealPoints.length; i++) {
-            mRealPoints[i] = Double.parseDouble(mMarketDatas[mIdxBase[i]][2]);
+            mRealPoints[i] = Double.parseDouble(mMarketDatas[TRADE_IDX_BASE[i]][2]);
         }
         // 在主线程中声明一个消息处理对象Handler
         mMainActivity.mTradeHandler = new Handler() {
@@ -64,7 +60,7 @@ public class FragmentTrade extends BaseFragment {
             public void handleMessage(Message msg) {
                 mMarketDatas = (String[][]) msg.obj;
                 for (int i = 0; i < mRealPoints.length; i++) {
-                    mRealPoints[i] = Double.parseDouble(mMarketDatas[mIdxBase[i]][2]);
+                    mRealPoints[i] = Double.parseDouble(mMarketDatas[TRADE_IDX_BASE[i]][2]);
                 }
                 updateStockData(mViewPager.getCurrentItem());
             }
@@ -132,16 +128,16 @@ public class FragmentTrade extends BaseFragment {
 
     public void updateStockData(int index) {
         String[][] marketDatas = mMarketDatas;
-        mTextViewBaseName.setText(mBaseNames[index] + ": ");
-        mTextViewBaseData.setText(marketDatas[mIdxBase[index]][4] + "% " + marketDatas[mIdxBase[index]][2]);
-        mTextViewBaseData.setTextColor((Double.parseDouble(marketDatas[mIdxBase[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
+        mTextViewBaseName.setText(TRADE_BASES[index] + ": ");
+        mTextViewBaseData.setText(marketDatas[TRADE_IDX_BASE[index]][4] + "% " + marketDatas[TRADE_IDX_BASE[index]][2]);
+        mTextViewBaseData.setTextColor((Double.parseDouble(marketDatas[TRADE_IDX_BASE[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
 
-        if (mIdxSelf[index] != 0) {
+        if (TRADE_IDX_SELF[index] != TRADE_IDX_BASE[index]) {
             mTextViewSelfName.setVisibility(View.VISIBLE);
             mTextViewSelfData.setVisibility(View.VISIBLE);
-            mTextViewSelfName.setText(mTabTitles[index] + ": ");
-            mTextViewSelfData.setText(marketDatas[mIdxSelf[index]][4] + "% " + marketDatas[mIdxSelf[index]][2]);
-            mTextViewSelfData.setTextColor((Double.parseDouble(marketDatas[mIdxSelf[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
+            mTextViewSelfName.setText(TRADE_NAMES[index] + ": ");
+            mTextViewSelfData.setText(marketDatas[TRADE_IDX_SELF[index]][4] + "% " + marketDatas[TRADE_IDX_SELF[index]][2]);
+            mTextViewSelfData.setTextColor((Double.parseDouble(marketDatas[TRADE_IDX_SELF[index]][3]) > 0) ? Color.RED : Color.rgb(0, 200, 0));
         } else {
             mTextViewSelfName.setVisibility(View.INVISIBLE);
             mTextViewSelfData.setVisibility(View.INVISIBLE);

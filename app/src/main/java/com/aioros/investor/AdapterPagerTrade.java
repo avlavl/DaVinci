@@ -46,7 +46,7 @@ public class AdapterPagerTrade extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mFragmentTrade.mTabTitles.length;
+        return TRADE_NAMES.length;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class AdapterPagerTrade extends PagerAdapter {
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position
         //第一次的代码
-        return mFragmentTrade.mTabTitles[position];
+        return TRADE_NAMES[position];
         //第二次的代码
 //        Drawable image = ResourcesCompat.getDrawable(mContext.getResources(), imageResId[position], null);
 //        image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
@@ -72,9 +72,9 @@ public class AdapterPagerTrade extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         FileUtility fileUtility = new FileUtility();
-        if (fileUtility.importDataFile1("investor/data/" + mFragmentTrade.mBaseNames[position] + ".txt") == 0) {
-            if (false == mFragmentTrade.mTabTitles[position].equals(mFragmentTrade.mBaseNames[position])) {
-                fileUtility.importDataFile2("investor/data/" + mFragmentTrade.mTabTitles[position] + ".txt");
+        if (fileUtility.importDataFile1("investor/data/" + TRADE_BASES[position] + ".txt") == 0) {
+            if (false == TRADE_NAMES[position].equals(TRADE_BASES[position])) {
+                fileUtility.importDataFile2("investor/data/" + TRADE_NAMES[position] + ".txt");
             }
             TradeCheck tradeCheck = new TradeCheck(fileUtility);
             mTradeCheckList.set(position, tradeCheck);
@@ -146,12 +146,11 @@ public class AdapterPagerTrade extends PagerAdapter {
     public View getTabView(int position) {
         View view = mInflater.inflate(R.layout.item_tabs, null);
         TextView textView = (TextView) view.findViewById(R.id.textview_tabs);
-        textView.setText(mFragmentTrade.mTabTitles[position]);
+        textView.setText(TRADE_NAMES[position]);
         return view;
     }
 
     private void mListViewOnItemClick(int position, int item) {
-        int[] idxArray = new int[]{INDEX_QZYY, INDEX_ZZJG, INDEX_SWZQ, INDEX_HSSB, INDEX_GZMT};
         BeanTradeMode tradeMode = mBeanTradeModeLists.get(position).get(item);
         TradeCheck tradeCheck = mTradeCheckList.get(position);
         ArrayList<String> dateList = (tradeCheck.rows2 == 0) ? tradeCheck.dateList : tradeCheck.dateList2;
@@ -185,7 +184,7 @@ public class AdapterPagerTrade extends PagerAdapter {
             bpValArray[i] = closeList.get(bpIdxList.get(tradeLogs - i - 1));
             if (tradeMode.mStatus) {
                 spDateArray[i] = (i == 0) ? TimeUtility.getCurrentDate() : dateList.get(spIdxList.get(tradeLogs - 1 - i));
-                spValArray[i] = (i == 0) ? Double.parseDouble(mFragmentTrade.mMarketDatas[idxArray[position]][2]) : closeList.get(spIdxList.get(tradeLogs - 1 - i));
+                spValArray[i] = (i == 0) ? Double.parseDouble(mFragmentTrade.mMarketDatas[TRADE_IDX_SELF[position]][2]) : closeList.get(spIdxList.get(tradeLogs - 1 - i));
             } else {
                 spDateArray[i] = dateList.get(spIdxList.get(tradeLogs - i - 1));
                 spValArray[i] = closeList.get(spIdxList.get(tradeLogs - i - 1));
