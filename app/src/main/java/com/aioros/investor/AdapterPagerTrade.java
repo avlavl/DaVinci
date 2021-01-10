@@ -40,7 +40,7 @@ public class AdapterPagerTrade extends PagerAdapter {
                 mBeanTradeModeList.add(new BeanTradeMode(paras[0], paras[1], paras[2]));
             }
             mBeanTradeModeLists.add(mBeanTradeModeList);
-            mTradeCheckList.add(new TradeCheck(new FileUtility()));
+            mTradeCheckList.add(new TradeCheck(new FileUtility(), TRADE_NAMES[i].equals(TRADE_BASES[i])));
         }
     }
 
@@ -76,7 +76,7 @@ public class AdapterPagerTrade extends PagerAdapter {
             if (false == TRADE_NAMES[position].equals(TRADE_BASES[position])) {
                 fileUtility.importDataFile2("investor/data/" + TRADE_NAMES[position] + ".txt");
             }
-            TradeCheck tradeCheck = new TradeCheck(fileUtility);
+            TradeCheck tradeCheck = new TradeCheck(fileUtility, TRADE_NAMES[position].equals(TRADE_BASES[position]));
             mTradeCheckList.set(position, tradeCheck);
 
             for (BeanTradeMode tradeMode : mBeanTradeModeLists.get(position)) {
@@ -114,6 +114,9 @@ public class AdapterPagerTrade extends PagerAdapter {
         View view = mInflater.inflate(R.layout.pager_trade, null);
         mListView = (ListView) view.findViewById(R.id.listViewPagerTrade);
         mAdapterListView = new AdapterListViewTradeMode(mContext, mBeanTradeModeLists.get(position), mFragmentTrade.mRealPoints[position]);
+        if (false == TRADE_NAMES[position].equals(TRADE_BASES[position])) {
+            mAdapterListView.mSelfPoint = Double.parseDouble(mFragmentTrade.mMarketDatas[TRADE_IDX_SELF[position]][2]);
+        }
         mListView.setAdapter(mAdapterListView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -190,7 +193,7 @@ public class AdapterPagerTrade extends PagerAdapter {
                 spValArray[i] = closeList.get(spIdxList.get(tradeLogs - i - 1));
             }
             daysArray[i] = TimeUtility.daysBetween(bpDateArray[i], spDateArray[i]);
-            yieldArray[i] = ((bpValArray[i]) > 0 && (spValArray[i] > 0)) ? Double.parseDouble(tradeMode.mAmount.substring(0, tradeMode.mAmount.length() - 1)) * (spValArray[i] - bpValArray[i]) / bpValArray[i] : 0;
+            yieldArray[i] = ((bpValArray[i]) > 0 && (spValArray[i] > 0)) ? Double.parseDouble(tradeMode.mAmount) * (spValArray[i] - bpValArray[i]) / bpValArray[i] : 0;
             ratioArray[i] = ((bpValArray[i]) > 0 && (spValArray[i] > 0)) ? 100 * (spValArray[i] - bpValArray[i]) / bpValArray[i] : 0;
         }
 

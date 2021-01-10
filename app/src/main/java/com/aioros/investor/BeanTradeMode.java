@@ -11,6 +11,9 @@ public class BeanTradeMode {
     public String mModePara;
     public double mKeyRatio = 0;
     public double mKeyPoint = 0;
+    public double mBSPoint = 0;
+    public double mPosRate = 0;
+    public double mMeanDate = 0;
     public boolean mStatus = true;
     public int mDuration = 0;
     public String mAmount;

@@ -19,13 +19,14 @@ public class AdapterListViewTradeMode extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<BeanTradeMode> mBeanTradeModeList = null;
     private double mPoint;
-
+    public double mSelfPoint;
 
     public AdapterListViewTradeMode(Context context, List<BeanTradeMode> beanList, double point) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mBeanTradeModeList = beanList;
         mPoint = point;
+        mSelfPoint = point;
     }
 
     @Override
@@ -58,7 +59,7 @@ public class AdapterListViewTradeMode extends BaseAdapter {
         }
 
         View view = mInflater.inflate(R.layout.item_trade, null);
-        view.setBackgroundColor((mBeanTradeModeList.get(position).mStatus) ? Color.rgb(255, 250, 250) : Color.rgb(240, 255, 240));
+        view.setBackgroundColor((mBeanTradeModeList.get(position).mStatus) ? Color.rgb(255, 240, 240) : Color.rgb(240, 255, 240));
 
         View flag = (View) view.findViewById(R.id.viewItemTradeFlag);
         flag.setBackgroundColor((mBeanTradeModeList.get(position).mStatus) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
@@ -68,21 +69,8 @@ public class AdapterListViewTradeMode extends BaseAdapter {
         ratio.setTextColor(colorRatio);
 
         TextView point = (TextView) view.findViewById(R.id.textViewItemTradeKeyPoint);
-        point.setText(String.format("%.4f", mBeanTradeModeList.get(position).mKeyPoint));
+        point.setText(String.format("%.3f", mBeanTradeModeList.get(position).mKeyPoint));
         point.setTextColor(colorRatio);
-
-        TextView duration = (TextView) view.findViewById(R.id.textViewItemTradeDuration);
-        duration.setText(mBeanTradeModeList.get(position).mDuration + "天");
-        duration.setTextColor((mBeanTradeModeList.get(position).mStatus) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
-
-        TextView amount = (TextView) view.findViewById(R.id.textViewItemTradeAmount);
-        amount.setText(mBeanTradeModeList.get(position).mAmount);
-
-        TextView name = (TextView) view.findViewById(R.id.textViewItemTradeModeName);
-        name.setText(mBeanTradeModeList.get(position).mModeName);
-
-        TextView para = (TextView) view.findViewById(R.id.textViewItemTradeModePara);
-        para.setText(mBeanTradeModeList.get(position).mModePara);
 
         if (Math.abs(mBeanTradeModeList.get(position).mKeyRatio) < 10) {
             //System.out.println("RP:" + mPoint + "  KP:" + mBeanTradeModeList.get(position).mKeyPoint);
@@ -97,6 +85,30 @@ public class AdapterListViewTradeMode extends BaseAdapter {
                 imageViewTradeFlag.setVisibility(View.INVISIBLE);
             }
         }
+
+        TextView name = (TextView) view.findViewById(R.id.textViewItemTradeModeName);
+        name.setText(mBeanTradeModeList.get(position).mModeName);
+
+        TextView para = (TextView) view.findViewById(R.id.textViewItemTradeModePara);
+        para.setText(mBeanTradeModeList.get(position).mModePara);
+
+        TextView gain = (TextView) view.findViewById(R.id.textViewItemTradeGain);
+        double g = 100 * (mSelfPoint - mBeanTradeModeList.get(position).mBSPoint) / mBeanTradeModeList.get(position).mBSPoint;
+        gain.setText(String.format("%.2f%%", g));
+        gain.setTextColor((g >= 0) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
+
+        TextView posRate = (TextView) view.findViewById(R.id.textViewItemTradePosRate);
+        posRate.setText(String.format("%.2f%%", mBeanTradeModeList.get(position).mPosRate));
+
+        TextView meanDate = (TextView) view.findViewById(R.id.textViewItemTradeMeanDate);
+        meanDate.setText(String.format("%.1f天", mBeanTradeModeList.get(position).mMeanDate));
+
+        TextView duration = (TextView) view.findViewById(R.id.textViewItemTradeDuration);
+        duration.setText(mBeanTradeModeList.get(position).mDuration + "天");
+        duration.setTextColor((mBeanTradeModeList.get(position).mStatus) ? Color.rgb(240, 0, 0) : Color.rgb(0, 128, 0));
+
+        TextView amount = (TextView) view.findViewById(R.id.textViewItemTradeAmount);
+        amount.setText(mBeanTradeModeList.get(position).mAmount);
 
         return view;
     }

@@ -1,92 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layoutItemTrade"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="1dp">
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:id="@+id/layoutItemTradeH"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/viewItemTradeFlag"
+            android:layout_width="5dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:background="@color/colorRed" />
+
+        <TextView
+            android:id="@+id/textViewItemTradeKeyRatio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="-3.38%"
+            android:textColor="@color/colorRed"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorgrey61" />
+
+        <TextView
+            android:id="@+id/textViewItemTradeKeyPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:text="3508.58"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/imageViewTradeFlag"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_buy"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewItemTradeModeName"
+                android:layout_width="50dp"
+                android:layout_height="15dp"
+                android:gravity="center"
+                android:text="BARLML"
+                android:textColor="@android:color/holo_purple"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/textViewItemTradeModePara"
+                android:layout_width="50dp"
+                android:layout_height="15dp"
+                android:gravity="center"
+                android:text="-3,17,6"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </LinearLayout>
 
     <View
-        android:id="@+id/viewItemTradeFlag"
-        android:layout_width="6dp"
-        android:layout_height="60dp"
-        android:background="@color/colorRed" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorItemDivider" />
 
-    <TextView
-        android:id="@+id/textViewItemTradeKeyRatio"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/viewItemTradeFlag"
-        android:gravity="right"
-        android:padding="5dp"
-        android:text="-3.32%"
-        android:textColor="@color/colorGolden"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+    <RelativeLayout
+        android:id="@+id/layoutItemTradeL"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
 
-    <TextView
-        android:id="@+id/textViewItemTradeKeyPoint"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/viewItemTradeFlag"
-        android:layout_toRightOf="@+id/viewItemTradeFlag"
-        android:gravity="center"
-        android:text="3502.57"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textViewItemTradeGain"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="10.88%"
+            android:textColor="@color/colorgrey21"
+            android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/textViewItemTradeDuration"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="120dp"
-        android:layout_toRightOf="@+id/viewItemTradeFlag"
-        android:gravity="center_vertical|right"
-        android:text="38天"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp" />
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:text="收益"
+            android:textSize="10sp" />
 
-    <TextView
-        android:id="@+id/textViewItemTradeAmount"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="100dp"
-        android:gravity="center_vertical|right"
-        android:text="7000A"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textViewItemTradePosRate"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="75dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="55.5%"
+            android:textSize="15sp" />
 
-    <ImageView
-        android:id="@+id/imageViewTradeFlag"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_alignBottom="@+id/textViewItemTradeAmount"
-        android:layout_alignEnd="@+id/textViewItemTradeAmount"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/icon_buy"
-        android:visibility="invisible" />
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="75dp"
+            android:gravity="center"
+            android:text="仓时比"
+            android:textSize="10sp" />
 
-    <TextView
-        android:id="@+id/textViewItemTradeModeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textViewItemTradeModePara"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:text="BARLML"
-        android:textColor="@android:color/holo_purple"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textViewItemTradeMeanDate"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="50天"
+            android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/textViewItemTradeModePara"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/viewItemTradeFlag"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:text="-3,17,6"
-        android:textSize="15sp" />
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="均仓日"
+            android:textSize="10sp" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/textViewItemTradeDuration"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="75dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="38天"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="75dp"
+            android:gravity="center"
+            android:text="持续期"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/textViewItemTradeAmount"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="7.5W"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="基础额"
+            android:textSize="10sp" />
+    </RelativeLayout>
+</LinearLayout>

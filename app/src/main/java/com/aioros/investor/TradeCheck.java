@@ -11,15 +11,17 @@ public class TradeCheck {
     public ArrayList<Double> closeList;
     public ArrayList<String> dateList2;
     public ArrayList<Double> closeList2;
+    public ArrayList<Double> closeCheckList;
     public int rows, rows2;
 
     public StrategyTrade strategy;
 
-    public TradeCheck(FileUtility fu) {
+    public TradeCheck(FileUtility fu, boolean self) {
         dateList = fu.dateList1;
         closeList = fu.closeList1;
         dateList2 = fu.dateList2;
         closeList2 = fu.closeList2;
+        closeCheckList = self ? closeList : closeList2;
         rows = fu.rows1;
         rows2 = fu.rows2;
     }
@@ -45,9 +47,15 @@ public class TradeCheck {
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mMeanDate = (getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList) * tradeMode.spIdxList.size() + tradeMode.mDuration) / tradeMode.bpIdxList.size();
+            tradeMode.mPosRate = 100 * (getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList) * dateList.size() + dateList.size() - tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)) / dateList.size();
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mMeanDate = getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList);
+            tradeMode.mPosRate = 100 * getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList);
         }
 
         tradeMode.mKeyPoint = macd.getMACDKey(tradeMode.mModeName, bp);
@@ -73,9 +81,15 @@ public class TradeCheck {
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mMeanDate = (getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList) * tradeMode.spIdxList.size() + tradeMode.mDuration) / tradeMode.bpIdxList.size();
+            tradeMode.mPosRate = 100 * (getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList) * dateList.size() + dateList.size() - tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)) / dateList.size();
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mMeanDate = getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList);
+            tradeMode.mPosRate = 100 * getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList);
         }
 
         tradeMode.mKeyPoint = ma.getMAKey(mas, mal);
@@ -104,9 +118,15 @@ public class TradeCheck {
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mMeanDate = (getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList) * tradeMode.spIdxList.size() + tradeMode.mDuration) / tradeMode.bpIdxList.size();
+            tradeMode.mPosRate = 100 * (getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList) * dateList.size() + dateList.size() - tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)) / dateList.size();
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mMeanDate = getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList);
+            tradeMode.mPosRate = 100 * getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList);
         }
 
         tradeMode.mKeyPoint = livermore.getLMKey(tradeMode.mModeName);
@@ -131,9 +151,15 @@ public class TradeCheck {
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mMeanDate = (getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList) * tradeMode.spIdxList.size() + tradeMode.mDuration) / tradeMode.bpIdxList.size();
+            tradeMode.mPosRate = 100 * (getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList) * dateList.size() + dateList.size() - tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)) / dateList.size();
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mMeanDate = getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList);
+            tradeMode.mPosRate = 100 * getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList);
         }
 
         double barKey = macd.getBARKey(bp0);
@@ -169,9 +195,15 @@ public class TradeCheck {
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mMeanDate = (getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList) * tradeMode.spIdxList.size() + tradeMode.mDuration) / tradeMode.bpIdxList.size();
+            tradeMode.mPosRate = 100 * (getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList) * dateList.size() + dateList.size() - tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)) / dateList.size();
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mMeanDate = getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList);
+            tradeMode.mPosRate = 100 * getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList);
         }
 
         double maKey = ma.getMAKey(mas, mal);
@@ -210,14 +242,36 @@ public class TradeCheck {
         if (tradeMode.bpIdxList.size() > tradeMode.spIdxList.size()) {
             tradeMode.mStatus = true;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1));
+            tradeMode.mMeanDate = (getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList) * tradeMode.spIdxList.size() + tradeMode.mDuration) / tradeMode.bpIdxList.size();
+            tradeMode.mPosRate = 100 * (getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList) * dateList.size() + dateList.size() - tradeMode.bpIdxList.get(tradeMode.bpIdxList.size() - 1)) / dateList.size();
         } else {
             tradeMode.mStatus = false;
             tradeMode.mDuration = TimeUtility.daysBetween(dateList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1)), TimeUtility.getCurrentDate());
+            tradeMode.mBSPoint = closeCheckList.get(tradeMode.spIdxList.get(tradeMode.spIdxList.size() - 1));
+            tradeMode.mMeanDate = getMeanPositionDays(tradeMode.bpIdxList, tradeMode.spIdxList);
+            tradeMode.mPosRate = 100 * getPositionDaysRate(tradeMode.bpIdxList, tradeMode.spIdxList);
         }
 
         double lmKey = livermore.getLMKey(tradeMode.mModeName);
         double macdKey = macd.getMACDKey(tradeMode.mModeName, bp);
         tradeMode.mKeyPoint = (lmKey > macdKey) ? lmKey : macdKey;
         tradeMode.mKeyRatio = 100 * (tradeMode.mKeyPoint - closeList.get(rows - 1)) / closeList.get(rows - 1);
+    }
+
+    private double getMeanPositionDays(ArrayList<Integer> bpIdxList, ArrayList<Integer> spIdxList) {
+        int days = 0;
+        for (int i = 0; i < spIdxList.size(); i++) {
+            days += TimeUtility.daysBetween(dateList, bpIdxList.get(i), spIdxList.get(i));
+        }
+        return (double) days / spIdxList.size();
+    }
+
+    private double getPositionDaysRate(ArrayList<Integer> bpIdxList, ArrayList<Integer> spIdxList) {
+        int days = 0;
+        for (int i = 0; i < spIdxList.size(); i++) {
+            days += spIdxList.get(i) - bpIdxList.get(i);
+        }
+        return (double) days / dateList.size();
     }
 }
