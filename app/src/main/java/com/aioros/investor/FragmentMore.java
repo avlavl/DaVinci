@@ -89,7 +89,7 @@ public class FragmentMore extends BaseFragment {
                 mTextView2.setTextColor(Color.rgb(255, 255, 255));
                 mTextView3.setTextColor(Color.rgb(255, 255, 255));
                 mTextView4.setTextColor(Color.rgb(240, 160, 80));
-                webTabOnClick(v, "http://120.55.49.62/show.php");
+                webTabOnClick(v, "https://xueqiu.com/");
             }
         });
 
