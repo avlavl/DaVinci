@@ -25,11 +25,15 @@ public class TimeUtility {
         return true;
     }
 
-    public static boolean isCheckTime() {
+    public static boolean isDayUpdateTime() {
         Calendar cal = Calendar.getInstance();
         if ((cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) || (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY))
             return false;
-        return cal.get(Calendar.HOUR_OF_DAY) >= 15;
+        if (cal.get(Calendar.HOUR_OF_DAY) < 15)
+            return false;
+        if ((cal.get(Calendar.HOUR_OF_DAY) < 16) && (cal.get(Calendar.MINUTE) < 1))
+            return false;
+        return true;
     }
 
     public static boolean isWeekUpdateTime() {

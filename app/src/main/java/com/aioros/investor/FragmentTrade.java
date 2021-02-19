@@ -19,7 +19,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static com.aioros.investor.TimeUtility.isCheckTime;
+import static com.aioros.investor.TimeUtility.isDayUpdateTime;
 import static com.aioros.investor.Constant.*;
 
 /**
@@ -146,7 +146,7 @@ public class FragmentTrade extends BaseFragment {
 
     private void checkDataUpdate() {
         String currentDate = TimeUtility.getCurrentDate();
-        if ((!currentDate.equals(latestDate)) && (isCheckTime())) {
+        if ((!currentDate.equals(latestDate)) && (isDayUpdateTime())) {
             Thread udt = new UpdateDataThread();
             udt.start();
         }
