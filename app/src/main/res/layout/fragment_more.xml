@@ -69,7 +69,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1.0"
                 android:gravity="center"
-                android:text="雪球"
+                android:text="期货"
                 android:textColor="@color/colorgray81"
                 android:textSize="13sp" />
         </LinearLayout>
