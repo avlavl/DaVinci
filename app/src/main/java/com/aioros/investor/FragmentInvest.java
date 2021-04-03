@@ -181,8 +181,7 @@ public class FragmentInvest extends BaseFragment {
                     String dataStr = "";
                     do {
                         String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=s_s" : "http://hq.sinajs.cn/list=s") + INVEST_CODES[i];
-                        HttpUtility httpUtility = new HttpUtility();
-                        httpStr = httpUtility.getData(urlStr);
+                        httpStr = HttpUtility.getData(urlStr);
                         if (httpStr.equals("")) {
                             msg.obj = "Lose connection 2 !";
                             mHandler.sendMessage(msg);

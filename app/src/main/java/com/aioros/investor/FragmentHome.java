@@ -228,8 +228,7 @@ public class FragmentHome extends BaseFragment {
             String urlStr = "http://quotes.money.163.com/service/chddata.html?code="
                     + ((stockCode.substring(0, 1).equals("0")) ? "0" : "1") + stockCode
                     + "&fields=TCLOSE;CHG;PCHG";
-            HttpUtility httpUtility = new HttpUtility();
-            int ret = httpUtility.getFile(urlStr, getResources().getString(R.string.app_dir) + "/data", stockCode + ".txt");
+            int ret = HttpUtility.getFile(urlStr, getResources().getString(R.string.app_dir) + "/data", stockCode + ".txt");
             Looper.prepare();
             Toast.makeText(mMainActivity, (ret == 0) ? "下载成功" : "下载失败", Toast.LENGTH_LONG).show();
             Looper.loop();
@@ -247,8 +246,7 @@ public class FragmentHome extends BaseFragment {
         public void run() {
             try {
                 String urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=s_s" + ((Long.parseLong(stockCode) > 500000) ? "h" : "z") + stockCode;
-                HttpUtility httpUtility = new HttpUtility();
-                String httpStr = httpUtility.getData(urlStr);
+                String httpStr = HttpUtility.getData(urlStr);
                 if (httpStr.equals("")) {
                     Looper.prepare();
                     Toast.makeText(mMainActivity, "无网络连接！", Toast.LENGTH_LONG).show();
@@ -257,7 +255,7 @@ public class FragmentHome extends BaseFragment {
                 }
                 if (httpStr.contains("pv_none_match")) {
                     urlStr = "http://qt.gtimg.cn/r=0.8409869808238q=s_s" + ((Long.parseLong(stockCode) > 500000) ? "z" : "h") + stockCode;
-                    httpStr = httpUtility.getData(urlStr);
+                    httpStr = HttpUtility.getData(urlStr);
                     if (httpStr.contains("pv_none_match")) {
                         Looper.prepare();
                         Toast.makeText(mMainActivity, "找不到对应的股票！", Toast.LENGTH_LONG).show();

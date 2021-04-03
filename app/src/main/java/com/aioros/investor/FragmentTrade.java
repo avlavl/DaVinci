@@ -163,8 +163,7 @@ public class FragmentTrade extends BaseFragment {
                 if (file.exists()) {
                     try {
                         String urlStr = "http://hq.sinajs.cn/list=s" + TRADE_CODES[i];
-                        HttpUtility httpUtility = new HttpUtility();
-                        String httpStr = httpUtility.getData(urlStr);
+                        String httpStr = HttpUtility.getData(urlStr);
                         if (httpStr.equals("")) {
                             msg.obj = "Lose connection 1 !";
                             mHandler.sendMessage(msg);

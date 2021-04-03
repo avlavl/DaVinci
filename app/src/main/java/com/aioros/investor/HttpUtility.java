@@ -21,13 +21,13 @@ import java.util.ArrayList;
 public class HttpUtility {
     private URL mUrl = null;
 
-    public String getData(String urlStr) {
+    public static String getData(String urlStr) {
         StringBuffer sb = new StringBuffer();
         BufferedReader br = null;
         String line = null;
 
         try {
-            mUrl = new URL(urlStr);
+            URL mUrl = new URL(urlStr);
             HttpURLConnection urlConnection = (HttpURLConnection) mUrl.openConnection();
             br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "GB2312"));
             while ((line = br.readLine()) != null) {
@@ -40,13 +40,13 @@ public class HttpUtility {
         return sb.toString();
     }
 
-    public String getHtmlData(String urlStr) {
+    public static String getHtmlData(String urlStr) {
         StringBuffer sb = new StringBuffer();
         BufferedReader br = null;
         String line = null;
 
         try {
-            mUrl = new URL(urlStr);
+            URL mUrl = new URL(urlStr);
             HttpURLConnection urlConnection = (HttpURLConnection) mUrl.openConnection();
             br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
             while ((line = br.readLine()) != null) {
@@ -59,13 +59,13 @@ public class HttpUtility {
         return sb.toString();
     }
 
-    public int updateFile(String urlStr, String path, String name) {
+    public static int updateFile(String urlStr, String path, String name) {
         StringBuffer sb = new StringBuffer();
         BufferedReader br = null;
         String line = null;
 
         try {
-            mUrl = new URL(urlStr);
+            URL mUrl = new URL(urlStr);
             HttpURLConnection urlConnection = (HttpURLConnection) mUrl.openConnection();
             br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "GB2312"));
             while ((line = br.readLine()) != null) {
@@ -86,13 +86,13 @@ public class HttpUtility {
         return 0;
     }
 
-    public int getFile(String urlStr, String path, String name) {
+    public static int getFile(String urlStr, String path, String name) {
         ArrayList<String> stringList = new ArrayList<>();
         BufferedReader br = null;
         String line = null;
 
         try {
-            mUrl = new URL(urlStr);
+            URL mUrl = new URL(urlStr);
             HttpURLConnection urlConnection = (HttpURLConnection) mUrl.openConnection();
             br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "GB2312"));
             while ((line = br.readLine()) != null) {
@@ -131,7 +131,7 @@ public class HttpUtility {
      * @param fileName
      * @return 0-success,-1-fail,1-existed
      */
-    public int downFile(String urlStr, String path, String fileName) {
+    public static int downFile(String urlStr, String path, String fileName) {
         InputStream inputStream = null;
         try {
             FileUtility fileUtil = new FileUtility();
@@ -155,8 +155,8 @@ public class HttpUtility {
         return 0;
     }
 
-    public InputStream getInputStreamFromUrl(String urlStr) throws MalformedURLException, IOException {
-        mUrl = new URL(urlStr);
+    public static InputStream getInputStreamFromUrl(String urlStr) throws MalformedURLException, IOException {
+        URL mUrl = new URL(urlStr);
         HttpURLConnection urlCon = (HttpURLConnection) mUrl.openConnection();
         InputStream inputStream = urlCon.getInputStream();
         return inputStream;
