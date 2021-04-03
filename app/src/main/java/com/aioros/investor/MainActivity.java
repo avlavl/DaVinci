@@ -342,7 +342,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             Message msg = mMainHandler.obtainMessage();
             String httpStr = "";
             do {
-                String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=" : "http://hq.sinajs.cn/list=") + HOME_CODE_STR + CHANCE_CODE_STR;
+                String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=" : "http://hq.sinajs.cn/list=") + HOME_CODE_STR;
                 httpStr = HttpUtility.getData(urlStr);
                 if (httpStr.equals("")) {
                     msg.obj = "Lose connection 0 ！";
