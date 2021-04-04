@@ -27,7 +27,7 @@ public class FragmentChance extends BaseFragment {
     private ListView mListView;
     private AdapterListViewChance mAdapterListView;
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
-    public String[][] mMarketDatas;
+    public String[][] mFuturesDatas;
     public Handler mHandler;
 
     @Override
@@ -35,9 +35,9 @@ public class FragmentChance extends BaseFragment {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
-        mMarketDatas = mMainActivity.mMarketDatas;
+        mFuturesDatas = mMainActivity.mFuturesDatas;
         for (int i = 0; i < NUMBER_CHANCE; i++) {
-            mBeanStockList.add(new BeanStock(CHANCE_NAMES[i], CHANCE_CODES[i], mMarketDatas[INDEX_STOCK + i][2], mMarketDatas[INDEX_STOCK + i][3], mMarketDatas[INDEX_STOCK + i][4] + "%"));
+            mBeanStockList.add(new BeanStock(mFuturesDatas[i][0], mFuturesDatas[i][0], mFuturesDatas[i][1], mFuturesDatas[i][2], mFuturesDatas[i][3] + "%"));
         }
 
         // 在主线程中声明一个消息处理对象Handler
@@ -45,10 +45,11 @@ public class FragmentChance extends BaseFragment {
             // 重载消息处理方法，用于接收和处理WorkerThread发送的消息
             @Override
             public void handleMessage(Message msg) {
-                mMarketDatas = (String[][]) msg.obj;
+                mFuturesDatas = (String[][]) msg.obj;
                 for (int i = 0; i < NUMBER_CHANCE; i++) {
-                    mBeanStockList.get(i).mStockValue = mMarketDatas[INDEX_STOCK + i][2];
-                    mBeanStockList.get(i).mStockRatio = mMarketDatas[INDEX_STOCK + i][4] + "%";
+                    mBeanStockList.get(i).mStockValue = mFuturesDatas[i][1];
+                    mBeanStockList.get(i).mStockScope = mFuturesDatas[i][2];
+                    mBeanStockList.get(i).mStockRatio = mFuturesDatas[i][3] + "%";
                 }
                 mAdapterListView.notifyDataSetChanged();
             }

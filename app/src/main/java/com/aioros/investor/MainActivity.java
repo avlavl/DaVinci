@@ -53,7 +53,8 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public Handler mTradeHandler;
     public Handler mInvestHandler;
     public Handler mChanceHandler;
-    public String[][] mMarketDatas = new String[17][5];
+    public String[][] mMarketDatas = new String[15][5];
+    public String[][] mFuturesDatas = new String[5][4];
 
     private Handler mHandler;
     private int mEventStatus = 0;  // 0: initial, 1: trigger, 2: maintain, -1: clear
@@ -375,12 +376,33 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             }
 
             if (mEventStatus == 0) {
-                for (int i = 0; i < NUMBER_CHANCE; i++) {
-                    if (Double.parseDouble(mMarketDatas[INDEX_STOCK + i][2]) < 99.9) {
+                for (int i = 0; i < 3; i++) {
+                    if (Double.parseDouble(mMarketDatas[12 + i][2]) < 99.9) {
                         mEventStatus = 1;
                         break;
                     }
                 }
+            }
+
+            String urlStr = "http://hq.sinajs.cn/list=CFF_RE_IC2104,CFF_RE_IC2105,CFF_RE_IC2106,CFF_RE_IC2109";
+            httpStr = HttpUtility.getData(urlStr);
+            if (httpStr.equals("") || httpStr.contains("pv_none_match")) {
+                msg.obj = "No Futures data ！";
+                mMainHandler.sendMessage(msg);
+                return;
+            }
+
+            items = httpStr.split(";");
+            mFuturesDatas[0][0] = mMarketDatas[INDEX_ZZWB][0];
+            mFuturesDatas[0][1] = mMarketDatas[INDEX_ZZWB][2];
+            mFuturesDatas[0][2] = mMarketDatas[INDEX_ZZWB][3];
+            mFuturesDatas[0][3] = mMarketDatas[INDEX_ZZWB][4];
+            for (int i = 0; i < items.length; i++) {
+                String[] strs = items[i].substring(items[i].indexOf("\"") + 1, items[i].lastIndexOf("\"")).split(",");
+                mFuturesDatas[i + 1][0] = items[i].substring(items[i].indexOf("=") - 6, items[i].lastIndexOf("="));   // 名称， 如IC2104
+                mFuturesDatas[i + 1][1] = String.format("%.2f", Double.parseDouble(strs[3]));      // 点位， 如6296.4
+                mFuturesDatas[i + 1][2] = String.format("%.2f", Double.parseDouble(strs[3]) - Double.parseDouble(strs[13]));   // 涨跌， 如5.4
+                mFuturesDatas[i + 1][3] = String.format("%.2f", 100 * (Double.parseDouble(strs[3]) - Double.parseDouble(strs[13])) / Double.parseDouble(strs[13]));   // 涨幅， 如0.09
             }
 
             if (mHomeHandler != null) {
@@ -400,7 +422,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
             }
             if (mChanceHandler != null) {
                 Message msgRx = mChanceHandler.obtainMessage();
-                msgRx.obj = mMarketDatas;
+                msgRx.obj = mFuturesDatas;
                 mChanceHandler.sendMessage(msgRx);
             }
         }

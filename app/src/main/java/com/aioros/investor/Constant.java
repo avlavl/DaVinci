@@ -27,12 +27,11 @@ public class Constant {
     public static final int INDEX_YLCY = 9;
     public static final int INDEX_YYYB = 10;
     public static final int INDEX_GZMT = 11;
-    public static final int INDEX_STOCK = 12;
 
     public static final int NUMBER_HOME = 15;
     public static final int NUMBER_TRADE = 7;
     public static final int NUMBER_INVEST = 4;
-    public static final int NUMBER_CHANCE = 3;
+    public static final int NUMBER_CHANCE = 5;
 
     public static final String HOME_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399987,s_sz399707,s_sz399812,s_sh000978,s_sh600519,s_sh511990,s_sh511880,s_sh511660";
     public static final String CHANCE_CODE_STR = ",s_sh511990,s_sh511880,s_sh511660";
@@ -46,8 +45,6 @@ public class Constant {
     public static final String[] TRADE_CODES = new String[]{"h000300", "h000905", "z399006", "h000991", "z399967", "z399987", "h600519"};
     public static final String[] INVEST_NAMES = new String[]{"申万证券", "养老产业", "医药100", "中证500"};
     public static final String[] INVEST_CODES = new String[]{"z399707", "z399812", "h000978", "h000905"};
-    public static final String[] CHANCE_NAMES = new String[]{"华宝添益", "银华日利", "建信添益"};
-    public static final String[] CHANCE_CODES = new String[]{"511990", "511880", "511660"};
 
     public static final String[][] STOCK_PARA_ARRAY = {
             {       // 沪深300

@@ -56,19 +56,20 @@ public class AdapterListViewChance extends BaseAdapter {
         TextView name = (TextView) view.findViewById(R.id.textViewMetfName);
         name.setText(mStockBeanList.get(position).mStockName);
 
-        TextView code = (TextView) view.findViewById(R.id.textViewMetfCode);
-        code.setText(mStockBeanList.get(position).mStockCode);
-
         TextView value = (TextView) view.findViewById(R.id.textViewMetfValue);
         value.setText(mStockBeanList.get(position).mStockValue);
         value.setTextColor(color);
 
-        TextView rate = (TextView) view.findViewById(R.id.textViewDailyRate);
-        rate.setText(mStockBeanList.get(position).getDailyRate());
-        rate.setTextColor(color);
+        TextView scope = (TextView) view.findViewById(R.id.textViewDailyRate);
+        scope.setText(mStockBeanList.get(position).mStockScope);
+        scope.setTextColor(color);
+
+        TextView gain = (TextView) view.findViewById(R.id.textViewDailyRa);
+        gain.setText(String.format("%.0f", 200 * Float.parseFloat(mStockBeanList.get(position).mStockScope)));
+        gain.setTextColor(color);
 
         TextView ratio = (TextView) view.findViewById(R.id.textViewAnualRatio);
-        ratio.setText(mStockBeanList.get(position).getAnualRatio());
+        ratio.setText(mStockBeanList.get(position).mStockRatio);
         ratio.setBackgroundColor(color);
 
         return view;

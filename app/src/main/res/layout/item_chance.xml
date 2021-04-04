@@ -4,52 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    android:background="@color/colorBlack2"
+
     android:gravity="center|left"
     android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="85dp"
+    <TextView
+        android:id="@+id/textViewMetfName"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textViewMetfName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="华宝添益"
-            android:textColor="@color/colorLightGolden"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textViewMetfCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="511990"
-            android:textColor="#909090"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        android:gravity="center"
+        android:text="IC2106"
+        android:textColor="@color/colorLightGolden"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textViewMetfValue"
-        android:layout_width="90dp"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:gravity="left"
-        android:text="100.025"
+        android:text="6173.60"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textViewDailyRate"
-        android:layout_width="70dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:gravity="left"
-        android:text="万 2.3"
+        android:text="14.60"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewDailyRa"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="left"
+        android:text="2920"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -62,7 +57,7 @@
         android:background="@color/colorRed"
         android:gravity="center"
         android:padding="5dp"
-        android:text="8.12%"
+        android:text="0.24%"
         android:textColor="@color/colorWhite"
         android:textSize="16sp"
         android:textStyle="bold" />
