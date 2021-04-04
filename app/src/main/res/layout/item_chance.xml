@@ -1,64 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutItemTrade"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:weightSum="1">
 
-    android:gravity="center|left"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/textViewMetfName"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="IC2106"
-        android:textColor="@color/colorLightGolden"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textViewMetfValue"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="left"
-        android:text="6173.60"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textViewDailyRate"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="left"
-        android:text="14.60"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textViewDailyRa"
-        android:layout_width="55dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="left"
-        android:text="2920"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textViewAnualRatio"
+    <LinearLayout
+        android:id="@+id/layoutItemTradeH"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:background="@color/colorRed"
-        android:gravity="center"
-        android:padding="5dp"
-        android:text="0.24%"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewItemFuturesName"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:text="IC2106"
+            android:textColor="@color/colorRed"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/imageViewFuturesFlag"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_buy"
+            android:visibility="invisible" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textViewItemFuturesPoint"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:text="6173.60"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textViewItemFuturesRatio"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:text="0.24%"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textViewItemFuturesScope"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:text="14.60"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textViewItemFuturesGain"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:text="2920"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorItemDivider" />
+
+    <RelativeLayout
+        android:id="@+id/layoutItemFuturesL"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/textViewItemFuturesDiffPoint"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="153"
+            android:textColor="@color/colorgrey21"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:text="点差"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/textViewItemFuturesMeanDiffPoint"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="75dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="2.04"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="75dp"
+            android:gravity="center"
+            android:text="日均点差"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/textViewItemFuturesDiscount"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="2.42%"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="贴水率"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/textViewItemFuturesAnnualDiscount"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="75dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="11.77%"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="75dp"
+            android:gravity="center"
+            android:text="年化贴水"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/textViewItemFuturesLeftDays"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12天"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="到期天数"
+            android:textSize="10sp" />
+    </RelativeLayout>
 </LinearLayout>

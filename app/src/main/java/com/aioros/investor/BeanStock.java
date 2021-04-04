@@ -6,6 +6,7 @@ public class BeanStock {
     public String mStockValue;
     public String mStockRatio;
     public String mStockScope;
+    public int mLeftDays;
 
     public BeanStock(String name, String code, String value, String scope, String ratio) {
         super();
@@ -14,6 +15,15 @@ public class BeanStock {
         mStockValue = value;
         mStockScope = scope;
         mStockRatio = ratio;
+    }
+
+    public BeanStock(String name, String value, String scope, String ratio, int days) {
+        super();
+        mStockName = name;
+        mStockValue = value;
+        mStockScope = scope;
+        mStockRatio = ratio;
+        mLeftDays = days;
     }
 
     public String getDailyRate() {

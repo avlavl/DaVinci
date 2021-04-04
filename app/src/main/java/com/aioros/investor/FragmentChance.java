@@ -29,6 +29,7 @@ public class FragmentChance extends BaseFragment {
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
     public String[][] mFuturesDatas;
     public Handler mHandler;
+    public String[] mFuturesTradeDates = {"2021/04/16", "2021/05/21", "2021/06/18", "2021/09/17"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,10 @@ public class FragmentChance extends BaseFragment {
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
         mFuturesDatas = mMainActivity.mFuturesDatas;
+        String currentDate = TimeUtility.getCurrentDate();
         for (int i = 0; i < NUMBER_CHANCE; i++) {
-            mBeanStockList.add(new BeanStock(mFuturesDatas[i][0], mFuturesDatas[i][0], mFuturesDatas[i][1], mFuturesDatas[i][2], mFuturesDatas[i][3] + "%"));
+            int leftDays = ((i == 0) ? 1 : TimeUtility.daysBetween(currentDate, mFuturesTradeDates[i - 1]));
+            mBeanStockList.add(new BeanStock(mFuturesDatas[i][0], mFuturesDatas[i][1], mFuturesDatas[i][2], mFuturesDatas[i][3] + "%", leftDays));
         }
 
         // 在主线程中声明一个消息处理对象Handler
