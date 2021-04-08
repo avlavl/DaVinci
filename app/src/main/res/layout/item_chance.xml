@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layoutItemTrade"
+    android:id="@+id/layoutItemFutures"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1">
 
     <LinearLayout
-        android:id="@+id/layoutItemTradeH"
+        android:id="@+id/layoutItemFuturesH"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorWheat2"
@@ -24,14 +24,6 @@
             android:textColor="@color/colorDivider"
             android:textSize="16sp" />
 
-        <ImageView
-            android:id="@+id/imageViewFuturesFlag"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/icon_buy"
-            android:visibility="invisible" />
-
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -39,31 +31,31 @@
 
         <TextView
             android:id="@+id/textViewItemFuturesPoint"
-            android:layout_width="75dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:text="6173.60"
             android:textColor="@color/colorBlack2"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textViewItemFuturesRatio"
-            android:layout_width="55dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
             android:layout_margin="5dp"
+            android:gravity="center"
             android:text="0.24%"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textViewItemFuturesScope"
-            android:layout_width="55dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
             android:layout_margin="5dp"
+            android:gravity="center"
             android:text="14.60"
             android:textSize="16sp" />
 
@@ -72,8 +64,8 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
             android:layout_margin="5dp"
+            android:gravity="center"
             android:text="2920"
             android:textSize="16sp" />
     </LinearLayout>

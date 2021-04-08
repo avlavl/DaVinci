@@ -57,7 +57,7 @@
             android:layout_weight="1" />
 
         <TextView
-            android:layout_width="75dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
@@ -68,37 +68,111 @@
             android:textSize="13sp" />
 
         <TextView
-            android:layout_width="50dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
-            android:gravity="left"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:text="涨幅"
+            android:textColor="@color/colorgray81"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:gravity="center"
             android:paddingLeft="8dp"
             android:text="涨跌"
             android:textColor="@color/colorgray81"
             android:textSize="13sp" />
 
         <TextView
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:gravity="left"
-            android:paddingLeft="8dp"
-            android:text="收益"
-            android:textColor="@color/colorgray81"
-            android:textSize="13sp" />
-
-        <TextView
-            android:layout_width="55dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:gravity="center"
-            android:text="涨幅"
+            android:text="收益"
             android:textColor="@color/colorgray81"
             android:textSize="13sp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutItemTradeH"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorTabSelect"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewFuturesIndexName"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:text="中证500"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textViewFuturesIndexPoint"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:text="6173.60"
+            android:textColor="@color/colorBlack2"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewFuturesIndexRatio"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:text="0.24%"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewFuturesIndexScope"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:text="14.60"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewFuturesIndexGain"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:text="2920"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="@color/colorgray81" />
 
     <ListView
         android:id="@+id/listViewChance"

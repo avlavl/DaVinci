@@ -19,8 +19,6 @@ import java.util.ArrayList;
  */
 
 public class HttpUtility {
-    private URL mUrl = null;
-
     public static String getData(String urlStr) {
         StringBuffer sb = new StringBuffer();
         BufferedReader br = null;

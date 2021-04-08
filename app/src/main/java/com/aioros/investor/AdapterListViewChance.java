@@ -28,12 +28,12 @@ public class AdapterListViewChance extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mStockBeanList.size();
+        return mStockBeanList.size() - 1;
     }
 
     @Override
     public Object getItem(int position) {
-        return mStockBeanList.get(position);
+        return mStockBeanList.get(position + 1);
     }
 
     @Override
@@ -51,6 +51,7 @@ public class AdapterListViewChance extends BaseAdapter {
         } else if (Double.parseDouble(mStockBeanList.get(position).mStockScope) < 0) {
             color = Color.rgb(0, 200, 0);
         }
+        position += 1;
         float futuresGain = 200 * Float.parseFloat(mStockBeanList.get(position).mStockScope);
         float futuresDiffPoint = Float.parseFloat(mStockBeanList.get(0).mStockValue) - Float.parseFloat(mStockBeanList.get(position).mStockValue);
         float futuresDiscount = (Float.parseFloat(mStockBeanList.get(0).mStockValue) - Float.parseFloat(mStockBeanList.get(position).mStockValue)) / Float.parseFloat(mStockBeanList.get(0).mStockValue);
@@ -62,6 +63,7 @@ public class AdapterListViewChance extends BaseAdapter {
 
         TextView point = (TextView) view.findViewById(R.id.textViewItemFuturesPoint);
         point.setText(mStockBeanList.get(position).mStockValue);
+        point.setTextColor(color);
 
         TextView ratio = (TextView) view.findViewById(R.id.textViewItemFuturesRatio);
         ratio.setText(mStockBeanList.get(position).mStockRatio);
