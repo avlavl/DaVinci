@@ -31,6 +31,7 @@ public class FragmentChance extends BaseFragment {
     private List<BeanStock> mBeanStockList = new ArrayList<BeanStock>();
     public String[][] mFuturesDatas;
     public Handler mHandler;
+    private TextView mTextViewName;
     private TextView mTextViewPoint;
     private TextView mTextViewRatio;
     private TextView mTextViewScope;
@@ -80,11 +81,12 @@ public class FragmentChance extends BaseFragment {
         Log.d(TAG, "onCreateView---->");
         mFragmentManager = getActivity().getFragmentManager();
 
+        mTextViewName = (TextView) view.findViewById(R.id.textViewFuturesIndexName);
         mTextViewPoint = (TextView) view.findViewById(R.id.textViewFuturesIndexPoint);
         mTextViewRatio = (TextView) view.findViewById(R.id.textViewFuturesIndexRatio);
         mTextViewScope = (TextView) view.findViewById(R.id.textViewFuturesIndexScope);
         mTextViewGain = (TextView) view.findViewById(R.id.textViewFuturesIndexGain);
-        updateIndexData(true);
+        updateIndexData(mBeanStockList.get(1).mLeftDays == 0);
 
         mListView = (ListView) view.findViewById(R.id.listViewChance);
         mAdapterListView = new AdapterListViewChance(mMainActivity, mBeanStockList);
@@ -160,7 +162,10 @@ public class FragmentChance extends BaseFragment {
 
     public void updateIndexData(boolean settlement) {
         int color = Color.DKGRAY;
-        if (mFuturesDatas[0][1].contains("--")) {
+        if (settlement) {
+            color = Color.rgb(255, 215, 0);
+            mTextViewName.setTextColor(color);
+        } else if (mFuturesDatas[0][1].contains("--")) {
             color = Color.DKGRAY;
         } else if (Double.parseDouble(mFuturesDatas[0][2]) > 0) {
             color = Color.rgb(240, 0, 0);
