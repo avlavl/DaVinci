@@ -10,6 +10,7 @@
         android:id="@+id/layoutItemTradeH"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:background="@color/colorWheat2"
         android:orientation="horizontal">
 
         <TextView
@@ -20,8 +21,8 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:text="IC2106"
-            android:textColor="@color/colorRed"
-            android:textSize="18sp" />
+            android:textColor="@color/colorDivider"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/imageViewFuturesFlag"
@@ -43,6 +44,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:text="6173.60"
+            android:textColor="@color/colorBlack2"
             android:textSize="18sp" />
 
         <TextView
@@ -50,6 +52,7 @@
             android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:gravity="center"
             android:layout_margin="5dp"
             android:text="0.24%"
             android:textSize="16sp" />
@@ -59,6 +62,7 @@
             android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:gravity="center"
             android:layout_margin="5dp"
             android:text="14.60"
             android:textSize="16sp" />
@@ -68,6 +72,7 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:gravity="center"
             android:layout_margin="5dp"
             android:text="2920"
             android:textSize="16sp" />

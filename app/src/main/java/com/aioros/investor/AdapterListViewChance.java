@@ -46,10 +46,10 @@ public class AdapterListViewChance extends BaseAdapter {
         int color = Color.DKGRAY;
         if (mStockBeanList.get(position).mStockValue.contains("--")) {
             color = Color.DKGRAY;
-        } else if (Double.parseDouble(mStockBeanList.get(position).mStockValue) > 100) {
-            color = Color.HSVToColor(new float[]{300.f, 0.2f + 4 * (Float.parseFloat(mStockBeanList.get(position).mStockValue) - 100), 0.5f});
-        } else if (Double.parseDouble(mStockBeanList.get(position).mStockValue) < 100) {
-            color = Color.HSVToColor(new float[]{180.f, 0.2f + 4 * (100 - Float.parseFloat(mStockBeanList.get(position).mStockValue)), 0.5f});
+        } else if (Double.parseDouble(mStockBeanList.get(position).mStockScope) > 0) {
+            color = Color.rgb(240, 0, 0);
+        } else if (Double.parseDouble(mStockBeanList.get(position).mStockScope) < 0) {
+            color = Color.rgb(0, 200, 0);
         }
         float futuresGain = 200 * Float.parseFloat(mStockBeanList.get(position).mStockScope);
         float futuresDiffPoint = Float.parseFloat(mStockBeanList.get(0).mStockValue) - Float.parseFloat(mStockBeanList.get(position).mStockValue);
@@ -62,7 +62,6 @@ public class AdapterListViewChance extends BaseAdapter {
 
         TextView point = (TextView) view.findViewById(R.id.textViewItemFuturesPoint);
         point.setText(mStockBeanList.get(position).mStockValue);
-        point.setTextColor(color);
 
         TextView ratio = (TextView) view.findViewById(R.id.textViewItemFuturesRatio);
         ratio.setText(mStockBeanList.get(position).mStockRatio);
