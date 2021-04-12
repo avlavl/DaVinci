@@ -31,10 +31,11 @@
 
         <TextView
             android:id="@+id/textViewItemFuturesPoint"
-            android:layout_width="70dp"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
+            android:gravity="center"
             android:text="6173.60"
             android:textColor="@color/colorBlack2"
             android:textSize="16sp" />
@@ -51,7 +52,7 @@
 
         <TextView
             android:id="@+id/textViewItemFuturesScope"
-            android:layout_width="60dp"
+            android:layout_width="62dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
@@ -90,7 +91,6 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="153"
-            android:textColor="@color/colorgrey21"
             android:textSize="15sp" />
 
         <TextView
@@ -158,7 +158,6 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="11.77%"
-            android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
 
         <TextView
