@@ -24,6 +24,7 @@ public class FileUtility {
     public ArrayList<Double> closeList2;
     public int rows1 = 0;
     public int rows2 = 0;
+    public ArrayList<String> futuresDateList;
 
     public FileUtility() {
         storageDirectory = Environment.getExternalStorageDirectory() + "/";
@@ -80,6 +81,28 @@ public class FileUtility {
                 closeList2.add(Double.parseDouble(words[4]));
             }
             rows2 = closeList2.size();
+            br.close();
+            isr.close();
+            return 0;
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public int importFuturesDate(String fileName) {
+        futuresDateList = new ArrayList<>();
+        try {
+            File file = new File(storageDirectory + fileName);
+            if (!file.exists()) {
+                return -1;
+            }
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "gbk");
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                futuresDateList.add(line);
+              }
             br.close();
             isr.close();
             return 0;

@@ -36,7 +36,8 @@ public class FragmentChance extends BaseFragment {
     private TextView mTextViewRatio;
     private TextView mTextViewScope;
     private TextView mTextViewGain;
-    public String[] mFuturesTradeDates = {"2021/04/16", "2021/05/21", "2021/06/18", "2021/09/17"};
+    private FileUtility fileUtility = new FileUtility();
+    public String[] mFuturesTradeDates = {"", "", "", ""};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,9 @@ public class FragmentChance extends BaseFragment {
         Log.d(TAG, "onCreate------");
         mMainActivity = (MainActivity) getActivity();
         mFuturesDatas = mMainActivity.mFuturesDatas;
+        fileUtility.importFuturesDate("investor/data/股指期货交割日.txt");
         String currentDate = TimeUtility.getCurrentDate();
+        getFuturesTradeDates(currentDate, fileUtility.futuresDateList);
         for (int i = 0; i < NUMBER_CHANCE; i++) {
             int leftDays = ((i == 0) ? 1 : TimeUtility.daysBetween(currentDate, mFuturesTradeDates[i - 1]));
             mBeanStockList.add(new BeanStock(mFuturesDatas[i][0], mFuturesDatas[i][1], mFuturesDatas[i][2], mFuturesDatas[i][3] + "%", leftDays));
@@ -181,5 +184,31 @@ public class FragmentChance extends BaseFragment {
         mTextViewRatio.setTextColor(color);
         mTextViewGain.setText(String.format("%.0f", 200 * Float.parseFloat(mFuturesDatas[0][2])));
         mTextViewGain.setTextColor(color);
+    }
+
+    private void getFuturesTradeDates(String currentDate, ArrayList<String> datelist) {
+        int currentMon, nextMon, currentQtr, nextQtr;
+        int i;
+        for (i = 0; i < datelist.size(); i++) {
+            if (datelist.get(i).compareTo(currentDate) >= 0) {
+                break;
+            }
+        }
+
+        currentMon = Integer.parseInt(datelist.get(i).substring(5, 7));
+        nextMon = ((currentMon + 1) > 12) ? (currentMon + 1) % 12 : currentMon + 1;
+        if (currentMon % 3 == 0) {
+            currentQtr = (currentMon + 3) > 12 ? (currentMon + 3) % 12 : currentMon + 3;
+        } else if (nextMon % 3 == 0) {
+            currentQtr = (nextMon + 3) > 12 ? (nextMon + 3) % 12 : nextMon + 3;
+        } else {
+            currentQtr = ((currentMon / 3) + 1) * 3;
+        }
+        nextQtr = (currentQtr + 3) > 12 ? (currentQtr + 3) % 12 : currentQtr + 3;
+
+        mFuturesTradeDates[0] = datelist.get(i);
+        mFuturesTradeDates[1] = datelist.get(i + 1);
+        mFuturesTradeDates[2] = datelist.get(i + ((currentQtr > currentMon) ? (currentQtr - currentMon) : (currentQtr + 12 - currentMon)));
+        mFuturesTradeDates[3] = datelist.get(i + ((nextQtr > currentMon) ? (nextQtr - currentMon) : (nextQtr + 12 - currentMon)));
     }
 }
