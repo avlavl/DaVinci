@@ -44,6 +44,7 @@ public class AdapterListViewChance extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         int color = Color.DKGRAY;
+        position += 1;
         if (mStockBeanList.get(position).mStockValue.contains("--")) {
             color = Color.DKGRAY;
         } else if (Double.parseDouble(mStockBeanList.get(position).mStockScope) > 0) {
@@ -51,7 +52,7 @@ public class AdapterListViewChance extends BaseAdapter {
         } else if (Double.parseDouble(mStockBeanList.get(position).mStockScope) < 0) {
             color = Color.rgb(0, 200, 0);
         }
-        position += 1;
+
         float futuresGain = 200 * Float.parseFloat(mStockBeanList.get(position).mStockScope);
         float futuresDiffPoint = Float.parseFloat(mStockBeanList.get(0).mStockValue) - Float.parseFloat(mStockBeanList.get(position).mStockValue);
         float futuresDiscount = (Float.parseFloat(mStockBeanList.get(0).mStockValue) - Float.parseFloat(mStockBeanList.get(position).mStockValue)) / Float.parseFloat(mStockBeanList.get(0).mStockValue);

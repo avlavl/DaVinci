@@ -26,6 +26,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import com.aioros.investor.BottomControlPanel.BottomPanelCallback;
 
@@ -47,6 +48,7 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
 
     public static String currFragTag = "";
     public static int mDataSource = 0;
+    public String mICDataStr;
 
     public Handler mMainHandler;
     public Handler mHomeHandler;
@@ -55,7 +57,9 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
     public Handler mChanceHandler;
     public String[][] mMarketDatas = new String[15][5];
     public String[][] mFuturesDatas = new String[5][4];
+    public String[] mFuturesTradeDates = {"", "", "", ""};
 
+    private FileUtility fileUtility = new FileUtility();
     private Handler mHandler;
     private int mEventStatus = 0;  // 0: initial, 1: trigger, 2: maintain, -1: clear
 
@@ -79,6 +83,11 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
         setDefaultFirstFragment(FRAGMENT_FLAG_HOME);
 
         verifyStoragePermissions(this);
+
+        fileUtility.importFuturesDate("investor/data/股指期货交割日.txt");
+        String currentDate = TimeUtility.getCurrentDate();
+        getFuturesTradeDates(currentDate, fileUtility.futuresDateList);
+        mICDataStr = getICDataStr();
 
         mMainHandler = new Handler() {
             @Override
@@ -384,25 +393,27 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 }
             }
 
-            String urlStr = "http://hq.sinajs.cn/list=CFF_RE_IC2104,CFF_RE_IC2105,CFF_RE_IC2106,CFF_RE_IC2109";
-            httpStr = HttpUtility.getData(urlStr);
-            if (httpStr.equals("") || httpStr.contains("pv_none_match")) {
-                msg.obj = "No Futures data ！";
-                mMainHandler.sendMessage(msg);
-                return;
-            }
+            if (mICDataStr != null) {
+                String urlStr = "http://hq.sinajs.cn/list=" + mICDataStr;
+                httpStr = HttpUtility.getData(urlStr);
+                if (httpStr.equals("") || httpStr.contains("pv_none_match")) {
+                    msg.obj = "No Futures data ！";
+                    mMainHandler.sendMessage(msg);
+                    return;
+                }
 
-            items = httpStr.split(";");
-            mFuturesDatas[0][0] = mMarketDatas[INDEX_ZZWB][0];
-            mFuturesDatas[0][1] = mMarketDatas[INDEX_ZZWB][2];
-            mFuturesDatas[0][2] = mMarketDatas[INDEX_ZZWB][3];
-            mFuturesDatas[0][3] = mMarketDatas[INDEX_ZZWB][4];
-            for (int i = 0; i < items.length; i++) {
-                String[] strs = items[i].substring(items[i].indexOf("\"") + 1, items[i].lastIndexOf("\"")).split(",");
-                mFuturesDatas[i + 1][0] = items[i].substring(items[i].indexOf("=") - 6, items[i].lastIndexOf("="));   // 名称， 如IC2104
-                mFuturesDatas[i + 1][1] = String.format("%.1f", Double.parseDouble(strs[3]));   // 点位， 如6296.4
-                mFuturesDatas[i + 1][2] = String.format("%.1f", Double.parseDouble(strs[3]) - Double.parseDouble(strs[13]));   // 涨跌， 如5.4
-                mFuturesDatas[i + 1][3] = String.format("%.2f", 100 * (Double.parseDouble(strs[3]) - Double.parseDouble(strs[13])) / Double.parseDouble(strs[13]));   // 涨幅， 如0.09
+                items = httpStr.split(";");
+                mFuturesDatas[0][0] = mMarketDatas[INDEX_ZZWB][0];
+                mFuturesDatas[0][1] = mMarketDatas[INDEX_ZZWB][2];
+                mFuturesDatas[0][2] = mMarketDatas[INDEX_ZZWB][3];
+                mFuturesDatas[0][3] = mMarketDatas[INDEX_ZZWB][4];
+                for (int i = 0; i < items.length; i++) {
+                    String[] strs = items[i].substring(items[i].indexOf("\"") + 1, items[i].lastIndexOf("\"")).split(",");
+                    mFuturesDatas[i + 1][0] = items[i].substring(items[i].indexOf("=") - 6, items[i].lastIndexOf("="));   // 名称， 如IC2104
+                    mFuturesDatas[i + 1][1] = String.format("%.1f", Double.parseDouble(strs[3]));   // 点位， 如6296.4
+                    mFuturesDatas[i + 1][2] = String.format("%.1f", Double.parseDouble(strs[3]) - Double.parseDouble(strs[13]));   // 涨跌， 如5.4
+                    mFuturesDatas[i + 1][3] = String.format("%.2f", 100 * (Double.parseDouble(strs[3]) - Double.parseDouble(strs[13])) / Double.parseDouble(strs[13]));   // 涨幅， 如0.09
+                }
             }
 
             if (mHomeHandler != null) {
@@ -426,5 +437,43 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 mChanceHandler.sendMessage(msgRx);
             }
         }
+    }
+
+    private void getFuturesTradeDates(String currentDate, ArrayList<String> datelist) {
+        int currentMon, nextMon, currentQtr, nextQtr;
+        int i;
+        for (i = 0; i < datelist.size(); i++) {
+            if (datelist.get(i).compareTo(currentDate) >= 0) {
+                break;
+            }
+        }
+
+        currentMon = Integer.parseInt(datelist.get(i).substring(5, 7));
+        nextMon = ((currentMon + 1) > 12) ? (currentMon + 1) % 12 : currentMon + 1;
+        if (currentMon % 3 == 0) {
+            currentQtr = (currentMon + 3) > 12 ? (currentMon + 3) % 12 : currentMon + 3;
+        } else if (nextMon % 3 == 0) {
+            currentQtr = (nextMon + 3) > 12 ? (nextMon + 3) % 12 : nextMon + 3;
+        } else {
+            currentQtr = ((currentMon / 3) + 1) * 3;
+        }
+        nextQtr = (currentQtr + 3) > 12 ? (currentQtr + 3) % 12 : currentQtr + 3;
+
+        mFuturesTradeDates[0] = datelist.get(i);
+        mFuturesTradeDates[1] = datelist.get(i + 1);
+        mFuturesTradeDates[2] = datelist.get(i + ((currentQtr > currentMon) ? (currentQtr - currentMon) : (currentQtr + 12 - currentMon)));
+        mFuturesTradeDates[3] = datelist.get(i + ((nextQtr > currentMon) ? (nextQtr - currentMon) : (nextQtr + 12 - currentMon)));
+    }
+
+    private String getICDataStr() {
+        String ICDataStr = "";
+        for (int i = 0; i < 4; i++) {
+            ICDataStr += "CFF_RE_IC" + mFuturesTradeDates[i].substring(2, 4) + mFuturesTradeDates[i].substring(5, 7);
+            if (i != 3) {
+                ICDataStr += ",";
+            }
+        }
+
+        return ICDataStr;
     }
 }

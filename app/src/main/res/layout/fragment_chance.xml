@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPanel2"
+        android:background="@color/colorBlack2"
         android:orientation="horizontal">
 
         <TextView
