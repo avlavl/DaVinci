@@ -409,10 +409,17 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 mFuturesDatas[0][3] = mMarketDatas[INDEX_ZZWB][4];
                 for (int i = 0; i < items.length; i++) {
                     String[] strs = items[i].substring(items[i].indexOf("\"") + 1, items[i].lastIndexOf("\"")).split(",");
-                    mFuturesDatas[i + 1][0] = items[i].substring(items[i].indexOf("=") - 6, items[i].lastIndexOf("="));   // 名称， 如IC2104
-                    mFuturesDatas[i + 1][1] = String.format("%.1f", Double.parseDouble(strs[3]));   // 点位， 如6296.4
-                    mFuturesDatas[i + 1][2] = String.format("%.1f", Double.parseDouble(strs[3]) - Double.parseDouble(strs[13]));   // 涨跌， 如5.4
-                    mFuturesDatas[i + 1][3] = String.format("%.2f", 100 * (Double.parseDouble(strs[3]) - Double.parseDouble(strs[13])) / Double.parseDouble(strs[13]));   // 涨幅， 如0.09
+                    if (strs.length > 1) {  // strs.length should be 50, here we make sure it is not null.
+                        mFuturesDatas[i + 1][0] = items[i].substring(items[i].indexOf("=") - 6, items[i].lastIndexOf("="));   // 名称， 如IC2104
+                        mFuturesDatas[i + 1][1] = String.format("%.1f", Double.parseDouble(strs[3]));   // 点位， 如6296.4
+                        mFuturesDatas[i + 1][2] = String.format("%.1f", Double.parseDouble(strs[3]) - Double.parseDouble(strs[13]));   // 涨跌， 如5.4
+                        mFuturesDatas[i + 1][3] = String.format("%.2f", 100 * (Double.parseDouble(strs[3]) - Double.parseDouble(strs[13])) / Double.parseDouble(strs[13]));   // 涨幅， 如0.09
+                    } else {    // The weekend after settlement day, no next month data.
+                        mFuturesDatas[i + 1][0] = mFuturesDatas[i][0];
+                        mFuturesDatas[i + 1][1] = mFuturesDatas[i][1];
+                        mFuturesDatas[i + 1][2] = mFuturesDatas[i][2];
+                        mFuturesDatas[i + 1][3] = mFuturesDatas[i][3];
+                    }
                 }
             }
 
