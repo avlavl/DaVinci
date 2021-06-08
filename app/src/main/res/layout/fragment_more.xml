@@ -11,7 +11,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="35dp"
             android:background="@color/colorLightBlue4" />
 
         <LinearLayout
@@ -44,7 +44,7 @@
                 android:layout_weight="1.0"
                 android:gravity="center"
                 android:paddingRight="5dp"
-                android:text="指数"
+                android:text="港股"
                 android:textColor="@color/colorgray81"
                 android:textSize="13sp" />
 
@@ -57,7 +57,7 @@
                 android:layout_weight="1.0"
                 android:gravity="center"
                 android:paddingRight="5dp"
-                android:text="港股"
+                android:text="期货"
                 android:textColor="@color/colorgray81"
                 android:textSize="13sp" />
 
@@ -69,7 +69,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1.0"
                 android:gravity="center"
-                android:text="期货"
+                android:text="喷嚏"
                 android:textColor="@color/colorgray81"
                 android:textSize="13sp" />
         </LinearLayout>

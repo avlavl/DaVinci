@@ -67,7 +67,7 @@ public class FragmentMore extends BaseFragment {
                 mTextView2.setTextColor(Color.rgb(240, 160, 80));
                 mTextView3.setTextColor(Color.rgb(255, 255, 255));
                 mTextView4.setTextColor(Color.rgb(255, 255, 255));
-                webTabOnClick(v, "https://www.jisilu.cn/data/idx_performance/#idx");
+                webTabOnClick(v, "https://www.jisilu.cn/data/new_stock/#hkipo");
             }
         });
         mTextView3 = (TextView) view.findViewById(R.id.textViewWeb3);
@@ -78,7 +78,7 @@ public class FragmentMore extends BaseFragment {
                 mTextView2.setTextColor(Color.rgb(255, 255, 255));
                 mTextView3.setTextColor(Color.rgb(240, 160, 80));
                 mTextView4.setTextColor(Color.rgb(255, 255, 255));
-                webTabOnClick(v, "https://www.jisilu.cn/data/new_stock/#hkipo");
+                webTabOnClick(v, "http://www.cffex.com.cn");
             }
         });
         mTextView4 = (TextView) view.findViewById(R.id.textViewWeb4);
@@ -89,7 +89,7 @@ public class FragmentMore extends BaseFragment {
                 mTextView2.setTextColor(Color.rgb(255, 255, 255));
                 mTextView3.setTextColor(Color.rgb(255, 255, 255));
                 mTextView4.setTextColor(Color.rgb(240, 160, 80));
-                webTabOnClick(v, "http://flash-quant.com");
+                webTabOnClick(v, "http://www.dapenti.com");
             }
         });
 
