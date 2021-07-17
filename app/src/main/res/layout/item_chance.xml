@@ -128,39 +128,39 @@
             android:textSize="10sp" />
 
         <TextView
-            android:id="@+id/textViewItemFuturesDiscount"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="2.42%"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="贴水率"
-            android:textSize="10sp" />
-
-        <TextView
             android:id="@+id/textViewItemFuturesAnnualDiscount"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="75dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="11.77%"
             android:textSize="15sp" />
 
         <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="年化贴水"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/textViewItemFuturesDeposit"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="75dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="185208"
+            android:textSize="15sp" />
+
+        <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -168,7 +168,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="75dp"
             android:gravity="center"
-            android:text="年化贴水"
+            android:text="保证金"
             android:textSize="10sp" />
 
         <TextView

@@ -54,6 +54,7 @@ public class AdapterListViewChance extends BaseAdapter {
         }
 
         float futuresGain = 200 * Float.parseFloat(mStockBeanList.get(position).mStockScope);
+        float futuresDeposit = 28 * Float.parseFloat(mStockBeanList.get(position).mStockValue); // Deposit 14%
         float futuresDiffPoint = Float.parseFloat(mStockBeanList.get(0).mStockValue) - Float.parseFloat(mStockBeanList.get(position).mStockValue);
         float futuresDiscount = (Float.parseFloat(mStockBeanList.get(0).mStockValue) - Float.parseFloat(mStockBeanList.get(position).mStockValue)) / Float.parseFloat(mStockBeanList.get(0).mStockValue);
 
@@ -84,11 +85,11 @@ public class AdapterListViewChance extends BaseAdapter {
         TextView meanDiffPoint = (TextView) view.findViewById(R.id.textViewItemFuturesMeanDiffPoint);
         meanDiffPoint.setText(String.format("%.3f", futuresDiffPoint / mStockBeanList.get(position).mLeftDays));
 
-        TextView discount = (TextView) view.findViewById(R.id.textViewItemFuturesDiscount);
-        discount.setText(String.format("%.2f%%", 100 * futuresDiscount));
-
         TextView annualDiscount = (TextView) view.findViewById(R.id.textViewItemFuturesAnnualDiscount);
         annualDiscount.setText(String.format("%.2f%%", 36500 * futuresDiscount / mStockBeanList.get(position).mLeftDays));
+
+        TextView discount = (TextView) view.findViewById(R.id.textViewItemFuturesDeposit);
+        discount.setText(String.format("%.0f", futuresDeposit));
 
         TextView days = (TextView) view.findViewById(R.id.textViewItemFuturesLeftDays);
         days.setText(mStockBeanList.get(position).mLeftDays + "天");
