@@ -29,20 +29,19 @@ public class Constant {
     public static final int INDEX_GZMT = 11;
 
     public static final int NUMBER_HOME = 15;
-    public static final int NUMBER_TRADE = 7;
+    public static final int NUMBER_TRADE = 6;
     public static final int NUMBER_INVEST = 4;
     public static final int NUMBER_CHANCE = 5;
 
     public static final String HOME_CODE_STR = "s_sh000001,s_sz399001,s_sz399006,s_sh000300,s_sh000905,s_sh000991,s_sz399967,s_sz399987,s_sz399707,s_sz399812,s_sh000978,s_sh600519,s_sh511990,s_sh511880,s_sh511660";
-    public static final String CHANCE_CODE_STR = ",s_sh511990,s_sh511880,s_sh511660";
 
     public static final String[] HOME_NAMES = new String[]{"上证指数", "深证成指", "创业板指", "沪深300", "中证500", "全指医药", "中证军工", "中证酒", "申万证券", "养老产业", "医药100", "贵州茅台", "华宝添益", "银华日利", "建信添益"};
     public static final String[] HOME_CODES = new String[]{"000001", "399001", "399006", "000300", "000905", "000991", "399967", "399987", "399707", "399812", "000978", "600519", "511990", "511880", "511660"};
-    public static final String[] TRADE_NAMES = new String[]{"沪深300", "中证500", "创业板指", "全指医药", "中证军工", "中证酒", "贵州茅台"};
-    public static final String[] TRADE_BASES = new String[]{"沪深300", "中证500", "创业板指", "沪深300", "中证军工", "中证酒", "贵州茅台"};
-    public static final int[] TRADE_IDX_BASE = new int[]{INDEX_HSSB, INDEX_ZZWB, INDEX_CYBZ, INDEX_HSSB, INDEX_ZZJG, INDEX_ZZJ, INDEX_GZMT};
-    public static final int[] TRADE_IDX_SELF = new int[]{INDEX_HSSB, INDEX_ZZWB, INDEX_CYBZ, INDEX_QZYY, INDEX_ZZJG, INDEX_ZZJ, INDEX_GZMT};
-    public static final String[] TRADE_CODES = new String[]{"h000300", "h000905", "z399006", "h000991", "z399967", "z399987", "h600519"};
+    public static final String[] TRADE_NAMES = new String[]{"沪深300", "中证500", "创业板指", "中证军工", "中证酒", "贵州茅台"};
+    public static final String[] TRADE_BASES = new String[]{"沪深300", "中证500", "创业板指", "中证军工", "中证酒", "贵州茅台"};
+    public static final int[] TRADE_IDX_BASE = new int[]{INDEX_HSSB, INDEX_ZZWB, INDEX_CYBZ, INDEX_ZZJG, INDEX_ZZJ, INDEX_GZMT};
+    public static final int[] TRADE_IDX_SELF = new int[]{INDEX_HSSB, INDEX_ZZWB, INDEX_CYBZ, INDEX_ZZJG, INDEX_ZZJ, INDEX_GZMT};
+    public static final String[] TRADE_CODES = new String[]{"h000300", "h000905", "z399006", "z399967", "z399987", "h600519"};
     public static final String[] INVEST_NAMES = new String[]{"申万证券", "养老产业", "医药100", "中证500"};
     public static final String[] INVEST_CODES = new String[]{"z399707", "z399812", "h000978", "h000905"};
 
@@ -56,19 +55,15 @@ public class Constant {
                     "DIFMA 139,2,14 8000", "BARMA 77,10,118 6000"
             },
             {       // 创业板指
-                    "DIFMA -61,7,15 20000", "DIFLML -33,12,2 30000",
-                    "BARLMS -55,9,2 20000", "DIFMA 61,3,19 10000"
-            },
-            {       // 全指医药
-                    "DIFMA -11,1,41 35000", "MA 10,176 35000",
-                    "DIFLMS -36,18,2 15000", "DIFMA 61,1,34 15000"
+                    "DIFMA -61,7,15 25000", "DIFLML -33,12,2 35000",
+                    "BARLMS -55,9,2 25000", "DIFMA 61,3,19 15000"
             },
             {       // 中证军工
                     "MA 1,14 50000", "BARLML -77,8,4 25000",
                     "BARLMS -50,17,3 15000", "BARLMS 24,15,7 10000"
             },
             {       // 中证酒
-                    "DIFMA -73,3,10 30000", "MA 10,190 30000",
+                    "DIFMA -73,3,10 35000", "MA 10,190 35000",
                     "DIF 86 20000", "BARDIF 34,86 10000"
             },
             {       // 贵州茅台
