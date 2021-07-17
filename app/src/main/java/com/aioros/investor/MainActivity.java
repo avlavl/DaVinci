@@ -355,8 +355,8 @@ public class MainActivity extends FragmentActivity implements BottomPanelCallbac
                 String urlStr = ((mDataSource == 0) ? "http://qt.gtimg.cn/r=0.8409869808238q=" : "http://hq.sinajs.cn/list=") + HOME_CODE_STR;
                 httpStr = HttpUtility.getData(urlStr);
                 if (httpStr.equals("")) {
-                    msg.obj = "Lose connection 0 ！";
-                    mMainHandler.sendMessage(msg);
+//                    msg.obj = "Lose connection 0 ！";  // TBD: 从后台唤醒后总是弹出
+//                    mMainHandler.sendMessage(msg);
                     return;
                 } else if (httpStr.contains("pv_none_match")) {
                     mDataSource = 1;
